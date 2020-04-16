@@ -13,20 +13,20 @@ export class SceneDisplayComponent implements OnInit {
 
   SCENES: Array<Array<Image>> = [
     [
-      { name: "scene1"  , path: '#FFFFFF' },
-      { name: "scene2"  , path: '#000000' },
-      { name: "scene3"  , path: '#f34336' },
-      { name: "scene4"  , path: '#ff7f00' },
-      { name: "scene5"  , path: '#0080ff' },
-      { name: "scene6"  , path: '#228b22' }
+      { name: "scene1"  , path: 'images/imageTest1.jpg' },
+      { name: "scene2"  , path: 'images/imageTest2.jpg' },
+      { name: "scene3"  , path: 'images/imageTest3.jpg' },
+      { name: "scene4"  , path: 'images/imageTest3.jpg' },
+      { name: "scene5"  , path: 'images/imageTest2.jpg' },
+      { name: "scene6"  , path: 'images/imageTest1.jpg' }
     ],
     [
-      { name: "scene12"  , path: '#FFFFFF' },
-      { name: "scene22"  , path: '#000000' },
-      { name: "scene32"  , path: '#f34336' },
-      { name: "scene42"  , path: '#ff7f00' },
-      { name: "scene52"  , path: '#0080ff' },
-      { name: "scene62"  , path: '#228b22' }
+      { name: "scene12"  , path: 'images/imageTest1.jpg' },
+      { name: "scene22"  , path: 'images/imageTest2.jpg' },
+      { name: "scene32"  , path: 'images/imageTest2.jpg' },
+      { name: "scene42"  , path: 'images/imageTest1.jpg' },
+      { name: "scene52"  , path: 'images/imageTest3.jpg' },
+      { name: "scene62"  , path: 'images/imageTest3.jpg' }
     ]
   ];
 

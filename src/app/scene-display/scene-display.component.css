@@ -12,7 +12,7 @@
 
 .scene-display .scenes .scene{
   padding: 5px;
-  width: 3cm;
+  width: 100%;
 }
 
 .scene-display .scenes .scene button{
@@ -56,5 +56,10 @@
 .scene-display .bigImage {
   background-color: lightblue;
   flex-grow: 4;
+  text-align: center;
+  max-height: 740px;
+}
 
+.scene-display .bigImage img{
+  max-height: 740px;
 }
