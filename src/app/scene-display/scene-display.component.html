@@ -1,1 +1,26 @@
-<p>scene-display works!</p>
+<div class="scene-display">
+  <div class="scenes">
+    <div class="scene"
+    *ngFor="let scene of SCENES; let i = index"
+    [class.selected]="selectedScene === i">
+      <button type="button"
+      (click)="changeScene(i)">
+      {{scene[0].name}}
+      </button>
+    </div>
+
+  </div>
+  <div class="images">
+    <div class="image"
+    *ngFor="let image of SCENES[selectedScene]; let i = index"
+    [class.selected]="selectedImage === i">
+      <button type="button"
+      (click)="changeImage(i)">
+        {{image.name}}
+      </button>
+    </div>
+  </div>
+  <div class="bigImage">
+
+  </div>
+</div>

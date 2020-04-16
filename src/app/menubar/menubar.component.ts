@@ -14,12 +14,12 @@ export class MenubarComponent implements OnInit {
   hideShowButtonChar = "▲";
   currentDrawingTool = "white";
   COLORS: Color[] = [
-    { name: "white", hex: '#FFFFFF'},
-    { name: "black", hex: '#000000' },
-    { name: "red", hex: '#f34336' },
-    { name: "orange", hex: '#ff7f00' },
-    { name: "blue", hex: '#0080ff' },
-    { name: "green", hex: '#228b22' },
+    { name: "white"  , hex: '#FFFFFF' },
+    { name: "black"  , hex: '#000000' },
+    { name: "red"    , hex: '#f34336' },
+    { name: "orange" , hex: '#ff7f00' },
+    { name: "blue"   , hex: '#0080ff' },
+    { name: "green"  , hex: '#228b22' },
   ];
 
   play(): void {
