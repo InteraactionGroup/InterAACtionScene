@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenubarComponent } from './menubar/menubar.component';
+import { SceneDisplayComponent } from './scene-display/scene-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenubarComponent
+    MenubarComponent,
+    SceneDisplayComponent
   ],
   imports: [
     FormsModule,

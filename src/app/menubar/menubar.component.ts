@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Color } from '../types';
 
 @Component({
   selector: 'app-menubar',
@@ -10,7 +11,16 @@ export class MenubarComponent implements OnInit {
   mode = "play";
   sceneTitle = "Temp";
   displayBar = true;
-  hideShowButtonChar = "▲"
+  hideShowButtonChar = "▲";
+  currentDrawingTool = "white";
+  COLORS: Color[] = [
+    { name: "white", hex: '#FFFFFF'},
+    { name: "black", hex: '#000000' },
+    { name: "red", hex: '#f34336' },
+    { name: "orange", hex: '#ff7f00' },
+    { name: "blue", hex: '#0080ff' },
+    { name: "green", hex: '#228b22' },
+  ];
 
   play(): void {
     this.mode = "play";
@@ -23,6 +33,10 @@ export class MenubarComponent implements OnInit {
 
   draw(): void {
     this.mode = "draw";
+  }
+
+  changeColor(toolName: string): void {
+    this.currentDrawingTool = toolName;
   }
 
   hideShowMenu(): void {

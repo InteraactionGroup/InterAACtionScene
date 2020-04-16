@@ -21,9 +21,26 @@
       Draw
     </button>
 
-    <input [(ngModel)]="sceneTitle" value="{{sceneTitle}}"/>
+    <div class="drawingMode"
+    *ngIf="mode === 'draw'">
+      <button type="button"
+      *ngFor="let color of COLORS"
+      [style.background-color]="color.hex"
+      (click)="changeColor(color.name)">
+      </button>
+      <button type="button"
+      (click)="changeColor('erase')">Erase</button>
 
-    <a routerLink="/settings">Settings</a>
+      <button type="button"
+      (click)="changeColor('clear')">Clear</button>
+    </div>
+
+    <input [(ngModel)]="sceneTitle"
+    value="{{sceneTitle}}"
+    *ngIf="mode !== 'draw'"/>
+
+    <a routerLink="/settings"
+    *ngIf="mode !== 'draw'">Settings</a>
 
   </div>
 

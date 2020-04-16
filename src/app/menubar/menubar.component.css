@@ -33,6 +33,19 @@
   background-color: #add8e6;
 }
 
+.menubar .menu .drawingMode {
+  display: flex;
+}
+
+.menubar .menu .drawingMode button{
+  display: inline;
+  cursor: pointer;
+  height: 1.5cm;
+  width: 1.5cm;
+  min-width: 1cm;
+  min-height: 1cm;
+}
+
 .menubar .menu input {
   text-align: center;
   border-radius: 5px;
