@@ -11,16 +11,22 @@
   background-color: #4766D8;
 }
 
-.scene-display .scenes .scene{
-  padding: 5px;
-  width: 100%;
+.scenes-virtual-viewport {
+  height: 90vh;
+  overflow-x: hidden;
 }
 
-.scene-display .scenes .scene:hover{
+.scene-display .scenes .scenes-virtual-viewport .scene{
+  padding: 5px;
+  width: 100%;
+  height: 3cm;
+}
+
+.scene-display .scenes .scenes-virtual-viewport .scene:hover{
   background-color: #477cd8;
 }
 
-.scene-display .scenes .scene button{
+.scene-display .scenes .scenes-virtual-viewport .scene button{
   float: right;
   width: 100%;
   height: 3cm;
@@ -29,7 +35,7 @@
   border-radius: 5px;
 }
 
-.scene-display .scenes .scene.selected{
+.scene-display .scenes .scenes-virtual-viewport .scene.selected{
   background-color: #ff7f00;
 }
 

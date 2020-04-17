@@ -1,23 +1,24 @@
 <div class="scene-display">
   <div class="scenes">
-    <!-- Add a scene button -->
-    <div class="scene"
-    *ngIf="displayBar === true">
-      <button type="button">
-        <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
-      </button>
-    </div>
-    <!-- Different scenes -->
-    <div class="scene"
-    *ngFor="let scene of SCENES; let i = index"
-    [class.selected]="selectedScene === i">
-      <button type="button"
-      (click)="changeScene(i)">
-      <img src="../../assets/{{scene.images[0].path}}" alt="{{scene.name}}" class="buttonimg">
-      {{scene.name}}
-      </button>
-    </div>
-
+    <cdk-virtual-scroll-viewport itemSize="6" class="scenes-virtual-viewport">
+      <!-- Add a scene button -->
+      <div class="scene"
+      *ngIf="displayBar === true">
+        <button type="button">
+          <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
+        </button>
+      </div>
+      <!-- Different scenes -->
+      <div class="scene"
+      *ngFor="let scene of SCENES; let i = index"
+      [class.selected]="selectedScene === i">
+        <button type="button"
+        (click)="changeScene(i)">
+        <img src="../../assets/{{scene.images[0].path}}" alt="{{scene.name}}" class="buttonimg">
+        {{scene.name}}
+        </button>
+      </div>
+    </cdk-virtual-scroll-viewport>
   </div>
 
 
