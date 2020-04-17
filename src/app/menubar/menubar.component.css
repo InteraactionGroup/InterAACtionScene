@@ -1,7 +1,6 @@
 .menubar {
   height:100%;
-  min-height: 1cm;
-  max-height: 14vw;
+  max-height: 7vh;
   min-width: 7cm;
   position: relative;
   display: flex;
@@ -19,6 +18,7 @@
 .menubar .menu .button {
   display: inline;
   cursor: pointer;
+  border-radius: 5px;
   height: 1.5cm;
   width: 2cm;
   min-width: 1cm;
@@ -35,15 +35,18 @@
 
 .menubar .menu .drawingMode {
   display: flex;
+  background-color: #ade5e6;
 }
 
 .menubar .menu .drawingMode button{
   display: inline;
   cursor: pointer;
-  height: 1.5cm;
-  width: 1.5cm;
+  border-radius: 10px;
+  height: 1.3cm;
+  width: 1.3cm;
   min-width: 1cm;
   min-height: 1cm;
+  align-self: center;
 }
 
 .menubar .menu input {
@@ -56,6 +59,7 @@
   vertical-align: middle;
   flex-grow: 4;
   margin: 0px 30px;
+  max-height: 6vh;
 }
 
 .menubar .menu a {

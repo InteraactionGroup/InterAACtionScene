@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Image } from '../types';
+import { Component, OnInit, Input, Output, EventEmitter, NgModule } from '@angular/core';
+import { Scene,Image } from '../types';
 
 @Component({
   selector: 'app-scene-display',
@@ -8,40 +8,64 @@ import { Image } from '../types';
 })
 export class SceneDisplayComponent implements OnInit {
 
+  @Input() public set imageName(imageName: string) {
+      if (imageName != null) {
+        this.SCENES[this.selectedScene].images[this.selectedImage].name = imageName;
+      }
+    }
+  @Input() displayBar: boolean;
+  @Output() imageChange = new EventEmitter<string>();
+
   selectedScene = 0;
   selectedImage = 0;
 
-  SCENES: Array<Array<Image>> = [
-    [
-      { name: "scene1"  , path: 'images/imageTest1.jpg' },
-      { name: "scene2"  , path: 'images/imageTest2.jpg' },
-      { name: "scene3"  , path: 'images/imageTest3.jpg' },
-      { name: "scene4"  , path: 'images/imageTest3.jpg' },
-      { name: "scene5"  , path: 'images/imageTest2.jpg' },
-      { name: "scene6"  , path: 'images/imageTest1.jpg' }
-    ],
-    [
-      { name: "scene12"  , path: 'images/imageTest1.jpg' },
-      { name: "scene22"  , path: 'images/imageTest2.jpg' },
-      { name: "scene32"  , path: 'images/imageTest2.jpg' },
-      { name: "scene42"  , path: 'images/imageTest1.jpg' },
-      { name: "scene52"  , path: 'images/imageTest3.jpg' },
-      { name: "scene62"  , path: 'images/imageTest3.jpg' }
-    ]
+  addButtonPath = 'images/add.png';
+  SCENES: Array<Scene> = [
+    {
+      name: "Scene 1",
+      images:[
+        { name: "Image 1"  , path: 'images/imageTest1.jpg' },
+        { name: "Image 2"  , path: 'images/imageTest2.jpg' },
+        { name: "Image 3"  , path: 'images/imageTest3.jpg' },
+        { name: "Image 4"  , path: 'images/imageTest3.jpg' },
+        { name: "Image 5"  , path: 'images/imageTest2.jpg' },
+        { name: "Image 6"  , path: 'images/imageTest1.jpg' }
+      ]
+    },
+    {
+      name : "Scene 2",
+      images:[
+        { name: "Image 7"  , path: 'images/imageTest1.jpg' },
+        { name: "Image 8"  , path: 'images/imageTest2.jpg' },
+        { name: "Image 9"  , path: 'images/imageTest2.jpg' },
+        { name: "Image 10"  , path: 'images/imageTest1.jpg' },
+        { name: "Image 11"  , path: 'images/imageTest3.jpg' },
+        { name: "Image 12"  , path: 'images/imageTest3.jpg' },
+        { name: "Image 7"  , path: 'images/imageTest1.jpg' },
+        { name: "Image 8"  , path: 'images/imageTest2.jpg' },
+        { name: "Image 9"  , path: 'images/imageTest2.jpg' },
+        { name: "Image 10"  , path: 'images/imageTest1.jpg' },
+        { name: "Image 11"  , path: 'images/imageTest3.jpg' },
+        { name: "Image 12"  , path: 'images/imageTest3.jpg' }
+      ]
+    }
   ];
 
   changeScene(sceneNumber: number) {
     this.selectedImage = 0;
     this.selectedScene = sceneNumber;
+    this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
   }
 
   changeImage(imageNumber: number) {
     this.selectedImage = imageNumber;
+    this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
   }
 
   constructor() { }
 
   ngOnInit(): void {
+    this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
   }
 
 }

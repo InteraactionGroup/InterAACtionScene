@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Color } from '../types';
 
 @Component({
@@ -9,7 +9,7 @@ import { Color } from '../types';
 export class MenubarComponent implements OnInit {
 
   mode = "play";
-  sceneTitle = "Temp";
+  sceneTitle : string;
   displayBar = true;
   hideShowButtonChar = "▲";
   currentDrawingTool = "white";
@@ -47,6 +47,10 @@ export class MenubarComponent implements OnInit {
       this.displayBar = true;
       this.hideShowButtonChar = "▲"
     }
+  }
+
+  onImageChange(imageName: string): void {
+    this.sceneTitle = imageName;
   }
 
   constructor() { }

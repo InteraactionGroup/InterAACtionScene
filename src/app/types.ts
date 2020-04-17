@@ -7,6 +7,14 @@
  }
 
  /**
+  * a scene
+  */
+ export class Scene {
+   name: string;
+   images: Image[];
+ }
+
+ /**
   * an image
   */
  export class Image {

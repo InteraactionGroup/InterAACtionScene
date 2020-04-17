@@ -47,3 +47,5 @@
   <button id="hideShowButton" type="button" (click)="hideShowMenu()" >{{hideShowButtonChar}}</button>
 
 </div>
+<app-scene-display
+[imageName]="sceneTitle" [displayBar]="displayBar" (imageChange)="onImageChange($event)"></app-scene-display>

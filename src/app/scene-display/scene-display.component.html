@@ -1,26 +1,49 @@
 <div class="scene-display">
   <div class="scenes">
+    <!-- Add a scene button -->
+    <div class="scene"
+    *ngIf="displayBar === true">
+      <button type="button">
+        <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
+      </button>
+    </div>
+    <!-- Different scenes -->
     <div class="scene"
     *ngFor="let scene of SCENES; let i = index"
     [class.selected]="selectedScene === i">
       <button type="button"
       (click)="changeScene(i)">
-      {{scene[0].name}}
+      <img src="../../assets/{{scene.images[0].path}}" alt="{{scene.name}}" class="buttonimg">
+      {{scene.name}}
       </button>
     </div>
 
   </div>
+
+
   <div class="images">
-    <div class="image"
-    *ngFor="let image of SCENES[selectedScene]; let i = index"
-    [class.selected]="selectedImage === i">
-      <button type="button"
-      (click)="changeImage(i)">
-        {{image.name}}
-      </button>
-    </div>
+
+    <cdk-virtual-scroll-viewport itemSize="6" class="images-virtual-viewport">
+      <!-- Add an image button -->
+      <div class="image">
+        <button type="button">
+          <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
+        </button>
+      </div>
+      <!-- Images of the scene -->
+      <div class="image"
+      *cdkVirtualFor="let image of SCENES[selectedScene].images; let i = index"
+      [class.selected]="selectedImage === i">
+        <button type="button"
+        (click)="changeImage(i)">
+          <img src="../../assets/{{image.path}}" alt="{{image.name}}" class="buttonimg">
+          {{image.name}}
+        </button>
+      </div>
+    </cdk-virtual-scroll-viewport>
   </div>
+  <!-- Selected image at the right -->
   <div class="bigImage">
-    <img src="../../assets/{{SCENES[selectedScene][selectedImage].path}}" alt="{{SCENES[selectedScene][selectedImage].name}}">
+    <img src="../../assets/{{SCENES[selectedScene].images[selectedImage].path}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}">
   </div>
 </div>
