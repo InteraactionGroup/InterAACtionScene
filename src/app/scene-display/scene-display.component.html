@@ -26,7 +26,8 @@
 
     <cdk-virtual-scroll-viewport itemSize="6" class="images-virtual-viewport">
       <!-- Add an image button -->
-      <div class="image">
+      <div class="image"
+      *ngIf="displayBar === true">
         <button type="button">
           <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
         </button>
@@ -44,7 +45,10 @@
     </cdk-virtual-scroll-viewport>
   </div>
   <!-- Selected image at the right -->
-  <div class="bigImage">
-    <img src="../../assets/{{SCENES[selectedScene].images[selectedImage].path}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}">
+  <div class="bigImageContainer" #bigImageContainer>
+    <div id="test" style="width: {{imageWidth}};height: {{imageHeigth}}" >
+      <img id="bigImage" style="max-width:{{imageWidth}}px;max-height:{{imageHeigth}}px"  src="../../assets/{{SCENES[selectedScene].images[selectedImage].path}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}">
+      <app-canvas id="canvas" [width]="imageWidth" [height]="imageHeigth" [currentDrawingTool]="currentDrawingTool" (canvasSave)="canvasSave($event)" [canvasData]="SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
+    </div>
   </div>
 </div>

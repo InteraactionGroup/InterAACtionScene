@@ -11,13 +11,20 @@
   */
  export class Scene {
    name: string;
-   images: Image[];
+   images: SceneImage[];
  }
 
  /**
-  * an image
+  * an image in a scene
   */
- export class Image {
+ export class SceneImage {
    name: string;
    path: string;
+   canvasData: string;
+
+   constructor(name, path, canvasData = null) {
+    this.name = name;
+    this.path = path;
+    this.canvasData = canvasData;
+  }
  }

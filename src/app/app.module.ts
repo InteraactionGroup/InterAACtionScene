@@ -7,12 +7,14 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MenubarComponent } from './menubar/menubar.component';
 import { SceneDisplayComponent } from './scene-display/scene-display.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CanvasComponent } from './canvas/canvas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenubarComponent,
-    SceneDisplayComponent
+    SceneDisplayComponent,
+    CanvasComponent
   ],
   imports: [
     FormsModule,
