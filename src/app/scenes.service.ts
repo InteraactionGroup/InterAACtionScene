@@ -12,10 +12,10 @@ export class ScenesService {
     this.SCENES = JSON.parse(localStorage.getItem('Scenes'));
   }
 
-  addScene(base64data : string,sceneName : string = "") {
+  addScene(base64data : string,sceneName : string = "",firstimagename: string = "") {
     this.SCENES.push({name: sceneName,
                       images: [
-                        {name : "", base64data : base64data, canvasData : null}
+                        {name : firstimagename, base64data : base64data, canvasData : null}
                       ]});
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }

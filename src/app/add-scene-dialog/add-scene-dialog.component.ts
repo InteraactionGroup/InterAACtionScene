@@ -22,7 +22,8 @@ export class AddSceneDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      scenename: ''
+      scenename: '',
+      firstimagename: ''
     })
   }
 
@@ -43,7 +44,7 @@ export class AddSceneDialogComponent implements OnInit {
 
   submit(form) {
     if (this.selectedFile != null) {
-      this.scenesService.addScene(this.selectedFile,`${form.value.scenename}`)
+      this.scenesService.addScene(this.selectedFile,`${form.value.scenename}`,`${form.value.firstimagename}`)
     }
     //this.scenesService.addScene(,`${form.value.scenename}`);
     this.dialogRef.close();
