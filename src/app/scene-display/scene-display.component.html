@@ -4,7 +4,7 @@
       <!-- Add a scene button -->
       <div class="scene"
       *ngIf="displayBar === true">
-        <button type="button">
+        <button type="button" (click)="openAddSceneDialog()">
           <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
         </button>
       </div>
@@ -14,7 +14,7 @@
       [class.selected]="selectedScene === i">
         <button type="button"
         (click)="changeScene(i)">
-        <img src="../../assets/{{scene.images[0].path}}" alt="{{scene.name}}" class="buttonimg">
+        <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg">
         {{scene.name}}
         </button>
       </div>
@@ -28,17 +28,19 @@
       <!-- Add an image button -->
       <div class="image"
       *ngIf="displayBar === true">
-        <button type="button">
+        <button type="button"
+        (click)="openAddImageDialog()">
           <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
         </button>
       </div>
+
       <!-- Images of the scene -->
       <div class="image"
       *cdkVirtualFor="let image of SCENES[selectedScene].images; let i = index"
       [class.selected]="selectedImage === i">
         <button type="button"
         (click)="changeImage(i)">
-          <img src="../../assets/{{image.path}}" alt="{{image.name}}" class="buttonimg">
+          <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg">
           {{image.name}}
         </button>
       </div>
@@ -46,8 +48,8 @@
   </div>
   <!-- Selected image at the right -->
   <div class="bigImageContainer" #bigImageContainer>
-    <div id="test" style="width: {{imageWidth}};height: {{imageHeigth}}" >
-      <img id="bigImage" style="max-width:{{imageWidth}}px;max-height:{{imageHeigth}}px"  src="../../assets/{{SCENES[selectedScene].images[selectedImage].path}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}">
+    <div id="test" style="width: {{imageWidth}};height: {{imageHeigth}}" *ngIf="SCENES[selectedScene] !== null">
+      <img id="bigImage" style="max-width:{{imageWidth}}px;max-height:{{imageHeigth}}px"  src="{{SCENES[selectedScene].images[selectedImage].base64data}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}">
       <app-canvas id="canvas" [width]="imageWidth" [height]="imageHeigth" [currentDrawingTool]="currentDrawingTool" (canvasSave)="canvasSave($event)" [canvasData]="SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
     </div>
   </div>

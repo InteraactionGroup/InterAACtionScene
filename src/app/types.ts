@@ -19,12 +19,12 @@
   */
  export class SceneImage {
    name: string;
-   path: string;
+   base64data: string;
    canvasData: string;
 
-   constructor(name, path, canvasData = null) {
+   constructor(name, base64data, canvasData = null) {
     this.name = name;
-    this.path = path;
+    this.base64data = base64data;
     this.canvasData = canvasData;
   }
  }

@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, NgModule, ElementRef, ViewChild } from '@angular/core';
 import { Scene,SceneImage } from '../types';
+import { ScenesService } from '../scenes.service';
+import { AddSceneDialogComponent } from '../add-scene-dialog/add-scene-dialog.component';
+import { AddImageDialogComponent } from '../add-image-dialog/add-image-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-scene-display',
@@ -22,57 +26,33 @@ export class SceneDisplayComponent implements OnInit {
   currImage = 0; // Variable used to reinitialize the canvas everytime the image is changed
   imageWidth : number;
   imageHeigth : number;
+  addSceneDialogRef: MatDialogRef<AddSceneDialogComponent>;
+  addImageDialogRef: MatDialogRef<AddImageDialogComponent>;
 
   addButtonPath = 'images/add.png';
-  SCENES: Array<Scene> = [
-    {
-      name: "Scene 1",
-      images:[
-        { name: "Image 1"  , path: 'images/imageTest1.jpg', canvasData: null },
-        { name: "Image 2"  , path: 'images/imageTest2.jpg', canvasData: null },
-        { name: "Image 3"  , path: 'images/imageTest3.jpg', canvasData: null },
-        { name: "Image 4"  , path: 'images/imageTest3.jpg', canvasData: null },
-        { name: "Image 5"  , path: 'images/imageTest2.jpg', canvasData: null },
-        { name: "Image 6"  , path: 'images/imageTest1.jpg', canvasData: null }
-      ]
-    },
-    {
-      name : "Scene 2",
-      images:[
-        { name: "Image 7"   , path: 'images/imageTest1.jpg' , canvasData: null },
-        { name: "Image 8"   , path: 'images/imageTest2.jpg' , canvasData: null },
-        { name: "Image 9"   , path: 'images/imageTest2.jpg' , canvasData: null },
-        { name: "Image 10"  , path: 'images/imageTest1.jpg' , canvasData: null },
-        { name: "Image 11"  , path: 'images/imageTest3.jpg' , canvasData: null },
-        { name: "Image 12"  , path: 'images/imageTest3.jpg' , canvasData: null },
-        { name: "Image 7"   , path: 'images/imageTest1.jpg' , canvasData: null },
-        { name: "Image 8"   , path: 'images/imageTest2.jpg' , canvasData: null },
-        { name: "Image 9"   , path: 'images/imageTest2.jpg' , canvasData: null },
-        { name: "Image 10"  , path: 'images/imageTest1.jpg' , canvasData: null },
-        { name: "Image 11"  , path: 'images/imageTest3.jpg' , canvasData: null },
-        { name: "Image 12"  , path: 'images/imageTest3.jpg' , canvasData: null }
-      ]
-    }
-  ];
+  SCENES: Array<Scene> = null;
 
   changeScene(sceneNumber: number) {
     this.selectedImage = 0;
     this.selectedScene = sceneNumber;
     this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
+    this.scenesService.updateScenes(this.SCENES);
     this.UpdateDimensions();
   }
 
   changeImage(imageNumber: number) {
     this.selectedImage = imageNumber;
     this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
+    this.scenesService.updateScenes(this.SCENES);
     this.UpdateDimensions();
   }
 
   @ViewChild("bigImageContainer") bigImageContainer: ElementRef;
 
   UpdateDimensions() {
+    this.getScenes();
     let img = new Image();
-    img.src = "../../assets/" + this.SCENES[this.selectedScene].images[this.selectedImage].path;
+    img.src = this.SCENES[this.selectedScene].images[this.selectedImage].base64data;
     img.onload = function (event) {
       let loadedImage = event.currentTarget as HTMLImageElement;
       let width = loadedImage.width;
@@ -80,11 +60,11 @@ export class SceneDisplayComponent implements OnInit {
     }
     this.imageWidth = img.width;
     this.imageHeigth = img.height;
-    console.log(img.width);
-    console.log(img.height);
 
-    //test
 
+
+
+    //variable to call an update on the canvas
     this.currImage++;
 
     let bigImageContainer: HTMLDivElement = this.bigImageContainer.nativeElement;
@@ -99,24 +79,45 @@ export class SceneDisplayComponent implements OnInit {
       this.imageWidth *= relation;
       this.imageHeigth *= relation;
     }
-    console.log(bigImageContainer.clientWidth);
-    console.log(bigImageContainer.clientHeight);
-
-    console.log(this.SCENES[this.selectedScene].images[this.selectedImage].canvasData);
-    console.log("test");
-
-
   }
 
   canvasSave(canvasData: string) {
     this.SCENES[this.selectedScene].images[this.selectedImage].canvasData = canvasData;
   }
 
-  constructor() { }
+  getScenes(): void {
+    this.SCENES = this.scenesService.getScenes();
+  }
+
+  constructor(private scenesService: ScenesService,
+              private dialog: MatDialog) { }
+
+  openAddSceneDialog() {
+    this.addSceneDialogRef = this.dialog.open(AddSceneDialogComponent, {
+      hasBackdrop: true
+    });
+    this.addSceneDialogRef.afterClosed().subscribe(result => {
+      this.getScenes();
+    });
+  }
+
+  openAddImageDialog() {
+    this.addImageDialogRef = this.dialog.open(AddImageDialogComponent, {
+      hasBackdrop: true
+    });
+    let instance = this.addImageDialogRef.componentInstance;
+    instance.sceneNumber = this.selectedScene;
+    this.addImageDialogRef.afterClosed().subscribe(result => {
+      this.getScenes();
+    });
+  }
 
   ngOnInit(): void {
-    this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
-    this.UpdateDimensions();
+    this.getScenes();
+    if (this.SCENES != null) {
+      this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
+      this.UpdateDimensions();
+    }
   }
 
 }

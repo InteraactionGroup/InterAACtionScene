@@ -99,6 +99,7 @@ export class CanvasComponent implements OnInit {
      this.cx.strokeStyle = "#FFF";
 
      this.captureEvents(canvasEl);
+     this.InitializeCanvasWithJSON();
    }
 
    public saveCanvas() {
