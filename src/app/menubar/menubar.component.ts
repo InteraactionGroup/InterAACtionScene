@@ -42,6 +42,7 @@ export class MenubarComponent implements OnInit {
   hideShowMenu(): void {
     if (this.displayBar === true) {
       this.displayBar = false;
+      this.mode="play";
       this.hideShowButtonChar = "▼";
     } else {
       this.displayBar = true;

@@ -20,6 +20,8 @@ export class CanvasComponent implements OnInit {
    @ViewChild('canvas') public canvas: ElementRef;
    @Input() public width : number;
    @Input() public height : number;
+   @Input() public selectedMode: string;
+
    @Input() public set canvasData (canvasD: string) {
      this.canvasD = canvasD;
      this.InitializeCanvasWithJSON();
@@ -27,18 +29,17 @@ export class CanvasComponent implements OnInit {
    @Input() public set imageChange(imageChange: number) {
       this.saveCanvas();
       this.ngAfterViewInit();
-      this.InitializeCanvasWithJSON();
-  }
+    }
 
   InitializeCanvasWithJSON() {
     if (this.canvasD != null) {
       var data = JSON.parse(this.canvasD);
       var image = new Image();
       image.src = data.image; // data.image contains the data URL
-      image.onload;
-      this.cx.clearRect(0, 0, this.width, this.height);
-      this.cx.drawImage(image, 0, 0); // draw the new image to the screen
-
+      image.onload = () => {
+        this.cx.clearRect(0, 0, this.width, this.height);
+        this.cx.drawImage(image, 0, 0); // draw the new image to the screen
+      };
     }
   }
 
@@ -139,7 +140,9 @@ export class CanvasComponent implements OnInit {
          };
 
          // This method does the actual drawing
-         this.drawOnCanvas(prevPos, currentPos);
+         if (this.selectedMode === "draw") {
+           this.drawOnCanvas(prevPos, currentPos);
+         }
        });
    }
 

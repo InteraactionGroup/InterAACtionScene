@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, NgModule, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgModule, ElementRef, ViewChild, OnChanges } from '@angular/core';
 import { Scene,SceneImage } from '../types';
 import { ScenesService } from '../scenes.service';
 import { AddSceneDialogComponent } from '../add-scene-dialog/add-scene-dialog.component';
@@ -20,6 +20,7 @@ export class SceneDisplayComponent implements OnInit {
   @Input() displayBar: boolean;
   @Input() currentDrawingTool: string;
   @Output() imageChange = new EventEmitter<string>();
+  @Input() selectedMode : string;
 
   selectedScene = 0;
   selectedImage = 0;

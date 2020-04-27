@@ -1,7 +1,6 @@
-<div class="menubar">
+<div class="menubar"  *ngIf="displayBar === true">
 
   <div class="menu"
-   *ngIf="displayBar === true"
    [class.MenuBottomBar]="displayBar === true">
 
     <button (click)="play()"
@@ -43,9 +42,8 @@
     *ngIf="mode !== 'draw'">Settings</a>
 
   </div>
-
-  <button id="hideShowButton" type="button" (click)="hideShowMenu()" >{{hideShowButtonChar}}</button>
-
 </div>
+<button id="hideShowButton" type="button" (click)="hideShowMenu()" >{{hideShowButtonChar}}</button>
+
 <app-scene-display
-[imageName]="sceneTitle" [displayBar]="displayBar" [currentDrawingTool]="currentDrawingTool" (imageChange)="onImageChange($event)"></app-scene-display>
+[imageName]="sceneTitle" [displayBar]="displayBar" [selectedMode]="mode" [currentDrawingTool]="currentDrawingTool" (imageChange)="onImageChange($event)"></app-scene-display>
