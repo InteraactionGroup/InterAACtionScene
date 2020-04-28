@@ -13,10 +13,17 @@ export class ScenesService {
   }
 
   addScene(base64data : string,sceneName : string = "",firstimagename: string = "") {
-    this.SCENES.push({name: sceneName,
+    if (this.SCENES.length == 0) {
+      this.SCENES = [{name: sceneName,
+                    images: [
+                      {name : firstimagename, base64data : base64data, canvasData : null}
+                    ]}];
+    } else {
+      this.SCENES.push({name: sceneName,
                       images: [
                         {name : firstimagename, base64data : base64data, canvasData : null}
                       ]});
+    }
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }
 

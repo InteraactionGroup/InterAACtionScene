@@ -16,20 +16,22 @@ export class CanvasComponent implements OnInit {
 
 
    reader = new FileReader();
-   canvasD : string;
    @ViewChild('canvas') public canvas: ElementRef;
    @Input() public width : number;
    @Input() public height : number;
    @Input() public selectedMode: string;
 
-   @Input() public set canvasData (canvasD: string) {
-     this.canvasD = canvasD;
-     this.InitializeCanvasWithJSON();
-   };
+   @Input() public canvasD: string;
    @Input() public set imageChange(imageChange: number) {
-      this.saveCanvas();
-      this.ngAfterViewInit();
-    }
+     (async () => {
+       if (this.cx != undefined) {
+         this.saveCanvas();
+       }
+       //await this.delay(10);
+       this.ngAfterViewInit();
+       this.InitializeCanvasWithJSON();
+     })();
+   }
 
   InitializeCanvasWithJSON() {
     if (this.canvasD != null) {
@@ -44,43 +46,45 @@ export class CanvasComponent implements OnInit {
   }
 
    @Input() public set currentDrawingTool(drawingTool: string) {
-     this.cx.globalCompositeOperation="source-over";
-     switch(drawingTool) {
-       case "white": {
-          this.cx.strokeStyle = "#FFFFFF"
-          break;
-       }
-       case "black": {
-          this.cx.strokeStyle = "#000000"
-          break;
-       }
-       case "red": {
-          this.cx.strokeStyle = "#f34336"
-          break;
-       }
-       case "orange": {
-          this.cx.strokeStyle = "#ff7f00"
-          break;
-       }
-       case "blue": {
-          this.cx.strokeStyle = "#0080ff"
-          break;
-       }
-       case "green": {
-          this.cx.strokeStyle = "#228b22"
-          break;
-       }
-       case "clear": {
-          this.cx.clearRect(0, 0, this.width, this.height);
-          break;
-       }
-       case "erase": {
-          this.cx.globalCompositeOperation="destination-out";
-          break;
-       }
-       default: {
-          this.cx.strokeStyle = "#000000"
-          break;
+     if (this.cx != undefined) {
+       this.cx.globalCompositeOperation="source-over";
+       switch(drawingTool) {
+         case "white": {
+            this.cx.strokeStyle = "#FFFFFF"
+            break;
+         }
+         case "black": {
+            this.cx.strokeStyle = "#000000"
+            break;
+         }
+         case "red": {
+            this.cx.strokeStyle = "#f34336"
+            break;
+         }
+         case "orange": {
+            this.cx.strokeStyle = "#ff7f00"
+            break;
+         }
+         case "blue": {
+            this.cx.strokeStyle = "#0080ff"
+            break;
+         }
+         case "green": {
+            this.cx.strokeStyle = "#228b22"
+            break;
+         }
+         case "clear": {
+            this.cx.clearRect(0, 0, this.width, this.height);
+            break;
+         }
+         case "erase": {
+            this.cx.globalCompositeOperation="destination-out";
+            break;
+         }
+         default: {
+            this.cx.strokeStyle = "#000000"
+            break;
+         }
        }
      }
    }
@@ -89,18 +93,20 @@ export class CanvasComponent implements OnInit {
    private cx: CanvasRenderingContext2D;
 
    public ngAfterViewInit() {
-     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
-     this.cx = canvasEl.getContext('2d');
+     if (typeof this.canvas !== "undefined") {
+       const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
+       this.cx = canvasEl.getContext('2d');
 
-     canvasEl.width = this.width;
-     canvasEl.height = this.height;
+       canvasEl.width = this.width;
+       canvasEl.height = this.height;
 
-     this.cx.lineWidth = 6;
-     this.cx.lineCap = 'round';
-     this.cx.strokeStyle = "#FFF";
+       this.cx.lineWidth = 6;
+       this.cx.lineCap = 'round';
+       this.cx.strokeStyle = "#FFF";
 
-     this.captureEvents(canvasEl);
-     this.InitializeCanvasWithJSON();
+       this.captureEvents(canvasEl);
+       this.InitializeCanvasWithJSON();
+     }
    }
 
    public saveCanvas() {
@@ -144,6 +150,10 @@ export class CanvasComponent implements OnInit {
            this.drawOnCanvas(prevPos, currentPos);
          }
        });
+   }
+
+   delay(ms: number) {
+     return new Promise( resolve => setTimeout(resolve, ms) );
    }
 
    private drawOnCanvas(prevPos: { x: number, y: number }, currentPos: { x: number, y: number }) {

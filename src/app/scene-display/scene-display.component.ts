@@ -31,7 +31,7 @@ export class SceneDisplayComponent implements OnInit {
   addImageDialogRef: MatDialogRef<AddImageDialogComponent>;
 
   addButtonPath = 'images/add.png';
-  SCENES: Array<Scene> = null;
+  SCENES: Array<Scene> = [];
 
   changeScene(sceneNumber: number) {
     this.selectedImage = 0;
@@ -114,11 +114,19 @@ export class SceneDisplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getScenes();
-    if (this.SCENES != null) {
-      this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
-      this.UpdateDimensions();
-    }
+
+    (async () => {
+      this.getScenes();
+       await this.delay(400);
+       if (this.SCENES.length != 0) {
+         this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
+         this.UpdateDimensions();
+       }
+   })();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
 }
