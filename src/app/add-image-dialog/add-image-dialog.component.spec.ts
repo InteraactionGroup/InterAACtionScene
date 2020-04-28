@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ScenesService } from '../scenes.service';
 import { AddImageDialogComponent } from './add-image-dialog.component';
 
 describe('AddImageDialogComponent', () => {
@@ -8,7 +8,8 @@ describe('AddImageDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddImageDialogComponent ]
+      declarations: [ AddImageDialogComponent ],
+      imports : [ScenesService]
     })
     .compileComponents();
   }));

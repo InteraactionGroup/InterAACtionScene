@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ScenesService } from '../scenes.service';
 import { AddSceneDialogComponent } from './add-scene-dialog.component';
 
 describe('AddSceneDialogComponent', () => {
@@ -8,7 +8,8 @@ describe('AddSceneDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddSceneDialogComponent ]
+      declarations: [ AddSceneDialogComponent ],
+      imports : [ScenesService]
     })
     .compileComponents();
   }));
