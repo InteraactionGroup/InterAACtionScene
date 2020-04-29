@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SceneDisplayComponent } from './scene-display.component';
-import { ScenesService } from '../scenes.service';
+import { MatDialogModule } from '@angular/material/dialog'
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 describe('SceneDisplayComponent', () => {
   let component: SceneDisplayComponent;
@@ -9,7 +10,7 @@ describe('SceneDisplayComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SceneDisplayComponent ],
-      imports : [ScenesService]
+      imports : [MatDialogModule,ScrollingModule]
     })
     .compileComponents();
   }));

@@ -7,7 +7,8 @@ import { ScenesService } from '../scenes.service';
 @Component({
   selector: 'app-add-image-dialog',
   templateUrl: './add-image-dialog.component.html',
-  styleUrls: ['./add-image-dialog.component.css']
+  styleUrls: ['./add-image-dialog.component.css'],
+  providers: [ { provide : MatDialogRef, useValue: {}}]
 })
 export class AddImageDialogComponent implements OnInit {
 

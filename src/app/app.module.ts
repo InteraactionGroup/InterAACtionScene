@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import { AddImageDialogComponent } from './add-image-dialog/add-image-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AddImageDialogComponent } from './add-image-dialog/add-image-dialog.com
     SceneDisplayComponent,
     CanvasComponent,
     AddSceneDialogComponent,
-    AddImageDialogComponent
+    AddImageDialogComponent,
+    BrowserAnimationsModule
   ],
   imports: [
     FormsModule,
@@ -33,7 +35,7 @@ import { AddImageDialogComponent } from './add-image-dialog/add-image-dialog.com
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

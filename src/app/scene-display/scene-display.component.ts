@@ -8,7 +8,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-scene-display',
   templateUrl: './scene-display.component.html',
-  styleUrls: ['./scene-display.component.css']
+  styleUrls: ['./scene-display.component.css'],
+  providers: [ { provide : MatDialogRef, useValue: {}}],
 })
 export class SceneDisplayComponent implements OnInit {
 
@@ -63,8 +64,6 @@ export class SceneDisplayComponent implements OnInit {
     this.imageHeigth = img.height;
 
 
-
-
     //variable to call an update on the canvas
     this.currImage++;
 
@@ -81,6 +80,15 @@ export class SceneDisplayComponent implements OnInit {
       this.imageHeigth *= relation;
     }
   }
+
+
+  hasAtLeastOneScene(){
+    if(this.SCENES !== null) {
+      return this.SCENES.length != 0;
+    }
+    return false;
+  }
+
 
   canvasSave(canvasData: string) {
     this.SCENES[this.selectedScene].images[this.selectedImage].canvasData = canvasData;

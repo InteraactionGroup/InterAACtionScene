@@ -7,7 +7,8 @@ import { ScenesService } from '../scenes.service';
 @Component({
   selector: 'app-add-scene-dialog',
   templateUrl: './add-scene-dialog.component.html',
-  styleUrls: ['./add-scene-dialog.component.css']
+  styleUrls: ['./add-scene-dialog.component.css'],
+  providers: [ { provide : MatDialogRef, useValue: {}}],
 })
 export class AddSceneDialogComponent implements OnInit {
 

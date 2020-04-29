@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ScenesService } from '../scenes.service';
+import { MatDialogModule } from '@angular/material/dialog'
 import { AddImageDialogComponent } from './add-image-dialog.component';
+import { ReactiveFormsModule  } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input'
 
 describe('AddImageDialogComponent', () => {
   let component: AddImageDialogComponent;
@@ -9,7 +12,7 @@ describe('AddImageDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AddImageDialogComponent ],
-      imports : [ScenesService]
+      imports : [MatDialogModule,ReactiveFormsModule,MatInputModule,BrowserAnimationsModule]
     })
     .compileComponents();
   }));
