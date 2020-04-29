@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MenubarComponent } from './menubar/menubar.component';
 import { SceneDisplayComponent } from './scene-display/scene-display.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CanvasComponent } from './canvas/canvas.component';
 import { AddSceneDialogComponent } from './add-scene-dialog/add-scene-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -23,7 +22,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CanvasComponent,
     AddSceneDialogComponent,
     AddImageDialogComponent,
-    BrowserAnimationsModule
   ],
   imports: [
     FormsModule,

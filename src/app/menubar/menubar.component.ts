@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Color } from '../types';
 import { SceneDisplayComponent } from '../scene-display/scene-display.component';
-import { ReactiveFormsModule  } from '@angular/forms';
 
 @Component({
   selector: 'app-menubar',
