@@ -1,0 +1,111 @@
+.scene-display {
+  max-width: 100vw;
+  height: 91vh;
+  display: flex;
+}
+
+.scene-display .scenes{
+  width : 3cm;
+  display: flex;
+  flex-direction: column;
+  background-color: #4766D8;
+}
+
+.scenes-virtual-viewport {
+  height: 90vh;
+  overflow-x: hidden;
+}
+
+.scene-display .scenes .scenes-virtual-viewport .scene{
+  padding: 5px;
+  width: 100%;
+  height: 3cm;
+}
+
+.scene-display .scenes .scenes-virtual-viewport .scene:hover{
+  background-color: #477cd8;
+}
+
+.scene-display .scenes .scenes-virtual-viewport .scene button{
+  float: right;
+  width: 100%;
+  height: 3cm;
+  min-width: 1cm;
+  max-width: 3cm;
+  border-radius: 5px;
+}
+
+.scene-display .scenes .scenes-virtual-viewport .scene.selected{
+  background-color: #ff7f00;
+}
+
+.scene-display .images{
+  width : 3cm;
+  background-color: #ff7f00;
+  display: flex;
+  flex-direction: column;
+}
+
+.images-virtual-viewport {
+  height: 90vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar{
+  width: 0px;
+}
+
+.image{
+  height: 3cm;
+  padding: 5px;
+  width: 95%;
+}
+
+.image:hover{
+  background-color: #ff9900;
+}
+
+.image.selected{
+  background-color: lightblue;
+}
+
+.image button {
+  float: right;
+  width: 100%;
+  height: 3cm;
+  min-width: 1cm;
+  max-width: 3cm;
+  border-radius: 5px;
+}
+
+.scene-display .bigImageContainer {
+  background-color: lightblue;
+  flex-grow: 4;
+  text-align: center;
+  max-height: 100%;
+}
+
+.scene-display .bigImageContainer #test img{
+
+}
+
+#test {
+  display:inline-block;
+  margin: 0 auto;
+  background: black;
+  position:relative;
+  border:3px solid black;
+  border-radius: 10px;
+  box-shadow: 0 5px 50px #333;
+}
+
+#canvas{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.buttonimg {
+  max-width: 2.5cm;
+  max-height: 2cm;
+}

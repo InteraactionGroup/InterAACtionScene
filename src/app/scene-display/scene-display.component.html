@@ -1,0 +1,57 @@
+<div class="scene-display">
+  <div class="scenes">
+    <cdk-virtual-scroll-viewport itemSize="6" class="scenes-virtual-viewport">
+      <!-- Add a scene button -->
+      <div class="scene"
+      *ngIf="displayBar === true">
+        <button type="button" (click)="openAddSceneDialog()">
+          <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
+        </button>
+      </div>
+      <!-- Different scenes -->
+      <div class="scene"
+      *ngFor="let scene of SCENES; let i = index"
+      [class.selected]="selectedScene === i">
+        <button type="button"
+        (click)="changeScene(i)">
+        <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg">
+        {{scene.name}}
+        </button>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+
+
+  <div class="images">
+
+    <cdk-virtual-scroll-viewport itemSize="6" class="images-virtual-viewport" *ngIf="hasAtLeastOneScene()">
+      <!-- Add an image button -->
+      <div class="image"
+      *ngIf="displayBar === true">
+        <button type="button"
+        (click)="openAddImageDialog()">
+          <img src="../../assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
+        </button>
+      </div>
+
+      <!-- Images of the scene -->
+      <div class="image"
+      *cdkVirtualFor="let image of SCENES[selectedScene].images; let i = index"
+      [class.selected]="selectedImage === i">
+        <button type="button"
+        (click)="changeImage(i)">
+          <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg">
+          {{image.name}}
+        </button>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+  <!-- Selected image at the right -->
+  <div class="bigImageContainer" #bigImageContainer>
+    <div *ngIf="hasAtLeastOneScene()" id="test" style="width: {{imageWidth}};height: {{imageHeigth}}">
+      <img id="bigImage" style="max-width:{{imageWidth}}px;max-height:{{imageHeigth}}px"  src="{{SCENES[selectedScene].images[selectedImage].base64data}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}" *ngIf="displayBar !== null">
+      <app-canvas [selectedMode]="selectedMode" id="canvas" [width]="imageWidth" [height]="imageHeigth" [currentDrawingTool]="currentDrawingTool" (canvasSave)="canvasSave($event)" [canvasD]="SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
+
+    </div>
+  </div>
+</div>
