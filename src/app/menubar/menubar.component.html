@@ -3,18 +3,25 @@
   <div class="menu"
    [class.MenuBottomBar]="displayBar === true">
 
-    <button (click)="play()"
+    <button (click)="changeMode('play')"
     class= "button"
     [class.selected]="mode === 'play'">
     Play
     </button>
 
-    <button (click)="hotspot()"
+    <button (click)="changeMode('hotspot')"
     class= "button"
     [class.selected]="mode === 'hotspot'">
       Hotspot
     </button>
-    <button (click)="draw()"
+
+    <button (click)="changeMode('manage-scenes')"
+    class= "button"
+    [class.selected]="mode === 'manage-scenes'">
+      Manage Scenes
+    </button>
+
+    <button (click)="changeMode('draw')"
     class= "button"
     [class.selected]="mode === 'draw'">
       Draw

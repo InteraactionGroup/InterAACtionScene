@@ -23,17 +23,8 @@ export class MenubarComponent implements OnInit {
     { name: "green"  , hex: '#228b22' },
   ];
 
-  play(): void {
-    this.mode = "play";
-  }
-
-  hotspot(): void {
-    this.mode = "hotspot";
-  }
-
-
-  draw(): void {
-    this.mode = "draw";
+  changeMode(mode : string): void {
+    this.mode = mode;
   }
 
   changeColor(toolName: string): void {
