@@ -16,14 +16,14 @@ export class ScenesService {
     if (this.SCENES == null || this.SCENES.length == 0) {
       this.SCENES = [{name: sceneName,
                       images: [
-                        {name : firstimagename, base64data : base64data, canvasData : null, hidden: false}
+                        {name : firstimagename, base64data : base64data, canvasData : null, hidden: false, hotspots: Array<Element>()}
                       ],
                       hidden : false
                     }];
     } else {
       this.SCENES.push({name: sceneName,
                         images: [
-                          {name : firstimagename, base64data : base64data, canvasData : null, hidden: false}
+                          {name : firstimagename, base64data : base64data, canvasData : null, hidden: false, hotspots: Array<Element>()}
                         ],
                         hidden : false
                       });
@@ -32,12 +32,17 @@ export class ScenesService {
   }
 
   addImage(base64data : string,sceneNumber: number,imageName : string = "") {
-    this.SCENES[sceneNumber].images.push({name : imageName, base64data : base64data, canvasData : null,hidden : false })
+    this.SCENES[sceneNumber].images.push({name : imageName, base64data : base64data, canvasData : null,hidden : false , hotspots: Array<Element>()})
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }
 
   getScenes(): Array<Scene> {
     return JSON.parse(localStorage.getItem('Scenes'));
+  }
+
+  setScenesFromJSON(scenes : Array<Scene>) {
+    this.SCENES = scenes;
+    localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }
 
   updateScenes(scenes : Array<Scene>) {
@@ -105,6 +110,12 @@ export class ScenesService {
     } else {
       this.SCENES[selectedScene].hidden = true;
     }
+    localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
+  }
+
+
+  addHotspot(selectedScene:number, selectedImage: number, hotspot: Element) {
+    this.SCENES[selectedScene].images[selectedImage].hotspots.push(hotspot);
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }
 

@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManageScenesComponent } from './manage-scenes/manage-scenes.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { RenameDialogComponent } from './rename-dialog/rename-dialog.component';
+import { ImportScenesDialogComponent } from './import-scenes-dialog/import-scenes-dialog.component';
+import { HotspotCreateComponent } from './hotspot-create/hotspot-create.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { RenameDialogComponent } from './rename-dialog/rename-dialog.component';
     ManageScenesComponent,
     ConfirmationDialogComponent,
     RenameDialogComponent,
+    ImportScenesDialogComponent,
+    HotspotCreateComponent,
   ],
   imports: [
     FormsModule,

@@ -27,7 +27,8 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["./bower_components/svg.js/dist/svg.js",
+                        "./bower_components/svg.draw.js/dist/svg.draw.js"]
           },
           "configurations": {
             "production": {
@@ -92,7 +93,8 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["./bower_components/svg.js/dist/svg.js",
+                        "./bower_components/svg.draw.js/dist/svg.draw.js"]
           }
         },
         "lint": {

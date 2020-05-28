@@ -93,11 +93,11 @@
   max-height: 100%;
 }
 
-.scene-display .bigImageContainer #test img{
+.scene-display .bigImageContainer #sceneDiv img{
 
 }
 
-#test {
+#sceneDiv {
   display:inline-block;
   margin: 0 auto;
   background: black;
@@ -108,6 +108,12 @@
 }
 
 #canvas{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+#hotspot {
   position: absolute;
   top: 0px;
   left: 0px;

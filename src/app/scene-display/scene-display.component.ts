@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, NgModule, ElementRef, ViewChild, OnChanges } from '@angular/core';
 import { Scene,SceneImage } from '../types';
 import { ScenesService } from '../scenes.service';
+import { SettingsService } from '../settings.service';
 import { AddSceneDialogComponent } from '../add-scene-dialog/add-scene-dialog.component';
 import { AddImageDialogComponent } from '../add-image-dialog/add-image-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { HotspotCreateComponent } from '../hotspot-create/hotspot-create.component';
 
 @Component({
   selector: 'app-scene-display',
@@ -34,6 +36,7 @@ export class SceneDisplayComponent implements OnInit {
 
   addButtonPath = 'images/add.png';
   SCENES: Array<Scene> = [];
+  SETTINGS : Array<Boolean> = [];
 
   changeScene(sceneNumber: number) {
     this.selectedScene = sceneNumber;

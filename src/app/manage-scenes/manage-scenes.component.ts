@@ -3,6 +3,7 @@ import { ScenesService } from '../scenes.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { RenameDialogComponent } from '../rename-dialog/rename-dialog.component';
+import { ImportScenesDialogComponent } from '../import-scenes-dialog/import-scenes-dialog.component';
 
 @Component({
   selector: 'app-manage-scenes',
@@ -96,6 +97,17 @@ export class ManageScenesComponent implements OnInit {
            window.URL.revokeObjectURL(url);
        }, 0);
     }
+  }
+
+  import(): void {
+    let tempString = "test";
+    const dialogRef = this.dialog.open(ImportScenesDialogComponent, {
+      width: '350px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.updateScenes.emit("import");
+    });
+
   }
 
 
