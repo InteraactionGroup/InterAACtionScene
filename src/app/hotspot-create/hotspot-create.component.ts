@@ -1,5 +1,7 @@
-import { Component, OnInit,Input,ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit ,Input,ViewChild,ElementRef } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ScenesService } from '../scenes.service';
+import { HotspotCreateDialogComponent } from '../hotspot-create-dialog/hotspot-create-dialog.component';
 declare const SVG: any;
 
 @Component({
@@ -8,7 +10,7 @@ declare const SVG: any;
   styleUrls: ['./hotspot-create.component.css']
 })
 
-export class HotspotCreateComponent implements OnInit {
+export class HotspotCreateComponent implements OnInit  {
 
   drawing: any;
   @Input() public width : number;
@@ -19,46 +21,56 @@ export class HotspotCreateComponent implements OnInit {
   @ViewChild("hotspot", { static: true }) hotspot: ElementRef;
 
   constructor(
-    private scenesService: ScenesService
+    private scenesService: ScenesService,
+    private dialog: MatDialog
   ) { }
 
-  ngOnInit(): void {
-    this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height).polygon().draw();
-    this.drawing.on('drawstart', (e) => {
-        document.addEventListener('keydown', (e) => {
-            if(e.keyCode == 13){
-                this.drawing.draw('done');
-                this.drawing.off('drawstart');
-            }
-        });
-    });
-    console.log(this.drawing);
-    console.log(this.width);
-
-    //
-    this.drawing.node.setAttribute("stroke",'#000000');
-    this.drawing.node.setAttribute("stroke-width",1);
-    this.drawing.node.setAttribute("fill",'none');
-
-    this.drawing.on('drawstop', function(){
-        // remove listener
-        console.log(this.drawing);
-    });
-
-
-    // this.drawing = svg(this.hotspot.nativeElement).size(this.width, this.height);
-    // let rect = this.drawing.rect(10, 10);
-    // let path = this.drawing.path("M 340,178 104,478 900,490 Z");
-    // let length = path.length();
-    //
-    // path.fill('none').stroke({width:5, color: '#000'}).move(10,10).scale(0.5);
-    // path.animate(3000).rotate(365).loop();
-    //
-    // rect.animate(5000, '<>').during(function(pos, morph, eased){
-    //     var m = path.matrixify()
-    //     var p = new svg.Point(path.pointAt(eased * length)).transform(m)
-    //     rect.move(p.x, p.y)
-    // }).loop(true, true);
+  ngOnInit() {
+    this.drawSVG();
   }
+
+  async drawSVG() {
+    let hotspotCreate = true;
+    //while (hotspotCreate) {
+
+
+      this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height).polygon().draw();
+      this.drawing.on('drawstart', (e) => {
+          document.addEventListener('keydown', (e) => {
+              if(e.keyCode == 13){
+                  this.drawing.draw('done');
+                  this.drawing.off('drawstart');
+                  //
+                  const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
+                    width: '350px',
+                  });
+                  dialogRef.componentInstance.selectedScene = this.selectedScene;
+                  dialogRef.componentInstance.selectedImage = this.selectedImage;
+                  dialogRef.afterClosed().subscribe(result => {
+                    var cNode = this.hotspot.nativeElement.cloneNode(false);
+                    this.hotspot.nativeElement.parentNode.replaceChild(cNode, this.hotspot.nativeElement);
+                    hotspotCreate = false;
+                  });
+
+              } else if (e.keyCode == 27) {
+                  this.drawing.draw('cancel');
+              }
+          });
+      });
+      console.log(this.drawing);
+      console.log(this.width);
+
+      //
+      this.drawing.node.setAttribute("stroke",'#000000');
+      this.drawing.node.setAttribute("stroke-width",2);
+      // Filling the svg with a transparent color so the "onclick" attribute works in the middle.
+      this.drawing.node.setAttribute("fill",'#000000');
+      this.drawing.node.setAttribute("fill-opacity",0.0);
+      this.drawing.node.setAttribute("onclick",'alert("You have clicked the svg element.")');
+      this.drawing.on('drawstop', () => {
+
+      });
+    }
+  //}
 
 }

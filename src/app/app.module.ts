@@ -19,6 +19,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { RenameDialogComponent } from './rename-dialog/rename-dialog.component';
 import { ImportScenesDialogComponent } from './import-scenes-dialog/import-scenes-dialog.component';
 import { HotspotCreateComponent } from './hotspot-create/hotspot-create.component';
+import { HotspotCreateDialogComponent } from './hotspot-create-dialog/hotspot-create-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { HotspotCreateComponent } from './hotspot-create/hotspot-create.componen
     RenameDialogComponent,
     ImportScenesDialogComponent,
     HotspotCreateComponent,
+    HotspotCreateDialogComponent,
   ],
   imports: [
     FormsModule,
