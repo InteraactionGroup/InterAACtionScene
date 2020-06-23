@@ -23,13 +23,19 @@
    base64data: string;
    canvasData: string;
    hidden: boolean;
-   hotspots: Element[];
+   hotspots: Hotspot[];
 
-   constructor(name, base64data, canvasData = null, hidden = false, hotspots = Array<Element>()) {
+   constructor(name, base64data, canvasData = null, hidden = false, hotspots = Array<Hotspot>()) {
     this.name = name;
     this.base64data = base64data;
     this.canvasData = canvasData;
     this.hidden = hidden;
     this.hotspots = hotspots;
   }
+ }
+
+ export class Hotspot {
+   name: string;
+   svg: Element;
+   base64sound: string;
  }

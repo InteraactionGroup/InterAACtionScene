@@ -1,7 +1,10 @@
 <form [formGroup]="form" (ngSubmit)="submit(form)" class="import-scenes-dialog">
-  <h1 mat-dialog-title>Import scenes</h1>
+  <h1 mat-dialog-title>Create hotspot</h1>
   <mat-dialog-content>
     <input formControlName="soundSelected" type="file" (change)="onSoundSelected($event)">
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="Enter the name of the hotspot" id="nameInput">
+    </mat-form-field>
   </mat-dialog-content>
   <p *ngIf='error !== ""'>{{error}}</p>
   <mat-dialog-actions>

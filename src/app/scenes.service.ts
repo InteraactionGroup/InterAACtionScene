@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Scene,SceneImage } from './types';
+import { Scene,SceneImage,Hotspot } from './types';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +16,14 @@ export class ScenesService {
     if (this.SCENES == null || this.SCENES.length == 0) {
       this.SCENES = [{name: sceneName,
                       images: [
-                        {name : firstimagename, base64data : base64data, canvasData : null, hidden: false, hotspots: Array<Element>()}
+                        {name : firstimagename, base64data : base64data, canvasData : null, hidden: false, hotspots: Array<Hotspot>()}
                       ],
                       hidden : false
                     }];
     } else {
       this.SCENES.push({name: sceneName,
                         images: [
-                          {name : firstimagename, base64data : base64data, canvasData : null, hidden: false, hotspots: Array<Element>()}
+                          {name : firstimagename, base64data : base64data, canvasData : null, hidden: false, hotspots: Array<Hotspot>()}
                         ],
                         hidden : false
                       });
@@ -32,7 +32,7 @@ export class ScenesService {
   }
 
   addImage(base64data : string,sceneNumber: number,imageName : string = "") {
-    this.SCENES[sceneNumber].images.push({name : imageName, base64data : base64data, canvasData : null,hidden : false , hotspots: Array<Element>()})
+    this.SCENES[sceneNumber].images.push({name : imageName, base64data : base64data, canvasData : null,hidden : false , hotspots: Array<Hotspot>()})
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }
 
@@ -114,8 +114,8 @@ export class ScenesService {
   }
 
 
-  addHotspot(selectedScene:number, selectedImage: number, hotspot: Element) {
-    this.SCENES[selectedScene].images[selectedImage].hotspots.push(hotspot);
+  addHotspot(selectedScene:number, selectedImage: number,hotspotName:string, hotspotElement: Element,base64sound: string) {
+    this.SCENES[selectedScene].images[selectedImage].hotspots.push({name:hotspotName, svg: hotspotElement,base64sound: base64sound});
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }
 

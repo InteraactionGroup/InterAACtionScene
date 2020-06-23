@@ -16,8 +16,9 @@ export class HotspotCreateDialogComponent implements OnInit {
   @Input() selectedImage: number;
   form: FormGroup;
   selectedSound = null;
+  name: string = "";
   error: string = "";
-
+  element : Element;
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
@@ -26,7 +27,8 @@ export class HotspotCreateDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      soundSelected: ''
+      soundSelected: '',
+      name: ''
     })
   }
 
@@ -46,9 +48,11 @@ export class HotspotCreateDialogComponent implements OnInit {
 
 
   submit(form) {
-    if (this.selectedSound != null) {
+    if (this.selectedSound != null && this.selectedSound.startsWith("data:audio/mpeg;base64")) {
       console.log(this.selectedSound);
-
+      this.scenesService.addHotspot(this.selectedScene,this.selectedImage,this.name,this.element,this.selectedSound);
+    } else {
+      this.error = "Invalid audio file";
     }
   }
 

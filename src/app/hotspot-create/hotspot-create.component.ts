@@ -42,10 +42,11 @@ export class HotspotCreateComponent implements OnInit  {
                   this.drawing.off('drawstart');
                   //
                   const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
-                    width: '350px',
+                    width: '400px',
                   });
                   dialogRef.componentInstance.selectedScene = this.selectedScene;
                   dialogRef.componentInstance.selectedImage = this.selectedImage;
+                  dialogRef.componentInstance.selectedImage = this.drawing.node;
                   dialogRef.afterClosed().subscribe(result => {
                     var cNode = this.hotspot.nativeElement.cloneNode(false);
                     this.hotspot.nativeElement.parentNode.replaceChild(cNode, this.hotspot.nativeElement);
