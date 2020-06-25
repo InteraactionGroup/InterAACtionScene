@@ -53,7 +53,8 @@
     <div *ngIf="hasAtLeastOneScene() && SCENES[selectedScene].images[selectedImage].hidden === false" id="sceneDiv" style="width: {{imageWidth}};height: {{imageHeigth}}">
       <img id="bigImage" style="max-width:{{imageWidth}}px;max-height:{{imageHeigth}}px"  src="{{SCENES[selectedScene].images[selectedImage].base64data}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}" *ngIf="displayBar !== null">
       <app-canvas [selectedMode]="selectedMode" id="canvas" [width]="imageWidth" [height]="imageHeigth" [currentDrawingTool]="currentDrawingTool" (canvasSave)="canvasSave($event)" [canvasD]="SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
-      <app-hotspot-create [width]="imageWidth" id="hotspot" [height]="imageHeigth" > </app-hotspot-create>
+      <app-hotspot-display [width]="imageWidth" class="hotspot" [height]="imageHeigth" [selectedImage]="selectedImage" [selectedScene]="selectedScene" [currImage]="currImage"> </app-hotspot-display>
+      <app-hotspot-create *ngIf="selectedMode == 'hotspot'" [width]="imageWidth" class="hotspot" [height]="imageHeigth" [selectedImage]="selectedImage" [selectedScene]="selectedScene" (updateHotspots)="onHotspotsChange()" > </app-hotspot-create>
     </div>
   </div>
 

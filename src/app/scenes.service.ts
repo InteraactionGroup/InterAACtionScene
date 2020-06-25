@@ -114,9 +114,17 @@ export class ScenesService {
   }
 
 
-  addHotspot(selectedScene:number, selectedImage: number,hotspotName:string, hotspotElement: Element,base64sound: string) {
-    this.SCENES[selectedScene].images[selectedImage].hotspots.push({name:hotspotName, svg: hotspotElement,base64sound: base64sound});
+  addHotspot(selectedScene:number, selectedImage: number,hotspotName:string, svgPath: string,strokeColor: string,base64sound: string) {
+    if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
+      this.SCENES[selectedScene].images[selectedImage].hotspots = [{name:hotspotName, svgPath: svgPath,strokeColor: strokeColor,base64sound: base64sound}];
+    } else {
+      this.SCENES[selectedScene].images[selectedImage].hotspots.push({name:hotspotName, svgPath: svgPath,strokeColor: strokeColor,base64sound: base64sound});
+    }
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
+  }
+
+  getImageHotspots(selectedScene:number, selectedImage: number): Array<Hotspot> {
+    return this.SCENES[selectedScene].images[selectedImage].hotspots;
   }
 
 

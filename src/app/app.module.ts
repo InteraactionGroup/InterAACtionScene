@@ -11,6 +11,7 @@ import { AddSceneDialogComponent } from './add-scene-dialog/add-scene-dialog.com
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { AddImageDialogComponent } from './add-image-dialog/add-image-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +21,7 @@ import { RenameDialogComponent } from './rename-dialog/rename-dialog.component';
 import { ImportScenesDialogComponent } from './import-scenes-dialog/import-scenes-dialog.component';
 import { HotspotCreateComponent } from './hotspot-create/hotspot-create.component';
 import { HotspotCreateDialogComponent } from './hotspot-create-dialog/hotspot-create-dialog.component';
+import { HotspotDisplayComponent } from './hotspot-display/hotspot-display.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { HotspotCreateDialogComponent } from './hotspot-create-dialog/hotspot-cr
     ImportScenesDialogComponent,
     HotspotCreateComponent,
     HotspotCreateDialogComponent,
+    HotspotDisplayComponent,
   ],
   imports: [
     FormsModule,
@@ -47,7 +50,8 @@ import { HotspotCreateDialogComponent } from './hotspot-create-dialog/hotspot-cr
     ReactiveFormsModule,
     MatInputModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -36,6 +36,7 @@
 
  export class Hotspot {
    name: string;
-   svg: Element;
+   svgPath: string;
+   strokeColor: string;
    base64sound: string;
  }

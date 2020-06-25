@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder,ReactiveFormsModule  } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 import { ScenesService } from '../scenes.service';
 import { Scene,SceneImage } from '../types';
 
@@ -18,7 +19,7 @@ export class HotspotCreateDialogComponent implements OnInit {
   selectedSound = null;
   name: string = "";
   error: string = "";
-  element : Element;
+  svgPath : string;
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
@@ -28,7 +29,8 @@ export class HotspotCreateDialogComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       soundSelected: '',
-      name: ''
+      name: '',
+      color: ''
     })
   }
 
@@ -48,9 +50,11 @@ export class HotspotCreateDialogComponent implements OnInit {
 
 
   submit(form) {
+
     if (this.selectedSound != null && this.selectedSound.startsWith("data:audio/mpeg;base64")) {
       console.log(this.selectedSound);
-      this.scenesService.addHotspot(this.selectedScene,this.selectedImage,this.name,this.element,this.selectedSound);
+      this.scenesService.addHotspot(this.selectedScene,this.selectedImage,`${form.value.name}`,this.svgPath,`${form.value.color}`,this.selectedSound);
+      this.dialogRef.close();
     } else {
       this.error = "Invalid audio file";
     }

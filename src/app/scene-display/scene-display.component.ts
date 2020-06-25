@@ -142,6 +142,11 @@ export class SceneDisplayComponent implements OnInit {
 
   }
 
+  onHotspotsChange() {
+    this.SCENES = this.scenesService.getScenes();
+    this.currImage++;
+  }
+
   canvasSave(canvasData: string) {
     this.SCENES[this.selectedScene].images[this.selectedImage].canvasData = canvasData;
   }
