@@ -1,6 +1,7 @@
-import {  Component, Input,Output,EventEmitter, ElementRef, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import {  Component, Input, ElementRef,Output,EventEmitter, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
+import { ScenesService } from '../scenes.service';
 
 @Component({
   selector: 'app-canvas',
@@ -9,9 +10,10 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 })
 export class CanvasComponent implements OnInit {
 
-  constructor() { }
+  constructor(private scenesService: ScenesService) { }
 
   ngOnInit(): void {
+     this.InitializeCanvasWithJSON();
   }
 
 
@@ -19,6 +21,11 @@ export class CanvasComponent implements OnInit {
    @ViewChild('canvas') public canvas: ElementRef;
    @Input() public width : number;
    @Input() public height : number;
+   @Input() public selectedScene: number;
+   @Input() public selectedImage: number;
+   previousSelectedScene = 0;
+   previousSelectedImage = 0;
+   @Output() updateCanvas = new EventEmitter<string>();
    @Input() public selectedMode: string;
 
    @Input() public canvasD: string;
@@ -27,7 +34,7 @@ export class CanvasComponent implements OnInit {
        if (this.cx != undefined) {
          this.saveCanvas();
        }
-       //await this.delay(10);
+       await this.delay(10);
        this.ngAfterViewInit();
        this.InitializeCanvasWithJSON();
      })();
@@ -88,7 +95,6 @@ export class CanvasComponent implements OnInit {
        }
      }
    }
-   @Output() canvasSave = new EventEmitter<string>();
 
    private cx: CanvasRenderingContext2D;
 
@@ -107,13 +113,23 @@ export class CanvasComponent implements OnInit {
        this.captureEvents(canvasEl);
        this.InitializeCanvasWithJSON();
      }
+     this.previousSelectedScene = this.selectedScene;
+     this.previousSelectedImage = this.selectedImage;
    }
 
    public saveCanvas() {
-     var canvasContents = this.canvas.nativeElement.toDataURL(); // a data URL of the current canvas image
-     var data = { image: canvasContents, date: Date.now() };
-     var string = JSON.stringify(data);
-     this.canvasSave.emit(string);
+
+     (async () => {
+       var canvasContents = this.canvas.nativeElement.toDataURL(); // a data URL of the current canvas image
+       if (canvasContents != "data:," ) {
+         var data = { image: canvasContents, date: Date.now() };
+         var string = JSON.stringify(data);
+         await this.delay(5);
+         this.scenesService.canvasSave(this.previousSelectedScene,this.previousSelectedImage,string);
+         this.updateCanvas.emit("");
+       }
+     })();
+
    }
 
    private captureEvents(canvasEl: HTMLCanvasElement) {

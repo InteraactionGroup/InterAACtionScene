@@ -146,9 +146,8 @@ export class SceneDisplayComponent implements OnInit {
     this.SCENES = this.scenesService.getScenes();
     this.currImage++;
   }
-
-  canvasSave(canvasData: string) {
-    this.SCENES[this.selectedScene].images[this.selectedImage].canvasData = canvasData;
+  onCanvasChange() {
+    this.SCENES = this.scenesService.getScenes();
   }
 
   getScenes(): void {

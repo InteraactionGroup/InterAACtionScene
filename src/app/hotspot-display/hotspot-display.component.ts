@@ -38,10 +38,17 @@ export class HotspotDisplayComponent implements OnInit {
     if (this.hotspots != null && this.hotspots.length > 0) {
       this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height);
       for(let i=0; i < this.hotspots.length; i++){
-        let poly = this.drawing.polygon(this.hotspots[i].svgPath).attr({ fill: '#000000',
+        var pathStr = "";
+
+        for (let j = 0; j < this.hotspots[i].svgPointArray.length-1; j=j+2) {
+          pathStr += (this.hotspots[i].svgPointArray[j] * this.width).toString() + ",";
+          pathStr += (this.hotspots[i].svgPointArray[j+1] * this.height).toString() + " ";
+        }
+
+        let poly = this.drawing.polygon(pathStr).attr({ fill: '#000000',
                                                               'fill-opacity': 0.0,
                                                               stroke: this.hotspots[i].strokeColor,
-                                                              'stroke-width': 2 } );                                                            
+                                                              'stroke-width': 2 } );
         poly.node.addEventListener("click", (e:Event) => this.PlayAudio(i));
       }
     }

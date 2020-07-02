@@ -52,8 +52,12 @@
   <div *ngIf="selectedMode != 'manage-scenes'" class="bigImageContainer" #bigImageContainer>
     <div *ngIf="hasAtLeastOneScene() && SCENES[selectedScene].images[selectedImage].hidden === false" id="sceneDiv" style="width: {{imageWidth}};height: {{imageHeigth}}">
       <img id="bigImage" style="max-width:{{imageWidth}}px;max-height:{{imageHeigth}}px"  src="{{SCENES[selectedScene].images[selectedImage].base64data}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}" *ngIf="displayBar !== null">
-      <app-canvas [selectedMode]="selectedMode" id="canvas" [width]="imageWidth" [height]="imageHeigth" [currentDrawingTool]="currentDrawingTool" (canvasSave)="canvasSave($event)" [canvasD]="SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
-      <app-hotspot-display [width]="imageWidth" class="hotspot" [height]="imageHeigth" [selectedImage]="selectedImage" [selectedScene]="selectedScene" [currImage]="currImage"> </app-hotspot-display>
+      <!-- hotspot display is before is the mode isn't draw and after is the mode is draw -->
+      <app-hotspot-display *ngIf="selectedMode == 'draw'" [width]="imageWidth" [height]="imageHeigth" class="hotspot" [selectedImage]="selectedImage" [selectedScene]="selectedScene" [currImage]="currImage"> </app-hotspot-display>
+      <app-canvas (updateCanvas)="onCanvasChange()" [selectedImage]="selectedImage" [selectedScene]="selectedScene" [selectedMode]="selectedMode" id="canvas" [width]="imageWidth" [height]="imageHeigth" [currentDrawingTool]="currentDrawingTool" [canvasD]="SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
+      <app-hotspot-display *ngIf="selectedMode != 'draw'" [width]="imageWidth" [height]="imageHeigth" class="hotspot" [selectedImage]="selectedImage" [selectedScene]="selectedScene" [currImage]="currImage"> </app-hotspot-display>
+
+
       <app-hotspot-create *ngIf="selectedMode == 'hotspot'" [width]="imageWidth" class="hotspot" [height]="imageHeigth" [selectedImage]="selectedImage" [selectedScene]="selectedScene" (updateHotspots)="onHotspotsChange()" > </app-hotspot-create>
     </div>
   </div>

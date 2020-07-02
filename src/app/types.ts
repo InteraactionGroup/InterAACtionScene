@@ -36,7 +36,7 @@
 
  export class Hotspot {
    name: string;
-   svgPath: string;
+   svgPointArray: number[]; // Each point is in percentage
    strokeColor: string;
    base64sound: string;
  }

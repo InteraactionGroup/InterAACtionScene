@@ -10,6 +10,7 @@ export class ScenesService {
 
   constructor() {
     this.SCENES = JSON.parse(localStorage.getItem('Scenes'));
+
   }
 
   addScene(base64data : string,sceneName : string = "",firstimagename: string = "") {
@@ -33,6 +34,15 @@ export class ScenesService {
 
   addImage(base64data : string,sceneNumber: number,imageName : string = "") {
     this.SCENES[sceneNumber].images.push({name : imageName, base64data : base64data, canvasData : null,hidden : false , hotspots: Array<Hotspot>()})
+    localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
+  }
+
+  canvasSave(selectedScene: number, selectedImage: number,canvasData: string) {
+    this.SCENES[selectedScene].images[selectedImage].canvasData = canvasData;
+    console.log(selectedScene);
+    console.log(selectedImage);
+
+
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }
 
@@ -114,11 +124,11 @@ export class ScenesService {
   }
 
 
-  addHotspot(selectedScene:number, selectedImage: number,hotspotName:string, svgPath: string,strokeColor: string,base64sound: string) {
+  addHotspot(selectedScene:number, selectedImage: number,hotspotName:string, svgPath: number[],strokeColor: string,base64sound: string) {
     if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
-      this.SCENES[selectedScene].images[selectedImage].hotspots = [{name:hotspotName, svgPath: svgPath,strokeColor: strokeColor,base64sound: base64sound}];
+      this.SCENES[selectedScene].images[selectedImage].hotspots = [{name:hotspotName, svgPointArray: svgPath,strokeColor: strokeColor,base64sound: base64sound}];
     } else {
-      this.SCENES[selectedScene].images[selectedImage].hotspots.push({name:hotspotName, svgPath: svgPath,strokeColor: strokeColor,base64sound: base64sound});
+      this.SCENES[selectedScene].images[selectedImage].hotspots.push({name:hotspotName, svgPointArray: svgPath,strokeColor: strokeColor,base64sound: base64sound});
     }
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
   }

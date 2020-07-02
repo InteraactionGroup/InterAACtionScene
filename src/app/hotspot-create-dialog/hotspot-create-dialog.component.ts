@@ -19,7 +19,7 @@ export class HotspotCreateDialogComponent implements OnInit {
   selectedSound = null;
   name: string = "";
   error: string = "";
-  svgPath : string;
+  svgPath : number[];
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
@@ -46,6 +46,7 @@ export class HotspotCreateDialogComponent implements OnInit {
     reader.onerror = function (error) {
      console.log('Error: ', error);
     };
+    this.error = "";
   }
 
 
