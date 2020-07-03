@@ -47,6 +47,7 @@ export class HotspotCreateComponent implements OnInit  {
                   svgPathPointsPercentage.push(svgPathPoints[i]/this.width);
                   svgPathPointsPercentage.push(svgPathPoints[i+1]/this.height);
                 }
+                
 
 
                 const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
@@ -55,7 +56,7 @@ export class HotspotCreateComponent implements OnInit  {
                 dialogRef.componentInstance.selectedScene = this.selectedScene;
                 dialogRef.componentInstance.selectedImage = this.selectedImage;
                 dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
-                
+
 
                 dialogRef.afterClosed().subscribe(result => {
                   var cNode = this.hotspot.nativeElement.cloneNode(false);

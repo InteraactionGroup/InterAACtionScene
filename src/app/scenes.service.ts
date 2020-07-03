@@ -10,7 +10,6 @@ export class ScenesService {
 
   constructor() {
     this.SCENES = JSON.parse(localStorage.getItem('Scenes'));
-
   }
 
   addScene(base64data : string,sceneName : string = "",firstimagename: string = "") {

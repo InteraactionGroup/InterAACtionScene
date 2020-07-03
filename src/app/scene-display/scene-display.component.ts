@@ -181,7 +181,7 @@ export class SceneDisplayComponent implements OnInit {
     (async () => {
       this.getScenes();
        await this.delay(400);
-       if (this.SCENES.length != 0) {
+       if (this.SCENES != null && this.SCENES.length != 0) {
          this.selectNonHiddenScene();
          this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
          this.UpdateDimensions();
