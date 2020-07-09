@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, NgModule, ElementRef, ViewChild, OnChanges } from '@angular/core';
 import { Scene,SceneImage } from '../types';
 import { ScenesService } from '../scenes.service';
+import { SettingsService } from '../settings.service';
 import { AddSceneDialogComponent } from '../add-scene-dialog/add-scene-dialog.component';
 import { AddImageDialogComponent } from '../add-image-dialog/add-image-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { HotspotCreateComponent } from '../hotspot-create/hotspot-create.component';
 
 @Component({
   selector: 'app-scene-display',
@@ -22,6 +24,7 @@ export class SceneDisplayComponent implements OnInit {
   @Input() currentDrawingTool: string;
   @Output() imageChange = new EventEmitter<string>();
   @Input() selectedMode : string;
+  @Input() imageSelected : boolean = true;
 
   selectedScene = 0;
   selectedImage = 0;
@@ -33,13 +36,15 @@ export class SceneDisplayComponent implements OnInit {
 
   addButtonPath = 'images/add.png';
   SCENES: Array<Scene> = [];
+  SETTINGS : Array<Boolean> = [];
 
   changeScene(sceneNumber: number) {
-    this.selectedImage = 0;
     this.selectedScene = sceneNumber;
+    this.selectNonHiddenImage();
     this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
     this.scenesService.updateScenes(this.SCENES);
     this.UpdateDimensions();
+    this.imageSelected = false;
   }
 
   changeImage(imageNumber: number) {
@@ -47,6 +52,7 @@ export class SceneDisplayComponent implements OnInit {
     this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
     this.scenesService.updateScenes(this.SCENES);
     this.UpdateDimensions();
+    this.imageSelected = true;
   }
 
   @ViewChild("bigImageContainer") bigImageContainer: ElementRef;
@@ -89,9 +95,59 @@ export class SceneDisplayComponent implements OnInit {
     return false;
   }
 
+  selectNonHiddenScene() {
+      let i: number = 0;
+      while (i < this.SCENES.length && this.SCENES[i].hidden == true) {
+        i++;
+      }
+      if (i != this.SCENES.length) {
+        this.selectedScene = i;
+      } else {
+        this.selectedScene = 0;
+      }
+      this.selectNonHiddenImage();
+      this.UpdateDimensions();
+  }
 
-  canvasSave(canvasData: string) {
-    this.SCENES[this.selectedScene].images[this.selectedImage].canvasData = canvasData;
+  selectNonHiddenImage() {
+    let i: number = 0;
+    while (i < this.SCENES[this.selectedScene].images.length && this.SCENES[this.selectedScene].images[i].hidden == true) {
+      i++;
+    }
+    if (i != this.SCENES[this.selectedScene].images.length) {
+      this.selectedImage = i;
+    } else {
+      this.selectedImage = 0;
+    }
+  }
+
+  onScenesChange(functionUsed: string): void {
+    this.SCENES = this.scenesService.getScenes();
+    switch(functionUsed) {
+      case "hide":
+
+        break;
+      case "remove":
+        if (this.imageSelected === true) {
+          this.selectedImage = 0;
+        } else {
+          this.selectedScene = 0;
+          this.selectedImage = 0;
+        }
+        break;
+      case "rename":
+        this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
+        break;
+    }
+
+  }
+
+  onHotspotsChange() {
+    this.SCENES = this.scenesService.getScenes();
+    this.currImage++;
+  }
+  onCanvasChange() {
+    this.SCENES = this.scenesService.getScenes();
   }
 
   getScenes(): void {
@@ -122,15 +178,15 @@ export class SceneDisplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     (async () => {
       this.getScenes();
        await this.delay(400);
-       if (this.SCENES.length != 0) {
+       if (this.SCENES != null && this.SCENES.length != 0) {
+         this.selectNonHiddenScene();
          this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
          this.UpdateDimensions();
        }
-   })();
+    })();
   }
 
   delay(ms: number) {

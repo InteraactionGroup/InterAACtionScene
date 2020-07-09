@@ -1,0 +1,15 @@
+.managa-scenes{
+  width : 5cm;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  display: inline;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 2cm;
+  width: 2cm;
+  min-width: 1cm;
+  min-height: 1cm;
+}
