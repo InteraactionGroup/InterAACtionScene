@@ -1,5 +1,5 @@
-import { Component, OnInit ,Input,Output,EventEmitter,ViewChild,ElementRef } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit , Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { MatDialog} from '@angular/material/dialog';
 import { ScenesService } from '../scenes.service';
 import { HotspotCreateDialogComponent } from '../hotspot-create-dialog/hotspot-create-dialog.component';
 declare const SVG: any;
@@ -13,12 +13,12 @@ declare const SVG: any;
 export class HotspotCreateComponent implements OnInit  {
 
   drawing: any;
-  @Input() public width : number;
-  @Input() public height : number;
+  @Input() public width: number;
+  @Input() public height: number;
   @Input() public selectedScene: number;
   @Input() public selectedImage: number;
   @Input() public currImage: number;
-  @ViewChild("hotspot", { static: true }) hotspot: ElementRef;
+  @ViewChild('hotspot', { static: true }) hotspot: ElementRef;
   @Output() updateHotspots = new EventEmitter<string>();
 
   constructor(
@@ -33,21 +33,21 @@ export class HotspotCreateComponent implements OnInit  {
   async drawSVG() {
     this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height).polygon().draw();
     this.drawing.on('drawstart', (e) => {
-        document.addEventListener('keydown', (e) => {
-            if(e.keyCode == 13){
+        document.addEventListener('keydown', () => {
+            if (e.keyCode === 13){
                 this.drawing.draw('done');
                 this.drawing.off('drawstart');
                 //
                 console.log(this.width);
                 console.log(this.height);
 
-                let svgPathPoints = this.drawing.node.getAttribute("points").replace(/,/g, ' ').split(" ");
-                var svgPathPointsPercentage = [];
-                for (let i = 0; i < svgPathPoints.length-1; i=i+2) {
-                  svgPathPointsPercentage.push(svgPathPoints[i]/this.width);
-                  svgPathPointsPercentage.push(svgPathPoints[i+1]/this.height);
+                const svgPathPoints = this.drawing.node.getAttribute('points').replace(/,/g, ' ').split(' ');
+                const svgPathPointsPercentage = [];
+                for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
+                  svgPathPointsPercentage.push(svgPathPoints[i] / this.width);
+                  svgPathPointsPercentage.push(svgPathPoints[i + 1] / this.height);
                 }
-                
+
 
 
                 const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
@@ -59,24 +59,24 @@ export class HotspotCreateComponent implements OnInit  {
 
 
                 dialogRef.afterClosed().subscribe(result => {
-                  var cNode = this.hotspot.nativeElement.cloneNode(false);
+                  const cNode = this.hotspot.nativeElement.cloneNode(false);
                   this.hotspot.nativeElement.parentNode.replaceChild(cNode, this.hotspot.nativeElement);
-                  this.updateHotspots.emit("");
+                  this.updateHotspots.emit('');
                 });
 
-            } else if (e.keyCode == 27) {
+            } else if (e.keyCode === 27) {
                 this.drawing.draw('cancel');
             }
         });
     });
 
     //
-    this.drawing.node.setAttribute("stroke",'#000000');
-    this.drawing.node.setAttribute("stroke-width",2);
+    this.drawing.node.setAttribute('stroke', '#000000');
+    this.drawing.node.setAttribute('stroke-width', 2);
     // Filling the svg with a transparent color so the "onclick" attribute works in the middle.
-    this.drawing.node.setAttribute("fill",'#000000');
-    this.drawing.node.setAttribute("fill-opacity",0.0);
-    //this.drawing.node.setAttribute("onclick",'alert("You have clicked the svg element.")');
+    this.drawing.node.setAttribute('fill', '#000000');
+    this.drawing.node.setAttribute('fill-opacity', 0.0);
+    // this.drawing.node.setAttribute("onclick",'alert("You have clicked the svg element.")');
     this.drawing.on('drawstop', () => {
 
     });

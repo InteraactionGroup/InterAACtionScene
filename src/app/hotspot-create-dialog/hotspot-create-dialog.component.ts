@@ -1,10 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder,ReactiveFormsModule  } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSelectModule } from '@angular/material/select';
+import { FormGroup, FormBuilder, ReactiveFormsModule  } from '@angular/forms';
 import { ScenesService } from '../scenes.service';
-import { Scene,SceneImage } from '../types';
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -17,9 +14,9 @@ export class HotspotCreateDialogComponent implements OnInit {
   @Input() selectedImage: number;
   form: FormGroup;
   selectedSound = null;
-  name: string = "";
-  error: string = "";
-  svgPath : number[];
+  name = '';
+  error = '';
+  svgPath: number[];
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
@@ -31,33 +28,34 @@ export class HotspotCreateDialogComponent implements OnInit {
       soundSelected: '',
       name: '',
       color: ''
-    })
+    });
   }
 
   onSoundSelected(event) {
-    let me = this;
-    let file = event.target.files[0];
-    let reader = new FileReader();
+    const me = this;
+    const file = event.target.files[0];
+    const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedSound = reader.result;
     };
 
-    reader.onerror = function (error) {
+    reader.onerror = (error) => {
      console.log('Error: ', error);
     };
-    this.error = "";
+    this.error = '';
   }
 
 
   submit(form) {
 
-    if (this.selectedSound != null && this.selectedSound.startsWith("data:audio/mpeg;base64")) {
+    if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
       console.log(this.selectedSound);
-      this.scenesService.addHotspot(this.selectedScene,this.selectedImage,`${form.value.name}`,this.svgPath,`${form.value.color}`,this.selectedSound);
+      this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
+        this.svgPath, `${form.value.color}`, this.selectedSound);
       this.dialogRef.close();
     } else {
-      this.error = "Invalid audio file";
+      this.error = 'Invalid audio file';
     }
   }
 

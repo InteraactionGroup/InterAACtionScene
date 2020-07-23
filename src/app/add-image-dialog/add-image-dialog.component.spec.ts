@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule } from '@angular/material/dialog'
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { AddImageDialogComponent } from './add-image-dialog.component';
 import { ReactiveFormsModule  } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,7 +12,13 @@ describe('AddImageDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AddImageDialogComponent ],
-      imports : [MatDialogModule,ReactiveFormsModule,MatInputModule,BrowserAnimationsModule]
+      imports : [MatDialogModule, ReactiveFormsModule , MatInputModule , BrowserAnimationsModule],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        }
+      ]
     })
     .compileComponents();
   }));
