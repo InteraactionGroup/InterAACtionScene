@@ -32,8 +32,8 @@ export class HotspotCreateComponent implements OnInit  {
 
   async drawSVG() {
     this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height).polygon().draw();
-    this.drawing.on('drawstart', (e) => {
-        document.addEventListener('keydown', () => {
+    this.drawing.on('drawstart', (event) => {
+        document.addEventListener('keydown', (e) => {
             if (e.keyCode === 13){
                 this.drawing.draw('done');
                 this.drawing.off('drawstart');
