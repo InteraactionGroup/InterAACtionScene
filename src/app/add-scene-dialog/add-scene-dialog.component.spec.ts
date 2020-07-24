@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddSceneDialogComponent } from './add-scene-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog'
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule   } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,7 +12,13 @@ describe('AddSceneDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AddSceneDialogComponent ],
-      imports : [MatDialogModule,ReactiveFormsModule,MatInputModule,BrowserAnimationsModule ]
+      imports : [MatDialogModule , ReactiveFormsModule , MatInputModule , BrowserAnimationsModule ],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        }
+      ]
     })
     .compileComponents();
   }));

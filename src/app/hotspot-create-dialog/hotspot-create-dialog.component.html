@@ -3,7 +3,7 @@
   <mat-dialog-content>
     <input formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-bottom: 5px">
     <mat-form-field>
-      <mat-select formControlName="color" placeholder="Pick the stroke color" id="colorSelect">
+      <mat-select formControlName="color" placeholder="Pick the stroke color" id="colorSelect" ngDefaultControl>
         <mat-option [value]="'#000000'">Black</mat-option>
         <mat-option [value]="'#FFFFFF'">White</mat-option>
         <mat-option [value]="'#0080ff'">Blue</mat-option>
