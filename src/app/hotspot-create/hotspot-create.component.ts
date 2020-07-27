@@ -32,40 +32,44 @@ export class HotspotCreateComponent implements OnInit  {
 
   async drawSVG() {
     this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height).polygon().draw();
+
     this.drawing.on('drawstart', (event) => {
-        document.addEventListener('keydown', (e) => {
-            if (e.keyCode === 13){
-                this.drawing.draw('done');
-                this.drawing.off('drawstart');
-                //
-                console.log(this.width);
-                console.log(this.height);
+      let keyPressEvent = (e) => {
+        if (e.key === "Enter") {
+          this.drawing.draw('done');
+          this.drawing.off('drawstart');
+          //
+          console.log(this.width);
+          console.log(this.height);
 
-                const svgPathPoints = this.drawing.node.getAttribute('points').replace(/,/g, ' ').split(' ');
-                const svgPathPointsPercentage = [];
-                for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
-                  svgPathPointsPercentage.push(svgPathPoints[i] / this.width);
-                  svgPathPointsPercentage.push(svgPathPoints[i + 1] / this.height);
-                }
+          const svgPathPoints = this.drawing.node.getAttribute('points').replace(/,/g, ' ').split(' ');
+          const svgPathPointsPercentage = [];
+          for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
+            svgPathPointsPercentage.push(svgPathPoints[i] / this.width);
+            svgPathPointsPercentage.push(svgPathPoints[i + 1] / this.height);
+          }
 
-                const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
-                  width: '400px',
-                });
-                dialogRef.componentInstance.selectedScene = this.selectedScene;
-                dialogRef.componentInstance.selectedImage = this.selectedImage;
-                dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
+          const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
+            width: '400px',
+          });
+          dialogRef.componentInstance.selectedScene = this.selectedScene;
+          dialogRef.componentInstance.selectedImage = this.selectedImage;
+          dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
 
 
-                dialogRef.afterClosed().subscribe(result => {
-                  const cNode = this.hotspot.nativeElement.cloneNode(false);
-                  this.hotspot.nativeElement.parentNode.replaceChild(cNode, this.hotspot.nativeElement);
-                  this.updateHotspots.emit('');
-                });
+          dialogRef.afterClosed().subscribe(result => {
+            const cNode = this.hotspot.nativeElement.cloneNode(false);
+            this.hotspot.nativeElement.parentNode.replaceChild(cNode, this.hotspot.nativeElement);
+            this.updateHotspots.emit('');
+          });
 
-            } else if (e.keyCode === 27) {
-                this.drawing.draw('cancel');
-            }
-        });
+        } else if (e.key === "Escape" || e.key === "Esc") {
+          this.drawing.draw('cancel');
+        }
+        document.removeEventListener('keypress', keyPressEvent);
+      };
+      document.addEventListener('keypress', keyPressEvent);
+
     });
 
     //
