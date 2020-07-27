@@ -1,14 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder,ReactiveFormsModule  } from '@angular/forms';
-import {MatTableDataSource} from '@angular/material/table';
+import { FormGroup, FormBuilder} from '@angular/forms';
 import { ScenesService } from '../scenes.service';
 
 @Component({
   selector: 'app-add-image-dialog',
   templateUrl: './add-image-dialog.component.html',
   styleUrls: ['./add-image-dialog.component.css']
-  //providers: [ { provide : MatDialogRef, useValue: {}}]
 })
 export class AddImageDialogComponent implements OnInit {
 
@@ -29,7 +27,6 @@ export class AddImageDialogComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    let me = this;
     let file = event.target.files[0];
     let reader = new FileReader();
     reader.readAsDataURL(file);

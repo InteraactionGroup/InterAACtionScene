@@ -1,6 +1,6 @@
 import { Component, OnInit,Input,Output, EventEmitter } from '@angular/core';
 import { ScenesService } from '../scenes.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { RenameDialogComponent } from '../rename-dialog/rename-dialog.component';
 import { ImportScenesDialogComponent } from '../import-scenes-dialog/import-scenes-dialog.component';
@@ -66,7 +66,6 @@ export class ManageScenesComponent implements OnInit {
 
   rename(): void {
     let SCENES = this.scenesService.getScenes();
-    let tempString = "test";
     if (SCENES != null && SCENES.length != 0) {
       const dialogRef = this.dialog.open(RenameDialogComponent, {
         width: '350px',
@@ -82,13 +81,13 @@ export class ManageScenesComponent implements OnInit {
 
   export(): void {
     let SCENESjson = JSON.stringify(this.scenesService.getScenes());
-    var file = new Blob([SCENESjson], {type: 'text/json'});
+    const file = new Blob([SCENESjson], {type: 'text/json'});
     if (window.navigator.msSaveOrOpenBlob) // IE10+
        window.navigator.msSaveOrOpenBlob(file, 'scenes.json');
     else { // Others
-       var a = document.createElement("a"),
-               url = URL.createObjectURL(file);
-       a.href = url;
+      const a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+      a.href = url;
        a.download = 'scenes.json';
        document.body.appendChild(a);
        a.click();
@@ -100,7 +99,6 @@ export class ManageScenesComponent implements OnInit {
   }
 
   import(): void {
-    let tempString = "test";
     const dialogRef = this.dialog.open(ImportScenesDialogComponent, {
       width: '350px',
     });

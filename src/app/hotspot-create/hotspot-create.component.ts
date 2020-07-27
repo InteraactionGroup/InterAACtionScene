@@ -48,8 +48,6 @@ export class HotspotCreateComponent implements OnInit  {
                   svgPathPointsPercentage.push(svgPathPoints[i + 1] / this.height);
                 }
 
-
-
                 const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
                   width: '400px',
                 });
@@ -75,7 +73,7 @@ export class HotspotCreateComponent implements OnInit  {
     this.drawing.node.setAttribute('stroke-width', 2);
     // Filling the svg with a transparent color so the "onclick" attribute works in the middle.
     this.drawing.node.setAttribute('fill', '#000000');
-    this.drawing.node.setAttribute('fill-opacity', 0.0);
+    this.drawing.node.setAttribute('fill-opacity', "0.0");
     // this.drawing.node.setAttribute("onclick",'alert("You have clicked the svg element.")');
     this.drawing.on('drawstop', () => {
 

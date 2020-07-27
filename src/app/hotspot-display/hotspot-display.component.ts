@@ -38,7 +38,7 @@ export class HotspotDisplayComponent implements OnInit {
     if (this.hotspots != null && this.hotspots.length > 0) {
       this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height);
       for(let i=0; i < this.hotspots.length; i++){
-        var pathStr = "";
+        let pathStr = "";
 
         for (let j = 0; j < this.hotspots[i].svgPointArray.length-1; j=j+2) {
           pathStr += (this.hotspots[i].svgPointArray[j] * this.width).toString() + ",";

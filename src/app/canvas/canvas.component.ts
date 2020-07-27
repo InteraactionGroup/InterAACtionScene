@@ -57,27 +57,27 @@ export class CanvasComponent implements OnInit {
        this.cx.globalCompositeOperation="source-over";
        switch(drawingTool) {
          case "white": {
-            this.cx.strokeStyle = "#FFFFFF"
+            this.cx.strokeStyle = "#FFFFFF";
             break;
          }
          case "black": {
-            this.cx.strokeStyle = "#000000"
+            this.cx.strokeStyle = "#000000";
             break;
          }
          case "red": {
-            this.cx.strokeStyle = "#f34336"
+            this.cx.strokeStyle = "#f34336";
             break;
          }
          case "orange": {
-            this.cx.strokeStyle = "#ff7f00"
+            this.cx.strokeStyle = "#ff7f00";
             break;
          }
          case "blue": {
-            this.cx.strokeStyle = "#0080ff"
+            this.cx.strokeStyle = "#0080ff";
             break;
          }
          case "green": {
-            this.cx.strokeStyle = "#228b22"
+            this.cx.strokeStyle = "#228b22";
             break;
          }
          case "clear": {
@@ -89,7 +89,7 @@ export class CanvasComponent implements OnInit {
             break;
          }
          default: {
-            this.cx.strokeStyle = "#000000"
+            this.cx.strokeStyle = "#000000";
             break;
          }
        }

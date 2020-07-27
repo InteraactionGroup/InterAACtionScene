@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Color } from '../types';
-import { SceneDisplayComponent } from '../scene-display/scene-display.component';
 
 @Component({
   selector: 'app-menubar',
