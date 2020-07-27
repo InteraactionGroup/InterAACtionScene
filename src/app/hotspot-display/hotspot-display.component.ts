@@ -49,7 +49,21 @@ export class HotspotDisplayComponent implements OnInit {
                                                               'fill-opacity': 0.0,
                                                               stroke: this.hotspots[i].strokeColor,
                                                               'stroke-width': 2 } );
+        let enterEvent = (e:Event) => {
+          poly.node.setAttribute("fill", this.hotspots[i].strokeColor);
+          poly.node.setAttribute('fill-opacity', "0.5");
+        };
+
+        let leaveEvent = (e:Event) => {
+          poly.node.setAttribute("fill", '#000000');
+          poly.node.setAttribute('fill-opacity', "0.0");
+        };
+
         poly.node.addEventListener("click", (e:Event) => this.PlayAudio(i));
+        poly.node.addEventListener("mouseenter", enterEvent);
+        poly.node.addEventListener("mouseleave", leaveEvent);
+        poly.node.addEventListener("touchenter", enterEvent);
+        poly.node.addEventListener("touchleave", leaveEvent);
       }
     }
 
