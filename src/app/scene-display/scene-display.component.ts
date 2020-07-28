@@ -14,7 +14,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 export class SceneDisplayComponent implements OnInit {
 
   @Input() public set imageName(imageName: string) {
-      if (imageName != null) {
+      if (imageName != null && this.SCENES[this.selectedScene]!==null) {
         this.SCENES[this.selectedScene].images[this.selectedImage].name = imageName;
       }
     }

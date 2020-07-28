@@ -48,7 +48,7 @@ export class ImportScenesDialogComponent implements OnInit {
       try {
         let scenes = JSON.parse(this.selectedFile);
         if(scenes as Array<Scene>){
-          this.scenesService.setScenesFromJSON(scenes);
+          this.scenesService.updateScenes(scenes);
           this.dialogRef.close();
         }
       } catch (error) {

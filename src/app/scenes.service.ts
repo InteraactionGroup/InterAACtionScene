@@ -49,11 +49,6 @@ export class ScenesService {
     return JSON.parse(localStorage.getItem('Scenes'));
   }
 
-  setScenesFromJSON(scenes : Array<Scene>) {
-    this.SCENES = scenes;
-    localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
-  }
-
   updateScenes(scenes : Array<Scene>) {
     this.SCENES = scenes;
     localStorage.setItem('Scenes',JSON.stringify(this.SCENES));
@@ -86,18 +81,14 @@ export class ScenesService {
 
   hideImage(selectedScene: number, selectedImage: number) {
     let sceneIsHidden = this.SCENES[selectedScene].images[selectedImage].hidden;
-    if (sceneIsHidden) {
-      this.SCENES[selectedScene].images[selectedImage].hidden = false;
-    } else {
-      this.SCENES[selectedScene].images[selectedImage].hidden = true;
-    }
+    this.SCENES[selectedScene].images[selectedImage].hidden = !sceneIsHidden;
     // Hides the scene if all it's images are hidden
     let i: number = 0;
-    while (i < this.SCENES[selectedScene].images.length && this.SCENES[selectedScene].images[i].hidden == true) {
+    while (i < this.SCENES[selectedScene].images.length && this.SCENES[selectedScene].images[i].hidden) {
       i++;
     }
     if (i == this.SCENES[selectedScene].images.length) {
-      if (this.SCENES[selectedScene].hidden === false) {
+      if (!this.SCENES[selectedScene].hidden) {
         this.hideScene(selectedScene);
       }
     }
@@ -110,7 +101,7 @@ export class ScenesService {
       this.SCENES[selectedScene].hidden = false;
       // Test if all of the images in the scene are hidden, unhides the first if so.
       let i: number = 0;
-      while (i < this.SCENES[selectedScene].images.length && this.SCENES[selectedScene].images[i].hidden == true) {
+      while (i < this.SCENES[selectedScene].images.length && this.SCENES[selectedScene].images[i].hidden) {
         i++;
       }
       if (i == this.SCENES[selectedScene].images.length) {
