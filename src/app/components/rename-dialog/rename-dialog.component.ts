@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder} from '@angular/forms';
-import { ScenesService } from '../scenes.service';
+import { ScenesService } from '../../services/scenes.service';
 
 @Component({
   selector: 'app-rename-dialog',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Scene,SceneImage,Hotspot } from './types';
+import { Scene,SceneImage,Hotspot } from '../types';
 
 @Injectable({
   providedIn: 'root'

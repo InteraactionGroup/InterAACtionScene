@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, NgModule, ElementRef, ViewChild, OnChanges } from '@angular/core';
-import { Scene} from '../types';
-import { ScenesService } from '../scenes.service';
+import { Scene} from '../../types';
+import { ScenesService } from '../../services/scenes.service';
 import { AddSceneDialogComponent } from '../add-scene-dialog/add-scene-dialog.component';
 import { AddImageDialogComponent } from '../add-image-dialog/add-image-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {ModeService} from "../../services/mode.service";
 
 @Component({
   selector: 'app-scene-display',
@@ -21,7 +22,6 @@ export class SceneDisplayComponent implements OnInit {
   @Input() displayBar: boolean;
   @Input() currentDrawingTool: string;
   @Output() imageChange = new EventEmitter<string>();
-  @Input() selectedMode : string;
   @Input() imageSelected : boolean = true;
 
   selectedScene = 0;
@@ -153,7 +153,7 @@ export class SceneDisplayComponent implements OnInit {
   }
 
   constructor(private scenesService: ScenesService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog, private modeService: ModeService) { }
 
   openAddSceneDialog() {
     this.addSceneDialogRef = this.dialog.open(AddSceneDialogComponent, {

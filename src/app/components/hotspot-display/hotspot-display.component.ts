@@ -1,6 +1,6 @@
 import { Component, OnInit,Input,ViewChild,ElementRef } from '@angular/core';
-import { ScenesService } from '../scenes.service';
-import { Hotspot } from '../types';
+import { ScenesService } from '../../services/scenes.service';
+import { Hotspot } from '../../types';
 declare const SVG: any;
 @Component({
   selector: 'app-hotspot-display',

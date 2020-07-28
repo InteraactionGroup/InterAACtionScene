@@ -1,7 +1,8 @@
 import { Component, OnInit , Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
-import { ScenesService } from '../scenes.service';
+import { ScenesService } from '../../services/scenes.service';
 import { HotspotCreateDialogComponent } from '../hotspot-create-dialog/hotspot-create-dialog.component';
+import {ModeService} from "../../services/mode.service";
 declare const SVG: any;
 
 @Component({
@@ -23,7 +24,7 @@ export class HotspotCreateComponent implements OnInit  {
 
   constructor(
     private scenesService: ScenesService,
-    private dialog: MatDialog
+    private dialog: MatDialog, private modeService: ModeService
   ) { }
 
   ngOnInit() {
@@ -31,6 +32,7 @@ export class HotspotCreateComponent implements OnInit  {
   }
 
   async drawSVG() {
+    console.log("drawing is starting");
     this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height).polygon().draw();
 
     this.drawing.on('drawstart', (event) => {
@@ -61,6 +63,8 @@ export class HotspotCreateComponent implements OnInit  {
             const cNode = this.hotspot.nativeElement.cloneNode(false);
             this.hotspot.nativeElement.parentNode.replaceChild(cNode, this.hotspot.nativeElement);
             this.updateHotspots.emit('');
+            this.modeService.selectedMode = '';
+            this.modeService.selectedMode = 'hotspot';
           });
 
         } else if (e.key === "Escape" || e.key === "Esc") {

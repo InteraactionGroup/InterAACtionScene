@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { Color } from '../types';
+import { Color } from '../../types';
+import {ModeService} from "../../services/mode.service";
 
 @Component({
   selector: 'app-menubar',
@@ -8,7 +9,6 @@ import { Color } from '../types';
 })
 export class MenubarComponent implements OnInit {
 
-  mode = "play";
   sceneTitle : string;
   displayBar = true;
   hideShowButtonChar = "▲";
@@ -23,7 +23,7 @@ export class MenubarComponent implements OnInit {
   ];
 
   changeMode(mode : string): void {
-    this.mode = mode;
+    this.modeService.selectedMode = mode;
   }
 
   changeColor(toolName: string): void {
@@ -33,7 +33,7 @@ export class MenubarComponent implements OnInit {
   hideShowMenu(): void {
     if (this.displayBar === true) {
       this.displayBar = false;
-      this.mode="play";
+      this.modeService.selectedMode="play";
       this.hideShowButtonChar = "▼";
     } else {
       this.displayBar = true;
@@ -45,7 +45,7 @@ export class MenubarComponent implements OnInit {
     this.sceneTitle = imageName;
   }
 
-  constructor() { }
+  constructor(private modeService: ModeService) { }
 
   ngOnInit(): void {
   }

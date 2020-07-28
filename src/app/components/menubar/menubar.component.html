@@ -5,30 +5,30 @@
 
     <button (click)="changeMode('play')"
     class= "button"
-    [class.selected]="mode === 'play'">
+    [class.selected]="modeService.selectedMode === 'play'">
     Play
     </button>
 
     <button (click)="changeMode('hotspot')"
     class= "button"
-    [class.selected]="mode === 'hotspot'">
-      Hotspot
+    [class.selected]="modeService.selectedMode === 'hotspot'">
+      Add Hotspot
     </button>
 
     <button (click)="changeMode('manage-scenes')"
     class= "button"
-    [class.selected]="mode === 'manage-scenes'">
+    [class.selected]="modeService.selectedMode === 'manage-scenes'">
       Manage Scenes
     </button>
 
     <button (click)="changeMode('draw')"
     class= "button"
-    [class.selected]="mode === 'draw'">
+    [class.selected]="modeService.selectedMode === 'draw'">
       Draw
     </button>
 
     <div class="drawingMode"
-    *ngIf="mode === 'draw'">
+    *ngIf="modeService.selectedMode === 'draw'">
       <button type="button"
       *ngFor="let color of COLORS"
       [style.background-color]="color.hex"
@@ -43,14 +43,14 @@
 
     <input [(ngModel)]="sceneTitle"
     value="{{sceneTitle}}"
-    *ngIf="mode !== 'draw'"/>
+    *ngIf="modeService.selectedMode !== 'draw'"/>
 
     <a routerLink="/settings"
-    *ngIf="mode !== 'draw'">Settings</a>
+    *ngIf="modeService.selectedMode !== 'draw'">Settings</a>
 
   </div>
 </div>
 <button id="hideShowButton" type="button" (click)="hideShowMenu()" >{{hideShowButtonChar}}</button>
 
 <app-scene-display
-[imageName]="sceneTitle" [displayBar]="displayBar" [selectedMode]="mode" [currentDrawingTool]="currentDrawingTool" (imageChange)="onImageChange($event)"></app-scene-display>
+[imageName]="sceneTitle" [displayBar]="displayBar" [currentDrawingTool]="currentDrawingTool" (imageChange)="onImageChange($event)"></app-scene-display>

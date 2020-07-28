@@ -1,7 +1,8 @@
 import {  Component, Input, ElementRef,Output,EventEmitter, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
-import { ScenesService } from '../scenes.service';
+import { ScenesService } from '../../services/scenes.service';
+import {ModeService} from "../../services/mode.service";
 
 @Component({
   selector: 'app-canvas',
@@ -10,7 +11,7 @@ import { ScenesService } from '../scenes.service';
 })
 export class CanvasComponent implements OnInit {
 
-  constructor(private scenesService: ScenesService) { }
+  constructor(private scenesService: ScenesService, private modeService: ModeService) { }
 
   ngOnInit(): void {
      this.InitializeCanvasWithJSON();
@@ -26,7 +27,6 @@ export class CanvasComponent implements OnInit {
    previousSelectedScene = 0;
    previousSelectedImage = 0;
    @Output() updateCanvas = new EventEmitter<string>();
-   @Input() public selectedMode: string;
 
    @Input() public canvasD: string;
    @Input() public set imageChange(imageChange: number) {
@@ -162,7 +162,7 @@ export class CanvasComponent implements OnInit {
          };
 
          // This method does the actual drawing
-         if (this.selectedMode === "draw") {
+         if (this.modeService.selectedMode === "draw") {
            this.drawOnCanvas(prevPos, currentPos);
          }
        });

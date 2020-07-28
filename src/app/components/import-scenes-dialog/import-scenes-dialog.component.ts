@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder} from '@angular/forms';
-import { ScenesService } from '../scenes.service';
-import { Scene} from '../types';
+import { ScenesService } from '../../services/scenes.service';
+import { Scene} from '../../types';
 
 
 @Component({

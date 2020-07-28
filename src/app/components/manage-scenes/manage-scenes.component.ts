@@ -1,5 +1,5 @@
 import { Component, OnInit,Input,Output, EventEmitter } from '@angular/core';
-import { ScenesService } from '../scenes.service';
+import { ScenesService } from '../../services/scenes.service';
 import { MatDialog} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { RenameDialogComponent } from '../rename-dialog/rename-dialog.component';
