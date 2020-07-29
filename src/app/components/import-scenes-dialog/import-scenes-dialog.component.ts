@@ -29,7 +29,6 @@ export class ImportScenesDialogComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    let me = this;
     let file = event.target.files[0];
     let reader = new FileReader();
     reader.readAsText(file, "UTF-8");

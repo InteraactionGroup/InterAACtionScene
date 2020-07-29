@@ -32,7 +32,6 @@ export class HotspotCreateDialogComponent implements OnInit {
   }
 
   onSoundSelected(event) {
-    const me = this;
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -48,7 +47,6 @@ export class HotspotCreateDialogComponent implements OnInit {
 
 
   submit(form) {
-
     if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
       console.log(this.selectedSound);
       this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,

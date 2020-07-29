@@ -64,7 +64,6 @@ export class ManageScenesComponent implements OnInit {
     }
   }
 
-
   rename(): void {
     let SCENES = this.scenesService.getScenes();
     if (SCENES != null && SCENES.length != 0) {

@@ -12,7 +12,7 @@ export class ScenesService {
     this.SCENES = JSON.parse(localStorage.getItem('Scenes'));
   }
 
-  addScene(base64data : string,sceneName : string = "",firstimagename: string = "") {
+  addScene(base64data : string,sceneName : string = "", firstimagename: string = "") {
     if (this.SCENES == null || this.SCENES.length == 0) {
       this.SCENES = [{name: sceneName,
                       images: [
@@ -114,7 +114,7 @@ export class ScenesService {
   }
 
 
-  addHotspot(selectedScene:number, selectedImage: number,hotspotName:string, svgPath: number[],strokeColor: string,base64sound: string) {
+  addHotspot(selectedScene:number, selectedImage: number, hotspotName:string, svgPath: number[], strokeColor: string,base64sound: string) {
     if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
       this.SCENES[selectedScene].images[selectedImage].hotspots = [{name:hotspotName, svgPointArray: svgPath,strokeColor: strokeColor,base64sound: base64sound}];
     } else {

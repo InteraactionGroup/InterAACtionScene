@@ -24,8 +24,7 @@ export class HotspotCreateComponent implements OnInit  {
 
   constructor(
     private scenesService: ScenesService,
-    private dialog: MatDialog, private modeService: ModeService
-  ) { }
+    private dialog: MatDialog, public modeService: ModeService) { }
 
   ngOnInit() {
     this.drawSVG();
@@ -40,11 +39,9 @@ export class HotspotCreateComponent implements OnInit  {
         if (e.key === "Enter") {
           this.drawing.draw('done');
           this.drawing.off('drawstart');
-          //
-          console.log(this.width);
-          console.log(this.height);
 
-          const svgPathPoints = this.drawing.node.getAttribute('points').replace(/,/g, ' ').split(' ');
+          const svgPathPoints = this.drawing.node.getAttribute('points')
+            .replace(/,/g, ' ').split(' ');
           const svgPathPointsPercentage = [];
           for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
             svgPathPointsPercentage.push(svgPathPoints[i] / this.width);

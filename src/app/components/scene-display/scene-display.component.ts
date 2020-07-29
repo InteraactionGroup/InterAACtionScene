@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, NgModule, ElementRef, ViewChild, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild} from '@angular/core';
 import { Scene} from '../../types';
 import { ScenesService } from '../../services/scenes.service';
 import { AddSceneDialogComponent } from '../add-scene-dialog/add-scene-dialog.component';
@@ -56,7 +56,7 @@ export class SceneDisplayComponent implements OnInit {
   @ViewChild("bigImageContainer") bigImageContainer: ElementRef;
 
   UpdateDimensions() {
-    this.getScenes();
+    this.onCanvasChange();
     let img = new Image();
     img.src = this.SCENES[this.selectedScene].images[this.selectedImage].base64data;
     img.onload = function (event) {
@@ -66,7 +66,6 @@ export class SceneDisplayComponent implements OnInit {
     };
     this.imageWidth = img.width;
     this.imageHeigth = img.height;
-
 
     //variable to call an update on the canvas
     this.currImage++;
@@ -123,7 +122,6 @@ export class SceneDisplayComponent implements OnInit {
     this.SCENES = this.scenesService.getScenes();
     switch(functionUsed) {
       case "hide":
-
         break;
       case "remove":
         if (this.imageSelected === true) {
@@ -148,19 +146,15 @@ export class SceneDisplayComponent implements OnInit {
     this.SCENES = this.scenesService.getScenes();
   }
 
-  getScenes(): void {
-    this.SCENES = this.scenesService.getScenes();
-  }
-
   constructor(private scenesService: ScenesService,
-              private dialog: MatDialog, private modeService: ModeService) { }
+              private dialog: MatDialog, public modeService: ModeService) { }
 
   openAddSceneDialog() {
     this.addSceneDialogRef = this.dialog.open(AddSceneDialogComponent, {
       hasBackdrop: true
     });
     this.addSceneDialogRef.afterClosed().subscribe(result => {
-      this.getScenes();
+      this.onCanvasChange();
     });
   }
 
@@ -171,13 +165,13 @@ export class SceneDisplayComponent implements OnInit {
     let instance = this.addImageDialogRef.componentInstance;
     instance.sceneNumber = this.selectedScene;
     this.addImageDialogRef.afterClosed().subscribe(result => {
-      this.getScenes();
+      this.onCanvasChange();
     });
   }
 
   ngOnInit(): void {
     (async () => {
-      this.getScenes();
+      this.onCanvasChange();
        await this.delay(400);
        if (this.SCENES != null && this.SCENES.length != 0) {
          this.selectNonHiddenScene();

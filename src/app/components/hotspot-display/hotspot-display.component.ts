@@ -46,9 +46,9 @@ export class HotspotDisplayComponent implements OnInit {
         }
 
         let poly = this.drawing.polygon(pathStr).attr({ fill: '#000000',
-                                                              'fill-opacity': 0.0,
-                                                              stroke: this.hotspots[i].strokeColor,
-                                                              'stroke-width': 2 } );
+                                                        'fill-opacity': 0.0,
+                                                        stroke: this.hotspots[i].strokeColor,
+                                                        'stroke-width': 2 } );
         let enterEvent = (e:Event) => {
           poly.node.setAttribute("fill", this.hotspots[i].strokeColor);
           poly.node.setAttribute('fill-opacity', "0.5");

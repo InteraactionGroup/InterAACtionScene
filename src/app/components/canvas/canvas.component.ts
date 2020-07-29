@@ -11,14 +11,12 @@ import {ModeService} from "../../services/mode.service";
 })
 export class CanvasComponent implements OnInit {
 
-  constructor(private scenesService: ScenesService, private modeService: ModeService) { }
+  constructor(private scenesService: ScenesService, public modeService: ModeService) { }
 
   ngOnInit(): void {
      this.InitializeCanvasWithJSON();
   }
 
-
-   reader = new FileReader();
    @ViewChild('canvas') public canvas: ElementRef;
    @Input() public width : number;
    @Input() public height : number;
@@ -42,8 +40,8 @@ export class CanvasComponent implements OnInit {
 
   InitializeCanvasWithJSON() {
     if (this.canvasD != null) {
-      var data = JSON.parse(this.canvasD);
-      var image = new Image();
+      const data = JSON.parse(this.canvasD);
+      const image = new Image();
       image.src = data.image; // data.image contains the data URL
       image.onload = () => {
         this.cx.clearRect(0, 0, this.width, this.height);
@@ -118,18 +116,16 @@ export class CanvasComponent implements OnInit {
    }
 
    public saveCanvas() {
-
      (async () => {
-       var canvasContents = this.canvas.nativeElement.toDataURL(); // a data URL of the current canvas image
+       const canvasContents = this.canvas.nativeElement.toDataURL(); // a data URL of the current canvas image
        if (canvasContents != "data:," ) {
-         var data = { image: canvasContents, date: Date.now() };
-         var string = JSON.stringify(data);
+         const data = {image: canvasContents, date: Date.now()};
+         const string = JSON.stringify(data);
          await this.delay(5);
          this.scenesService.canvasSave(this.previousSelectedScene,this.previousSelectedImage,string);
          this.updateCanvas.emit("");
        }
      })();
-
    }
 
    private captureEvents(canvasEl: HTMLCanvasElement) {

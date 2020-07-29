@@ -45,7 +45,7 @@ export class MenubarComponent implements OnInit {
     this.sceneTitle = imageName;
   }
 
-  constructor(private modeService: ModeService) { }
+  constructor(public modeService: ModeService) { }
 
   ngOnInit(): void {
   }
