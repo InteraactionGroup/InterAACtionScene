@@ -2,7 +2,7 @@ import { Component, OnInit , Input, Output, EventEmitter, ViewChild, ElementRef 
 import { MatDialog} from '@angular/material/dialog';
 import { ScenesService } from '../../services/scenes.service';
 import { HotspotCreateDialogComponent } from '../hotspot-create-dialog/hotspot-create-dialog.component';
-import {ModeService} from "../../services/mode.service";
+import {ModeService} from '../../services/mode.service';
 declare const SVG: any;
 
 @Component({
@@ -31,12 +31,12 @@ export class HotspotCreateComponent implements OnInit  {
   }
 
   async drawSVG() {
-    console.log("drawing is starting");
+    console.log('drawing is starting');
     this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height).polygon().draw();
 
     this.drawing.on('drawstart', (event) => {
-      let keyPressEvent = (e) => {
-        if (e.key === "Enter") {
+      const keyPressEvent = (e) => {
+        if (e.key === 'Enter') {
           this.drawing.draw('done');
           this.drawing.off('drawstart');
 
@@ -64,7 +64,7 @@ export class HotspotCreateComponent implements OnInit  {
             this.modeService.selectedMode = 'hotspot';
           });
 
-        } else if (e.key === "Escape" || e.key === "Esc") {
+        } else if (e.key === 'Escape' || e.key === 'Esc') {
           this.drawing.draw('cancel');
         }
         document.removeEventListener('keypress', keyPressEvent);
@@ -78,7 +78,7 @@ export class HotspotCreateComponent implements OnInit  {
     this.drawing.node.setAttribute('stroke-width', 2);
     // Filling the svg with a transparent color so the "onclick" attribute works in the middle.
     this.drawing.node.setAttribute('fill', '#000000');
-    this.drawing.node.setAttribute('fill-opacity', "0.0");
+    this.drawing.node.setAttribute('fill-opacity', '0.0');
     // this.drawing.node.setAttribute("onclick",'alert("You have clicked the svg element.")');
     this.drawing.on('drawstop', () => {
 

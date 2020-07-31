@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder} from '@angular/forms';
 import { ScenesService } from '../../services/scenes.service';
 import { Scene} from '../../types';
+import {JsonValidatorService} from '../../services/json-validator.service';
 
 
 @Component({
@@ -14,10 +15,11 @@ export class ImportScenesDialogComponent implements OnInit {
 
   form: FormGroup;
   selectedFile = null;
-  error: string = "";
+  error = '';
 
   constructor(
     private scenesService: ScenesService,
+    private jsonValidatorService: JsonValidatorService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ImportScenesDialogComponent>
   ) { }
@@ -25,18 +27,18 @@ export class ImportScenesDialogComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       fileSelected: ''
-    })
+    });
   }
 
   onFileSelected(event) {
-    let file = event.target.files[0];
-    let reader = new FileReader();
-    reader.readAsText(file, "UTF-8");
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
     reader.onload = () => {
       this.selectedFile = reader.result;
     };
 
-    reader.onerror = function (error) {
+    reader.onerror = (error) => {
      console.log('Error: ', error);
     };
   }
@@ -45,13 +47,13 @@ export class ImportScenesDialogComponent implements OnInit {
   submit(form) {
     if (this.selectedFile != null) {
       try {
-        let scenes = JSON.parse(this.selectedFile);
-        if(scenes as Array<Scene>){
+        const scenes = this.jsonValidatorService.getCheckedGrid(JSON.parse(this.selectedFile));
+        if (scenes as Array<Scene>){
           this.scenesService.updateScenes(scenes);
           this.dialogRef.close();
         }
       } catch (error) {
-        this.error = "Invalid file."
+        this.error = 'Invalid file.';
       }
     }
   }

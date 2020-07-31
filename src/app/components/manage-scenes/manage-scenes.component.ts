@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ScenesService } from '../../services/scenes.service';
 import { MatDialog} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
@@ -24,49 +24,49 @@ export class ManageScenesComponent implements OnInit {
   }
 
   hide(): void {
-    let SCENES = this.scenesService.getScenes();
-    if (SCENES != null && SCENES.length != 0) {
+    const SCENES = this.scenesService.getScenes();
+    if (SCENES != null && SCENES.length !== 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: "Do you want to hide " +
-          (this.imageSelected ? "the image : " + SCENES[this.selectedScene].images[this.selectedImage].name : "the scene : " + SCENES[this.selectedScene].name ) + " ?"
+        data: 'Do you want to hide ' +
+          (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name ) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
-        if(result) {
+        if (result) {
           if (this.imageSelected) {
-            this.scenesService.hideImage(this.selectedScene,this.selectedImage);
+            this.scenesService.hideImage(this.selectedScene, this.selectedImage);
           } else {
             this.scenesService.hideScene(this.selectedScene);
           }
-          this.updateScenes.emit("hide");
+          this.updateScenes.emit('hide');
         }
       });
     }
   }
 
   remove(): void {
-    let SCENES = this.scenesService.getScenes();
+    const SCENES = this.scenesService.getScenes();
     if (SCENES != null && SCENES.length != 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: "Do you confirm the deletion of " + (this.imageSelected ? "the image : " + SCENES[this.selectedScene].images[this.selectedImage].name : "the scene : " + SCENES[this.selectedScene].name ) + " ?"
+        data: 'Do you confirm the deletion of ' + (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name ) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
-        if(result) {
+        if (result) {
           if (this.imageSelected == true) {
-            this.scenesService.removeImage(this.selectedScene,this.selectedImage);
+            this.scenesService.removeImage(this.selectedScene, this.selectedImage);
           } else {
             this.scenesService.removeScene(this.selectedScene);
           }
-          this.updateScenes.emit("remove");
+          this.updateScenes.emit('remove');
         }
       });
     }
   }
 
   rename(): void {
-    let SCENES = this.scenesService.getScenes();
-    if (SCENES != null && SCENES.length != 0) {
+    const SCENES = this.scenesService.getScenes();
+    if (SCENES != null && SCENES.length !== 0) {
       const dialogRef = this.dialog.open(RenameDialogComponent, {
         width: '350px',
       });
@@ -74,24 +74,25 @@ export class ManageScenesComponent implements OnInit {
       dialogRef.componentInstance.selectedImage = this.selectedImage;
       dialogRef.componentInstance.imageSelected = this.imageSelected;
       dialogRef.afterClosed().subscribe(result => {
-        this.updateScenes.emit("rename");
+        this.updateScenes.emit('rename');
       });
     }
   }
 
   export(): void {
-    let SCENESjson = JSON.stringify(this.scenesService.getScenes());
+    const SCENESjson = JSON.stringify(this.scenesService.getScenes());
     const file = new Blob([SCENESjson], {type: 'text/json'});
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
+    if (window.navigator.msSaveOrOpenBlob) { // IE10+
        window.navigator.msSaveOrOpenBlob(file, 'scenes.json');
+    }
     else { // Others
-      const a = document.createElement("a"),
-        url = URL.createObjectURL(file);
+      const a = document.createElement('a');
+      const url = URL.createObjectURL(file);
       a.href = url;
-       a.download = 'scenes.json';
-       document.body.appendChild(a);
-       a.click();
-       setTimeout(function() {
+      a.download = 'scenes.json';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
            document.body.removeChild(a);
            window.URL.revokeObjectURL(url);
        }, 0);
@@ -103,7 +104,7 @@ export class ManageScenesComponent implements OnInit {
       width: '350px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.updateScenes.emit("import");
+      this.updateScenes.emit('import');
     });
 
   }

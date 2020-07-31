@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder} from '@angular/forms';
-import { ScenesService } from '../../services/scenes.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ScenesService} from '../../services/scenes.service';
 
 @Component({
   selector: 'app-add-image-dialog',
@@ -18,33 +18,34 @@ export class AddImageDialogComponent implements OnInit {
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AddImageDialogComponent>
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       imagename: ''
-    })
+    });
   }
 
   onFileSelected(event) {
-    let file = event.target.files[0];
-    let reader = new FileReader();
+    const file = event.target.files[0];
+    const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedFile = reader.result;
     };
 
-    reader.onerror = function (error) {
-     console.log('Error: ', error);
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
     };
 
   }
 
   submit(form) {
     if (this.selectedFile != null) {
-      this.scenesService.addImage(this.selectedFile,this.sceneNumber,`${form.value.imagename}`)
+      this.scenesService.addImage(this.selectedFile, this.sceneNumber, `${form.value.imagename}`);
     }
-    //this.scenesService.addScene(,`${form.value.imagename}`);
+    // this.scenesService.addScene(,`${form.value.imagename}`);
     this.dialogRef.close();
   }
 
