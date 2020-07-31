@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MenubarComponent } from './menubar/menubar.component'
+import { MenubarComponent } from './components/menubar/menubar.component'
 
 
 const routes: Routes = [
