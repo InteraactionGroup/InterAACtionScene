@@ -51,10 +51,10 @@
   <!-- Selected image at the right -->
   <div *ngIf="modeService.selectedMode != 'manage-scenes'" class="bigImageContainer" #bigImageContainer>
     <div *ngIf="hasAtLeastOneScene() && SCENES[selectedScene].images[selectedImage].hidden === false" id="sceneDiv" [ngStyle]="{'width': imageWidth,'height': imageHeigth}">
-      <img id="bigImage" [ngStyle]="{'max-width':imageWidth+'px','max-height':imageHeigth+'px'}"  src="{{SCENES[selectedScene].images[selectedImage].base64data}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}" *ngIf="displayBar !== null">
+      <img id="bigImage" src="{{SCENES[selectedScene].images[selectedImage].base64data}}" alt="{{SCENES[selectedScene].images[selectedImage].name}}" *ngIf="displayBar !== null">
       <!-- hotspot display is before is the mode isn't draw and after is the mode is draw -->
       <app-hotspot-display *ngIf="modeService.selectedMode == 'draw'" [width]="imageWidth" [height]="imageHeigth" class="hotspot" [selectedImage]="selectedImage" [selectedScene]="selectedScene" [currImage]="currImage"> </app-hotspot-display>
-      <app-canvas (updateCanvas)="onCanvasChange()" [selectedImage]="selectedImage" [selectedScene]="selectedScene" id="canvas" [width]="imageWidth" [height]="imageHeigth" [currentDrawingTool]="currentDrawingTool" [canvasD]="SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
+      <app-canvas (updateCanvas)="onCanvasChange()" [selectedImage]="selectedImage" [selectedScene]="selectedScene" id="canvas" [currentDrawingTool]="currentDrawingTool" [canvasD]="SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
       <app-hotspot-display *ngIf="modeService.selectedMode != 'draw'" [width]="imageWidth" [height]="imageHeigth" class="hotspot" [selectedImage]="selectedImage" [selectedScene]="selectedScene" [currImage]="currImage"> </app-hotspot-display>
 
 
