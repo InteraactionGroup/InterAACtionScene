@@ -84,7 +84,6 @@ export class SceneDisplayComponent implements OnInit {
     }
   }
 
-
   hasAtLeastOneScene(){
     if(this.SCENES !== null) {
       return this.SCENES.length != 0;
@@ -155,6 +154,7 @@ export class SceneDisplayComponent implements OnInit {
     });
     this.addSceneDialogRef.afterClosed().subscribe(result => {
       this.onCanvasChange();
+      this.ngOnInit();
     });
   }
 
