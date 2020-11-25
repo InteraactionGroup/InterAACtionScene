@@ -7,9 +7,11 @@ import { Scene, SceneImage, Hotspot } from '../types';
 export class ScenesService {
 
   SCENES: Array<Scene> = [];
+  openRequest;
 
   constructor() {
-    this.SCENES = JSON.parse(localStorage.getItem('Scenes'));
+    console.log("start");
+    this.init();
   }
 
   addScene(base64data: string, sceneName: string = '', firstimagename: string = '') {
@@ -28,46 +30,44 @@ export class ScenesService {
                         hidden : false
                       });
     }
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   addImage(base64data: string, sceneNumber: number, imageName: string = '') {
     this.SCENES[sceneNumber].images.push({name : imageName, base64data, canvasData : null, hidden : false , hotspots: Array<Hotspot>()});
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   canvasSave(selectedScene: number, selectedImage: number, canvasData: string) {
     this.SCENES[selectedScene].images[selectedImage].canvasData = canvasData;
     console.log(selectedScene);
     console.log(selectedImage);
-
-
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   getScenes(): Array<Scene> {
-    return JSON.parse(localStorage.getItem('Scenes'));
+    console.log("GET SCENES");
+    return this.SCENES;
   }
 
-  updateScenes(scenes: Array<Scene>) {
-    this.SCENES = scenes;
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+  updateScenes() {
+    this.update();
   }
 
   renameImage(selectedScene: number, selectedImage: number, newImageName: string) {
     this.SCENES[selectedScene].images[selectedImage].name = newImageName;
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   renameScene(selectedScene: number, newImageName: string) {
     this.SCENES[selectedScene].name = newImageName;
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   removeImage(selectedScene: number, selectedImage: number) {
     if (this.SCENES[selectedScene].images.length >= 2) {
       this.SCENES[selectedScene].images.splice(selectedImage, 1);
-      localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+      this.update();
     } else {
       this.removeScene(selectedScene);
     }
@@ -76,7 +76,7 @@ export class ScenesService {
 
   removeScene(selectedScene: number) {
     this.SCENES.splice(selectedScene, 1);
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   hideImage(selectedScene: number, selectedImage: number) {
@@ -92,7 +92,7 @@ export class ScenesService {
         this.hideScene(selectedScene);
       }
     }
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   hideScene(selectedScene: number) {
@@ -110,7 +110,7 @@ export class ScenesService {
     } else {
       this.SCENES[selectedScene].hidden = true;
     }
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
 
@@ -120,12 +120,79 @@ export class ScenesService {
     } else {
       this.SCENES[selectedScene].images[selectedImage].hotspots.push({name: hotspotName, svgPointArray: svgPath, strokeColor, base64sound});
     }
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   getImageHotspots(selectedScene: number, selectedImage: number): Array<Hotspot> {
     return this.SCENES[selectedScene].images[selectedImage].hotspots;
   }
 
+  // INITIALISATION
+  init() {
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const gridStore = db.transaction(['Scenes']).objectStore('Scenes').get(1);
+      gridStore.onsuccess = e => {
+        console.log("SUCESS INIT");
+        this.SCENES = gridStore.result;
+        console.log(this.SCENES);
+      };
+
+    };
+
+    this.openRequest.onupgradeneeded = event => {
+
+      // Creaction of Store
+      const db = event.target.result;
+      const transaction = event.target.transaction;
+
+      console.log("INIT UPGRADE");
+
+      db.createObjectStore('Scenes', {autoIncrement: true});
+      const paletteStore = transaction.objectStore('Scenes');
+      paletteStore.add(this.SCENES);
+
+    };
+  }
+
+  update() {
+    console.log("UPDATE");
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      // if (!db.objectStoreNames.contains('Palette') || !db.objectStoreNames.contains('Grid')) {
+      //   this.init();
+      // }
+
+      // UPDATE THE GRID
+      const gridStore = db.transaction(['Scenes'], 'readwrite');
+      const gridObjectStore = gridStore.objectStore('Scenes');
+      const storeGridRequest = gridObjectStore.get(1);
+      storeGridRequest.onsuccess = () => {
+        console.log("SUCCESSED UPDATE");
+        gridObjectStore.put(this.SCENES, 1);
+      };
+
+    };
+  }
 
 }

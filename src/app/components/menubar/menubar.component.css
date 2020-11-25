@@ -1,6 +1,6 @@
 .menubar {
-  height:100%;
-  max-height: 7vh;
+  height: 7vh;
+  /* max-height: 7vh; */
   min-height: 65px;
   min-width: 7cm;
   position: relative;

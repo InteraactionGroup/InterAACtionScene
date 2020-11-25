@@ -4,6 +4,12 @@
   display: flex;
 }
 
+.fullScreen-scene-display{
+  max-width: 100vh;
+  height: 100vh;
+  display: flex;
+}
+
 .scene-display .scenes{
   width : 3cm;
   display: flex;
@@ -18,7 +24,7 @@
 
 .scene-display .scenes .scenes-virtual-viewport .scene{
   padding: 5px;
-  width: 100%;
+  width: calc(100% - 10px);
   height: 3cm;
 }
 
@@ -28,10 +34,10 @@
 
 .scene-display .scenes .scenes-virtual-viewport .scene button{
   float: right;
-  width: 100%;
+  width: calc(3cm - 10px);
   height: 3cm;
   min-width: 1cm;
-  max-width: 3cm;
+  /* max-width: 3cm; */
   border-radius: 5px;
 }
 
@@ -60,9 +66,9 @@
 }
 
 .image{
-  height: 3cm;
   padding: 5px;
-  width: 95%;
+  width: calc(100% - 10px);
+  height: 3cm;
 }
 
 .image:hover{
@@ -79,18 +85,21 @@
 
 .image button {
   float: right;
-  width: 100%;
+  width: calc(3cm - 10px);
   height: 3cm;
   min-width: 1cm;
-  max-width: 3cm;
+  /* max-width: 3cm; */
   border-radius: 5px;
 }
 
 .scene-display .bigImageContainer {
   background-color: #add8e6;
-  flex-grow: 4;
   text-align: center;
   max-height: 100%;
+  display: inline-grid;
+  align-items: center;
+  align-content: center;
+  width: calc(100% - 6cm);
 }
 
 .scene-display .bigImageContainer #sceneDiv img{
@@ -104,7 +113,7 @@
   position:relative;
   border:3px solid black;
   border-radius: 10px;
-  box-shadow: 0 5px 50px #333;
+  /*box-shadow: 0 5px 50px #333;*/
 }
 
 #canvas{
@@ -122,6 +131,7 @@
 .buttonimg {
   max-width: 2.5cm;
   max-height: 2cm;
+  margin: 0 -5px;
 }
 
 .hidden {

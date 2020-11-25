@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class ModeService {
 
   selectedMode: String = 'play';
+  displayBar = true;
 
   constructor() { }
 }

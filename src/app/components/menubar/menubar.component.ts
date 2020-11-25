@@ -10,7 +10,6 @@ import {ModeService} from "../../services/mode.service";
 export class MenubarComponent implements OnInit {
 
   sceneTitle : string;
-  displayBar = true;
   hideShowButtonChar = "▲";
   currentDrawingTool = "white";
   COLORS: Color[] = [
@@ -31,12 +30,12 @@ export class MenubarComponent implements OnInit {
   }
 
   hideShowMenu(): void {
-    if (this.displayBar === true) {
-      this.displayBar = false;
+    if (this.modeService.displayBar === true) {
+      this.modeService.displayBar = false;
       this.modeService.selectedMode="play";
       this.hideShowButtonChar = "▼";
     } else {
-      this.displayBar = true;
+      this.modeService.displayBar = true;
       this.hideShowButtonChar = "▲"
     }
   }
