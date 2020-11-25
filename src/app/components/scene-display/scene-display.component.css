@@ -1,11 +1,11 @@
 .scene-display {
-  max-width: 100vw;
+  width: 100vw;
   height: 91vh;
   display: flex;
 }
 
 .fullScreen-scene-display{
-  max-width: 100vh;
+  width: 100vw;
   height: 100vh;
   display: flex;
 }

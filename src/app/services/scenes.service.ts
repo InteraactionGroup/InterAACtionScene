@@ -10,7 +10,6 @@ export class ScenesService {
   openRequest;
 
   constructor() {
-    console.log("start");
     this.init();
   }
 
@@ -40,13 +39,10 @@ export class ScenesService {
 
   canvasSave(selectedScene: number, selectedImage: number, canvasData: string) {
     this.SCENES[selectedScene].images[selectedImage].canvasData = canvasData;
-    console.log(selectedScene);
-    console.log(selectedImage);
     this.update();
   }
 
   getScenes(): Array<Scene> {
-    console.log("GET SCENES");
     return this.SCENES;
   }
 
@@ -143,9 +139,7 @@ export class ScenesService {
 
       const gridStore = db.transaction(['Scenes']).objectStore('Scenes').get(1);
       gridStore.onsuccess = e => {
-        console.log("SUCESS INIT");
         this.SCENES = gridStore.result;
-        console.log(this.SCENES);
       };
 
     };
@@ -156,8 +150,6 @@ export class ScenesService {
       const db = event.target.result;
       const transaction = event.target.transaction;
 
-      console.log("INIT UPGRADE");
-
       db.createObjectStore('Scenes', {autoIncrement: true});
       const paletteStore = transaction.objectStore('Scenes');
       paletteStore.add(this.SCENES);
@@ -166,7 +158,6 @@ export class ScenesService {
   }
 
   update() {
-    console.log("UPDATE");
 
     this.openRequest = indexedDB.open('Saves', 1);
 
@@ -188,7 +179,6 @@ export class ScenesService {
       const gridObjectStore = gridStore.objectStore('Scenes');
       const storeGridRequest = gridObjectStore.get(1);
       storeGridRequest.onsuccess = () => {
-        console.log("SUCCESSED UPDATE");
         gridObjectStore.put(this.SCENES, 1);
       };
 
