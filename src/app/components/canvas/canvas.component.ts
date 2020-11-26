@@ -91,7 +91,7 @@ export class CanvasComponent implements OnInit {
           break;
         }
         default: {
-          this.cx.strokeStyle = '#000000';
+          this.cx.strokeStyle = '#FFFFFF';
           break;
         }
       }

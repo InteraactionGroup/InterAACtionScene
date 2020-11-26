@@ -14,6 +14,7 @@ declare const SVG: any;
 export class HotspotCreateComponent implements OnInit  {
 
   drawing: any;
+  hotspotTool = '';
   @Input() public width: number;
   @Input() public height: number;
   @Input() public selectedScene: number;

@@ -100,6 +100,7 @@
   align-items: center;
   align-content: center;
   width: calc(100% - 6cm);
+  border-top: 5px solid #ff7f00;
 }
 
 .scene-display .bigImageContainer #sceneDiv img{

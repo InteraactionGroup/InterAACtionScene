@@ -11,7 +11,6 @@ export class MenubarComponent implements OnInit {
 
   sceneTitle : string;
   hideShowButtonChar = "▲";
-  currentDrawingTool = "white";
   COLORS: Color[] = [
     { name: "white"  , hex: '#FFFFFF' },
     { name: "black"  , hex: '#000000' },
@@ -26,7 +25,7 @@ export class MenubarComponent implements OnInit {
   }
 
   changeColor(toolName: string): void {
-    this.currentDrawingTool = toolName;
+    this.modeService.currentDrawingTool = toolName;
   }
 
   hideShowMenu(): void {

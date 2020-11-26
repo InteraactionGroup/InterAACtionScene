@@ -6,13 +6,15 @@ import {ModeService} from "../../services/mode.service";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
-  templateUrl: './hotspot-create-dialog.component.html',
-  styleUrls: ['./hotspot-create-dialog.component.css']
+  templateUrl: './hotspot-modify-dialog.component.html',
+  styleUrls: ['./hotspot-modify-dialog.component.css']
 })
-export class HotspotCreateDialogComponent implements OnInit {
+export class HotspotModifyDialogComponent implements OnInit {
 
   @Input() selectedScene: number;
   @Input() selectedImage: number;
+  @Input() index: number;
+  @Input() poly;
   form: FormGroup;
   selectedSound = null;
   name = '';
@@ -22,14 +24,19 @@ export class HotspotCreateDialogComponent implements OnInit {
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private modeService: ModeService,
-    private dialogRef: MatDialogRef<HotspotCreateDialogComponent>
+    private dialogRef: MatDialogRef<HotspotModifyDialogComponent>
   ) { }
 
   ngOnInit(): void {
+    // name: string;
+    // svgPointArray: number[]; // Each point is in percentage
+    // strokeColor: string;
+    // base64sound: string;
+    // this.modeService.hotspots[this.index]
     this.form = this.formBuilder.group({
       soundSelected: '',
-      name: '',
-      color: ''
+      name: this.modeService.hotspots[this.index].name,
+      color: this.modeService.hotspots[this.index].strokeColor
     });
   }
 
@@ -49,15 +56,13 @@ export class HotspotCreateDialogComponent implements OnInit {
 
 
   submit(form) {
-    if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
-      console.log(this.selectedSound);
-      this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-        this.svgPath, `${form.value.color}`, this.selectedSound);
-      this.dialogRef.close();
-    } else {
-      this.error = 'Invalid audio file';
-    }
+    this.modeService.hotspots[this.index].strokeColor = `${form.value.color}`;
+    this.modeService.hotspots[this.index].name = `${form.value.name}`;
     this.modeService.currentDrawingTool = '';
+    if(this.selectedSound!=='' && this.selectedSound!==null){
+      this.modeService.hotspots[this.index].base64sound = this.selectedSound;
+    }
+    this.poly.node.setAttribute('stroke', this.modeService.hotspots[this.index].strokeColor);
+    this.dialogRef.close();
   }
-
 }

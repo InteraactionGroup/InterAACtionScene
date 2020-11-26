@@ -41,16 +41,24 @@
       (click)="changeColor('clear')">Clear</button>
     </div>
 
+    <div class="drawingMode"
+         *ngIf="modeService.selectedMode === 'hotspot'">
+      <button type="button"
+              (click)="changeColor('add')">Add</button>
+
+      <button type="button"
+              (click)="changeColor('modify')">Modify</button>
+    </div>
+
     <input [(ngModel)]="sceneTitle"
     value="{{sceneTitle}}"
-    *ngIf="modeService.selectedMode !== 'draw'"/>
+    *ngIf="modeService.selectedMode === 'play'"/>
 
-    <a routerLink="/settings"
-    *ngIf="modeService.selectedMode !== 'draw'">Settings</a>
+    <a routerLink="/settings">Settings</a>
 
   </div>
 </div>
 <button id="hideShowButton" type="button" (click)="hideShowMenu()" >{{hideShowButtonChar}}</button>
 
 <app-scene-display
-[imageName]="sceneTitle" [currentDrawingTool]="currentDrawingTool" (imageChange)="onImageChange($event)"></app-scene-display>
+[imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>

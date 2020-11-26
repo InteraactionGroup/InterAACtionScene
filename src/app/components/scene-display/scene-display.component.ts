@@ -19,7 +19,6 @@ export class SceneDisplayComponent implements OnInit {
         this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].name = imageName;
       }
     }
-  @Input() currentDrawingTool: string;
   @Output() imageChange = new EventEmitter<string>();
   @Input() imageSelected : boolean = true;
 
