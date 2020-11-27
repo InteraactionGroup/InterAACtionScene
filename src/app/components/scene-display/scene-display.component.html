@@ -39,7 +39,7 @@
 
       <!-- Images of the scene -->
       <div class="image"
-      *cdkVirtualFor="let image of this.scenesService.SCENES[selectedScene].images; let i = index"
+      *ngFor="let image of this.scenesService.SCENES[selectedScene].images; let i = index"
       [class.selected]="selectedImage === i"
       [class.hidden]="modeService.selectedMode !== 'manage-scenes' && image.hidden === true">
         <button type="button" [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && selectedImage === i"
@@ -60,7 +60,6 @@
       <app-hotspot-display *ngIf="modeService.selectedMode == 'draw'" [width]="imageWidth" [height]="imageHeigth" class="hotspot" [selectedImage]="selectedImage" [selectedScene]="selectedScene" > </app-hotspot-display>
       <app-canvas (updateCanvas)="onCanvasChange()" [selectedImage]="selectedImage" [selectedScene]="selectedScene" id="canvas" [width]="imageWidth" [height]="imageHeigth" [currentDrawingTool]="modeService.currentDrawingTool" [canvasD]="scenesService.SCENES[selectedScene].images[selectedImage].canvasData"  [imageChange]="currImage"></app-canvas>
       <app-hotspot-display *ngIf="modeService.selectedMode !== 'draw'" [width]="imageWidth" [height]="imageHeigth" class="hotspot" [selectedImage]="selectedImage" [selectedScene]="selectedScene" > </app-hotspot-display>
-
       <app-hotspot-create *ngIf="modeService.selectedMode === 'hotspot' && modeService.currentDrawingTool === 'add' " [width]="imageWidth" class="hotspot" [height]="imageHeigth" [selectedImage]="selectedImage" [selectedScene]="selectedScene" (updateHotspots)="onHotspotsChange()" > </app-hotspot-create>
     </div>
   </div>
