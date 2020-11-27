@@ -49,7 +49,8 @@ export class ImportScenesDialogComponent implements OnInit {
       try {
         const scenes = this.jsonValidatorService.getCheckedGrid(JSON.parse(this.selectedFile));
         if (scenes as Array<Scene>){
-          this.scenesService.updateScenes(scenes);
+          this.scenesService.SCENES = scenes;
+          this.scenesService.updateScenes();
           this.dialogRef.close();
         }
       } catch (error) {

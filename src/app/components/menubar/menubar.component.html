@@ -1,7 +1,7 @@
-<div class="menubar"  *ngIf="displayBar === true">
+<div class="menubar"  *ngIf="modeService.displayBar">
 
   <div class="menu"
-   [class.MenuBottomBar]="displayBar === true">
+   [class.MenuBottomBar]="modeService.displayBar">
 
     <button (click)="changeMode('play')"
     class= "button"
@@ -12,7 +12,7 @@
     <button (click)="changeMode('hotspot')"
     class= "button"
     [class.selected]="modeService.selectedMode === 'hotspot'">
-      Add Hotspot
+      Manage Hotspots
     </button>
 
     <button (click)="changeMode('manage-scenes')"
@@ -41,16 +41,26 @@
       (click)="changeColor('clear')">Clear</button>
     </div>
 
+    <div class="drawingMode"
+         *ngIf="modeService.selectedMode === 'hotspot'">
+      <button type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('add')">Add Hotspot</button>
+
+      <button type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('modify')">Modify Hotspot</button>
+    </div>
+
     <input [(ngModel)]="sceneTitle"
     value="{{sceneTitle}}"
-    *ngIf="modeService.selectedMode !== 'draw'"/>
+    *ngIf="modeService.selectedMode === 'play'"/>
 
-    <a routerLink="/settings"
-    *ngIf="modeService.selectedMode !== 'draw'">Settings</a>
+<!--    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >-->
+<!--      Settings-->
+<!--    </a>-->
 
   </div>
 </div>
 <button id="hideShowButton" type="button" (click)="hideShowMenu()" >{{hideShowButtonChar}}</button>
 
 <app-scene-display
-[imageName]="sceneTitle" [displayBar]="displayBar" [currentDrawingTool]="currentDrawingTool" (imageChange)="onImageChange($event)"></app-scene-display>
+[imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>

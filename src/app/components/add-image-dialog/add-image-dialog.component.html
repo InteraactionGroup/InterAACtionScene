@@ -5,7 +5,7 @@
       <input matInput formControlName="imagename" placeholder="Enter the image name">
     </mat-form-field>
     <br>
-    <input type="file" accept=".png, .jpg" (change)="onFileSelected($event)">
+    <input type="file" accept="image/*" (change)="onFileSelected($event)">
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button type="submit">Add</button>

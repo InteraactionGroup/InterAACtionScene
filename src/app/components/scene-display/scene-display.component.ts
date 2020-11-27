@@ -15,12 +15,10 @@ import {ModeService} from "../../services/mode.service";
 export class SceneDisplayComponent implements OnInit {
 
   @Input() public set imageName(imageName: string) {
-      if (imageName != null && this.SCENES[this.selectedScene]!==null) {
-        this.SCENES[this.selectedScene].images[this.selectedImage].name = imageName;
+      if (imageName != null && this.scenesService.SCENES[this.selectedScene]!==null) {
+        this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].name = imageName;
       }
     }
-  @Input() displayBar: boolean;
-  @Input() currentDrawingTool: string;
   @Output() imageChange = new EventEmitter<string>();
   @Input() imageSelected : boolean = true;
 
@@ -33,22 +31,21 @@ export class SceneDisplayComponent implements OnInit {
   addImageDialogRef: MatDialogRef<AddImageDialogComponent>;
 
   addButtonPath = 'images/add.png';
-  SCENES: Array<Scene> = [];
   SETTINGS : Array<Boolean> = [];
 
   changeScene(sceneNumber: number) {
     this.selectedScene = sceneNumber;
     this.selectNonHiddenImage();
-    this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
-    this.scenesService.updateScenes(this.SCENES);
+    this.imageChange.emit(this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].name);
+    this.scenesService.updateScenes();
     this.UpdateDimensions();
     this.imageSelected = false;
   }
 
   changeImage(imageNumber: number) {
     this.selectedImage = imageNumber;
-    this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
-    this.scenesService.updateScenes(this.SCENES);
+    this.imageChange.emit(this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].name);
+    this.scenesService.updateScenes();
     this.UpdateDimensions();
     this.imageSelected = true;
   }
@@ -58,12 +55,7 @@ export class SceneDisplayComponent implements OnInit {
   UpdateDimensions() {
     this.onCanvasChange();
     let img = new Image();
-    img.src = this.SCENES[this.selectedScene].images[this.selectedImage].base64data;
-    img.onload = function (event) {
-      let loadedImage = event.currentTarget as HTMLImageElement;
-      let width = loadedImage.width;
-      let height = loadedImage.height;
-    };
+    img.src = this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].base64data;
     this.imageWidth = img.width;
     this.imageHeigth = img.height;
 
@@ -73,30 +65,30 @@ export class SceneDisplayComponent implements OnInit {
     let bigImageContainer: HTMLDivElement = this.bigImageContainer.nativeElement;
     // Resizes the image if its bigger than the div holding it
     if (this.imageWidth > bigImageContainer.clientWidth) {
-      let relation = bigImageContainer.clientWidth/this.imageWidth;
+      let relation = (bigImageContainer.clientWidth-20)/this.imageWidth;
       this.imageWidth *= relation;
       this.imageHeigth *= relation;
     }
     if (this.imageHeigth > bigImageContainer.clientHeight) {
-      let relation = bigImageContainer.clientHeight/this.imageHeigth;
+      let relation = (bigImageContainer.clientHeight-20)/this.imageHeigth;
       this.imageWidth *= relation;
       this.imageHeigth *= relation;
     }
   }
 
   hasAtLeastOneScene(){
-    if(this.SCENES !== null) {
-      return this.SCENES.length != 0;
+    if(this.scenesService.SCENES !== null) {
+      return this.scenesService.SCENES.length != 0;
     }
     return false;
   }
 
   selectNonHiddenScene() {
       let i: number = 0;
-      while (i < this.SCENES.length && this.SCENES[i].hidden == true) {
+      while (i < this.scenesService.SCENES.length && this.scenesService.SCENES[i].hidden == true) {
         i++;
       }
-      if (i != this.SCENES.length) {
+      if (i != this.scenesService.SCENES.length) {
         this.selectedScene = i;
       } else {
         this.selectedScene = 0;
@@ -107,10 +99,10 @@ export class SceneDisplayComponent implements OnInit {
 
   selectNonHiddenImage() {
     let i: number = 0;
-    while (i < this.SCENES[this.selectedScene].images.length && this.SCENES[this.selectedScene].images[i].hidden == true) {
+    while (i < this.scenesService.SCENES[this.selectedScene].images.length && this.scenesService.SCENES[this.selectedScene].images[i].hidden == true) {
       i++;
     }
-    if (i != this.SCENES[this.selectedScene].images.length) {
+    if (i != this.scenesService.SCENES[this.selectedScene].images.length) {
       this.selectedImage = i;
     } else {
       this.selectedImage = 0;
@@ -118,7 +110,7 @@ export class SceneDisplayComponent implements OnInit {
   }
 
   onScenesChange(functionUsed: string): void {
-    this.SCENES = this.scenesService.getScenes();
+    this.scenesService.SCENES = this.scenesService.getScenes();
     switch(functionUsed) {
       case "hide":
         break;
@@ -131,21 +123,21 @@ export class SceneDisplayComponent implements OnInit {
         }
         break;
       case "rename":
-        this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
+        this.imageChange.emit(this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].name);
         break;
     }
 
   }
 
   onHotspotsChange() {
-    this.SCENES = this.scenesService.getScenes();
+    this.scenesService.SCENES = this.scenesService.getScenes();
     this.currImage++;
   }
   onCanvasChange() {
-    this.SCENES = this.scenesService.getScenes();
+    this.scenesService.SCENES = this.scenesService.getScenes();
   }
 
-  constructor(private scenesService: ScenesService,
+  constructor(public scenesService: ScenesService,
               private dialog: MatDialog, public modeService: ModeService) { }
 
   openAddSceneDialog() {
@@ -173,9 +165,9 @@ export class SceneDisplayComponent implements OnInit {
     (async () => {
       this.onCanvasChange();
        await this.delay(400);
-       if (this.SCENES != null && this.SCENES.length != 0) {
+       if (this.scenesService.SCENES != null && this.scenesService.SCENES.length != 0) {
          this.selectNonHiddenScene();
-         this.imageChange.emit(this.SCENES[this.selectedScene].images[this.selectedImage].name);
+         this.imageChange.emit(this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].name);
          this.UpdateDimensions();
        }
     })();

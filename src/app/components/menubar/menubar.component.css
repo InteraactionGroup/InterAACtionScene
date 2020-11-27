@@ -1,4 +1,8 @@
 .menubar {
+  height: 7vh;
+  /* max-height: 7vh; */
+  min-height: 65px;
+  min-width: 7cm;
   position: relative;
   display: flex;
 }
@@ -24,6 +28,7 @@
   width: 2cm;
   min-width: 1cm;
   min-height: 1cm;
+  margin: 0 5px;
 }
 
 .menubar .menu .button:hover {
@@ -37,6 +42,9 @@
 .menubar .menu .drawingMode {
   display: flex;
   background-color: #ade5e6;
+  column-gap: 5px;
+  padding: 0 5px;
+  margin: 0 auto;
 }
 
 .menubar .menu .drawingMode button{
@@ -67,18 +75,18 @@
 .menubar .menu a {
   padding: 5px 10px;
   text-decoration: none;
-  display: inline-block;
+  align-content: center;
+  display: grid;
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
   float: right;
-  height: 1.25cm;
-  width: 1.5cm;
-  max-height: 14vw;
-  max-width: 14vw;
-  min-width: 1cm;
+  margin-right: 5px;
+  border: rgb(59, 59, 59) solid 2px;
+  background-color: rgb(239, 239, 239);
+  height: 1.5cm;
+  box-sizing: border-box;
   min-height: 1cm;
-  margin-right: 1cm;
 }
 .menubar .menu a:visited, a:link {
   color: #334953;

@@ -3,16 +3,19 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, ReactiveFormsModule  } from '@angular/forms';
 import { ScenesService } from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
+import {Hotspot} from "../../types";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
-  templateUrl: './hotspot-create-dialog.component.html',
-  styleUrls: ['./hotspot-create-dialog.component.css']
+  templateUrl: './hotspot-modify-dialog.component.html',
+  styleUrls: ['./hotspot-modify-dialog.component.css']
 })
-export class HotspotCreateDialogComponent implements OnInit {
+export class HotspotModifyDialogComponent implements OnInit {
 
   @Input() selectedScene: number;
   @Input() selectedImage: number;
+  @Input() hotspot: Hotspot;
+  @Input() poly;
   form: FormGroup;
   selectedSound = null;
   name = '';
@@ -22,14 +25,14 @@ export class HotspotCreateDialogComponent implements OnInit {
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private modeService: ModeService,
-    private dialogRef: MatDialogRef<HotspotCreateDialogComponent>
+    private dialogRef: MatDialogRef<HotspotModifyDialogComponent>
   ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       soundSelected: '',
-      name: '',
-      color: ''
+      name: this.hotspot.name,
+      color: this.hotspot.strokeColor
     });
   }
 
@@ -49,15 +52,13 @@ export class HotspotCreateDialogComponent implements OnInit {
 
 
   submit(form) {
-    if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
-      console.log(this.selectedSound);
-      this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-        this.svgPath, `${form.value.color}`, this.selectedSound);
-      this.dialogRef.close();
-    } else {
-      this.error = 'Invalid audio file';
-    }
+    this.hotspot.strokeColor = `${form.value.color}`;
+    this.hotspot.name = `${form.value.name}`;
     this.modeService.currentDrawingTool = '';
+    if(this.selectedSound!=='' && this.selectedSound!==null){
+      this.hotspot.base64sound = this.selectedSound;
+    }
+    this.scenesService.updateScenes()
+    this.dialogRef.close();
   }
-
 }
