@@ -83,6 +83,9 @@ export class HotspotCreateComponent implements OnInit  {
 
 
       dialogRef.afterClosed().subscribe(result => {
+
+        polyline.setAttribute('points','');
+
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
         this.modeService.selectedMode = 'hotspot';
