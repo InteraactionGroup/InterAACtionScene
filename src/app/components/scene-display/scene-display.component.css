@@ -1,11 +1,11 @@
 .scene-display {
-  max-width: 100vw;
-  height: 91vh;
+  width: 100%;
+  height: 92%;
   display: flex;
 }
 
 .scene-display .scenes{
-  width : 3cm;
+  min-width: 7%;
   display: flex;
   flex-direction: column;
   background-color: #4766D8;
@@ -27,7 +27,6 @@
 }
 
 .scene-display .scenes .scenes-virtual-viewport .scene button{
-  float: right;
   width: 100%;
   height: 3cm;
   min-width: 1cm;
@@ -44,7 +43,8 @@
 }
 
 .scene-display .images{
-  width : 3cm;
+  max-width: 7%;
+  min-width : 7%;
   background-color: #ff7f00;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@
 }
 
 ::-webkit-scrollbar{
-  width: 0px;
+  width: 0;
 }
 
 .image{
@@ -87,14 +87,14 @@
 }
 
 .scene-display .bigImageContainer {
+  max-width: 84%;
+  max-height: 100%;
   background-color: #add8e6;
   flex-grow: 4;
   text-align: center;
-  max-height: 100%;
 }
 
 .scene-display .bigImageContainer #sceneDiv img{
-
 }
 
 #sceneDiv {
