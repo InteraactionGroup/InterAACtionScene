@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, ReactiveFormsModule  } from '@angular/forms';
 import { ScenesService } from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
+import {Hotspot} from "../../types";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -13,7 +14,7 @@ export class HotspotModifyDialogComponent implements OnInit {
 
   @Input() selectedScene: number;
   @Input() selectedImage: number;
-  @Input() index: number;
+  @Input() hotspot: Hotspot;
   @Input() poly;
   form: FormGroup;
   selectedSound = null;
@@ -28,15 +29,10 @@ export class HotspotModifyDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // name: string;
-    // svgPointArray: number[]; // Each point is in percentage
-    // strokeColor: string;
-    // base64sound: string;
-    // this.modeService.hotspots[this.index]
     this.form = this.formBuilder.group({
       soundSelected: '',
-      name: this.modeService.hotspots[this.index].name,
-      color: this.modeService.hotspots[this.index].strokeColor
+      name: this.hotspot.name,
+      color: this.hotspot.strokeColor
     });
   }
 
@@ -56,13 +52,13 @@ export class HotspotModifyDialogComponent implements OnInit {
 
 
   submit(form) {
-    this.modeService.hotspots[this.index].strokeColor = `${form.value.color}`;
-    this.modeService.hotspots[this.index].name = `${form.value.name}`;
+    this.hotspot.strokeColor = `${form.value.color}`;
+    this.hotspot.name = `${form.value.name}`;
     this.modeService.currentDrawingTool = '';
     if(this.selectedSound!=='' && this.selectedSound!==null){
-      this.modeService.hotspots[this.index].base64sound = this.selectedSound;
+      this.hotspot.base64sound = this.selectedSound;
     }
-    this.poly.node.setAttribute('stroke', this.modeService.hotspots[this.index].strokeColor);
+    this.scenesService.updateScenes()
     this.dialogRef.close();
   }
 }

@@ -120,7 +120,11 @@ export class ScenesService {
   }
 
   getImageHotspots(selectedScene: number, selectedImage: number): Array<Hotspot> {
-    return this.SCENES[selectedScene].images[selectedImage].hotspots;
+
+    if(selectedScene != undefined && selectedImage != undefined) {
+      return this.SCENES[selectedScene].images[selectedImage].hotspots;
+    }
+    return [];
   }
 
   // INITIALISATION
@@ -169,10 +173,6 @@ export class ScenesService {
     // SUCCESS
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
-
-      // if (!db.objectStoreNames.contains('Palette') || !db.objectStoreNames.contains('Grid')) {
-      //   this.init();
-      // }
 
       // UPDATE THE GRID
       const gridStore = db.transaction(['Scenes'], 'readwrite');

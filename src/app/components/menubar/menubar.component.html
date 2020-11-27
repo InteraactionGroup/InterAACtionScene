@@ -12,7 +12,7 @@
     <button (click)="changeMode('hotspot')"
     class= "button"
     [class.selected]="modeService.selectedMode === 'hotspot'">
-      Add Hotspot
+      Manage Hotspots
     </button>
 
     <button (click)="changeMode('manage-scenes')"
@@ -43,18 +43,20 @@
 
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'hotspot'">
-      <button type="button"
-              (click)="changeColor('add')">Add</button>
+      <button type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('add')">Add Hotspot</button>
 
-      <button type="button"
-              (click)="changeColor('modify')">Modify</button>
+      <button type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('modify')">Modify Hotspot</button>
     </div>
 
     <input [(ngModel)]="sceneTitle"
     value="{{sceneTitle}}"
     *ngIf="modeService.selectedMode === 'play'"/>
 
-    <a routerLink="/settings">Settings</a>
+    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
+      Settings
+    </a>
 
   </div>
 </div>

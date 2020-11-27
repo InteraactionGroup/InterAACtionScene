@@ -1,1 +1,20 @@
 <div #hotspot></div>
+<div>
+  <svg
+    [attr.height]="height"
+    [attr.width]="width"
+  >
+    <polygon *ngFor="let hotspot of getHotspots()"
+             [attr.fill]="hotspot.strokeColor"
+             fill-opacity="0.0"
+             [attr.stroke]="hotspot.strokeColor"
+             [attr.points]="this.getPoints(hotspot)"
+             stroke-width="2"
+             (mouseenter)="enterEvent($event,hotspot)"
+             (mouseleave)="leaveEvent($event)"
+             (touchenter)="enterEvent($event,hotspot)"
+             (touchleave)="leaveEvent($event)"
+             (click)="clickEvent($event,hotspot)"
+    />
+  </svg>
+</div>

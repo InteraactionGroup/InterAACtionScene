@@ -10,7 +10,5 @@ export class ModeService {
   currentDrawingTool = '';
   displayBar = true;
 
-  hotspots: Array<Hotspot>;
-
   constructor() { }
 }
