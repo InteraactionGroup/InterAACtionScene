@@ -62,7 +62,7 @@
 }
 
 ::-webkit-scrollbar{
-  width: 0px;
+  width: 0;
 }
 
 .image{
@@ -104,7 +104,6 @@
 }
 
 .scene-display .bigImageContainer #sceneDiv img{
-
 }
 
 #sceneDiv {
