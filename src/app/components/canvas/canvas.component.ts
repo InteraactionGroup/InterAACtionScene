@@ -134,16 +134,22 @@ export class CanvasComponent implements OnInit {
 
   private captureEvents(canvasEl: HTMLCanvasElement) {
     // Captures all mouse down events
-    fromEvent(canvasEl, 'mousedown')
+    this.drawEvents(canvasEl,'mousedown','mousemove', 'mouseup', 'mouseleave');
+    this.drawEvents(canvasEl,'pointerdown','mousemove', 'pointerup', 'pointerleave');
+    this.drawEvents(canvasEl,'touchstart', 'touchmove', 'touchend', 'touchcancek');
+  }
+
+  private drawEvents(canvasEl: HTMLCanvasElement, eventNameDown : string, eventNameMove : string, eventNameUp: string, eventNameLeave){
+    fromEvent(canvasEl, eventNameDown)
       .pipe(
         switchMap((e) => {
           // After mouse down, it starts drawing a line
-          return fromEvent(canvasEl, 'mousemove')
+          return fromEvent(canvasEl, eventNameMove)
             .pipe(
               // The line stops when the mouse is released or leaves the area
-              takeUntil(fromEvent(canvasEl, 'mouseup')),
-              takeUntil(fromEvent(canvasEl, 'mouseleave')),
-              pairwise()
+              takeUntil(fromEvent(canvasEl, eventNameUp)),
+              takeUntil(fromEvent(canvasEl, eventNameLeave)),
+              pairwise(),
             );
         })
       )

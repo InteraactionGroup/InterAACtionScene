@@ -1,1 +1,9 @@
-<canvas #canvas></canvas>
+<canvas
+  (pointerup)="saveCanvas()"
+  (mouseup)="saveCanvas()"
+  (pointerleave)="saveCanvas()"
+  (mouseleave)="saveCanvas()"
+  (touchend)="saveCanvas()"
+  (touchcancel)="saveCanvas()"
+  #canvas>
+</canvas>
