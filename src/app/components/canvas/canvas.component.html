@@ -1,9 +1,14 @@
 <canvas
-  (pointerup)="saveCanvas()"
-  (mouseup)="saveCanvas()"
-  (pointerleave)="saveCanvas()"
-  (mouseleave)="saveCanvas()"
-  (touchend)="saveCanvas()"
-  (touchcancel)="saveCanvas()"
+
+  (pointerdown)="this.drawStarted = true"
+  (mousedown)="this.drawStarted = true"
+
+  (pointermove)="draw($event)"
+  (mousemove)="draw($event)"
+
+  (pointerup)="this.stopDraw()"
+  (mouseup)="this.stopDraw()"
+  (pointerleave)="this.stopDraw()"
+  (mouseleave)="this.stopDraw()"
   #canvas>
 </canvas>

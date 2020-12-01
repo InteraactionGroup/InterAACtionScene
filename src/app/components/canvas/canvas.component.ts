@@ -18,6 +18,10 @@ export class CanvasComponent implements OnInit {
     this.InitializeCanvasWithJSON();
   }
 
+  prevPos= {x:null,y:null};
+  currentPos= {x:null,y:null};
+  drawStarted = false;
+
   @ViewChild('canvas') public canvas: ElementRef;
   @Input() public width: number;
   @Input() public height: number;
@@ -112,7 +116,6 @@ export class CanvasComponent implements OnInit {
       this.cx.lineCap = 'round';
       this.cx.strokeStyle = '#FFF';
 
-      this.captureEvents(canvasEl);
       this.InitializeCanvasWithJSON();
     }
     this.previousSelectedScene = this.selectedScene;
@@ -132,46 +135,39 @@ export class CanvasComponent implements OnInit {
     })();
   }
 
-  private captureEvents(canvasEl: HTMLCanvasElement) {
-    // Captures all mouse down events
-    this.drawEvents(canvasEl,'mousedown','mousemove', 'mouseup', 'mouseleave');
-    this.drawEvents(canvasEl,'pointerdown','mousemove', 'pointerup', 'pointerleave');
-    this.drawEvents(canvasEl,'touchstart', 'touchmove', 'touchend', 'touchcancek');
+  stopDraw(){
+    this.drawStarted = false;
+    this.prevPos= {x:null,y:null};
+    this.currentPos= {x:null,y:null};
+    this.saveCanvas()
   }
 
-  private drawEvents(canvasEl: HTMLCanvasElement, eventNameDown : string, eventNameMove : string, eventNameUp: string, eventNameLeave){
-    fromEvent(canvasEl, eventNameDown)
-      .pipe(
-        switchMap((e) => {
-          // After mouse down, it starts drawing a line
-          return fromEvent(canvasEl, eventNameMove)
-            .pipe(
-              // The line stops when the mouse is released or leaves the area
-              takeUntil(fromEvent(canvasEl, eventNameUp)),
-              takeUntil(fromEvent(canvasEl, eventNameLeave)),
-              pairwise(),
-            );
-        })
-      )
-      .subscribe((res: [MouseEvent, MouseEvent]) => {
-        const rect = canvasEl.getBoundingClientRect();
-
-        // Previous and current position with the offset
-        const prevPos = {
-          x: res[0].clientX - rect.left,
-          y: res[0].clientY - rect.top
+  draw(mouseEvent: MouseEvent) {
+    if (this.drawStarted) {
+      if (this.currentPos.x == null && this.currentPos.y == null) {
+        this.currentPos = {
+          x: mouseEvent.offsetX,
+          y: mouseEvent.offsetY
         };
+      }
 
-        const currentPos = {
-          x: res[1].clientX - rect.left,
-          y: res[1].clientY - rect.top
-        };
+      console.log(mouseEvent.offsetX + " ; " + mouseEvent.offsetY);
 
-        // This method does the actual drawing
-        if (this.modeService.selectedMode === 'draw') {
-          this.drawOnCanvas(prevPos, currentPos);
-        }
-      });
+      this.prevPos = {
+        x: this.currentPos.x,
+        y: this.currentPos.y
+      };
+
+      this.currentPos = {
+        x: mouseEvent.offsetX,
+        y: mouseEvent.offsetY
+      };
+
+      // This method does the actual drawing
+      if (this.modeService.selectedMode === 'draw') {
+        this.drawOnCanvas(this.prevPos, this.currentPos);
+      }
+    }
   }
 
   delay(ms: number) {
@@ -190,5 +186,9 @@ export class CanvasComponent implements OnInit {
       this.cx.lineTo(currentPos.x, currentPos.y);
       this.cx.stroke();
     }
+  }
+
+  print(s:string){
+    console.log(s);
   }
 }
