@@ -36,9 +36,11 @@ export class HotspotCreateComponent implements OnInit  {
     const polyline = document.querySelector('#polyline');
     return (e: MouseEvent) =>{
       let pts = polyline.getAttribute('points');
-      pts += `${e.offsetX},${e.offsetY} `;
-      polyline.setAttribute('points', pts);
-      this.lastPt = [e.offsetX,e.offsetY];
+      if(e.offsetY !== undefined && e.offsetX !== undefined) {
+        pts += `${e.offsetX},${e.offsetY} `;
+        polyline.setAttribute('points', pts);
+        this.lastPt = [e.offsetX, e.offsetY];
+      }
       if(this.firstPt === null){
         this.firstPt = this.lastPt;
       }
@@ -48,7 +50,9 @@ export class HotspotCreateComponent implements OnInit  {
   createMouseDownEvent(mouseMove){
     const svg = document.querySelector('#svg');
     return (e: MouseEvent) =>{
-      svg.addEventListener('mousemove',mouseMove);
+     // svg.addEventListener('mousemove',mouseMove);
+      svg.addEventListener('pointermove',mouseMove);
+    //  svg.addEventListener('touchmove',mouseMove);
     }
   }
 
@@ -57,12 +61,15 @@ export class HotspotCreateComponent implements OnInit  {
     const svg = document.querySelector('#svg');
 
     return (e: MouseEvent) =>{
-      svg.removeEventListener('mousemove',mouseMove);
+     // svg.removeEventListener('mousemove',mouseMove);
+      svg.removeEventListener('pointermove',mouseMove);
+     // svg.removeEventListener('touchmove',mouseMove);
 
       let pts = polyline.getAttribute('points') ;
-      pts += `${this.firstPt[0]},${this.firstPt[1]} `;
-      polyline.setAttribute('points',pts);
-
+      if(this.firstPt !== null) {
+        pts += `${this.firstPt[0]},${this.firstPt[1]} `;
+        polyline.setAttribute('points', pts);
+      }
       this.firstPt = null;
       this.lastPt = null;
 
@@ -102,8 +109,13 @@ export class HotspotCreateComponent implements OnInit  {
     svg.setAttribute('height',''+this.height);
 
     let mouseMove = this.createMouseEvent();
-    svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-    svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
+  //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
+    svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
+  //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+
+  //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
+    svg.addEventListener('pointerup', this.createMouseUpEvent(mouseMove));
+  //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
   }
 
   // async drawSVG() {
