@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { Color } from '../../types';
 import {ModeService} from "../../services/mode.service";
+import {SceneDisplayService} from "../../services/scene-display.service";
+import {ScenesService} from "../../services/scenes.service";
 
 @Component({
   selector: 'app-menubar',
@@ -11,6 +13,8 @@ export class MenubarComponent implements OnInit {
 
   sceneTitle : string;
   hideShowButtonChar = "▲";
+  fullScreenValue = "┏ ┓\n" +
+    "┗ ┛";
   COLORS: Color[] = [
     { name: "white"  , hex: '#FFFFFF' },
     { name: "black"  , hex: '#000000' },
@@ -28,22 +32,59 @@ export class MenubarComponent implements OnInit {
     this.modeService.currentDrawingTool = toolName;
   }
 
-  hideShowMenu(): void {
+  async hideShowMenu() {
     if (this.modeService.displayBar === true) {
       this.modeService.displayBar = false;
-      this.modeService.selectedMode="play";
+      this.modeService.selectedMode = "play";
       this.hideShowButtonChar = "▼";
     } else {
       this.modeService.displayBar = true;
       this.hideShowButtonChar = "▲"
     }
+    await this.delay(20);
+    this.scenesService.updateScenes();
+    this.sceneDisplayService.UpdateDimensions();
+  }
+
+  async fullScreen() {
+    if (document.fullscreenElement !== null || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      } else if ((document as any).mozCancelFullScreen) {
+        (document as any).mozCancelFullScreen();
+      }
+      this.fullScreenValue = "┏ ┓\n" +
+        "┗ ┛";
+    } else {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if ((document.documentElement as any).webkitRequestFullscreen) {
+        (document.documentElement as any).webkitRequestFullscreen();
+      } else if ((document.documentElement as any).mozRequestFullScreen) {
+        (document.documentElement as any).mozRequestFullScreen();
+      }
+      this.fullScreenValue = "┛ ┗\n" +
+        "┓ ┏";
+    }
+
+    await this.delay(20);
+    this.scenesService.updateScenes();
+    this.sceneDisplayService.UpdateDimensions();
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   onImageChange(imageName: string): void {
     this.sceneTitle = imageName;
   }
 
-  constructor(public modeService: ModeService) { }
+  constructor(public modeService: ModeService,
+              public scenesService: ScenesService,
+              public sceneDisplayService: SceneDisplayService) { }
 
   ngOnInit(): void {
   }

@@ -1,6 +1,6 @@
 .scene-display {
   width: 100vw;
-  height: 91vh;
+  height: calc(100% - 65px);
   display: flex;
 }
 
@@ -39,6 +39,7 @@
   min-width: 1cm;
   /* max-width: 3cm; */
   border-radius: 5px;
+  background-color: white;
 }
 
 .scene-display .scenes .scenes-virtual-viewport .scene.selected{
@@ -90,6 +91,7 @@
   min-width: 1cm;
   /* max-width: 3cm; */
   border-radius: 5px;
+  background-color: white;
 }
 
 .scene-display .bigImageContainer {
