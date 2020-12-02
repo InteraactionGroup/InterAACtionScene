@@ -23,6 +23,7 @@ import { HotspotCreateComponent } from './components/hotspot-create/hotspot-crea
 import { HotspotCreateDialogComponent } from './components/hotspot-create-dialog/hotspot-create-dialog.component';
 import { HotspotDisplayComponent } from './components/hotspot-display/hotspot-display.component';
 import {HotspotModifyDialogComponent} from "./components/hotspot-modify-dialog/hotspot-modify-dialog.component";
+import { HotspotDeleteDialogComponent } from './components/hotspot-delete-dialog/hotspot-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {HotspotModifyDialogComponent} from "./components/hotspot-modify-dialog/h
     HotspotCreateDialogComponent,
     HotspotModifyDialogComponent,
     HotspotDisplayComponent,
+    HotspotDeleteDialogComponent,
   ],
   imports: [
     FormsModule,

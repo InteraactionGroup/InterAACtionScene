@@ -58,7 +58,7 @@ export class HotspotModifyDialogComponent implements OnInit {
     if(this.selectedSound!=='' && this.selectedSound!==null){
       this.hotspot.base64sound = this.selectedSound;
     }
-    this.scenesService.updateScenes()
+    this.scenesService.updateScenes();
     this.dialogRef.close();
   }
 }

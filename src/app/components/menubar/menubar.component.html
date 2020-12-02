@@ -43,11 +43,17 @@
 
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'hotspot'">
-      <button type="button" style="width: 4cm; min-width: 1cm;"
+      <button [class.selected]="modeService.currentDrawingTool === 'add'"
+        type="button" style="width: 4cm; min-width: 1cm;"
               (click)="changeColor('add')">Add Hotspot</button>
 
-      <button type="button" style="width: 4cm; min-width: 1cm;"
+      <button [class.selected]="modeService.currentDrawingTool === 'modify'"
+        type="button" style="width: 4cm; min-width: 1cm;"
               (click)="changeColor('modify')">Modify Hotspot</button>
+
+      <button [class.selected]="modeService.currentDrawingTool === 'delete'"
+        type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('delete')">Delete Hotspot</button>
     </div>
 
     <input [(ngModel)]="sceneTitle"

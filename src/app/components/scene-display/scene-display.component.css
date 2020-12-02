@@ -89,7 +89,6 @@
   width: calc(3cm - 10px);
   height: 3cm;
   min-width: 1cm;
-  /* max-width: 3cm; */
   border-radius: 5px;
   background-color: white;
 }

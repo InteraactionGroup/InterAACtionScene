@@ -5,6 +5,7 @@ import {ModeService} from "../../services/mode.service";
 import {HotspotCreateDialogComponent} from "../hotspot-create-dialog/hotspot-create-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {HotspotModifyDialogComponent} from "../hotspot-modify-dialog/hotspot-modify-dialog.component";
+import {HotspotDeleteDialogComponent} from "../hotspot-delete-dialog/hotspot-delete-dialog.component";
 declare const SVG: any;
 @Component({
   selector: 'app-hotspot-display',
@@ -68,20 +69,33 @@ export class HotspotDisplayComponent implements OnInit {
     };
 
   clickEvent(event, hotspot){
-      if(this.modeService.selectedMode==='hotspot' && this.modeService.currentDrawingTool === 'modify'){
-        const dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
-          width: '400px',
-        });
-        dialogRef.componentInstance.selectedScene = this.selectedScene;
-        dialogRef.componentInstance.selectedImage = this.selectedImage;
-        dialogRef.componentInstance.poly =  event.target;
-        dialogRef.componentInstance.hotspot = hotspot;
+    if(this.modeService.selectedMode==='hotspot' && this.modeService.currentDrawingTool === 'modify'){
+      const dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
+        width: '400px',
+      });
+      dialogRef.componentInstance.selectedScene = this.selectedScene;
+      dialogRef.componentInstance.selectedImage = this.selectedImage;
+      dialogRef.componentInstance.poly =  event.target;
+      dialogRef.componentInstance.hotspot = hotspot;
 
-        dialogRef.afterClosed().subscribe(result => {
-          this.modeService.selectedMode = '';
-          this.modeService.selectedMode = 'hotspot';
-        });
-      } else {
+      dialogRef.afterClosed().subscribe(result => {
+        this.modeService.currentDrawingTool = '';
+        this.modeService.selectedMode = 'hotspot';
+      });
+    } else if(this.modeService.selectedMode==='hotspot' && this.modeService.currentDrawingTool === 'delete'){
+      const dialogRef = this.dialog.open(HotspotDeleteDialogComponent, {
+        width: '400px',
+      });
+      dialogRef.componentInstance.selectedScene = this.selectedScene;
+      dialogRef.componentInstance.selectedImage = this.selectedImage;
+      dialogRef.componentInstance.poly =  event.target;
+      dialogRef.componentInstance.hotspot = hotspot;
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.modeService.currentDrawingTool = '';
+        this.modeService.selectedMode = 'hotspot';
+      });
+    } else {
         this.PlayAudio(hotspot)
       }
     };

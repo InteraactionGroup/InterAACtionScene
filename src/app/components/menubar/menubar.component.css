@@ -43,7 +43,7 @@
 
 .menubar .menu .drawingMode {
   display: flex;
-  background-color: #ade5e6;
+  /*background-color: #ade5e6;*/
   column-gap: 5px;
   padding: 0 5px;
   margin: 0 auto;
@@ -58,7 +58,14 @@
   min-width: 1cm;
   min-height: 1cm;
   align-self: center;
+  background-color: white;
 }
+
+.menubar .menu .drawingMode .selected{
+  background-color: #e6caa0;
+}
+
+
 
 .menubar .menu input {
   text-align: center;
