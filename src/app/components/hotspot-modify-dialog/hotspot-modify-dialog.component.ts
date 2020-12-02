@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, ReactiveFormsModule  } from '@angular/forms';
-import { ScenesService } from '../../services/scenes.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
 import {Hotspot} from "../../types";
 
@@ -21,12 +21,14 @@ export class HotspotModifyDialogComponent implements OnInit {
   name = '';
   error = '';
   svgPath: number[];
+
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private modeService: ModeService,
     private dialogRef: MatDialogRef<HotspotModifyDialogComponent>
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -45,7 +47,7 @@ export class HotspotModifyDialogComponent implements OnInit {
     };
 
     reader.onerror = (error) => {
-     console.log('Error: ', error);
+      console.log('Error: ', error);
     };
     this.error = '';
   }
@@ -55,7 +57,7 @@ export class HotspotModifyDialogComponent implements OnInit {
     this.hotspot.strokeColor = `${form.value.color}`;
     this.hotspot.name = `${form.value.name}`;
     this.modeService.currentDrawingTool = '';
-    if(this.selectedSound!=='' && this.selectedSound!==null){
+    if (this.selectedSound !== '' && this.selectedSound !== null) {
       this.hotspot.base64sound = this.selectedSound;
     }
     this.scenesService.updateScenes();

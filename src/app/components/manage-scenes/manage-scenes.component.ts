@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ScenesService } from '../../services/scenes.service';
-import { MatDialog} from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { RenameDialogComponent } from '../rename-dialog/rename-dialog.component';
-import { ImportScenesDialogComponent } from '../import-scenes-dialog/import-scenes-dialog.component';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ScenesService} from '../../services/scenes.service';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {RenameDialogComponent} from '../rename-dialog/rename-dialog.component';
+import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes-dialog.component';
 
 @Component({
   selector: 'app-manage-scenes',
@@ -18,7 +18,8 @@ export class ManageScenesComponent implements OnInit {
   @Output() updateScenes = new EventEmitter<string>();
 
   constructor(private scenesService: ScenesService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
   }
@@ -29,7 +30,7 @@ export class ManageScenesComponent implements OnInit {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
         data: 'Do you want to hide ' +
-          (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name ) + ' ?'
+          (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -49,7 +50,7 @@ export class ManageScenesComponent implements OnInit {
     if (SCENES != null && SCENES.length != 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: 'Do you confirm the deletion of ' + (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name ) + ' ?'
+        data: 'Do you confirm the deletion of ' + (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -83,9 +84,8 @@ export class ManageScenesComponent implements OnInit {
     const SCENESjson = JSON.stringify(this.scenesService.getScenes());
     const file = new Blob([SCENESjson], {type: 'text/json'});
     if (window.navigator.msSaveOrOpenBlob) { // IE10+
-       window.navigator.msSaveOrOpenBlob(file, 'scenes.json');
-    }
-    else { // Others
+      window.navigator.msSaveOrOpenBlob(file, 'scenes.json');
+    } else { // Others
       const a = document.createElement('a');
       const url = URL.createObjectURL(file);
       a.href = url;
@@ -93,9 +93,9 @@ export class ManageScenesComponent implements OnInit {
       document.body.appendChild(a);
       a.click();
       setTimeout(() => {
-           document.body.removeChild(a);
-           window.URL.revokeObjectURL(url);
-       }, 0);
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
     }
   }
 
@@ -108,8 +108,6 @@ export class ManageScenesComponent implements OnInit {
     });
 
   }
-
-
 
 
 }

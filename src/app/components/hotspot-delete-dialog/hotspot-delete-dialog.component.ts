@@ -18,28 +18,32 @@ export class HotspotDeleteDialogComponent implements OnInit {
   @Input() poly;
   form: FormGroup;
   svgPath: number[];
+
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private modeService: ModeService,
     private dialogRef: MatDialogRef<HotspotDeleteDialogComponent>
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
 
 
   submit() {
-   this.deleteHotspot();
+    this.deleteHotspot();
     this.modeService.currentDrawingTool = '';
     this.scenesService.updateScenes();
     this.dialogRef.close();
   }
 
-  deleteHotspot(){
-      if(this.selectedScene != undefined && this.selectedImage != undefined) {
-        this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots =
-          this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots.filter( x => { return x !== this.hotspot});
+  deleteHotspot() {
+    if (this.selectedScene != undefined && this.selectedImage != undefined) {
+      this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots =
+        this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots.filter(x => {
+          return x !== this.hotspot
+        });
     }
   }
 

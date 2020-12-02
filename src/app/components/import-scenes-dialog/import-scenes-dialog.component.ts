@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder} from '@angular/forms';
-import { ScenesService } from '../../services/scenes.service';
-import { Scene} from '../../types';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ScenesService} from '../../services/scenes.service';
+import {Scene} from '../../types';
 import {JsonValidatorService} from '../../services/json-validator.service';
 
 
@@ -22,7 +22,8 @@ export class ImportScenesDialogComponent implements OnInit {
     private jsonValidatorService: JsonValidatorService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ImportScenesDialogComponent>
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -39,7 +40,7 @@ export class ImportScenesDialogComponent implements OnInit {
     };
 
     reader.onerror = (error) => {
-     console.log('Error: ', error);
+      console.log('Error: ', error);
     };
   }
 
@@ -48,7 +49,7 @@ export class ImportScenesDialogComponent implements OnInit {
     if (this.selectedFile != null) {
       try {
         const scenes = this.jsonValidatorService.getCheckedGrid(JSON.parse(this.selectedFile));
-        if (scenes as Array<Scene>){
+        if (scenes as Array<Scene>) {
           this.scenesService.SCENES = scenes;
           this.scenesService.updateScenes();
           this.dialogRef.close();

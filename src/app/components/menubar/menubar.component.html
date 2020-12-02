@@ -1,75 +1,80 @@
-<div id="menuBar" class="menubar"  *ngIf="modeService.displayBar">
+<div id="menuBar" class="menubar" *ngIf="modeService.displayBar">
 
   <div class="menu"
-   [class.MenuBottomBar]="modeService.displayBar">
+       [class.MenuBottomBar]="modeService.displayBar">
 
     <button (click)="changeMode('play')"
-    class= "button"
-    [class.selected]="modeService.selectedMode === 'play'">
-    Play
+            class="button"
+            [class.selected]="modeService.selectedMode === 'play'">
+      Play
     </button>
 
     <button (click)="changeMode('hotspot')"
-    class= "button"
-    [class.selected]="modeService.selectedMode === 'hotspot'">
+            class="button"
+            [class.selected]="modeService.selectedMode === 'hotspot'">
       Manage Hotspots
     </button>
 
     <button (click)="changeMode('manage-scenes')"
-    class= "button"
-    [class.selected]="modeService.selectedMode === 'manage-scenes'">
+            class="button"
+            [class.selected]="modeService.selectedMode === 'manage-scenes'">
       Manage Scenes
     </button>
 
     <button (click)="changeMode('draw')"
-    class= "button"
-    [class.selected]="modeService.selectedMode === 'draw'">
+            class="button"
+            [class.selected]="modeService.selectedMode === 'draw'">
       Draw
     </button>
 
     <div class="drawingMode"
-    *ngIf="modeService.selectedMode === 'draw'">
+         *ngIf="modeService.selectedMode === 'draw'">
       <button type="button"
-      *ngFor="let color of COLORS"
-      [style.background-color]="color.hex"
-      (click)="changeColor(color.name)">
+              *ngFor="let color of COLORS"
+              [style.background-color]="color.hex"
+              (click)="changeColor(color.name)">
       </button>
       <button type="button"
-      (click)="changeColor('erase')">Erase</button>
+              (click)="changeColor('erase')">Erase
+      </button>
 
       <button type="button"
-      (click)="changeColor('clear')">Clear</button>
+              (click)="changeColor('clear')">Clear
+      </button>
     </div>
 
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'hotspot'">
       <button [class.selected]="modeService.currentDrawingTool === 'add'"
-        type="button" style="width: 4cm; min-width: 1cm;"
-              (click)="changeColor('add')">Add Hotspot</button>
+              type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('add')">Add Hotspot
+      </button>
 
       <button [class.selected]="modeService.currentDrawingTool === 'modify'"
-        type="button" style="width: 4cm; min-width: 1cm;"
-              (click)="changeColor('modify')">Modify Hotspot</button>
+              type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('modify')">Modify Hotspot
+      </button>
 
       <button [class.selected]="modeService.currentDrawingTool === 'delete'"
-        type="button" style="width: 4cm; min-width: 1cm;"
-              (click)="changeColor('delete')">Delete Hotspot</button>
+              type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('delete')">Delete Hotspot
+      </button>
     </div>
 
     <input [(ngModel)]="sceneTitle"
-    value="{{sceneTitle}}"
-    *ngIf="modeService.selectedMode === 'play'"/>
+           value="{{sceneTitle}}"
+           *ngIf="modeService.selectedMode === 'play'"/>
 
-<!--    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >-->
-<!--      Settings-->
-<!--    </a>-->
+    <!--    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >-->
+    <!--      Settings-->
+    <!--    </a>-->
 
   </div>
 </div>
-<button id="hideShowButton" type="button" (click)="hideShowMenu()" >{{hideShowButtonChar}}</button>
-<button id="fullScreenButton" type="button" (click)="fullScreen()" >
+<button id="hideShowButton" type="button" (click)="hideShowMenu()">{{hideShowButtonChar}}</button>
+<button id="fullScreenButton" type="button" (click)="fullScreen()">
   <img src="assets/{{fullScreenPath}}" alt="Add a scene" class="buttonimg">
 </button>
 
 <app-scene-display
-[imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>
+  [imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>

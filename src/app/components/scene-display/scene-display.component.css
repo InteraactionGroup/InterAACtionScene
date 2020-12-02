@@ -4,14 +4,14 @@
   display: flex;
 }
 
-.fullScreen-scene-display{
+.fullScreen-scene-display {
   width: 100vw;
   height: 100vh;
   display: flex;
 }
 
-.scene-display .scenes{
-  width : 3cm;
+.scene-display .scenes {
+  width: 3cm;
   display: flex;
   flex-direction: column;
   background-color: #4766D8;
@@ -22,17 +22,17 @@
   overflow-x: hidden;
 }
 
-.scene-display .scenes .scenes-virtual-viewport .scene{
+.scene-display .scenes .scenes-virtual-viewport .scene {
   padding: 5px;
   width: calc(100% - 10px);
   height: 3cm;
 }
 
-.scene-display .scenes .scenes-virtual-viewport .scene:hover{
+.scene-display .scenes .scenes-virtual-viewport .scene:hover {
   background-color: #477cd8;
 }
 
-.scene-display .scenes .scenes-virtual-viewport .scene button{
+.scene-display .scenes .scenes-virtual-viewport .scene button {
   float: right;
   width: calc(3cm - 10px);
   height: 3cm;
@@ -42,16 +42,16 @@
   background-color: white;
 }
 
-.scene-display .scenes .scenes-virtual-viewport .scene.selected{
+.scene-display .scenes .scenes-virtual-viewport .scene.selected {
   background-color: #ff7f00;
 }
 
-.scene-display .scenes .scenes-virtual-viewport .scene.selected:hover{
+.scene-display .scenes .scenes-virtual-viewport .scene.selected:hover {
   background-color: #ff9900;
 }
 
-.scene-display .images{
-  width : 3cm;
+.scene-display .images {
+  width: 3cm;
   background-color: #ff7f00;
   display: flex;
   flex-direction: column;
@@ -62,25 +62,25 @@
   overflow-x: hidden;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 0;
 }
 
-.image{
+.image {
   padding: 5px;
   width: calc(100% - 10px);
   height: 3cm;
 }
 
-.image:hover{
+.image:hover {
   background-color: #ff9900;
 }
 
-.image.selected{
+.image.selected {
   background-color: #add8e6;
 }
 
-.image.selected:hover{
+.image.selected:hover {
   background-color: #83B2D4;
 }
 
@@ -105,20 +105,20 @@
   user-select: none;
 }
 
-.scene-display .bigImageContainer #sceneDiv img{
+.scene-display .bigImageContainer #sceneDiv img {
 }
 
 #sceneDiv {
-  display:inline-block;
+  display: inline-block;
   margin: 0 auto;
   background: black;
-  position:relative;
-  border:3px solid black;
+  position: relative;
+  border: 3px solid black;
   border-radius: 10px;
   /*box-shadow: 0 5px 50px #333;*/
 }
 
-#canvas{
+#canvas {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -137,13 +137,13 @@
 }
 
 .hidden {
-    position: absolute;
-    left: -9999px;
-    visibility: hidden;
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
 }
 
 .show-hidden {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .button-selected {

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HotspotDeleteDialogComponent } from './hotspot-delete-dialog.component';
+import {HotspotDeleteDialogComponent} from './hotspot-delete-dialog.component';
 
 describe('HotspotDeleteDialogComponent', () => {
   let component: HotspotDeleteDialogComponent;
@@ -8,9 +8,9 @@ describe('HotspotDeleteDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HotspotDeleteDialogComponent ]
+      declarations: [HotspotDeleteDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

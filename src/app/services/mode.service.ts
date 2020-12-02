@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import {Hotspot} from "../types";
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -10,5 +9,6 @@ export class ModeService {
   currentDrawingTool = '';
   displayBar = true;
 
-  constructor() { }
+  constructor() {
+  }
 }

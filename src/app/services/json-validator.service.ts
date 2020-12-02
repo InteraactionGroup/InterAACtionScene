@@ -10,7 +10,8 @@ import {Scene} from '../types';
 })
 export class JsonValidatorService {
 
-  constructor() { }
+  constructor() {
+  }
 
   getCheckedGrid(dataToValidate): Scene[] {
     const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}

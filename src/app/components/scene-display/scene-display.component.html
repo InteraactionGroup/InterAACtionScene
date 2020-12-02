@@ -1,9 +1,9 @@
-<div class="scene-display" [class.fullScreen-scene-display]="!this.modeService.displayBar" >
+<div class="scene-display" [class.fullScreen-scene-display]="!this.modeService.displayBar">
   <div class="scenes">
     <cdk-virtual-scroll-viewport itemSize="6" class="scenes-virtual-viewport">
       <!-- Add a scene button -->
       <div class="scene"
-     >
+      >
         <button type="button" (click)="openAddSceneDialog()">
           <img src="assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
           Scene
@@ -11,15 +11,17 @@
       </div>
       <!-- Different scenes -->
       <div class="scene"
-      *ngFor="let scene of this.scenesService.SCENES; let i = index"
-      [class.selected]="this.sceneDisplayService.selectedScene === i"
-      [class.hidden]="modeService.selectedMode !== 'manage-scenes' && scene.hidden">
-        <button type="button" [class.button-selected]="modeService.selectedMode === 'manage-scenes' && !imageSelected && this.sceneDisplayService.selectedScene === i"
-        (click)="changeScene(i)">
-        <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg" [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && scene.hidden">
-        <div class="label">
-          {{scene.name}}
-        </div>
+           *ngFor="let scene of this.scenesService.SCENES; let i = index"
+           [class.selected]="this.sceneDisplayService.selectedScene === i"
+           [class.hidden]="modeService.selectedMode !== 'manage-scenes' && scene.hidden">
+        <button type="button"
+                [class.button-selected]="modeService.selectedMode === 'manage-scenes' && !imageSelected && this.sceneDisplayService.selectedScene === i"
+                (click)="changeScene(i)">
+          <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg"
+               [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && scene.hidden">
+          <div class="label">
+            {{scene.name}}
+          </div>
         </button>
       </div>
     </cdk-virtual-scroll-viewport>
@@ -33,7 +35,7 @@
       <div class="image"
       >
         <button type="button"
-        (click)="openAddImageDialog()">
+                (click)="openAddImageDialog()">
           <img src="assets/{{addButtonPath}}" alt="Add a scene" class="buttonimg">
           Image
         </button>
@@ -41,12 +43,14 @@
 
       <!-- Images of the scene -->
       <div class="image"
-      *ngFor="let image of this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images; let i = index"
-      [class.selected]="this.sceneDisplayService.selectedImage === i"
-      [class.hidden]="modeService.selectedMode !== 'manage-scenes' && image.hidden === true">
-        <button type="button" [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && this.sceneDisplayService.selectedImage === i"
-        (click)="changeImage(i)">
-          <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg"  [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && image.hidden === true">
+           *ngFor="let image of this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images; let i = index"
+           [class.selected]="this.sceneDisplayService.selectedImage === i"
+           [class.hidden]="modeService.selectedMode !== 'manage-scenes' && image.hidden === true">
+        <button type="button"
+                [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && this.sceneDisplayService.selectedImage === i"
+                (click)="changeImage(i)">
+          <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg"
+               [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && image.hidden === true">
           <div class="label">
             {{image.name}}
           </div>
@@ -56,17 +60,42 @@
   </div>
   <!-- Selected image at the right -->
   <div *ngIf="modeService.selectedMode != 'manage-scenes'" class="bigImageContainer" id="bigImageContainer">
-    <div *ngIf="hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false" id="sceneDiv" [ngStyle]="{'width': this.sceneDisplayService.imageWidth,'height': this.sceneDisplayService.imageHeigth}">
-      <img id="bigImage" [ngStyle]="{'width':this.sceneDisplayService.imageWidth+'px','height':this.sceneDisplayService.imageHeigth+'px'}"  src="{{scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].base64data}}" alt="{{scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name}}" >
+    <div
+      *ngIf="hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
+      id="sceneDiv"
+      [ngStyle]="{'width': this.sceneDisplayService.imageWidth,'height': this.sceneDisplayService.imageHeigth}">
+      <img id="bigImage"
+           [ngStyle]="{'width':this.sceneDisplayService.imageWidth+'px','height':this.sceneDisplayService.imageHeigth+'px'}"
+           src="{{scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].base64data}}"
+           alt="{{scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name}}">
       <!-- hotspot display is before is the mode isn't draw and after is the mode is draw -->
-      <app-hotspot-display *ngIf="modeService.selectedMode == 'draw'" [width]="this.sceneDisplayService.imageWidth" [height]="this.sceneDisplayService.imageHeigth" class="hotspot" [selectedImage]="this.sceneDisplayService.selectedImage" [selectedScene]="this.sceneDisplayService.selectedScene" > </app-hotspot-display>
-      <app-canvas (updateCanvas)="this.sceneDisplayService.onCanvasChange()" [selectedImage]="this.sceneDisplayService.selectedImage" [selectedScene]="this.sceneDisplayService.selectedScene" id="canvas" [width]="this.sceneDisplayService.imageWidth" [height]="this.sceneDisplayService.imageHeigth" [currentDrawingTool]="modeService.currentDrawingTool" [canvasD]="scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].canvasData"  [imageChange]="this.sceneDisplayService.currImage"></app-canvas>
-      <app-hotspot-display *ngIf="modeService.selectedMode !== 'draw'" [width]="this.sceneDisplayService.imageWidth" [height]="this.sceneDisplayService.imageHeigth" class="hotspot" [selectedImage]="this.sceneDisplayService.selectedImage" [selectedScene]="this.sceneDisplayService.selectedScene" > </app-hotspot-display>
-      <app-hotspot-create *ngIf="modeService.selectedMode === 'hotspot' && modeService.currentDrawingTool === 'add' " [width]="this.sceneDisplayService.imageWidth" class="hotspot" [height]="this.sceneDisplayService.imageHeigth" [selectedImage]="this.sceneDisplayService.selectedImage" [selectedScene]="this.sceneDisplayService.selectedScene" (updateHotspots)="onHotspotsChange()" > </app-hotspot-create>
+      <app-hotspot-display *ngIf="modeService.selectedMode == 'draw'" [width]="this.sceneDisplayService.imageWidth"
+                           [height]="this.sceneDisplayService.imageHeigth" class="hotspot"
+                           [selectedImage]="this.sceneDisplayService.selectedImage"
+                           [selectedScene]="this.sceneDisplayService.selectedScene"></app-hotspot-display>
+      <app-canvas (updateCanvas)="this.sceneDisplayService.onCanvasChange()"
+                  [selectedImage]="this.sceneDisplayService.selectedImage"
+                  [selectedScene]="this.sceneDisplayService.selectedScene" id="canvas"
+                  [width]="this.sceneDisplayService.imageWidth" [height]="this.sceneDisplayService.imageHeigth"
+                  [currentDrawingTool]="modeService.currentDrawingTool"
+                  [canvasD]="scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].canvasData"
+                  [imageChange]="this.sceneDisplayService.currImage"></app-canvas>
+      <app-hotspot-display *ngIf="modeService.selectedMode !== 'draw'" [width]="this.sceneDisplayService.imageWidth"
+                           [height]="this.sceneDisplayService.imageHeigth" class="hotspot"
+                           [selectedImage]="this.sceneDisplayService.selectedImage"
+                           [selectedScene]="this.sceneDisplayService.selectedScene"></app-hotspot-display>
+      <app-hotspot-create *ngIf="modeService.selectedMode === 'hotspot' && modeService.currentDrawingTool === 'add' "
+                          [width]="this.sceneDisplayService.imageWidth" class="hotspot"
+                          [height]="this.sceneDisplayService.imageHeigth"
+                          [selectedImage]="this.sceneDisplayService.selectedImage"
+                          [selectedScene]="this.sceneDisplayService.selectedScene"
+                          (updateHotspots)="onHotspotsChange()"></app-hotspot-create>
     </div>
   </div>
 
   <div *ngIf="modeService.selectedMode == 'manage-scenes'" class="bigImageContainer" #bigImageContainer>
-    <app-manage-scenes  [imageSelected]="imageSelected"  [selectedImage]="this.sceneDisplayService.selectedImage" [selectedScene]="this.sceneDisplayService.selectedScene" (updateScenes)="onScenesChange($event)"></app-manage-scenes>
+    <app-manage-scenes [imageSelected]="imageSelected" [selectedImage]="this.sceneDisplayService.selectedImage"
+                       [selectedScene]="this.sceneDisplayService.selectedScene"
+                       (updateScenes)="onScenesChange($event)"></app-manage-scenes>
   </div>
 </div>
