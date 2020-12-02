@@ -12,4 +12,5 @@ button {
   width: 2cm;
   min-width: 1cm;
   min-height: 1cm;
+  background-color: white;
 }

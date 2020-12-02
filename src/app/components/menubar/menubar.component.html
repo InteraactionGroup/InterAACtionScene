@@ -1,4 +1,4 @@
-<div class="menubar"  *ngIf="modeService.displayBar">
+<div id="menuBar" class="menubar"  *ngIf="modeService.displayBar">
 
   <div class="menu"
    [class.MenuBottomBar]="modeService.displayBar">
@@ -61,6 +61,7 @@
   </div>
 </div>
 <button id="hideShowButton" type="button" (click)="hideShowMenu()" >{{hideShowButtonChar}}</button>
+<button id="fullScreenButton" type="button" (click)="fullScreen()" >{{fullScreenValue}}</button>
 
 <app-scene-display
 [imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>
