@@ -1,16 +1,16 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {HotspotModifyDialogComponent} from './hotspot-modify-dialog.component';
-import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HotspotDeleteDialogComponent} from './hotspot-delete-dialog.component';
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-describe('HotspotCreateDialogComponent', () => {
-  let component: HotspotModifyDialogComponent;
-  let fixture: ComponentFixture<HotspotModifyDialogComponent>;
+describe('HotspotDeleteDialogComponent', () => {
+  let component: HotspotDeleteDialogComponent;
+  let fixture: ComponentFixture<HotspotDeleteDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HotspotModifyDialogComponent],
+      declarations: [HotspotDeleteDialogComponent],
       imports: [MatDialogModule, FormsModule, ReactiveFormsModule],
       providers: [
         {
@@ -23,7 +23,7 @@ describe('HotspotCreateDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HotspotModifyDialogComponent);
+    fixture = TestBed.createComponent(HotspotDeleteDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

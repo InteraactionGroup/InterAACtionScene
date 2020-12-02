@@ -1,8 +1,9 @@
-import { Component, OnInit , Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { MatDialog} from '@angular/material/dialog';
-import { ScenesService } from '../../services/scenes.service';
-import { HotspotCreateDialogComponent } from '../hotspot-create-dialog/hotspot-create-dialog.component';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {ScenesService} from '../../services/scenes.service';
+import {HotspotCreateDialogComponent} from '../hotspot-create-dialog/hotspot-create-dialog.component';
 import {ModeService} from '../../services/mode.service';
+
 declare const SVG: any;
 
 @Component({
@@ -11,7 +12,7 @@ declare const SVG: any;
   styleUrls: ['./hotspot-create.component.css']
 })
 
-export class HotspotCreateComponent implements OnInit  {
+export class HotspotCreateComponent implements OnInit {
 
   @Input() public width: number;
   @Input() public height: number;
@@ -22,7 +23,8 @@ export class HotspotCreateComponent implements OnInit  {
 
   constructor(
     private scenesService: ScenesService,
-    private dialog: MatDialog, public modeService: ModeService) { }
+    private dialog: MatDialog, public modeService: ModeService) {
+  }
 
 
   lastPt = null;
@@ -32,41 +34,41 @@ export class HotspotCreateComponent implements OnInit  {
     this.drawsSVG();
   }
 
-  createMouseEvent(){
+  createMouseEvent() {
     const polyline = document.querySelector('#polyline');
-    return (e: MouseEvent) =>{
+    return (e: MouseEvent) => {
       let pts = polyline.getAttribute('points');
-      if(e.offsetY !== undefined && e.offsetX !== undefined) {
+      if (e.offsetY !== undefined && e.offsetX !== undefined) {
         pts += `${e.offsetX},${e.offsetY} `;
         polyline.setAttribute('points', pts);
         this.lastPt = [e.offsetX, e.offsetY];
       }
-      if(this.firstPt === null){
+      if (this.firstPt === null) {
         this.firstPt = this.lastPt;
       }
     };
   }
 
-  createMouseDownEvent(mouseMove){
+  createMouseDownEvent(mouseMove) {
     const svg = document.querySelector('#svg');
-    return (e: MouseEvent) =>{
-     // svg.addEventListener('mousemove',mouseMove);
-      svg.addEventListener('pointermove',mouseMove);
-    //  svg.addEventListener('touchmove',mouseMove);
+    return (e: MouseEvent) => {
+      // svg.addEventListener('mousemove',mouseMove);
+      svg.addEventListener('pointermove', mouseMove);
+      //  svg.addEventListener('touchmove',mouseMove);
     }
   }
 
-  createMouseUpEvent(mouseMove){
+  createMouseUpEvent(mouseMove) {
     const polyline = document.querySelector('#polyline');
     const svg = document.querySelector('#svg');
 
-    return (e: MouseEvent) =>{
-     // svg.removeEventListener('mousemove',mouseMove);
-      svg.removeEventListener('pointermove',mouseMove);
-     // svg.removeEventListener('touchmove',mouseMove);
+    return (e: MouseEvent) => {
+      // svg.removeEventListener('mousemove',mouseMove);
+      svg.removeEventListener('pointermove', mouseMove);
+      // svg.removeEventListener('touchmove',mouseMove);
 
-      let pts = polyline.getAttribute('points') ;
-      if(this.firstPt !== null) {
+      let pts = polyline.getAttribute('points');
+      if (this.firstPt !== null) {
         pts += `${this.firstPt[0]},${this.firstPt[1]} `;
         polyline.setAttribute('points', pts);
       }
@@ -76,9 +78,9 @@ export class HotspotCreateComponent implements OnInit  {
       const svgPathPoints: string[] = pts.replace(/,/g, ' ').split(' ');
       const svgPathPointsPercentage = [];
       for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
-        console.log( (svgPathPoints[i] + "  " + (svgPathPoints[i+1])));
-        svgPathPointsPercentage.push( Number.parseInt(svgPathPoints[i]) / this.width);
-        svgPathPointsPercentage.push( Number.parseInt(svgPathPoints[i+1]) / this.height);
+        console.log((svgPathPoints[i] + "  " + (svgPathPoints[i + 1])));
+        svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i]) / this.width);
+        svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
       }
 
       const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
@@ -91,7 +93,7 @@ export class HotspotCreateComponent implements OnInit  {
 
       dialogRef.afterClosed().subscribe(result => {
 
-        polyline.setAttribute('points','');
+        polyline.setAttribute('points', '');
 
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
@@ -102,20 +104,20 @@ export class HotspotCreateComponent implements OnInit  {
     }
   }
 
-  drawsSVG(){
+  drawsSVG() {
     const svg = document.querySelector('#svg');
 
-    svg.setAttribute('width',''+this.width);
-    svg.setAttribute('height',''+this.height);
+    svg.setAttribute('width', '' + this.width);
+    svg.setAttribute('height', '' + this.height);
 
     let mouseMove = this.createMouseEvent();
-  //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
+    //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
     svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
-  //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+    //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
 
-  //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
+    //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
     svg.addEventListener('pointerup', this.createMouseUpEvent(mouseMove));
-  //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
+    //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
   }
 
   // async drawSVG() {

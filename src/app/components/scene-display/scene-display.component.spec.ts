@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SceneDisplayComponent } from './scene-display.component';
-import { MatDialogModule } from '@angular/material/dialog'
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {SceneDisplayComponent} from './scene-display.component';
+import {MatDialogModule} from '@angular/material/dialog'
 import {ScrollingModule} from '@angular/cdk/scrolling';
 
 describe('SceneDisplayComponent', () => {
@@ -9,10 +9,10 @@ describe('SceneDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SceneDisplayComponent ],
-      imports : [MatDialogModule,ScrollingModule]
+      declarations: [SceneDisplayComponent],
+      imports: [MatDialogModule, ScrollingModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

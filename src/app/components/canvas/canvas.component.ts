@@ -1,6 +1,4 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {fromEvent} from 'rxjs';
-import {pairwise, switchMap, takeUntil} from 'rxjs/operators';
 import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from '../../services/mode.service';
 
@@ -18,8 +16,8 @@ export class CanvasComponent implements OnInit {
     this.InitializeCanvasWithJSON();
   }
 
-  prevPos= {x:null,y:null};
-  currentPos= {x:null,y:null};
+  prevPos = {x: null, y: null};
+  currentPos = {x: null, y: null};
   drawStarted = false;
 
   @ViewChild('canvas') public canvas: ElementRef;
@@ -135,10 +133,10 @@ export class CanvasComponent implements OnInit {
     })();
   }
 
-  stopDraw(){
+  stopDraw() {
     this.drawStarted = false;
-    this.prevPos= {x:null,y:null};
-    this.currentPos= {x:null,y:null};
+    this.prevPos = {x: null, y: null};
+    this.currentPos = {x: null, y: null};
     this.saveCanvas()
   }
 
@@ -188,7 +186,7 @@ export class CanvasComponent implements OnInit {
     }
   }
 
-  print(s:string){
+  print(s: string) {
     console.log(s);
   }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, ReactiveFormsModule  } from '@angular/forms';
-import { ScenesService } from '../../services/scenes.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
 
 @Component({
@@ -18,12 +18,14 @@ export class HotspotCreateDialogComponent implements OnInit {
   name = '';
   error = '';
   svgPath: number[];
+
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private modeService: ModeService,
     private dialogRef: MatDialogRef<HotspotCreateDialogComponent>
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -42,7 +44,7 @@ export class HotspotCreateDialogComponent implements OnInit {
     };
 
     reader.onerror = (error) => {
-     console.log('Error: ', error);
+      console.log('Error: ', error);
     };
     this.error = '';
   }

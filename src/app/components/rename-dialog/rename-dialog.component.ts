@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder} from '@angular/forms';
-import { ScenesService } from '../../services/scenes.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ScenesService} from '../../services/scenes.service';
 
 @Component({
   selector: 'app-rename-dialog',
@@ -19,7 +19,8 @@ export class RenameDialogComponent implements OnInit {
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<RenameDialogComponent>
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -29,9 +30,9 @@ export class RenameDialogComponent implements OnInit {
 
   submit(form) {
     if (this.imageSelected) {
-      this.scenesService.renameImage(this.selectedScene,this.selectedImage,`${form.value.name}`)
+      this.scenesService.renameImage(this.selectedScene, this.selectedImage, `${form.value.name}`)
     } else {
-      this.scenesService.renameScene(this.selectedScene,`${form.value.name}`)
+      this.scenesService.renameScene(this.selectedScene, `${form.value.name}`)
     }
     this.dialogRef.close();
   }

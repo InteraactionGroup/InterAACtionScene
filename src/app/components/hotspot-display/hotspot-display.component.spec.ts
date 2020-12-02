@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HotspotDisplayComponent } from './hotspot-display.component';
+import {HotspotDisplayComponent} from './hotspot-display.component';
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
@@ -10,8 +10,8 @@ describe('HotspotDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HotspotDisplayComponent ],
-      imports: [ MatDialogModule, FormsModule, ReactiveFormsModule ],
+      declarations: [HotspotDisplayComponent],
+      imports: [MatDialogModule, FormsModule, ReactiveFormsModule],
       providers: [
         {
           provide: MatDialogRef,
@@ -19,7 +19,7 @@ describe('HotspotDisplayComponent', () => {
         }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

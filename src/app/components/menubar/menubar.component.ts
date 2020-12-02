@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { Color } from '../../types';
+import {Component, OnInit} from '@angular/core';
+import {Color} from '../../types';
 import {ModeService} from "../../services/mode.service";
 import {SceneDisplayService} from "../../services/scene-display.service";
 import {ScenesService} from "../../services/scenes.service";
@@ -11,20 +11,20 @@ import {ScenesService} from "../../services/scenes.service";
 })
 export class MenubarComponent implements OnInit {
 
-  sceneTitle : string;
+  sceneTitle: string;
   hideShowButtonChar = "▲";
   fullScreenPath = 'images/enterfullscreen.png';
 
   COLORS: Color[] = [
-    { name: "white"  , hex: '#FFFFFF' },
-    { name: "black"  , hex: '#000000' },
-    { name: "red"    , hex: '#f34336' },
-    { name: "orange" , hex: '#ff7f00' },
-    { name: "blue"   , hex: '#0080ff' },
-    { name: "green"  , hex: '#228b22' },
+    {name: "white", hex: '#FFFFFF'},
+    {name: "black", hex: '#000000'},
+    {name: "red", hex: '#f34336'},
+    {name: "orange", hex: '#ff7f00'},
+    {name: "blue", hex: '#0080ff'},
+    {name: "green", hex: '#228b22'},
   ];
 
-  changeMode(mode : string): void {
+  changeMode(mode: string): void {
     this.modeService.selectedMode = mode;
   }
 
@@ -64,7 +64,7 @@ export class MenubarComponent implements OnInit {
         (document.documentElement as any).webkitRequestFullscreen();
       } else if ((document.documentElement as any).mozRequestFullScreen) {
         (document.documentElement as any).mozRequestFullScreen();
-      } else if ( (document.documentElement as any).webkitEnterFullScreen) {
+      } else if ((document.documentElement as any).webkitEnterFullScreen) {
         (document.documentElement as any).webkitEnterFullScreen();
       }
       this.fullScreenPath = 'images/exitfullscreen.png';
@@ -85,7 +85,8 @@ export class MenubarComponent implements OnInit {
 
   constructor(public modeService: ModeService,
               public scenesService: ScenesService,
-              public sceneDisplayService: SceneDisplayService) { }
+              public sceneDisplayService: SceneDisplayService) {
+  }
 
   ngOnInit(): void {
   }

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Scene, SceneImage, Hotspot } from '../types';
+import {Injectable} from '@angular/core';
+import {Hotspot, Scene} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -15,25 +15,33 @@ export class ScenesService {
 
   addScene(base64data: string, sceneName: string = '', firstimagename: string = '') {
     if (this.SCENES == null || this.SCENES.length == 0) {
-      this.SCENES = [{name: sceneName,
-                      images: [
-                        {name : firstimagename, base64data, canvasData : null, hidden: false, hotspots: Array<Hotspot>()}
-                      ],
-                      hidden : false
-                    }];
+      this.SCENES = [{
+        name: sceneName,
+        images: [
+          {name: firstimagename, base64data, canvasData: null, hidden: false, hotspots: Array<Hotspot>()}
+        ],
+        hidden: false
+      }];
     } else {
-      this.SCENES.push({name: sceneName,
-                        images: [
-                          {name : firstimagename, base64data, canvasData : null, hidden: false, hotspots: Array<Hotspot>()}
-                        ],
-                        hidden : false
-                      });
+      this.SCENES.push({
+        name: sceneName,
+        images: [
+          {name: firstimagename, base64data, canvasData: null, hidden: false, hotspots: Array<Hotspot>()}
+        ],
+        hidden: false
+      });
     }
     this.update();
   }
 
   addImage(base64data: string, sceneNumber: number, imageName: string = '') {
-    this.SCENES[sceneNumber].images.push({name : imageName, base64data, canvasData : null, hidden : false , hotspots: Array<Hotspot>()});
+    this.SCENES[sceneNumber].images.push({
+      name: imageName,
+      base64data,
+      canvasData: null,
+      hidden: false,
+      hotspots: Array<Hotspot>()
+    });
     this.update();
   }
 
@@ -112,16 +120,26 @@ export class ScenesService {
 
   addHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
     if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
-      this.SCENES[selectedScene].images[selectedImage].hotspots = [{name: hotspotName, svgPointArray: svgPath, strokeColor, base64sound}];
+      this.SCENES[selectedScene].images[selectedImage].hotspots = [{
+        name: hotspotName,
+        svgPointArray: svgPath,
+        strokeColor,
+        base64sound
+      }];
     } else {
-      this.SCENES[selectedScene].images[selectedImage].hotspots.push({name: hotspotName, svgPointArray: svgPath, strokeColor, base64sound});
+      this.SCENES[selectedScene].images[selectedImage].hotspots.push({
+        name: hotspotName,
+        svgPointArray: svgPath,
+        strokeColor,
+        base64sound
+      });
     }
     this.update();
   }
 
   getImageHotspots(selectedScene: number, selectedImage: number): Array<Hotspot> {
 
-    if(selectedScene != undefined && selectedImage != undefined) {
+    if (selectedScene != undefined && selectedImage != undefined) {
       return this.SCENES[selectedScene].images[selectedImage].hotspots;
     }
     return [];
