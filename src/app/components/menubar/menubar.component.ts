@@ -13,8 +13,8 @@ export class MenubarComponent implements OnInit {
 
   sceneTitle : string;
   hideShowButtonChar = "▲";
-  fullScreenValue = "┏ ┓\n" +
-    "┗ ┛";
+  fullScreenPath = 'images/enterfullscreen.png';
+
   COLORS: Color[] = [
     { name: "white"  , hex: '#FFFFFF' },
     { name: "black"  , hex: '#000000' },
@@ -55,8 +55,8 @@ export class MenubarComponent implements OnInit {
       } else if ((document as any).mozCancelFullScreen) {
         (document as any).mozCancelFullScreen();
       }
-      this.fullScreenValue = "┏ ┓\n" +
-        "┗ ┛";
+      this.fullScreenPath = 'images/enterfullscreen.png';
+
     } else {
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
@@ -64,9 +64,10 @@ export class MenubarComponent implements OnInit {
         (document.documentElement as any).webkitRequestFullscreen();
       } else if ((document.documentElement as any).mozRequestFullScreen) {
         (document.documentElement as any).mozRequestFullScreen();
+      } else if ( (document.documentElement as any).webkitEnterFullScreen) {
+        (document.documentElement as any).webkitEnterFullScreen();
       }
-      this.fullScreenValue = "┛ ┗\n" +
-        "┓ ┏";
+      this.fullScreenPath = 'images/exitfullscreen.png';
     }
 
     await this.delay(20);
