@@ -63,4 +63,14 @@ export class HotspotModifyDialogComponent implements OnInit {
     this.scenesService.updateScenes();
     this.dialogRef.close();
   }
+
+  redraw(){
+    this.modeService.currentDrawingTool = 'redraw';
+    this.modeService.redrawnHotspot = this.hotspot;
+  }
+
+  close(){
+    this.modeService.currentDrawingTool = '';
+    this.modeService.selectedMode = 'hotspot';
+  }
 }

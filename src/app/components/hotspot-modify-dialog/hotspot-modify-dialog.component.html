@@ -1,7 +1,10 @@
 <form [formGroup]="form" (ngSubmit)="submit(form)" class="import-scenes-dialog">
   <h1 mat-dialog-title>Modify hotspot</h1>
   <mat-dialog-content>
-    <input formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-bottom: 5px">
+    <label style="font: menu;font-family: inherit;color: darkgray;"> Pick the sound</label>
+    <input formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-bottom: 1.25em; margin-top: .50375em;">
+    <div style="display: grid;grid-template-columns: 1fr 1fr;">
+      <div>
     <mat-form-field>
       <mat-select formControlName="color" placeholder="Pick the stroke color" id="colorSelect" ngDefaultControl>
         <mat-option [value]="'#000000'">Black</mat-option>
@@ -15,10 +18,15 @@
     <mat-form-field>
       <input matInput formControlName="name" placeholder="Enter the name of the hotspot" id="nameInput">
     </mat-form-field>
+      </div>
+      <mat-button-toggle id="redraw" style="margin: 0 0 10% 10%; border: lightgray 2px solid;"  mat-dialog-close (click)="redraw()">
+        redraw
+      </mat-button-toggle>
+    </div>
   </mat-dialog-content>
   <p *ngIf='error !== ""'>{{error}}</p>
-  <mat-dialog-actions>
-    <button mat-button type="submit">Modify</button>
-    <button mat-button type="button" mat-dialog-close>Cancel</button>
+  <mat-dialog-actions style="display: grid;grid-template-columns: 1fr 1fr;">
+    <button mat-button type="submit" (click)="close()" >Modify</button>
+    <button mat-button type="button" (click)="close()" mat-dialog-close>Cancel</button>
   </mat-dialog-actions>
 </form>

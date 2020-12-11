@@ -3,6 +3,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
+import {AudioRecorderService} from "../../services/audio-recorder.service";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -22,17 +23,28 @@ export class HotspotCreateDialogComponent implements OnInit {
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
-    private modeService: ModeService,
+    public modeService: ModeService,
+    public audioRecorderService: AudioRecorderService,
     private dialogRef: MatDialogRef<HotspotCreateDialogComponent>
   ) {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      soundSelected: '',
-      name: '',
-      color: ''
-    });
+    if (this.modeService.redrawnHotspot!=null){
+      this.form = this.formBuilder.group({
+        soundSelected: '',
+        name: this.modeService.redrawnHotspot.name,
+        color: this.modeService.redrawnHotspot.strokeColor
+      });
+    } else {
+      this.form = this.formBuilder.group({
+        soundSelected: '',
+        name: '',
+        color: ''
+      });
+
+    }
+
   }
 
   onSoundSelected(event) {
@@ -51,15 +63,28 @@ export class HotspotCreateDialogComponent implements OnInit {
 
 
   submit(form) {
-    if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
-      console.log(this.selectedSound);
+    if (this.modeService.redrawnHotspot !== null) {
+      if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
+        this.scenesService.changeHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
+          this.svgPath, `${form.value.color}`, this.selectedSound);
+        this.dialogRef.close();
+        this.modeService.currentDrawingTool = '';
+      } else {
+        this.scenesService.changeHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
+          this.svgPath, `${form.value.color}`, this.modeService.redrawnHotspot.base64sound);
+        this.dialogRef.close();
+        this.modeService.currentDrawingTool = '';
+      }
+    } else {
+      if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
       this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
         this.svgPath, `${form.value.color}`, this.selectedSound);
       this.dialogRef.close();
-    } else {
-      this.error = 'Invalid audio file';
+      this.modeService.currentDrawingTool = '';
+      } else {
+        this.error = 'Invalid audio file';
+      }
     }
-    this.modeService.currentDrawingTool = '';
   }
 
 }

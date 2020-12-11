@@ -79,10 +79,6 @@ export class HotspotDisplayComponent implements OnInit {
       dialogRef.componentInstance.poly = event.target;
       dialogRef.componentInstance.hotspot = hotspot;
 
-      dialogRef.afterClosed().subscribe(result => {
-        this.modeService.currentDrawingTool = '';
-        this.modeService.selectedMode = 'hotspot';
-      });
     } else if (this.modeService.selectedMode === 'hotspot' && this.modeService.currentDrawingTool === 'delete') {
       const dialogRef = this.dialog.open(HotspotDeleteDialogComponent, {
         width: '400px',

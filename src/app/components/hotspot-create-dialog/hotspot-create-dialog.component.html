@@ -1,8 +1,21 @@
 <form [formGroup]="form" (ngSubmit)="submit(form)" class="import-scenes-dialog">
   <h1 mat-dialog-title>Create hotspot</h1>
   <mat-dialog-content>
-    <input formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-bottom: 5px">
-    <mat-form-field>
+    <label style="font: menu;font-family: inherit;color: darkgray;"> Add the sound</label>
+
+    <mat-dialog-actions style="display: grid;grid-template-columns: 1fr 1fr; margin-bottom: .25em;">
+      <button mat-button style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='import'" (click)="this.modeService.soundType='import'" >Importer un son</button>
+      <button mat-button style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='record'" (click)="this.modeService.soundType='record'">Enregistrer un son</button>
+    </mat-dialog-actions>
+    <input *ngIf="this.modeService.soundType=='import'" formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-top: .50375em;">
+    <mat-dialog-actions *ngIf="this.modeService.soundType=='record'" style="display: grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr; margin-bottom: .25em;border: lightgray 2px solid;padding: 0;">
+      <button class="recButton" mat-button (click)="this.audioRecorderService.enregistrer()" >o</button>
+      <button class="recButton" mat-button>||</button>
+      <button class="recButton" mat-button (click)="this.audioRecorderService.stopRecording()" >[]</button>
+      <button class="recButton" mat-button (click)="this.audioRecorderService.playRecording()">></button>
+      <button class="recButton" mat-button><</button>
+    </mat-dialog-actions>
+    <mat-form-field style="width: 100%">
       <mat-select formControlName="color" placeholder="Pick the stroke color" id="colorSelect" ngDefaultControl>
         <mat-option [value]="'#000000'">Black</mat-option>
         <mat-option [value]="'#FFFFFF'">White</mat-option>
@@ -12,12 +25,12 @@
         <mat-option [value]="'#228b22'">Green</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field style="width: 100%">
       <input matInput formControlName="name" placeholder="Enter the name of the hotspot" id="nameInput">
     </mat-form-field>
   </mat-dialog-content>
   <p *ngIf='error !== ""'>{{error}}</p>
-  <mat-dialog-actions>
+  <mat-dialog-actions  style="display: grid;grid-template-columns: 1fr 1fr;">
     <button mat-button type="submit">Import</button>
     <button mat-button type="button" mat-dialog-close>Cancel</button>
   </mat-dialog-actions>

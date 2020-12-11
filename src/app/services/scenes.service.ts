@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Hotspot, Scene} from '../types';
+import {ModeService} from "./mode.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class ScenesService {
   SCENES: Array<Scene> = [];
   openRequest;
 
-  constructor() {
+  constructor(public modeService: ModeService) {
     this.init();
   }
 
@@ -117,6 +118,15 @@ export class ScenesService {
     this.update();
   }
 
+  changeHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
+    this.modeService.redrawnHotspot.strokeColor= strokeColor;
+    this.modeService.redrawnHotspot.name= hotspotName;
+    this.modeService.redrawnHotspot.svgPointArray= svgPath;
+    if(base64sound!==null) {
+      this.modeService.redrawnHotspot.base64sound = base64sound;
+    }
+    this.updateScenes()
+  }
 
   addHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
     if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
