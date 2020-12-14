@@ -9,7 +9,7 @@ export class ModeService {
   selectedMode: String = 'play';
   currentDrawingTool = '';
   displayBar = true;
-  redrawnHotspot: Hotspot;
+  redrawnHotspot: Hotspot = null;
   soundType="";
 
   constructor() {

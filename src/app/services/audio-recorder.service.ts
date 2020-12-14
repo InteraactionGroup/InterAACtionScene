@@ -124,6 +124,11 @@ export class AudioRecorderService {
     audio.play();
   }
 
+  getRecord(){
+    let blob = new Blob([this.view], {type: 'audio/wav'});
+    return blob;
+  }
+
   flattenArray(channelBuffer, recordingLength) {
     let result = new Float32Array(recordingLength);
     let offset = 0;

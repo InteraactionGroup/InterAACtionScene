@@ -71,6 +71,7 @@ export class HotspotModifyDialogComponent implements OnInit {
 
   close(){
     this.modeService.currentDrawingTool = '';
+    this.modeService.redrawnHotspot = null;
     this.modeService.selectedMode = 'hotspot';
   }
 }

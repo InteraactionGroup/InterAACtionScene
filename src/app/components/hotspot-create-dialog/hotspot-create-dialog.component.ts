@@ -61,10 +61,28 @@ export class HotspotCreateDialogComponent implements OnInit {
     this.error = '';
   }
 
+  stop(){
+    this.audioRecorderService.stopRecording();
+    const file = this.audioRecorderService.getRecord();
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.selectedSound = reader.result;
+    };
+
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
+    this.error = '';
+  }
+
+  audioIsValid(){
+    return this.selectedSound.startsWith('data:audio/mpeg;base64') || this.selectedSound.startsWith('data:audio/wav');
+  }
 
   submit(form) {
     if (this.modeService.redrawnHotspot !== null) {
-      if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
+      if (this.selectedSound != null && this.audioIsValid()) {
         this.scenesService.changeHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
           this.svgPath, `${form.value.color}`, this.selectedSound);
         this.dialogRef.close();
@@ -76,7 +94,7 @@ export class HotspotCreateDialogComponent implements OnInit {
         this.modeService.currentDrawingTool = '';
       }
     } else {
-      if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
+      if (this.selectedSound != null && this.audioIsValid()) {
       this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
         this.svgPath, `${form.value.color}`, this.selectedSound);
       this.dialogRef.close();
