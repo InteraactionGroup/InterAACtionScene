@@ -10,7 +10,7 @@ export class ModeService {
   currentDrawingTool = '';
   displayBar = true;
   redrawnHotspot: Hotspot = null;
-  soundType="";
+  soundType="import";
 
   constructor() {
   }

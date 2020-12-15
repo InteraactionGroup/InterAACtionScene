@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
 import {Hotspot} from "../../types";
+import {AudioRecorderService} from "../../services/audio-recorder.service";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -25,7 +26,8 @@ export class HotspotModifyDialogComponent implements OnInit {
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
-    private modeService: ModeService,
+    public modeService: ModeService,
+    public audioRecorderService: AudioRecorderService,
     private dialogRef: MatDialogRef<HotspotModifyDialogComponent>
   ) {
   }
@@ -73,5 +75,20 @@ export class HotspotModifyDialogComponent implements OnInit {
     this.modeService.currentDrawingTool = '';
     this.modeService.redrawnHotspot = null;
     this.modeService.selectedMode = 'hotspot';
+  }
+
+  stop(){
+    this.audioRecorderService.stopRecording();
+    const file = this.audioRecorderService.getRecord();
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.selectedSound = reader.result;
+    };
+
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
+    this.error = '';
   }
 }

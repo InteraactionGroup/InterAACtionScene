@@ -90,7 +90,6 @@ export class HotspotCreateComponent implements OnInit {
       dialogRef.componentInstance.selectedImage = this.selectedImage;
       dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
 
-
       dialogRef.afterClosed().subscribe(result => {
 
         polyline.setAttribute('points', '');
@@ -98,6 +97,7 @@ export class HotspotCreateComponent implements OnInit {
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
         this.modeService.selectedMode = 'hotspot';
+        this.modeService.soundType ='import';
       });
 
 

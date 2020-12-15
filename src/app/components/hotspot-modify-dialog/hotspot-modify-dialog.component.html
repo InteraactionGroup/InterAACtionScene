@@ -2,7 +2,18 @@
   <h1 mat-dialog-title>Modify hotspot</h1>
   <mat-dialog-content>
     <label style="font: menu;font-family: inherit;color: darkgray;"> Pick the sound</label>
-    <input formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-bottom: 1.25em; margin-top: .50375em;">
+    <mat-dialog-actions style="display: grid;grid-template-columns: 1fr 1fr; margin-bottom: .25em;">
+      <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='import'" (click)="this.modeService.soundType='import'" >Importer un son</button>
+      <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='record'" (click)="this.modeService.soundType='record'">Enregistrer un son</button>
+    </mat-dialog-actions>
+    <input *ngIf="this.modeService.soundType=='import'" formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-top: .50375em;">
+    <mat-dialog-actions *ngIf="this.modeService.soundType=='record'" style="display: grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr; margin-bottom: .25em;border: lightgray 2px solid;padding: 0;">
+      <button class="recButton"  type="button" mat-button (click)="this.audioRecorderService.enregistrer()" >o</button>
+      <button class="recButton" type="button" mat-button>||</button>
+      <button class="recButton" type="button" mat-button (click)="stop()" >[]</button>
+      <button class="recButton" type="button" mat-button (click)="this.audioRecorderService.playRecording()">></button>
+      <button class="recButton" type="button" mat-button><</button>
+    </mat-dialog-actions>
     <div style="display: grid;grid-template-columns: 1fr 1fr;">
       <div>
     <mat-form-field>

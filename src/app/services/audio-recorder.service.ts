@@ -7,10 +7,10 @@ export class AudioRecorderService {
 
   leftchannel = [];
   rightchannel = [];
-  recorder = null;
+  recorder: ScriptProcessorNode = null;
   recordingLength = 0;
   volume = null;
-  mediaStream = null;
+  mediaStream: MediaStreamAudioSourceNode = null;
   sampleRate = 44100;
   context = null;
   blob = null;
@@ -52,13 +52,9 @@ export class AudioRecorderService {
     let bufferSize = 2048;
     let numberOfInputChannels = 2;
     let numberOfOutputChannels = 2;
-    if (this.context.createScriptProcessor) {
-      this.recorder = this.context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-    } else {
-      this.recorder = this.context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-    }
+    this.recorder = this.context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+
     this.recorder.onaudioprocess = (e) => {
-      console.log("on audio progress");
       this.leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
       this.rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
       this.recordingLength += bufferSize;
@@ -74,15 +70,16 @@ export class AudioRecorderService {
   stopRecording() {
     // stop recording
     console.log("stop recording");
+    this.mediaStream.mediaStream.getTracks()[0].stop();
     this.recorder.disconnect(this.context.destination);
     this.mediaStream.disconnect(this.recorder);
 
     // we flat the left and right channels down
-    let leftBuffer = this.flattenArray(this.leftchannel, this.recordingLength); // flattenArray is on GitHub (see below)
+    let leftBuffer = this.flattenArray(this.leftchannel, this.recordingLength);
     let rightBuffer = this.flattenArray(this.rightchannel, this.recordingLength);
 
     // we interleave both channels together
-    let interleaved = this.interleave(leftBuffer, rightBuffer); // interleave is on GitHub (see below)
+    let interleaved = this.interleave(leftBuffer, rightBuffer);
 
     // we create our wav file
     let buffer = new ArrayBuffer(44 + interleaved.length * 2);
@@ -114,10 +111,14 @@ export class AudioRecorderService {
       this.view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
       index += 2;
     }
+
+    navigator.mediaDevices.getUserMedia({audio:true,video:false}).then(function(stream)
+    {
+      stream.getAudioTracks().forEach(function(track){track.stop();});
+    });
   }
 
   playRecording(){
-    // our final blob
     let blob = new Blob([this.view], {type: 'audio/wav'});
     let url = window.URL.createObjectURL(blob);
     let audio = new Audio(url);
@@ -125,8 +126,7 @@ export class AudioRecorderService {
   }
 
   getRecord(){
-    let blob = new Blob([this.view], {type: 'audio/wav'});
-    return blob;
+    return new Blob([this.view], {type: 'audio/wav'});
   }
 
   flattenArray(channelBuffer, recordingLength) {
