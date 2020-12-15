@@ -16,10 +16,16 @@ export class AudioRecorderService {
   blob = null;
   view = null;
 
+  isRecording = false;
+
   constructor() {
   }
 
-  enregistrer() {
+  getRecValue(){
+    return this.isRecording ? "assets/images/rec_active.png" : "assets/images/rec_inactive.png";
+  }
+
+  startRecording() {
 
     this.leftchannel = [];
     this.rightchannel = [];
@@ -32,6 +38,7 @@ export class AudioRecorderService {
     this.blob = null;
     this.view = null;
 
+    this.isRecording = true;
 
     navigator.getUserMedia(
       {
@@ -47,6 +54,7 @@ export class AudioRecorderService {
   }
 
   goToSuccess(e) {
+    console.log("recording");
     this.context = new AudioContext();
     this.mediaStream = this.context.createMediaStreamSource(e);
     let bufferSize = 2048;
@@ -65,14 +73,21 @@ export class AudioRecorderService {
 
   goToError(e) {
     console.error(e);
+    this.isRecording = false;
   }
 
   stopRecording() {
     // stop recording
     console.log("stop recording");
-    this.mediaStream.mediaStream.getTracks()[0].stop();
-    this.recorder.disconnect(this.context.destination);
-    this.mediaStream.disconnect(this.recorder);
+    this.isRecording = false;
+
+    if(this.recorder !== null && this.mediaStream !== null) {
+
+      this.mediaStream.mediaStream.getTracks()[0].stop();
+      this.recorder.disconnect(this.context.destination);
+      this.mediaStream.disconnect(this.recorder);
+
+    }
 
     // we flat the left and right channels down
     let leftBuffer = this.flattenArray(this.leftchannel, this.recordingLength);
@@ -116,6 +131,7 @@ export class AudioRecorderService {
     {
       stream.getAudioTracks().forEach(function(track){track.stop();});
     });
+
   }
 
   playRecording(){

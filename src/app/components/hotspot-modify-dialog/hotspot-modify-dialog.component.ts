@@ -54,7 +54,6 @@ export class HotspotModifyDialogComponent implements OnInit {
     this.error = '';
   }
 
-
   submit(form) {
     this.hotspot.strokeColor = `${form.value.color}`;
     this.hotspot.name = `${form.value.name}`;

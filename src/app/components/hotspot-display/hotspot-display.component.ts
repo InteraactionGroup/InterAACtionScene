@@ -79,6 +79,12 @@ export class HotspotDisplayComponent implements OnInit {
       dialogRef.componentInstance.poly = event.target;
       dialogRef.componentInstance.hotspot = hotspot;
 
+      dialogRef.afterClosed().subscribe(result => {
+        this.modeService.currentDrawingTool = '';
+        this.modeService.selectedMode = 'hotspot';
+        this.modeService.soundType ='import';
+      });
+
     } else if (this.modeService.selectedMode === 'hotspot' && this.modeService.currentDrawingTool === 'delete') {
       const dialogRef = this.dialog.open(HotspotDeleteDialogComponent, {
         width: '400px',
@@ -91,6 +97,7 @@ export class HotspotDisplayComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         this.modeService.currentDrawingTool = '';
         this.modeService.selectedMode = 'hotspot';
+        this.modeService.soundType ='import';
       });
     } else {
       this.PlayAudio(hotspot)
