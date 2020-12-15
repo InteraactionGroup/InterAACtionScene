@@ -90,6 +90,12 @@
                           [selectedImage]="this.sceneDisplayService.selectedImage"
                           [selectedScene]="this.sceneDisplayService.selectedScene"
                           (updateHotspots)="onHotspotsChange()"></app-hotspot-create>
+      <app-hotspot-create *ngIf="modeService.selectedMode === 'hotspot' && modeService.currentDrawingTool === 'redraw' "
+                          [width]="this.sceneDisplayService.imageWidth" class="hotspot"
+                          [height]="this.sceneDisplayService.imageHeigth"
+                          [selectedImage]="this.sceneDisplayService.selectedImage"
+                          [selectedScene]="this.sceneDisplayService.selectedScene"
+                          (updateHotspots)="onHotspotsChange()"></app-hotspot-create>
     </div>
   </div>
 

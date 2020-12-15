@@ -78,7 +78,6 @@ export class HotspotCreateComponent implements OnInit {
       const svgPathPoints: string[] = pts.replace(/,/g, ' ').split(' ');
       const svgPathPointsPercentage = [];
       for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
-        console.log((svgPathPoints[i] + "  " + (svgPathPoints[i + 1])));
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i]) / this.width);
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
       }
@@ -90,7 +89,6 @@ export class HotspotCreateComponent implements OnInit {
       dialogRef.componentInstance.selectedImage = this.selectedImage;
       dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
 
-
       dialogRef.afterClosed().subscribe(result => {
 
         polyline.setAttribute('points', '');
@@ -98,6 +96,7 @@ export class HotspotCreateComponent implements OnInit {
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
         this.modeService.selectedMode = 'hotspot';
+        this.modeService.soundType ='import';
       });
 
 

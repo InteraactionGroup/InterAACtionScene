@@ -24,6 +24,7 @@ import { HotspotCreateDialogComponent } from './components/hotspot-create-dialog
 import { HotspotDisplayComponent } from './components/hotspot-display/hotspot-display.component';
 import {HotspotModifyDialogComponent} from "./components/hotspot-modify-dialog/hotspot-modify-dialog.component";
 import { HotspotDeleteDialogComponent } from './components/hotspot-delete-dialog/hotspot-delete-dialog.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -43,20 +44,21 @@ import { HotspotDeleteDialogComponent } from './components/hotspot-delete-dialog
     HotspotDisplayComponent,
     HotspotDeleteDialogComponent,
   ],
-  imports: [
-    FormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ScrollingModule,
-    MatDialogModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatTableModule,
-    MatButtonModule,
-    MatSelectModule
-  ],
+    imports: [
+        FormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ScrollingModule,
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatTableModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatButtonToggleModule
+    ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
