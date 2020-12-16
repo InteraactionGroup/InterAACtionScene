@@ -25,6 +25,8 @@ import { HotspotDisplayComponent } from './components/hotspot-display/hotspot-di
 import {HotspotModifyDialogComponent} from "./components/hotspot-modify-dialog/hotspot-modify-dialog.component";
 import { HotspotDeleteDialogComponent } from './components/hotspot-delete-dialog/hotspot-delete-dialog.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { DwellCursorComponent } from './components/dwell-cursor/dwell-cursor.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     HotspotModifyDialogComponent,
     HotspotDisplayComponent,
     HotspotDeleteDialogComponent,
+    DwellCursorComponent,
+    SettingsComponent,
   ],
     imports: [
         FormsModule,

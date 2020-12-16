@@ -5,6 +5,8 @@ import {AddImageDialogComponent} from '../add-image-dialog/add-image-dialog.comp
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ModeService} from "../../services/mode.service";
 import {SceneDisplayService} from "../../services/scene-display.service";
+import {SettingsService} from "../../services/settings.service";
+import {DwellCursorService} from "../../services/dwell-cursor.service";
 
 @Component({
   selector: 'app-scene-display',
@@ -24,6 +26,7 @@ export class SceneDisplayComponent implements OnInit {
   @Output() imageChange = new EventEmitter<string>();
   @Input() imageSelected: boolean = true;
 
+  dwellTimer;
 
   addSceneDialogRef: MatDialogRef<AddSceneDialogComponent>;
   addImageDialogRef: MatDialogRef<AddImageDialogComponent>;
@@ -110,6 +113,8 @@ export class SceneDisplayComponent implements OnInit {
   constructor(public scenesService: ScenesService,
               private dialog: MatDialog,
               public modeService: ModeService,
+              public settingsService: SettingsService,
+              public dwellCursorService: DwellCursorService,
               public sceneDisplayService: SceneDisplayService) {
   }
 
@@ -148,6 +153,31 @@ export class SceneDisplayComponent implements OnInit {
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  enterScene(i) {
+    if (this.settingsService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.changeScene(i)
+      }, this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
+    }
+  }
+
+  enterImage(i) {
+    if (this.settingsService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.changeImage(i)
+      }, this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
+    }
+  }
+
+  exit() {
+    if (this.settingsService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.stop();
+      window.clearTimeout(this.dwellTimer);
+    }
   }
 
 }

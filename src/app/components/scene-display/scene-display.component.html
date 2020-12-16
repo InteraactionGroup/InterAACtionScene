@@ -16,7 +16,10 @@
            [class.hidden]="modeService.selectedMode !== 'manage-scenes' && scene.hidden">
         <button type="button"
                 [class.button-selected]="modeService.selectedMode === 'manage-scenes' && !imageSelected && this.sceneDisplayService.selectedScene === i"
-                (click)="changeScene(i)">
+                (click)="changeScene(i)"
+                (pointerenter)="enterScene(i)"
+                (pointerleave)="exit()"
+        >
           <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg"
                [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && scene.hidden">
           <div class="label">
@@ -48,7 +51,10 @@
            [class.hidden]="modeService.selectedMode !== 'manage-scenes' && image.hidden === true">
         <button type="button"
                 [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && this.sceneDisplayService.selectedImage === i"
-                (click)="changeImage(i)">
+                (click)="changeImage(i)"
+                (pointerenter)="enterImage(i)"
+                (pointerleave)="exit()"
+        >
           <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg"
                [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && image.hidden === true">
           <div class="label">

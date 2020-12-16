@@ -40,17 +40,11 @@ export class AudioRecorderService {
 
     this.isRecording = true;
 
-    navigator.getUserMedia(
-      {
-        audio: true
-      },
-      (e) => {
-        this.goToSuccess(e);
-      },
-      (e) => {
-        this.goToError(e);
-      }
-    );
+    navigator.mediaDevices.getUserMedia({audio:true,video:false}).then(
+      (e) => {this.goToSuccess(e);}
+    ).catch(
+      (e) => {this.goToError(e);
+    })
   }
 
   goToSuccess(e) {
@@ -81,7 +75,7 @@ export class AudioRecorderService {
     console.log("stop recording");
     this.isRecording = false;
 
-    if(this.recorder !== null && this.mediaStream !== null) {
+    if(this.recorder !== null  && this.recorder&& this.mediaStream !== null) {
 
       this.mediaStream.mediaStream.getTracks()[0].stop();
       this.recorder.disconnect(this.context.destination);

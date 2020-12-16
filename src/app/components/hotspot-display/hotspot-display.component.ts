@@ -5,6 +5,8 @@ import {ModeService} from "../../services/mode.service";
 import {MatDialog} from "@angular/material/dialog";
 import {HotspotModifyDialogComponent} from "../hotspot-modify-dialog/hotspot-modify-dialog.component";
 import {HotspotDeleteDialogComponent} from "../hotspot-delete-dialog/hotspot-delete-dialog.component";
+import {DwellCursorService} from "../../services/dwell-cursor.service";
+import {SettingsService} from "../../services/settings.service";
 
 declare const SVG: any;
 
@@ -22,10 +24,14 @@ export class HotspotDisplayComponent implements OnInit {
   @Input() public selectedImage: number;
   @ViewChild("hotspot", {static: true}) hotspot: ElementRef;
 
+  dwellTimer;
+
   constructor(
     public scenesService: ScenesService,
     private dialog: MatDialog,
-    public modeService: ModeService
+    public dwellCursorService: DwellCursorService,
+    public modeService: ModeService,
+    public settingsService: SettingsService
   ) {
   }
 
@@ -110,4 +116,21 @@ export class HotspotDisplayComponent implements OnInit {
     }
     return 'black'
   }
+
+  enter(hotspot) {
+    if (this.settingsService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.PlayAudio(hotspot)
+      }, this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
+    }
+  }
+
+  exit() {
+    if (this.settingsService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.stop();
+      window.clearTimeout(this.dwellTimer);
+    }
+  }
+
 }
