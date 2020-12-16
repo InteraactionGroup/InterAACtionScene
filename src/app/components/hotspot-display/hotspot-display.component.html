@@ -15,6 +15,9 @@
              (touchenter)="enterEvent($event,hotspot)"
              (touchleave)="leaveEvent($event)"
              (click)="clickEvent($event,hotspot)"
+
+             (pointerenter)="enter(hotspot)"
+             (pointerleave)="exit()"
     />
   </svg>
 </div>
