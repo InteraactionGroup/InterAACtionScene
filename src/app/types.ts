@@ -40,3 +40,8 @@
    strokeColor: string;
    base64sound: string;
  }
+
+export class Configuration {
+  'DWELL_TIME_ENABLED': boolean;
+  'DWELL_TIME_TIMEOUT_VALUE': number;
+}
