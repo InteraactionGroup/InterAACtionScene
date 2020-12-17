@@ -27,11 +27,7 @@
 
 .bigContainer{
   background-color: #add8e6;
-  text-align: center;
   max-height: 100%;
-  display: inline-grid;
-  align-items: center;
-  /*align-content: center;*/
   width: calc(100% - 6cm);
   border-top: 5px solid #ff7f00;
   -webkit-user-select: none;
@@ -44,13 +40,14 @@
   flex-grow: 4;
   display: flex;
   margin-top: 2px;
+  border-bottom: 5px solid #4766D8;
 }
 
 .button {
   display: inline;
   cursor: pointer;
   border-radius: 5px;
-  height: 1.6cm;
+  height: 1.5cm;
   width: 2cm;
   min-width: 1cm;
   min-height: 1cm;
@@ -64,4 +61,16 @@
 
 .button.selected {
   background-color: #add8e6;
+}
+
+.settings-item{
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 200px 100px;
+}
+
+.title{
+  height: fit-content;
+  margin: auto;
+  font-size: xx-large;
 }

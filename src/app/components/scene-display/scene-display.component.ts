@@ -155,17 +155,20 @@ export class SceneDisplayComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  enterScene(i) {
+  enterScene(event: PointerEvent, i) {
     if (this.settingsService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
+
       this.dwellTimer = window.setTimeout(() => {
         this.changeScene(i)
       }, this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
 
-  enterImage(i) {
+  enterImage(event: PointerEvent,i) {
     if (this.settingsService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.changeImage(i)

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Hotspot, Scene} from '../types';
 import {ModeService} from "./mode.service";
+import {SettingsService} from "./settings.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class ScenesService {
   SCENES: Array<Scene> = [];
   openRequest;
 
-  constructor(public modeService: ModeService) {
+  constructor(public modeService: ModeService,
+              public settingsService: SettingsService) {
     this.init();
   }
 
@@ -119,10 +121,10 @@ export class ScenesService {
   }
 
   changeHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
-    this.modeService.redrawnHotspot.strokeColor= strokeColor;
-    this.modeService.redrawnHotspot.name= hotspotName;
-    this.modeService.redrawnHotspot.svgPointArray= svgPath;
-    if(base64sound!==null) {
+    this.modeService.redrawnHotspot.strokeColor = strokeColor;
+    this.modeService.redrawnHotspot.name = hotspotName;
+    this.modeService.redrawnHotspot.svgPointArray = svgPath;
+    if (base64sound !== null) {
       this.modeService.redrawnHotspot.base64sound = base64sound;
     }
     this.updateScenes()
@@ -158,7 +160,8 @@ export class ScenesService {
   // INITIALISATION
   init() {
 
-    this.openRequest = indexedDB.open('Saves', 1);
+
+    this.openRequest = indexedDB.open('Saves', 2);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -169,9 +172,18 @@ export class ScenesService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      const gridStore = db.transaction(['Scenes']).objectStore('Scenes').get(1);
+      const gridStore = db.transaction(['Scenes'], 'readwrite').objectStore('Scenes').get(1);
       gridStore.onsuccess = e => {
         this.SCENES = gridStore.result;
+      };
+      gridStore.onerror = e => {
+      };
+
+      const configStore = db.transaction(['Configuration'], 'readwrite').objectStore('Configuration').get(1);
+      configStore.onsuccess = e => {
+        this.settingsService.setConfiguration(configStore.result);
+      };
+      configStore.onerror = e => {
       };
 
     };
@@ -182,16 +194,26 @@ export class ScenesService {
       const db = event.target.result;
       const transaction = event.target.transaction;
 
-      db.createObjectStore('Scenes', {autoIncrement: true});
-      const paletteStore = transaction.objectStore('Scenes');
-      paletteStore.add(this.SCENES);
+      if (!db.objectStoreNames.contains("Scenes")) {
+        db.createObjectStore('Scenes', {autoIncrement: true});
+        const scenesStore = transaction.objectStore('Scenes');
+        scenesStore.add(this.SCENES);
+      }
 
+      if (event.oldVersion <= 1) {
+        if (!db.objectStoreNames.contains("Configuration")) {
+          db.createObjectStore('Configuration', {autoIncrement: true});
+          const configurationStore = transaction.objectStore('Configuration');
+          configurationStore.add(this.settingsService.getConfiguration());
+        }
+      }
     };
   }
 
   update() {
 
-    this.openRequest = indexedDB.open('Saves', 1);
+
+    this.openRequest = indexedDB.open('Saves', 2);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -202,12 +224,20 @@ export class ScenesService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
+      // UPDATE THE SCENE
+      const scenesStore = db.transaction(['Scenes'], 'readwrite');
+      const scenesObjectStore = scenesStore.objectStore('Scenes');
+      const storeScenesRequest = scenesObjectStore.get(1);
+      storeScenesRequest.onsuccess = () => {
+        scenesObjectStore.put(this.SCENES, 1);
+      };
+
       // UPDATE THE GRID
-      const gridStore = db.transaction(['Scenes'], 'readwrite');
-      const gridObjectStore = gridStore.objectStore('Scenes');
-      const storeGridRequest = gridObjectStore.get(1);
-      storeGridRequest.onsuccess = () => {
-        gridObjectStore.put(this.SCENES, 1);
+      const configurationStore = db.transaction(['Configuration'], 'readwrite');
+      const configurationObjectStore = configurationStore.objectStore('Configuration');
+      const storeConfigurationRequest = configurationObjectStore.get(1);
+      storeConfigurationRequest.onsuccess = () => {
+        configurationObjectStore.put(this.settingsService.getConfiguration(), 1);
       };
 
     };
