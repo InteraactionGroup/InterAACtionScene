@@ -17,7 +17,7 @@
         <button type="button"
                 [class.button-selected]="modeService.selectedMode === 'manage-scenes' && !imageSelected && this.sceneDisplayService.selectedScene === i"
                 (click)="changeScene(i)"
-                (pointerenter)="enterScene(i)"
+                (pointerenter)="enterScene($event,i)"
                 (pointerleave)="exit()"
         >
           <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg"
@@ -52,7 +52,7 @@
         <button type="button"
                 [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && this.sceneDisplayService.selectedImage === i"
                 (click)="changeImage(i)"
-                (pointerenter)="enterImage(i)"
+                (pointerenter)="enterImage($event,i)"
                 (pointerleave)="exit()"
         >
           <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg"

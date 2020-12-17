@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Hotspot} from "../types";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,9 @@ export class DwellCursorService {
   public currentValue = 0;
   public countDownDate = 0;
   public timeout;
+
+  public x = 0;
+  public y = 0;
 
   constructor() {
   }
@@ -29,6 +33,39 @@ export class DwellCursorService {
   public playToMax(max) {
     this.resetMax(max);
     this.play();
+  }
+
+  public updatePositionHTMLElement(element: HTMLElement){
+    let bodyRect = document.body.getBoundingClientRect();
+    let elemRect = element.getBoundingClientRect();
+    let  offsetTop  = elemRect.top - bodyRect.top;
+    let  offsetLeft  = elemRect.left - bodyRect.left;
+    let  offsetBottom  = elemRect.bottom - bodyRect.top;
+    let  offsetRight  = elemRect.right - bodyRect.left;
+
+    this.x = (offsetLeft + offsetRight)/2 - 10;
+    this.y = (offsetTop + offsetBottom)/2 - 10;
+  }
+
+  public updatePositionSVGPolygonElement(element: HTMLElement, hotspotPoints: {x:number,y:number}[]){
+    let bodyRect = document.body.getBoundingClientRect();
+    let elemRect = element.parentElement.getBoundingClientRect();
+    let  offsetTop  = elemRect.top - bodyRect.top;
+    let  offsetLeft  = elemRect.left - bodyRect.left;
+
+    let sumOfX=0;
+    let sumOfY=0;
+
+    for( let i = 0; i < hotspotPoints.length; i++){
+      sumOfX+=hotspotPoints[i].x;
+      sumOfY+=hotspotPoints[i].y;
+    }
+
+    sumOfX = sumOfX / hotspotPoints.length;
+    sumOfY = sumOfY / hotspotPoints.length;
+
+    this.x = offsetLeft + sumOfX - 10;
+    this.y = offsetTop + sumOfY - 10;
   }
 
   public play() {

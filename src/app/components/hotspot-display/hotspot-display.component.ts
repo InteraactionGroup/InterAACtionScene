@@ -46,10 +46,34 @@ export class HotspotDisplayComponent implements OnInit {
   getPoints(hotspot: Hotspot) {
     let pathStr = "";
     for (let j = 0; j < hotspot.svgPointArray.length - 1; j = j + 2) {
-      pathStr += (hotspot.svgPointArray[j] * this.width).toString() + ",";
-      pathStr += (hotspot.svgPointArray[j + 1] * this.height).toString() + " ";
+
+      if ((hotspot.svgPointArray[j] * this.width).toString().toLowerCase() !== "nan" &&
+        (hotspot.svgPointArray[j + 1] * this.height).toString().toLowerCase() !== "nan") {
+
+        pathStr += (hotspot.svgPointArray[j] * this.width).toString() + ",";
+        pathStr += (hotspot.svgPointArray[j + 1] * this.height).toString() + " ";
+
+      }
     }
     return pathStr
+  }
+
+  getPointsInNumber(hotspot: Hotspot) {
+    let points = [];
+    for (let j = 0; j < hotspot.svgPointArray.length - 1; j = j + 2) {
+
+      if ((hotspot.svgPointArray[j] * this.width).toString().toLowerCase() !== "nan" &&
+        (hotspot.svgPointArray[j + 1] * this.height).toString().toLowerCase() !== "nan") {
+
+        let point = {
+          x: (hotspot.svgPointArray[j] * this.width),
+          y: (hotspot.svgPointArray[j + 1] * this.height)
+        };
+
+        points.push(point)
+      }
+    }
+    return points
   }
 
   ngOnInit(): void {
@@ -117,8 +141,9 @@ export class HotspotDisplayComponent implements OnInit {
     return 'black'
   }
 
-  enter(hotspot) {
+  enter(event: PointerEvent, hotspot: Hotspot) {
     if (this.settingsService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.updatePositionSVGPolygonElement((<HTMLElement>event.target), this.getPointsInNumber(hotspot));
       this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.PlayAudio(hotspot)
