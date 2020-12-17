@@ -161,7 +161,7 @@ export class ScenesService {
   init() {
 
 
-    this.openRequest = indexedDB.open('Saves', 3);
+    this.openRequest = indexedDB.open('Saves', 2);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -176,13 +176,15 @@ export class ScenesService {
       gridStore.onsuccess = e => {
         this.SCENES = gridStore.result;
       };
+      gridStore.onerror = e => {
+      };
 
       const configStore = db.transaction(['Configuration'], 'readwrite').objectStore('Configuration').get(1);
       configStore.onsuccess = e => {
         this.settingsService.setConfiguration(configStore.result);
       };
       configStore.onerror = e => {
-      }
+      };
 
     };
 
@@ -198,7 +200,7 @@ export class ScenesService {
         scenesStore.add(this.SCENES);
       }
 
-      if (event.oldVersion >= 2) {
+      if (event.oldVersion <= 1) {
         if (!db.objectStoreNames.contains("Configuration")) {
           db.createObjectStore('Configuration', {autoIncrement: true});
           const configurationStore = transaction.objectStore('Configuration');
@@ -211,7 +213,7 @@ export class ScenesService {
   update() {
 
 
-    this.openRequest = indexedDB.open('Saves', 3);
+    this.openRequest = indexedDB.open('Saves', 2);
 
     // ERROR
     this.openRequest.onerror = event => {
