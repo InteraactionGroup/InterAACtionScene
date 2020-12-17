@@ -40,13 +40,14 @@
   flex-grow: 4;
   display: flex;
   margin-top: 2px;
+  border-bottom: 5px solid #4766D8;
 }
 
 .button {
   display: inline;
   cursor: pointer;
   border-radius: 5px;
-  height: 1.6cm;
+  height: 1.5cm;
   width: 2cm;
   min-width: 1cm;
   min-height: 1cm;
@@ -66,4 +67,10 @@
   margin: 20px;
   display: grid;
   grid-template-columns: 200px 100px;
+}
+
+.title{
+  height: fit-content;
+  margin: auto;
+  font-size: xx-large;
 }

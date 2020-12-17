@@ -192,16 +192,19 @@ export class ScenesService {
       const db = event.target.result;
       const transaction = event.target.transaction;
 
-      if (event.oldVersion >= 3) {
+      if (!db.objectStoreNames.contains("Scenes")) {
         db.createObjectStore('Scenes', {autoIncrement: true});
         const scenesStore = transaction.objectStore('Scenes');
         scenesStore.add(this.SCENES);
       }
 
-      db.createObjectStore('Configuration', {autoIncrement: true});
-      const configurationStore = transaction.objectStore('Configuration');
-      configurationStore.add(this.settingsService.getConfiguration());
-
+      if (event.oldVersion >= 2) {
+        if (!db.objectStoreNames.contains("Configuration")) {
+          db.createObjectStore('Configuration', {autoIncrement: true});
+          const configurationStore = transaction.objectStore('Configuration');
+          configurationStore.add(this.settingsService.getConfiguration());
+        }
+      }
     };
   }
 
