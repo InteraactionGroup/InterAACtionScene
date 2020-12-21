@@ -33,7 +33,6 @@ export class HotspotDeleteDialogComponent implements OnInit {
 
   submit() {
     this.deleteHotspot();
-    this.modeService.currentDrawingTool = '';
     this.scenesService.updateScenes();
     this.dialogRef.close();
   }

@@ -18,6 +18,8 @@ export class AudioRecorderService {
 
   isRecording = false;
 
+  stream = null;
+
   constructor() {
   }
 
@@ -48,6 +50,7 @@ export class AudioRecorderService {
   }
 
   goToSuccess(e) {
+    this.stream = e;
     console.log("recording");
     this.context = new AudioContext();
     this.mediaStream = this.context.createMediaStreamSource(e);
@@ -121,10 +124,9 @@ export class AudioRecorderService {
       index += 2;
     }
 
-    navigator.mediaDevices.getUserMedia({audio:true,video:false}).then(function(stream)
-    {
-      stream.getAudioTracks().forEach(function(track){track.stop();});
-    });
+    if(this.stream!=null){
+      this.stream.getAudioTracks().forEach(function(track){track.stop();});
+    }
 
   }
 

@@ -30,21 +30,11 @@ export class HotspotCreateDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.modeService.redrawnHotspot!=null){
-      this.form = this.formBuilder.group({
-        soundSelected: '',
-        name: this.modeService.redrawnHotspot.name,
-        color: this.modeService.redrawnHotspot.strokeColor
-      });
-    } else {
       this.form = this.formBuilder.group({
         soundSelected: '',
         name: '',
         color: ''
       });
-
-    }
-
   }
 
   onSoundSelected(event) {
@@ -81,28 +71,13 @@ export class HotspotCreateDialogComponent implements OnInit {
   }
 
   submit(form) {
-    if (this.modeService.redrawnHotspot !== null) {
-      if (this.selectedSound != null && this.audioIsValid()) {
-        this.scenesService.changeHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-          this.svgPath, `${form.value.color}`, this.selectedSound);
-        this.dialogRef.close();
-        this.modeService.currentDrawingTool = '';
-      } else {
-        this.scenesService.changeHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-          this.svgPath, `${form.value.color}`, this.modeService.redrawnHotspot.base64sound);
-        this.dialogRef.close();
-        this.modeService.currentDrawingTool = '';
-      }
-    } else {
       if (this.selectedSound != null && this.audioIsValid()) {
       this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
         this.svgPath, `${form.value.color}`, this.selectedSound);
       this.dialogRef.close();
-      this.modeService.currentDrawingTool = '';
       } else {
         this.error = 'Invalid audio file';
       }
-    }
   }
 
 }

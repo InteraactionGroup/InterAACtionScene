@@ -120,12 +120,12 @@ export class ScenesService {
     this.update();
   }
 
-  changeHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
-    this.modeService.redrawnHotspot.strokeColor = strokeColor;
-    this.modeService.redrawnHotspot.name = hotspotName;
-    this.modeService.redrawnHotspot.svgPointArray = svgPath;
+  changeHotspot(hotspot: Hotspot, selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
+    hotspot.strokeColor = strokeColor;
+    hotspot.name = hotspotName;
+    hotspot.svgPointArray = svgPath;
     if (base64sound !== null) {
-      this.modeService.redrawnHotspot.base64sound = base64sound;
+      hotspot.base64sound = base64sound;
     }
     this.updateScenes()
   }

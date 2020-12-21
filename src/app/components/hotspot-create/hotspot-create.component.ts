@@ -3,6 +3,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {ScenesService} from '../../services/scenes.service';
 import {HotspotCreateDialogComponent} from '../hotspot-create-dialog/hotspot-create-dialog.component';
 import {ModeService} from '../../services/mode.service';
+import {HotspotModifyDialogComponent} from "../hotspot-modify-dialog/hotspot-modify-dialog.component";
+import {Hotspot} from "../../types";
+import {FormGroup} from "@angular/forms";
 
 declare const SVG: any;
 
@@ -81,13 +84,24 @@ export class HotspotCreateComponent implements OnInit {
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i]) / this.width);
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
       }
+      let dialogRef;
+      if(this.modeService.currentDrawingTool=='redraw') {
+        dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
+          width: '400px',
+        });
+        dialogRef.componentInstance.selectedScene = this.selectedScene;
+        dialogRef.componentInstance.selectedImage = this.selectedImage;
+        dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
+        dialogRef.componentInstance.hotspot = this.modeService.modifyiedHotspot;
 
-      const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
-        width: '400px',
-      });
-      dialogRef.componentInstance.selectedScene = this.selectedScene;
-      dialogRef.componentInstance.selectedImage = this.selectedImage;
-      dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
+      } else {
+        dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
+          width: '400px',
+        });
+        dialogRef.componentInstance.selectedScene = this.selectedScene;
+        dialogRef.componentInstance.selectedImage = this.selectedImage;
+        dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
+      }
 
       dialogRef.afterClosed().subscribe(result => {
 
