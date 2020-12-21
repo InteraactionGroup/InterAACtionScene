@@ -50,7 +50,7 @@
               (click)="changeColor('add')">Add Hotspot
       </button>
 
-      <button [class.selected]="modeService.currentDrawingTool === 'modify'"
+      <button [class.selected]="modeService.currentDrawingTool === 'modify' || modeService.currentDrawingTool === 'redraw'"
               type="button" style="width: 4cm; min-width: 1cm;"
               (click)="changeColor('modify')">Modify Hotspot
       </button>

@@ -16,7 +16,6 @@ export class HotspotModifyDialogComponent implements OnInit {
   @Input() selectedScene: number;
   @Input() selectedImage: number;
   @Input() hotspot: Hotspot;
-  @Input() poly;
   form: FormGroup;
   selectedSound = null;
   name = '';
@@ -57,23 +56,32 @@ export class HotspotModifyDialogComponent implements OnInit {
   submit(form) {
     this.hotspot.strokeColor = `${form.value.color}`;
     this.hotspot.name = `${form.value.name}`;
-    this.modeService.currentDrawingTool = '';
     if (this.selectedSound !== '' && this.selectedSound !== null) {
       this.hotspot.base64sound = this.selectedSound;
     }
+    if(this.modeService.modifyiedHotspot != null){
+      this.hotspot.svgPointArray=this.svgPath;
+    }
+
+    this.modeService.selectedMode = 'hotspot';
+    this.modeService.modifyiedHotspot = null;
+    this.modeService.currentDrawingTool ='modify';
+
     this.scenesService.updateScenes();
     this.dialogRef.close();
   }
 
   redraw(){
+    this.modeService.selectedMode = 'hotspot';
     this.modeService.currentDrawingTool = 'redraw';
-    this.modeService.redrawnHotspot = this.hotspot;
+    this.modeService.modifyiedHotspot = this.hotspot;
+    console.log("redrawing");
   }
 
   close(){
-    this.modeService.currentDrawingTool = '';
-    this.modeService.redrawnHotspot = null;
     this.modeService.selectedMode = 'hotspot';
+    this.modeService.modifyiedHotspot = null;
+    this.modeService.currentDrawingTool ='modify';
   }
 
   stop(){

@@ -26,6 +26,7 @@ export class MenubarComponent implements OnInit {
   ];
 
   changeMode(mode: string): void {
+    this.modeService.currentDrawingTool = '';
     this.modeService.selectedMode = mode;
   }
 

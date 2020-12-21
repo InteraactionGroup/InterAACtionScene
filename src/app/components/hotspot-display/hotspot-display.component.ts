@@ -106,11 +106,9 @@ export class HotspotDisplayComponent implements OnInit {
       });
       dialogRef.componentInstance.selectedScene = this.selectedScene;
       dialogRef.componentInstance.selectedImage = this.selectedImage;
-      dialogRef.componentInstance.poly = event.target;
       dialogRef.componentInstance.hotspot = hotspot;
 
       dialogRef.afterClosed().subscribe(result => {
-        this.modeService.currentDrawingTool = '';
         this.modeService.selectedMode = 'hotspot';
         this.modeService.soundType ='import';
       });
@@ -125,7 +123,6 @@ export class HotspotDisplayComponent implements OnInit {
       dialogRef.componentInstance.hotspot = hotspot;
 
       dialogRef.afterClosed().subscribe(result => {
-        this.modeService.currentDrawingTool = '';
         this.modeService.selectedMode = 'hotspot';
         this.modeService.soundType ='import';
       });
