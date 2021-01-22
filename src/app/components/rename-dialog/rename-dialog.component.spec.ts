@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RenameDialogComponent } from './rename-dialog.component';
+import {RenameDialogComponent} from './rename-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
@@ -10,9 +10,9 @@ describe('RenameDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RenameDialogComponent ]
+      declarations: [RenameDialogComponent]
       ,
-      imports: [ FormsModule, ReactiveFormsModule, MatDialogModule ],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule],
       providers: [
         {
           provide: MatDialogRef,
@@ -20,7 +20,7 @@ describe('RenameDialogComponent', () => {
         }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

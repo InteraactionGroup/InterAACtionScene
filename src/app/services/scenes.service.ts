@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Scene, SceneImage, Hotspot } from '../types';
+import {Injectable} from '@angular/core';
+import {Hotspot, Scene} from '../types';
+import {ModeService} from "./mode.service";
+import {SettingsService} from "./settings.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,67 +9,72 @@ import { Scene, SceneImage, Hotspot } from '../types';
 export class ScenesService {
 
   SCENES: Array<Scene> = [];
+  openRequest;
 
-  constructor() {
-    this.SCENES = JSON.parse(localStorage.getItem('Scenes'));
+  constructor(public modeService: ModeService,
+              public settingsService: SettingsService) {
+    this.init();
   }
 
   addScene(base64data: string, sceneName: string = '', firstimagename: string = '') {
     if (this.SCENES == null || this.SCENES.length == 0) {
-      this.SCENES = [{name: sceneName,
-                      images: [
-                        {name : firstimagename, base64data, canvasData : null, hidden: false, hotspots: Array<Hotspot>()}
-                      ],
-                      hidden : false
-                    }];
+      this.SCENES = [{
+        name: sceneName,
+        images: [
+          {name: firstimagename, base64data, canvasData: null, hidden: false, hotspots: Array<Hotspot>()}
+        ],
+        hidden: false
+      }];
     } else {
-      this.SCENES.push({name: sceneName,
-                        images: [
-                          {name : firstimagename, base64data, canvasData : null, hidden: false, hotspots: Array<Hotspot>()}
-                        ],
-                        hidden : false
-                      });
+      this.SCENES.push({
+        name: sceneName,
+        images: [
+          {name: firstimagename, base64data, canvasData: null, hidden: false, hotspots: Array<Hotspot>()}
+        ],
+        hidden: false
+      });
     }
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   addImage(base64data: string, sceneNumber: number, imageName: string = '') {
-    this.SCENES[sceneNumber].images.push({name : imageName, base64data, canvasData : null, hidden : false , hotspots: Array<Hotspot>()});
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.SCENES[sceneNumber].images.push({
+      name: imageName,
+      base64data,
+      canvasData: null,
+      hidden: false,
+      hotspots: Array<Hotspot>()
+    });
+    this.update();
   }
 
   canvasSave(selectedScene: number, selectedImage: number, canvasData: string) {
     this.SCENES[selectedScene].images[selectedImage].canvasData = canvasData;
-    console.log(selectedScene);
-    console.log(selectedImage);
-
-
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   getScenes(): Array<Scene> {
-    return JSON.parse(localStorage.getItem('Scenes'));
+    return this.SCENES;
   }
 
-  updateScenes(scenes: Array<Scene>) {
-    this.SCENES = scenes;
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+  updateScenes() {
+    this.update();
   }
 
   renameImage(selectedScene: number, selectedImage: number, newImageName: string) {
     this.SCENES[selectedScene].images[selectedImage].name = newImageName;
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   renameScene(selectedScene: number, newImageName: string) {
     this.SCENES[selectedScene].name = newImageName;
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   removeImage(selectedScene: number, selectedImage: number) {
     if (this.SCENES[selectedScene].images.length >= 2) {
       this.SCENES[selectedScene].images.splice(selectedImage, 1);
-      localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+      this.update();
     } else {
       this.removeScene(selectedScene);
     }
@@ -76,7 +83,7 @@ export class ScenesService {
 
   removeScene(selectedScene: number) {
     this.SCENES.splice(selectedScene, 1);
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   hideImage(selectedScene: number, selectedImage: number) {
@@ -92,7 +99,7 @@ export class ScenesService {
         this.hideScene(selectedScene);
       }
     }
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   hideScene(selectedScene: number) {
@@ -110,22 +117,130 @@ export class ScenesService {
     } else {
       this.SCENES[selectedScene].hidden = true;
     }
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
+  changeHotspot(hotspot: Hotspot, selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
+    hotspot.strokeColor = strokeColor;
+    hotspot.name = hotspotName;
+    hotspot.svgPointArray = svgPath;
+    if (base64sound !== null) {
+      hotspot.base64sound = base64sound;
+    }
+    this.updateScenes()
+  }
 
   addHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
     if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
-      this.SCENES[selectedScene].images[selectedImage].hotspots = [{name: hotspotName, svgPointArray: svgPath, strokeColor, base64sound}];
+      this.SCENES[selectedScene].images[selectedImage].hotspots = [{
+        name: hotspotName,
+        svgPointArray: svgPath,
+        strokeColor,
+        base64sound
+      }];
     } else {
-      this.SCENES[selectedScene].images[selectedImage].hotspots.push({name: hotspotName, svgPointArray: svgPath, strokeColor, base64sound});
+      this.SCENES[selectedScene].images[selectedImage].hotspots.push({
+        name: hotspotName,
+        svgPointArray: svgPath,
+        strokeColor,
+        base64sound
+      });
     }
-    localStorage.setItem('Scenes', JSON.stringify(this.SCENES));
+    this.update();
   }
 
   getImageHotspots(selectedScene: number, selectedImage: number): Array<Hotspot> {
-    return this.SCENES[selectedScene].images[selectedImage].hotspots;
+
+    if (selectedScene != undefined && selectedImage != undefined) {
+      return this.SCENES[selectedScene].images[selectedImage].hotspots;
+    }
+    return [];
   }
 
+  // INITIALISATION
+  init() {
+
+
+    this.openRequest = indexedDB.open('Saves', 2);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const gridStore = db.transaction(['Scenes'], 'readwrite').objectStore('Scenes').get(1);
+      gridStore.onsuccess = e => {
+        this.SCENES = gridStore.result;
+      };
+      gridStore.onerror = e => {
+      };
+
+      const configStore = db.transaction(['Configuration'], 'readwrite').objectStore('Configuration').get(1);
+      configStore.onsuccess = e => {
+        this.settingsService.setConfiguration(configStore.result);
+      };
+      configStore.onerror = e => {
+      };
+
+    };
+
+    this.openRequest.onupgradeneeded = event => {
+
+      // Creaction of Store
+      const db = event.target.result;
+      const transaction = event.target.transaction;
+
+      if (!db.objectStoreNames.contains("Scenes")) {
+        db.createObjectStore('Scenes', {autoIncrement: true});
+        const scenesStore = transaction.objectStore('Scenes');
+        scenesStore.add(this.SCENES);
+      }
+
+      if (event.oldVersion <= 1) {
+        if (!db.objectStoreNames.contains("Configuration")) {
+          db.createObjectStore('Configuration', {autoIncrement: true});
+          const configurationStore = transaction.objectStore('Configuration');
+          configurationStore.add(this.settingsService.getConfiguration());
+        }
+      }
+    };
+  }
+
+  update() {
+
+
+    this.openRequest = indexedDB.open('Saves', 2);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      // UPDATE THE SCENE
+      const scenesStore = db.transaction(['Scenes'], 'readwrite');
+      const scenesObjectStore = scenesStore.objectStore('Scenes');
+      const storeScenesRequest = scenesObjectStore.get(1);
+      storeScenesRequest.onsuccess = () => {
+        scenesObjectStore.put(this.SCENES, 1);
+      };
+
+      // UPDATE THE GRID
+      const configurationStore = db.transaction(['Configuration'], 'readwrite');
+      const configurationObjectStore = configurationStore.objectStore('Configuration');
+      const storeConfigurationRequest = configurationObjectStore.get(1);
+      storeConfigurationRequest.onsuccess = () => {
+        configurationObjectStore.put(this.settingsService.getConfiguration(), 1);
+      };
+
+    };
+  }
 
 }

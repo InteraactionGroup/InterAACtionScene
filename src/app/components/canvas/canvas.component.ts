@@ -1,8 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {fromEvent} from 'rxjs';
-import {pairwise, switchMap, takeUntil} from 'rxjs/operators';
 import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from '../../services/mode.service';
+import {SceneDisplayService} from "../../services/scene-display.service";
 
 @Component({
   selector: 'app-canvas',
@@ -11,18 +10,25 @@ import {ModeService} from '../../services/mode.service';
 })
 export class CanvasComponent implements OnInit {
 
-  constructor(private scenesService: ScenesService, public modeService: ModeService) {
+  constructor(
+    private scenesService: ScenesService,
+    public modeService: ModeService,
+    public sceneDisplayService: SceneDisplayService
+  ) {
+    console.log("This size " + this.sceneDisplayService.imageWidth + " ; " + this.sceneDisplayService.imageHeigth );
   }
 
   ngOnInit(): void {
     this.InitializeCanvasWithJSON();
+    console.log("This size " + this.sceneDisplayService.imageWidth + " ; " + this.sceneDisplayService.imageHeigth );
   }
 
+  prevPos = {x: null, y: null};
+  currentPos = {x: null, y: null};
+  drawStarted = false;
+
   @ViewChild('canvas') public canvas: ElementRef;
-  @Input() public width: number;
-  @Input() public height: number;
-  @Input() public selectedScene: number;
-  @Input() public selectedImage: number;
+
   previousSelectedScene = 0;
   previousSelectedImage = 0;
   @Output() updateCanvas = new EventEmitter<string>();
@@ -47,7 +53,7 @@ export class CanvasComponent implements OnInit {
       const image = new Image();
       image.src = data.image; // data.image contains the data URL
       image.onload = () => {
-        this.cx.clearRect(0, 0, this.width, this.height);
+        this.cx.clearRect(0, 0, this.sceneDisplayService.imageWidth, this.sceneDisplayService.imageHeigth);
         this.cx.drawImage(image, 0, 0); // draw the new image to the screen
       };
     }
@@ -83,7 +89,7 @@ export class CanvasComponent implements OnInit {
           break;
         }
         case 'clear': {
-          this.cx.clearRect(0, 0, this.width, this.height);
+          this.cx.clearRect(0, 0, this.sceneDisplayService.imageWidth, this.sceneDisplayService.imageHeigth);
           break;
         }
         case 'erase': {
@@ -91,7 +97,7 @@ export class CanvasComponent implements OnInit {
           break;
         }
         default: {
-          this.cx.strokeStyle = '#000000';
+          this.cx.strokeStyle = '#FFFFFF';
           break;
         }
       }
@@ -105,18 +111,17 @@ export class CanvasComponent implements OnInit {
       const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
       this.cx = canvasEl.getContext('2d');
 
-      canvasEl.width = this.width;
-      canvasEl.height = this.height;
+       canvasEl.width = this.sceneDisplayService.imageWidth;
+       canvasEl.height = this.sceneDisplayService.imageHeigth;
 
       this.cx.lineWidth = 6;
       this.cx.lineCap = 'round';
       this.cx.strokeStyle = '#FFF';
 
-      this.captureEvents(canvasEl);
       this.InitializeCanvasWithJSON();
     }
-    this.previousSelectedScene = this.selectedScene;
-    this.previousSelectedImage = this.selectedImage;
+    this.previousSelectedScene = this.sceneDisplayService.selectedScene;
+    this.previousSelectedImage = this.sceneDisplayService.selectedImage;
   }
 
   public saveCanvas() {
@@ -132,40 +137,39 @@ export class CanvasComponent implements OnInit {
     })();
   }
 
-  private captureEvents(canvasEl: HTMLCanvasElement) {
-    // Captures all mouse down events
-    fromEvent(canvasEl, 'mousedown')
-      .pipe(
-        switchMap((e) => {
-          // After mouse down, it starts drawing a line
-          return fromEvent(canvasEl, 'mousemove')
-            .pipe(
-              // The line stops when the mouse is released or leaves the area
-              takeUntil(fromEvent(canvasEl, 'mouseup')),
-              takeUntil(fromEvent(canvasEl, 'mouseleave')),
-              pairwise()
-            );
-        })
-      )
-      .subscribe((res: [MouseEvent, MouseEvent]) => {
-        const rect = canvasEl.getBoundingClientRect();
+  stopDraw() {
+    this.drawStarted = false;
+    this.prevPos = {x: null, y: null};
+    this.currentPos = {x: null, y: null};
+    this.saveCanvas()
+  }
 
-        // Previous and current position with the offset
-        const prevPos = {
-          x: res[0].clientX - rect.left,
-          y: res[0].clientY - rect.top
+  draw(mouseEvent: MouseEvent) {
+    if (this.drawStarted) {
+      if (this.currentPos.x == null && this.currentPos.y == null) {
+        this.currentPos = {
+          x: mouseEvent.offsetX,
+          y: mouseEvent.offsetY
         };
+      }
 
-        const currentPos = {
-          x: res[1].clientX - rect.left,
-          y: res[1].clientY - rect.top
-        };
+      //console.log(mouseEvent.offsetX + " ; " + mouseEvent.offsetY);
 
-        // This method does the actual drawing
-        if (this.modeService.selectedMode === 'draw') {
-          this.drawOnCanvas(prevPos, currentPos);
-        }
-      });
+      this.prevPos = {
+        x: this.currentPos.x,
+        y: this.currentPos.y
+      };
+
+      this.currentPos = {
+        x: mouseEvent.offsetX,
+        y: mouseEvent.offsetY
+      };
+
+      // This method does the actual drawing
+      if (this.modeService.selectedMode === 'draw') {
+        this.drawOnCanvas(this.prevPos, this.currentPos);
+      }
+    }
   }
 
   delay(ms: number) {
@@ -184,5 +188,9 @@ export class CanvasComponent implements OnInit {
       this.cx.lineTo(currentPos.x, currentPos.y);
       this.cx.stroke();
     }
+  }
+
+  print(s: string) {
+    console.log(s);
   }
 }

@@ -22,6 +22,11 @@ import { ImportScenesDialogComponent } from './components/import-scenes-dialog/i
 import { HotspotCreateComponent } from './components/hotspot-create/hotspot-create.component';
 import { HotspotCreateDialogComponent } from './components/hotspot-create-dialog/hotspot-create-dialog.component';
 import { HotspotDisplayComponent } from './components/hotspot-display/hotspot-display.component';
+import {HotspotModifyDialogComponent} from "./components/hotspot-modify-dialog/hotspot-modify-dialog.component";
+import { HotspotDeleteDialogComponent } from './components/hotspot-delete-dialog/hotspot-delete-dialog.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { DwellCursorComponent } from './components/dwell-cursor/dwell-cursor.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -37,22 +42,27 @@ import { HotspotDisplayComponent } from './components/hotspot-display/hotspot-di
     ImportScenesDialogComponent,
     HotspotCreateComponent,
     HotspotCreateDialogComponent,
+    HotspotModifyDialogComponent,
     HotspotDisplayComponent,
+    HotspotDeleteDialogComponent,
+    DwellCursorComponent,
+    SettingsComponent,
   ],
-  imports: [
-    FormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ScrollingModule,
-    MatDialogModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatTableModule,
-    MatButtonModule,
-    MatSelectModule
-  ],
+    imports: [
+        FormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ScrollingModule,
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatTableModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatButtonToggleModule
+    ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [

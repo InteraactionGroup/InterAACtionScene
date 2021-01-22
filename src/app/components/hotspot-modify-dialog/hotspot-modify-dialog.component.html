@@ -1,0 +1,47 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)" class="import-scenes-dialog">
+  <h1 mat-dialog-title>Modify hotspot</h1>
+  <mat-dialog-content>
+    <label style="font: menu;font-family: inherit;color: darkgray;"> Add the sound</label>
+    <mat-dialog-actions style="display: grid;grid-template-columns: 1fr 1fr; margin-bottom: .25em;">
+      <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='import'" (click)="this.modeService.soundType='import'" >Import a sound</button>
+      <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='record'" (click)="this.modeService.soundType='record'">Record a sound</button>
+    </mat-dialog-actions>
+    <input *ngIf="this.modeService.soundType=='import'" formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-top: .50375em;">
+    <mat-dialog-actions *ngIf="this.modeService.soundType=='record'" style="display: grid;grid-template-columns: 1fr 1fr 1fr; margin-bottom: .25em;padding: 0;">
+      <button class="recButton"  type="button" mat-button style="margin-left: 3px" (click)="this.audioRecorderService.startRecording()" >
+        <img [src]="this.audioRecorderService.getRecValue()" alt="Record" class="buttonimg">
+      </button>
+      <button class="recButton" type="button" mat-button style="margin-left: 3px" (click)="stop()" >
+        <img src="assets/images/stop.png" alt="Stop" class="buttonimg">
+      </button>
+      <button class="recButton" type="button" mat-button style="margin-left: 3px" (click)="this.audioRecorderService.playRecording()">
+        <img src="assets/images/play.png" alt="Play" class="buttonimg">
+      </button>
+    </mat-dialog-actions>
+    <div style="display: grid;grid-template-columns: 1fr 1fr; margin-top: 1.50375em;">
+      <div>
+    <mat-form-field>
+      <mat-select formControlName="color" placeholder="Pick the stroke color" id="colorSelect" ngDefaultControl>
+        <mat-option [value]="'#000000'">Black</mat-option>
+        <mat-option [value]="'#FFFFFF'">White</mat-option>
+        <mat-option [value]="'#0080ff'">Blue</mat-option>
+        <mat-option [value]="'#f34336'">Red</mat-option>
+        <mat-option [value]="'#ff7f00'">Orange</mat-option>
+        <mat-option [value]="'#228b22'">Green</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="Enter the name of the hotspot" id="nameInput">
+    </mat-form-field>
+      </div>
+      <mat-button-toggle id="redraw" style="margin: 0 0 10% 10%; border: lightgray 2px solid;"  mat-dialog-close (click)="redraw()">
+        redraw
+      </mat-button-toggle>
+    </div>
+  </mat-dialog-content>
+  <p *ngIf='error !== ""'>{{error}}</p>
+  <mat-dialog-actions style="display: grid;grid-template-columns: 1fr 1fr;">
+    <button mat-button type="submit" >Modify</button>
+    <button mat-button type="button" (click)="close()" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</form>

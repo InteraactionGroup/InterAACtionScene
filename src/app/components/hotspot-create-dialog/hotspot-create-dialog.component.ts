@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, ReactiveFormsModule  } from '@angular/forms';
-import { ScenesService } from '../../services/scenes.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ScenesService} from '../../services/scenes.service';
+import {ModeService} from "../../services/mode.service";
+import {AudioRecorderService} from "../../services/audio-recorder.service";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -17,18 +19,22 @@ export class HotspotCreateDialogComponent implements OnInit {
   name = '';
   error = '';
   svgPath: number[];
+
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
+    public modeService: ModeService,
+    public audioRecorderService: AudioRecorderService,
     private dialogRef: MatDialogRef<HotspotCreateDialogComponent>
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      soundSelected: '',
-      name: '',
-      color: ''
-    });
+      this.form = this.formBuilder.group({
+        soundSelected: '',
+        name: '',
+        color: ''
+      });
   }
 
   onSoundSelected(event) {
@@ -40,21 +46,38 @@ export class HotspotCreateDialogComponent implements OnInit {
     };
 
     reader.onerror = (error) => {
-     console.log('Error: ', error);
+      console.log('Error: ', error);
     };
     this.error = '';
   }
 
+  stop(){
+    this.audioRecorderService.stopRecording();
+    const file = this.audioRecorderService.getRecord();
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.selectedSound = reader.result;
+    };
+
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
+    this.error = '';
+  }
+
+  audioIsValid(){
+    return this.selectedSound.startsWith('data:audio/mpeg;base64') || this.selectedSound.startsWith('data:audio/wav');
+  }
 
   submit(form) {
-    if (this.selectedSound != null && this.selectedSound.startsWith('data:audio/mpeg;base64')) {
-      console.log(this.selectedSound);
+      if (this.selectedSound != null && this.audioIsValid()) {
       this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
         this.svgPath, `${form.value.color}`, this.selectedSound);
       this.dialogRef.close();
-    } else {
-      this.error = 'Invalid audio file';
-    }
+      } else {
+        this.error = 'Invalid audio file';
+      }
   }
 
 }
