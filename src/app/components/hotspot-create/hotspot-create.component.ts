@@ -29,16 +29,15 @@ export class HotspotCreateComponent implements OnInit {
     private dialog: MatDialog, public modeService: ModeService) {
   }
 
-
   lastPt = null;
   firstPt = null;
-  start = true;
+  startDrawRectangle = true;
 
   ngOnInit() {
     this.drawsSVG();
   }
 
-  createMouseEvent() {
+  createMouseEventPolyline() {
     const polyline = document.querySelector('#polyline');
     return (e: MouseEvent) => {
       let pts = polyline.getAttribute('points');
@@ -53,8 +52,8 @@ export class HotspotCreateComponent implements OnInit {
     };
   }
 
-  createMouseEventRect() {
-    const rect = document.querySelector('#rect');
+  createMouseEventRectangle() {
+    const rect = document.querySelector('#rectangle');
     return (e: MouseEvent) => {
       let ptsX = rect.getAttribute('x');
       let ptsY = rect.getAttribute('y');
@@ -63,16 +62,28 @@ export class HotspotCreateComponent implements OnInit {
       if (e.offsetY !== undefined && e.offsetX !== undefined) {
         rectWidth = `${e.offsetX}`;
         rectHeight = `${e.offsetY}`;
-        if (this.start == true){
+        if (this.startDrawRectangle === true){
           ptsX = `${e.offsetX}`;
           ptsY = `${e.offsetY}`;
-          this.start = false;
+          this.startDrawRectangle = false;
         }
-        let tmp = this.rectangle(ptsX, ptsY, rectWidth, rectHeight);
-        rect.setAttribute('x', tmp[0]);
-        rect.setAttribute('y', tmp[1]);
-        rect.setAttribute('width', tmp[2]);
-        rect.setAttribute('height', tmp[3]);
+
+        // Je parse en Int car sinon je compare des Strings
+        if ((Number.parseInt(ptsX) < Number.parseInt(rectWidth)) && (Number.parseInt(ptsY) > Number.parseInt(rectHeight))){
+          [ptsY, rectHeight] = [rectHeight, ptsY];
+        }
+        else if ((Number.parseInt(ptsX) > Number.parseInt(rectWidth)) && (Number.parseInt(ptsY) < Number.parseInt(rectHeight))){
+          [ptsX, rectWidth] = [rectWidth, ptsX];
+        }
+        else if ((Number.parseInt(ptsX) > Number.parseInt(rectWidth)) && (Number.parseInt(ptsY) > Number.parseInt(rectHeight))){
+          [ptsX, rectWidth] = [rectWidth, ptsX];
+          [ptsY, rectHeight] = [rectHeight, ptsY];
+        }
+
+        rect.setAttribute('x', ptsX);
+        rect.setAttribute('y', ptsY);
+        rect.setAttribute('width', String(Math.abs(Number.parseInt(rectWidth) - Number.parseInt(ptsX))));
+        rect.setAttribute('height', String(Math.abs(Number.parseInt(rectHeight) - Number.parseInt(ptsY))));
       }
     };
   }
@@ -86,7 +97,7 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  createMouseUpEvent(mouseMove) {
+  createMouseUpEventPolyline(mouseMove) {
     const polyline = document.querySelector('#polyline');
     const svg = document.querySelector('#svg');
 
@@ -142,8 +153,8 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  createMouseUpEventRect(mouseMove) {
-    const rect = document.querySelector('#rect');
+  createMouseUpEventRectangle(mouseMove) {
+    const rect = document.querySelector('#rectangle');
     const svg = document.querySelector('#svg');
 
     return (e: MouseEvent) => {
@@ -177,7 +188,7 @@ export class HotspotCreateComponent implements OnInit {
         rect.setAttribute('y', '');
         rect.setAttribute('width', '');
         rect.setAttribute('height', '');
-        this.start = true;
+        this.startDrawRectangle = true;
 
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
@@ -188,61 +199,33 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  rectangle(ptsX, ptsY, rectWidth, rectHeight){
-    if (ptsX < rectWidth && ptsY > rectHeight){ // Bas Gauche -> Haut Droit
-      let tmpY = ptsY;
-      ptsY = rectHeight;
-      rectHeight = tmpY - ptsY;
-      rectWidth = rectWidth - ptsX;
-    }
-    else if (ptsX > rectWidth && ptsY < rectHeight){ // Haut Droit -> Bas Gauche
-      let tmpX = ptsX;
-      ptsX = rectWidth;
-      rectWidth = tmpX - ptsX;
-      rectHeight = rectHeight - ptsY;
-    }
-    else if (ptsX > rectWidth && ptsY > rectHeight){ // Bas Droit -> Haut Gauche
-      let tmpX = ptsX;
-      let tmpY = ptsY;
-      ptsX = rectWidth;
-      rectWidth = tmpX - ptsX;
-      ptsY = rectHeight;
-      rectHeight = tmpY - ptsY;
-    }
-    else{ // Haut Gauche -> Bas Droit
-      rectWidth = rectWidth - ptsX;
-      rectHeight = rectHeight - ptsY;
-    }
-
-    return [ptsX, ptsY, Math.abs(rectWidth), Math.abs(rectHeight)];
-  }
-
   drawsSVG() {
       const svg = document.querySelector('#svg');;
 
       svg.setAttribute('width', '' + this.width);
       svg.setAttribute('height', '' + this.height);
 
-    if (this.modeService.currentDrawingTool === 'Rectangle') {
-      let mouseMove = this.createMouseEventRect();
-      //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-      svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
-      //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+      console.log(this.modeService.currentDrawingTool);
+      if (this.modeService.currentDrawingTool === 'Rectangle') {
+        let mouseMove = this.createMouseEventRectangle();
+        //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
+        svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
+        //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
 
-      //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
-      svg.addEventListener('pointerup', this.createMouseUpEventRect(mouseMove));
-      //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
-    }
-    else if (this.modeService.currentDrawingTool === 'Polyline'){
-      let mouseMove = this.createMouseEvent();
-      //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-      svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
-      //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+        //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
+        svg.addEventListener('pointerup', this.createMouseUpEventRectangle(mouseMove));
+        //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
+      }
+      else if (this.modeService.currentDrawingTool === 'Polyline'){
+        let mouseMove = this.createMouseEventPolyline();
+        //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
+        svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
+        //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
 
-      //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
-      svg.addEventListener('pointerup', this.createMouseUpEvent(mouseMove));
-      //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
-    }
+        //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
+        svg.addEventListener('pointerup', this.createMouseUpEventPolyline(mouseMove));
+        //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
+      }
   }
 
   /*
