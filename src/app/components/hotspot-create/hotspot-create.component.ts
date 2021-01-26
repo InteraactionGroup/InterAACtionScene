@@ -69,16 +69,16 @@ export class HotspotCreateComponent implements OnInit {
           this.start = false;
         }
         let tmp = this.rectangle(ptsX, ptsY, rectWidth, rectHeight);
-        rect.setAttribute('x', String(tmp[0]));
-        rect.setAttribute('y', String(tmp[1]));
-        rect.setAttribute('width', String(tmp[2]));
-        rect.setAttribute('height', String(tmp[3]));
+        rect.setAttribute('x', tmp[0]);
+        rect.setAttribute('y', tmp[1]);
+        rect.setAttribute('width', tmp[2]);
+        rect.setAttribute('height', tmp[3]);
       }
     };
   }
   
-  createMouseDownEvent(mouseMove, type) {
-    const svg = document.querySelector('#svg'.concat(type));
+  createMouseDownEvent(mouseMove) {
+    const svg = document.querySelector('#svg');
     return (e: MouseEvent) => {
       // svg.addEventListener('mousemove',mouseMove);
       svg.addEventListener('pointermove', mouseMove);
@@ -88,7 +88,7 @@ export class HotspotCreateComponent implements OnInit {
 
   createMouseUpEvent(mouseMove) {
     const polyline = document.querySelector('#polyline');
-    const svg = document.querySelector('#svgPolyline');
+    const svg = document.querySelector('#svg');
 
     return (e: MouseEvent) => {
       // svg.removeEventListener('mousemove',mouseMove);
@@ -144,7 +144,7 @@ export class HotspotCreateComponent implements OnInit {
 
   createMouseUpEventRect(mouseMove) {
     const rect = document.querySelector('#rect');
-    const svg = document.querySelector('#svgRectangle');
+    const svg = document.querySelector('#svg');
 
     return (e: MouseEvent) => {
       // svg.removeEventListener('mousemove',mouseMove);
@@ -173,10 +173,10 @@ export class HotspotCreateComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
 
-        rect.setAttribute('x', '0');
-        rect.setAttribute('y', '0');
-        rect.setAttribute('width', '0');
-        rect.setAttribute('height', '0');
+        rect.setAttribute('x', '');
+        rect.setAttribute('y', '');
+        rect.setAttribute('width', '');
+        rect.setAttribute('height', '');
         this.start = true;
 
         this.updateHotspots.emit('');
@@ -214,21 +214,19 @@ export class HotspotCreateComponent implements OnInit {
       rectHeight = rectHeight - ptsY;
     }
 
-    return [Math.abs(ptsX), Math.abs(ptsY), Math.abs(rectWidth), Math.abs(rectHeight)];
+    return [ptsX, ptsY, Math.abs(rectWidth), Math.abs(rectHeight)];
   }
 
   drawsSVG() {
-
-    console.log(this.modeService.currentDrawingTool);
-    if (this.modeService.currentDrawingTool === 'Rectangle') {
-      const svg = document.querySelector('#svgRectangle');
+      const svg = document.querySelector('#svg');;
 
       svg.setAttribute('width', '' + this.width);
       svg.setAttribute('height', '' + this.height);
 
+    if (this.modeService.currentDrawingTool === 'Rectangle') {
       let mouseMove = this.createMouseEventRect();
       //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-      svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove, 'Rectangle'));
+      svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
       //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
 
       //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
@@ -236,14 +234,9 @@ export class HotspotCreateComponent implements OnInit {
       //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
     }
     else if (this.modeService.currentDrawingTool === 'Polyline'){
-      const svg = document.querySelector('#svgPolyline');
-
-      svg.setAttribute('width', '' + this.width);
-      svg.setAttribute('height', '' + this.height);
-
       let mouseMove = this.createMouseEvent();
       //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-      svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove, 'Polyline'));
+      svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
       //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
 
       //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
