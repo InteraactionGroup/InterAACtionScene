@@ -32,6 +32,8 @@ export class HotspotCreateComponent implements OnInit {
   lastPt = null;
   firstPt = null;
   startDrawRectangle = true;
+  DrawPolyline = false;
+  DrawRectangle = false;
 
   ngOnInit() {
     this.drawsSVG();
@@ -69,8 +71,8 @@ export class HotspotCreateComponent implements OnInit {
         }
         rect.setAttribute('x', ptsX);
         rect.setAttribute('y', ptsY);
-        rect.setAttribute('width', String(Math.abs(Number.parseInt(rectWidth) - Number.parseInt(ptsX))));
-        rect.setAttribute('height', String(Math.abs(Number.parseInt(rectHeight) - Number.parseInt(ptsY))));
+        rect.setAttribute('width', String(Number.parseInt(rectWidth) - Number.parseInt(ptsX)));
+        rect.setAttribute('height', String(Number.parseInt(rectHeight) - Number.parseInt(ptsY)));
       }
     };
   }
@@ -84,13 +86,13 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  createMouseUpEventPolyline(mouseMove) {
+  createMouseUpEventPolyline(mouseMovePolyline) {
     const polyline = document.querySelector('#polyline');
     const svg = document.querySelector('#svg');
 
     return (e: MouseEvent) => {
       // svg.removeEventListener('mousemove',mouseMove);
-      svg.removeEventListener('pointermove', mouseMove);
+      svg.removeEventListener('pointermove', mouseMovePolyline);
       // svg.removeEventListener('touchmove',mouseMove);
 
       let pts = polyline.getAttribute('points');
@@ -139,13 +141,13 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  createMouseUpEventRectangle(mouseMove) {
+  createMouseUpEventRectangle(mouseMoveRectangle) {
     const rect = document.querySelector('#rectangle');
     const svg = document.querySelector('#svg');
 
     return (e: MouseEvent) => {
       // svg.removeEventListener('mousemove',mouseMove);
-      svg.removeEventListener('pointermove', mouseMove);
+      svg.removeEventListener('pointermove', mouseMoveRectangle);
       // svg.removeEventListener('touchmove',mouseMove);
 
       let ptsX = rect.getAttribute('x');
@@ -156,8 +158,12 @@ export class HotspotCreateComponent implements OnInit {
       this.firstPt = null;
       this.lastPt = null;
 
+      let ptsRectWidth = String(Number.parseInt(rectWidth) + Number.parseInt(ptsX));
+      let ptsRectHeight = String(Number.parseInt(rectHeight) + Number.parseInt(ptsY));
+
       const svgPathPoints = [];
-      svgPathPoints.push(ptsX, ptsY, rectWidth, ptsY, rectWidth, rectHeight, ptsX, rectHeight, ptsX, ptsY);
+      svgPathPoints.push(ptsX, ptsY, ptsRectWidth, ptsY, ptsRectWidth, ptsRectHeight, ptsX, ptsRectHeight, ptsX, ptsY);
+
       const svgPathPointsPercentage = [];
       for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i]) / this.width);
@@ -206,47 +212,40 @@ export class HotspotCreateComponent implements OnInit {
       svg.setAttribute('width', '' + this.width);
       svg.setAttribute('height', '' + this.height);
 
-      if (this.modeService.currentDrawingTool === 'Rectangle') {
-        let mouseMove = this.createMouseEventRectangle();
-        //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-        svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
-        //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+      let mouseMoveRectangle = this.createMouseEventRectangle();
+      let mouseMovePolyline = this.createMouseEventPolyline();
 
-        //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
-        svg.addEventListener('pointerup', this.createMouseUpEventRectangle(mouseMove));
-        //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
-      }
-      else if (this.modeService.currentDrawingTool === 'Polyline'){
-        let mouseMove = this.createMouseEventPolyline();
-        //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-        svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
-        //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+      svg.addEventListener('pointerenter', (e: MouseEvent) =>{
 
-        //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
-        svg.addEventListener('pointerup', this.createMouseUpEventPolyline(mouseMove));
-        //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
-      }
+        svg.removeEventListener('pointerdown', this.createMouseDownEvent(mouseMoveRectangle));
+        svg.removeEventListener('pointerup', this.createMouseUpEventRectangle(mouseMoveRectangle));
+        svg.removeEventListener('pointerdown', this.createMouseDownEvent(mouseMovePolyline));
+        svg.removeEventListener('pointerup', this.createMouseUpEventPolyline(mouseMovePolyline));
+
+        if (this.modeService.currentDrawingTool === 'Rectangle' && this.DrawRectangle === false) {
+          this.DrawRectangle = true;
+          this.DrawPolyline = false;
+          //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
+          svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMoveRectangle));
+          //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+
+          //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
+          svg.addEventListener('pointerup', this.createMouseUpEventRectangle(mouseMoveRectangle));
+          //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
+        }
+        else if (this.modeService.currentDrawingTool === 'Polyline' && this.DrawPolyline === false){
+          this.DrawPolyline = true;
+          this.DrawRectangle = false;
+          //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
+          svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMovePolyline));
+          //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+
+          //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
+          svg.addEventListener('pointerup', this.createMouseUpEventPolyline(mouseMovePolyline));
+          //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
+        }
+      });
   }
-
-  /*
-
-  drawsSVG() {
-    const svg = document.querySelector('#svg');
-
-    svg.setAttribute('width', '' + this.width);
-    svg.setAttribute('height', '' + this.height);
-
-    let mouseMove = this.createMouseEvent();
-    //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-    svg.addEventListener('pointerdown', this.createMouseDownEvent(mouseMove));
-    //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
-
-    //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
-    svg.addEventListener('pointerup', this.createMouseUpEvent(mouseMove));
-    //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
-  }
-
-*/
 
   // async drawSVG() {
   //   console.log('drawing is starting');
