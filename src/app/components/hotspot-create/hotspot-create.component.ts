@@ -67,19 +67,6 @@ export class HotspotCreateComponent implements OnInit {
           ptsY = `${e.offsetY}`;
           this.startDrawRectangle = false;
         }
-
-        // Je parse en Int car sinon je compare des Strings
-        if ((Number.parseInt(ptsX) < Number.parseInt(rectWidth)) && (Number.parseInt(ptsY) > Number.parseInt(rectHeight))){
-          [ptsY, rectHeight] = [rectHeight, ptsY];
-        }
-        else if ((Number.parseInt(ptsX) > Number.parseInt(rectWidth)) && (Number.parseInt(ptsY) < Number.parseInt(rectHeight))){
-          [ptsX, rectWidth] = [rectWidth, ptsX];
-        }
-        else if ((Number.parseInt(ptsX) > Number.parseInt(rectWidth)) && (Number.parseInt(ptsY) > Number.parseInt(rectHeight))){
-          [ptsX, rectWidth] = [rectWidth, ptsX];
-          [ptsY, rectHeight] = [rectHeight, ptsY];
-        }
-
         rect.setAttribute('x', ptsX);
         rect.setAttribute('y', ptsY);
         rect.setAttribute('width', String(Math.abs(Number.parseInt(rectWidth) - Number.parseInt(ptsX))));
@@ -149,7 +136,6 @@ export class HotspotCreateComponent implements OnInit {
         this.modeService.soundType ='import';
       });
 
-
     }
   }
 
@@ -162,8 +148,21 @@ export class HotspotCreateComponent implements OnInit {
       svg.removeEventListener('pointermove', mouseMove);
       // svg.removeEventListener('touchmove',mouseMove);
 
+      let ptsX = rect.getAttribute('x');
+      let ptsY = rect.getAttribute('y');
+      let rectWidth = rect.getAttribute('width');
+      let rectHeight = rect.getAttribute('height');
+
       this.firstPt = null;
       this.lastPt = null;
+
+      const svgPathPoints = [];
+      svgPathPoints.push(ptsX, ptsY, rectWidth, ptsY, rectWidth, rectHeight, ptsX, rectHeight, ptsX, ptsY);
+      const svgPathPointsPercentage = [];
+      for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
+        svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i]) / this.width);
+        svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
+      }
 
       let dialogRef;
       if(this.modeService.currentDrawingTool=='redraw') {
@@ -172,6 +171,7 @@ export class HotspotCreateComponent implements OnInit {
         });
         dialogRef.componentInstance.selectedScene = this.selectedScene;
         dialogRef.componentInstance.selectedImage = this.selectedImage;
+        dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
         dialogRef.componentInstance.hotspot = this.modeService.modifyiedHotspot;
 
       } else {
@@ -180,6 +180,7 @@ export class HotspotCreateComponent implements OnInit {
         });
         dialogRef.componentInstance.selectedScene = this.selectedScene;
         dialogRef.componentInstance.selectedImage = this.selectedImage;
+        dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
       }
 
       dialogRef.afterClosed().subscribe(result => {
@@ -195,17 +196,16 @@ export class HotspotCreateComponent implements OnInit {
         this.modeService.selectedMode = 'hotspot';
         this.modeService.soundType ='import';
       });
-
     }
   }
 
   drawsSVG() {
-      const svg = document.querySelector('#svg');;
+
+      const svg = document.querySelector('#svg');
 
       svg.setAttribute('width', '' + this.width);
       svg.setAttribute('height', '' + this.height);
 
-      console.log(this.modeService.currentDrawingTool);
       if (this.modeService.currentDrawingTool === 'Rectangle') {
         let mouseMove = this.createMouseEventRectangle();
         //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
