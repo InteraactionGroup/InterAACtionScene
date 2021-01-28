@@ -56,11 +56,11 @@ export class HotspotCreateComponent implements OnInit {
 
   createMouseEventRectangle() {
     const rect = document.querySelector('#rectangle');
+    let ptsX = rect.getAttribute('x');
+    let ptsY = rect.getAttribute('y');
+    let rectWidth = rect.getAttribute('width');
+    let rectHeight = rect.getAttribute('height');
     return (e: MouseEvent) => {
-      let ptsX = rect.getAttribute('x');
-      let ptsY = rect.getAttribute('y');
-      let rectWidth = rect.getAttribute('width');
-      let rectHeight = rect.getAttribute('height');
       if (e.offsetY !== undefined && e.offsetX !== undefined) {
         rectWidth = `${e.offsetX}`;
         rectHeight = `${e.offsetY}`;
@@ -69,14 +69,40 @@ export class HotspotCreateComponent implements OnInit {
           ptsY = `${e.offsetY}`;
           this.startDrawRectangle = false;
         }
-        rect.setAttribute('x', ptsX);
-        rect.setAttribute('y', ptsY);
-        rect.setAttribute('width', String(Number.parseInt(rectWidth) - Number.parseInt(ptsX)));
-        rect.setAttribute('height', String(Number.parseInt(rectHeight) - Number.parseInt(ptsY)));
+        this.rectangleDirection(Number.parseInt(ptsX), Number.parseInt(ptsY), Number.parseInt(rectWidth), Number.parseInt(rectHeight));
       }
     };
   }
-  
+
+  rectangleDirection(x, y, w, h){
+    const rect = document.querySelector('#rectangle');
+
+    if ((x < w) && (y < h)){ //Haut-Gauche vers Bas-Droit
+      rect.setAttribute('x', String(x));
+      rect.setAttribute('y', String(y));
+      rect.setAttribute('width', String(w - x));
+      rect.setAttribute('height', String(h - y));
+    }
+    else if ((x < w) && (y > h)){ //Bas-Gauche vers Haut-Droit
+      rect.setAttribute('x', String(x));
+      rect.setAttribute('y', String(h));
+      rect.setAttribute('width', String(w - x));
+      rect.setAttribute('height', String(y - h));
+    }
+    else if ((x > w) && (y < h)){ // Haut-Droit vers Bas-Gauche
+      rect.setAttribute('x', String(w));
+      rect.setAttribute('y', String(y));
+      rect.setAttribute('width', String(x - w));
+      rect.setAttribute('height', String(h - y));
+    }
+    else if ((x > w) && (y > h)){ // Bas-Droit vers Haut-Gauche
+      rect.setAttribute('x', String(w));
+      rect.setAttribute('y', String(h));
+      rect.setAttribute('width', String(x - w));
+      rect.setAttribute('height', String(y - h));
+    }
+  }
+
   createMouseDownEvent(mouseMove) {
     const svg = document.querySelector('#svg');
     return (e: MouseEvent) => {
@@ -191,10 +217,10 @@ export class HotspotCreateComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
 
-        rect.setAttribute('x', '');
-        rect.setAttribute('y', '');
-        rect.setAttribute('width', '');
-        rect.setAttribute('height', '');
+        rect.setAttribute('x', '0');
+        rect.setAttribute('y', '0');
+        rect.setAttribute('width', '1');
+        rect.setAttribute('height', '1');
         this.startDrawRectangle = true;
 
         this.updateHotspots.emit('');
@@ -205,7 +231,7 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly){
+  static clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly){
     const svg = document.querySelector('#svg');
 
     svg.removeEventListener('pointerdown', createMouseDownEventRectangle);
@@ -236,7 +262,7 @@ export class HotspotCreateComponent implements OnInit {
           this.DrawRectangle = true;
           this.DrawPolyline = false;
 
-          this.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly);
+          HotspotCreateComponent.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly);
 
           //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
           svg.addEventListener('pointerdown', createMouseDownEventRectangle);
@@ -250,7 +276,7 @@ export class HotspotCreateComponent implements OnInit {
           this.DrawPolyline = true;
           this.DrawRectangle = false;
 
-          this.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly);
+          HotspotCreateComponent.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly);
 
           //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
           svg.addEventListener('pointerdown', createMouseDownEventPolyline);
