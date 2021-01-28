@@ -55,7 +55,8 @@
       <div class="drawingModeForm"
            *ngIf="modeService.currentDrawingTool === 'Add' ||
                   modeService.currentDrawingTool === 'Polyline' ||
-                  modeService.currentDrawingTool === 'Rectangle'">
+                  modeService.currentDrawingTool === 'Rectangle' ||
+                  modeService.currentDrawingTool === 'Circle'">
 
         <button [class.selected]="modeService.currentDrawingTool === 'Polyline'"
                 type="button" style="width: 4cm; min-width: 1cm;"
@@ -65,6 +66,11 @@
         <button [class.selected]="modeService.currentDrawingTool === 'Rectangle'"
                 type="button" style="width: 4cm; min-width: 1cm;"
                 (click)="changeColor('Rectangle')"> Rectangle
+        </button>
+
+        <button [class.selected]="modeService.currentDrawingTool === 'Circle'"
+                type="button" style="width: 4cm; min-width: 1cm;"
+                (click)="changeColor('Circle')"> Circle
         </button>
       </div>
 

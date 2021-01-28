@@ -32,8 +32,10 @@ export class HotspotCreateComponent implements OnInit {
   lastPt = null;
   firstPt = null;
   startDrawRectangle = true;
+  startDrawCircle = true;
   DrawPolyline = false;
   DrawRectangle = false;
+  DrawCircle = false;
 
   ngOnInit() {
     this.drawsSVG();
@@ -103,6 +105,25 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
+  createMouseEventCircle(){
+    const circle = document.querySelector('#circle');
+    let ptsX = circle.getAttribute('cx');
+    let ptsY = circle.getAttribute('cy');
+    return (e: MouseEvent) => {
+      if (e.offsetY !== undefined && e.offsetX !== undefined) {
+        this.lastPt = [e.offsetX, e.offsetY]
+        if (this.startDrawCircle === true){
+          ptsX = `${e.offsetX}`;
+          ptsY = `${e.offsetY}`;
+          this.startDrawCircle = false;
+        }
+      }
+      circle.setAttribute('cx', ptsX);
+      circle.setAttribute('cy', ptsY);
+      circle.setAttribute('r', String(Math.abs(Number.parseInt(this.lastPt[0]) - Number.parseInt(ptsX))));
+    };
+  }
+
   createMouseDownEvent(mouseMove) {
     const svg = document.querySelector('#svg');
     return (e: MouseEvent) => {
@@ -130,6 +151,7 @@ export class HotspotCreateComponent implements OnInit {
       this.lastPt = null;
 
       const svgPathPoints: string[] = pts.replace(/,/g, ' ').split(' ');
+
       const svgPathPointsPercentage = [];
       for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i]) / this.width);
@@ -231,13 +253,103 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  static clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly){
+  circleToPolygon(cx, cy, r, nbIt){
+    let coordinates: string = '';
+    for (let i = 0; i < nbIt; ++i){
+      let tmp = this.calculeCoordinates(cx, cy, r, (2 * Math.PI * i) / nbIt)
+      coordinates += String(tmp[0]);
+      coordinates += ',';
+      coordinates += String(tmp[1]);
+    }
+    return coordinates;
+  }
+
+  calculeCoordinates(cx, cy, r, bearing){
+    let tmpCx = this.toRadians(cx);
+    let tmpCy = this.toRadians(cy);
+    let roe = r / 6378137; // radius of the earth
+
+    let Cy = Math.asin( Math.sin(tmpCy) * Math.cos(roe) + Math.cos(tmpCy) * Math.sin(roe) * Math.cos(bearing));
+    let Cx = tmpCx + Math.atan2( Math.sin(bearing) * Math.sin(roe) * Math.cos(tmpCy), Math.cos(roe) - Math.sin(tmpCy) * Math.sin(Cy));
+
+    return [this.toDegree(Cx), this.toDegree(Cy)];
+  }
+
+  toRadians(coordinate){
+    return (coordinate * Math.PI) / 180;
+  }
+
+  toDegree(coordinate){
+    return (coordinate * 180) / Math.PI;
+  }
+
+  createMouseUpEventCircle(mouseMoveCircle) {
+    const circle = document.querySelector('#circle');
+    const svg = document.querySelector('#svg');
+
+    return (e: MouseEvent) => {
+      // svg.removeEventListener('mousemove',mouseMove);
+      svg.removeEventListener('pointermove', mouseMoveCircle);
+      // svg.removeEventListener('touchmove',mouseMove);
+
+      this.firstPt = null;
+      this.lastPt = null;
+
+      let ptsCx = circle.getAttribute('cx');
+      let ptsCy = circle.getAttribute('cy');
+      let ptsCr = circle.getAttribute('r');
+
+      const svgPathPoints: string[] = this.circleToPolygon(ptsCx, ptsCy, ptsCr, 10).replace(/,/g, ' ').split(' ');
+
+      const svgPathPointsPercentage = [];
+      for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
+        svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i]) / this.width);
+        svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
+      }
+
+      let dialogRef;
+      if(this.modeService.currentDrawingTool=='redraw') {
+        dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
+          width: '400px',
+        });
+        dialogRef.componentInstance.selectedScene = this.selectedScene;
+        dialogRef.componentInstance.selectedImage = this.selectedImage;
+        //dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
+        dialogRef.componentInstance.hotspot = this.modeService.modifyiedHotspot;
+
+      } else {
+        dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
+          width: '400px',
+        });
+        dialogRef.componentInstance.selectedScene = this.selectedScene;
+        dialogRef.componentInstance.selectedImage = this.selectedImage;
+        //dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
+      }
+
+      dialogRef.afterClosed().subscribe(result => {
+
+        circle.setAttribute('cx', '0');
+        circle.setAttribute('cy', '0');
+        circle.setAttribute('r', '1');
+        this.startDrawCircle = true;
+
+        this.updateHotspots.emit('');
+        this.modeService.selectedMode = '';
+        this.modeService.selectedMode = 'hotspot';
+        this.modeService.soundType ='import';
+      });
+    }
+  }
+
+  static clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly, createMouseDownEventCircle, createMouseUpEventCirc){
     const svg = document.querySelector('#svg');
 
     svg.removeEventListener('pointerdown', createMouseDownEventRectangle);
     svg.removeEventListener('pointerup', createMouseUpEventRect);
     svg.removeEventListener('pointerdown', createMouseDownEventPolyline);
     svg.removeEventListener('pointerup', createMouseUpEventPoly);
+    svg.removeEventListener('pointerdown', createMouseDownEventCircle);
+    svg.removeEventListener('pointerup', createMouseUpEventCirc);
   }
 
   drawsSVG() {
@@ -247,22 +359,43 @@ export class HotspotCreateComponent implements OnInit {
       svg.setAttribute('width', '' + this.width);
       svg.setAttribute('height', '' + this.height);
 
-      let mouseMoveRectangle = this.createMouseEventRectangle();
       let mouseMovePolyline = this.createMouseEventPolyline();
-
-      let createMouseDownEventRectangle = this.createMouseDownEvent(mouseMoveRectangle);
-      let createMouseUpEventRect = this.createMouseUpEventRectangle(mouseMoveRectangle);
+      let mouseMoveRectangle = this.createMouseEventRectangle();
+      let mouseMoveCircle = this.createMouseEventCircle();
 
       let createMouseDownEventPolyline = this.createMouseDownEvent(mouseMovePolyline);
       let createMouseUpEventPoly = this.createMouseUpEventPolyline(mouseMovePolyline);
 
+      let createMouseDownEventRectangle = this.createMouseDownEvent(mouseMoveRectangle);
+      let createMouseUpEventRect = this.createMouseUpEventRectangle(mouseMoveRectangle);
+
+      let createMouseDownEventCircle = this.createMouseDownEvent(mouseMoveCircle);
+      let createMouseUpEventCirc = this.createMouseUpEventCircle(mouseMoveCircle);
+
       svg.addEventListener('pointerenter', (e: MouseEvent) =>{
+
+        if (this.modeService.currentDrawingTool === 'Polyline' && this.DrawPolyline === false){
+          this.DrawPolyline = true;
+          this.DrawRectangle = false;
+          this.DrawCircle = false;
+
+          HotspotCreateComponent.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly, createMouseDownEventCircle, createMouseUpEventCirc);
+
+          //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
+          svg.addEventListener('pointerdown', createMouseDownEventPolyline);
+          //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
+
+          //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
+          svg.addEventListener('pointerup', createMouseUpEventPoly);
+          //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
+        }
 
         if (this.modeService.currentDrawingTool === 'Rectangle' && this.DrawRectangle === false) {
           this.DrawRectangle = true;
           this.DrawPolyline = false;
+          this.DrawCircle = false;
 
-          HotspotCreateComponent.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly);
+          HotspotCreateComponent.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly, createMouseDownEventCircle, createMouseUpEventCirc);
 
           //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
           svg.addEventListener('pointerdown', createMouseDownEventRectangle);
@@ -272,18 +405,19 @@ export class HotspotCreateComponent implements OnInit {
           svg.addEventListener('pointerup', createMouseUpEventRect);
           //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
         }
-        else if (this.modeService.currentDrawingTool === 'Polyline' && this.DrawPolyline === false){
-          this.DrawPolyline = true;
+        else if (this.modeService.currentDrawingTool === 'Circle' && this.DrawCircle === false){
+          this.DrawCircle = true;
+          this.DrawPolyline = false;
           this.DrawRectangle = false;
 
-          HotspotCreateComponent.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly);
+          HotspotCreateComponent.clearEventListener(createMouseDownEventRectangle, createMouseUpEventRect, createMouseDownEventPolyline, createMouseUpEventPoly, createMouseDownEventCircle, createMouseUpEventCirc);
 
           //  svg.addEventListener('mousedown', this.createMouseDownEvent(mouseMove));
-          svg.addEventListener('pointerdown', createMouseDownEventPolyline);
+          svg.addEventListener('pointerdown', createMouseDownEventCircle);
           //  svg.addEventListener('touchdown', this.createMouseDownEvent(mouseMove));
 
           //  svg.addEventListener('mouseup', this.createMouseUpEvent(mouseMove));
-          svg.addEventListener('pointerup', createMouseUpEventPoly);
+          svg.addEventListener('pointerup', createMouseUpEventCirc);
           //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
         }
       });
