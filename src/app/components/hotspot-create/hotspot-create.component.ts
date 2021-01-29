@@ -6,6 +6,7 @@ import {ModeService} from '../../services/mode.service';
 import {HotspotModifyDialogComponent} from "../hotspot-modify-dialog/hotspot-modify-dialog.component";
 import {Hotspot} from "../../types";
 import {FormGroup} from "@angular/forms";
+import {element} from "protractor";
 
 declare const SVG: any;
 
@@ -261,7 +262,9 @@ export class HotspotCreateComponent implements OnInit {
     listePoints.push(String(ptsCx));
     listePoints.push(String(Number.parseInt(ptsCy) - Number.parseInt(ptsCr)));
 
-    let listePointsTmp = [];
+    let listePointsTmpBasDroit = [];
+    let listePointsTmpBasGauche = [];
+    let listePointsTmpHautGauche = [];
 
     for (let i = 1; i <= Number.parseInt(ptsCr); i++){
       let Cx = Number.parseInt(ptsCx) + i;
@@ -270,11 +273,19 @@ export class HotspotCreateComponent implements OnInit {
       listePoints.push(String(Cx));
       listePoints.push(String(Cy[0]));
 
-      listePointsTmp.unshift(String(Cy[1]));
-      listePointsTmp.unshift(String(Cx));
+      listePointsTmpBasDroit.unshift(String(Cy[1]));
+      listePointsTmpBasDroit.unshift(String(Cx));
+
+      listePointsTmpBasGauche.push(String(Cx - (2 * i)));
+      listePointsTmpBasGauche.push(String(Cy[1]));
+
+      listePointsTmpHautGauche.unshift(String(Cy[0]));
+      listePointsTmpHautGauche.unshift(String(Cx - (2 * i)));
     }
 
-    listePointsTmp.forEach(element => listePoints.push(element));
+    listePointsTmpBasDroit.forEach(element1 => listePoints.push(element1));
+    listePointsTmpBasGauche.forEach(element2 => listePoints.push(element2));
+    listePointsTmpHautGauche.forEach(element3 => listePoints.push(element3));
 
     listePoints.push(String(ptsCx));
     listePoints.push(String(Number.parseInt(ptsCy) - Number.parseInt(ptsCr)));
@@ -317,8 +328,6 @@ export class HotspotCreateComponent implements OnInit {
       let ptsCx = circle.getAttribute('cx');
       let ptsCy = circle.getAttribute('cy');
       let ptsCr = circle.getAttribute('r');
-
-      console.log('ptsCx = ' + ptsCx, 'ptsCy = ' + ptsCy, 'ptsCr = ' + ptsCr);
 
       const svgPathPoints = this.circlePoints(ptsCx, ptsCy, ptsCr);
 
