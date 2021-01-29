@@ -111,7 +111,7 @@ export class HotspotCreateComponent implements OnInit {
     let ptsY = circle.getAttribute('cy');
     return (e: MouseEvent) => {
       if (e.offsetY !== undefined && e.offsetX !== undefined) {
-        this.lastPt = [e.offsetX, e.offsetY]
+        this.lastPt = [e.offsetX, e.offsetY];
         if (this.startDrawCircle === true){
           ptsX = `${e.offsetX}`;
           ptsY = `${e.offsetY}`;
@@ -120,7 +120,10 @@ export class HotspotCreateComponent implements OnInit {
       }
       circle.setAttribute('cx', ptsX);
       circle.setAttribute('cy', ptsY);
-      circle.setAttribute('r', String(Math.abs(Number.parseInt(this.lastPt[0]) - Number.parseInt(ptsX))));
+      circle.setAttribute('r',
+        String(Math.sqrt(
+           Math.pow(Number.parseInt(this.lastPt[0]) - Number.parseInt(ptsX),2)
+            + Math.pow(Number.parseInt(this.lastPt[1]) - Number.parseInt(ptsY),2))));
     };
   }
 
@@ -253,34 +256,50 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  circleToPolygon(cx, cy, r, nbIt){
-    let coordinates: string = '';
-    for (let i = 0; i < nbIt; ++i){
-      let tmp = this.calculeCoordinates(cx, cy, r, (2 * Math.PI * i) / nbIt)
-      coordinates += String(tmp[0]);
-      coordinates += ',';
-      coordinates += String(tmp[1]);
+  circlePoints(ptsCx, ptsCy, ptsCr){
+    let listePoints = [];
+    listePoints.push(String(ptsCx));
+    listePoints.push(String(Number.parseInt(ptsCy) - Number.parseInt(ptsCr)));
+
+    let listePointsTmp = [];
+
+    for (let i = 1; i <= Number.parseInt(ptsCr); i++){
+      let Cx = Number.parseInt(ptsCx) + i;
+      let Cy = (this.calculeCyCircle(Number.parseInt(ptsCx), Number.parseInt(ptsCy), Number.parseInt(ptsCr), Cx));
+
+      listePoints.push(String(Cx));
+      listePoints.push(String(Cy[0]));
+
+      listePointsTmp.unshift(String(Cy[1]));
+      listePointsTmp.unshift(String(Cx));
     }
-    return coordinates;
+
+    listePointsTmp.forEach(element => listePoints.push(element));
+
+    listePoints.push(String(ptsCx));
+    listePoints.push(String(Number.parseInt(ptsCy) - Number.parseInt(ptsCr)));
+
+    return listePoints;
   }
 
-  calculeCoordinates(cx, cy, r, bearing){
-    let tmpCx = this.toRadians(cx);
-    let tmpCy = this.toRadians(cy);
-    let roe = r / 6378137; // radius of the earth
+  calculeCyCircle(ptsCx, ptsCy, ptsCr, Cx){
 
-    let Cy = Math.asin( Math.sin(tmpCy) * Math.cos(roe) + Math.cos(tmpCy) * Math.sin(roe) * Math.cos(bearing));
-    let Cx = tmpCx + Math.atan2( Math.sin(bearing) * Math.sin(roe) * Math.cos(tmpCy), Math.cos(roe) - Math.sin(tmpCy) * Math.sin(Cy));
+    let pt1X = ptsCx + ptsCr;
+    let pt1Y = ptsCy;
 
-    return [this.toDegree(Cx), this.toDegree(Cy)];
-  }
+    let pt2X = ptsCx - ptsCr;
+    let pt2Y = ptsCy;
 
-  toRadians(coordinate){
-    return (coordinate * Math.PI) / 180;
-  }
+    let a = 1;
+    let b = -2 * ptsCy;
+    let c = (pt2X - Cx) * (pt1X - Cx ) + (pt1Y * pt2Y);
 
-  toDegree(coordinate){
-    return (coordinate * 180) / Math.PI;
+    let discriminant = Math.pow(b, 2) - (4 * a * c);
+
+    let x1 = (-b - Math.sqrt(discriminant)) / (2 * a);
+    let x2 = (-b + Math.sqrt(discriminant)) / (2 * a);
+
+    return [x1, x2];
   }
 
   createMouseUpEventCircle(mouseMoveCircle) {
@@ -299,7 +318,9 @@ export class HotspotCreateComponent implements OnInit {
       let ptsCy = circle.getAttribute('cy');
       let ptsCr = circle.getAttribute('r');
 
-      const svgPathPoints: string[] = this.circleToPolygon(ptsCx, ptsCy, ptsCr, 10).replace(/,/g, ' ').split(' ');
+      console.log('ptsCx = ' + ptsCx, 'ptsCy = ' + ptsCy, 'ptsCr = ' + ptsCr);
+
+      const svgPathPoints = this.circlePoints(ptsCx, ptsCy, ptsCr);
 
       const svgPathPointsPercentage = [];
       for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
@@ -314,7 +335,7 @@ export class HotspotCreateComponent implements OnInit {
         });
         dialogRef.componentInstance.selectedScene = this.selectedScene;
         dialogRef.componentInstance.selectedImage = this.selectedImage;
-        //dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
+        dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
         dialogRef.componentInstance.hotspot = this.modeService.modifyiedHotspot;
 
       } else {
@@ -323,7 +344,7 @@ export class HotspotCreateComponent implements OnInit {
         });
         dialogRef.componentInstance.selectedScene = this.selectedScene;
         dialogRef.componentInstance.selectedImage = this.selectedImage;
-        //dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
+        dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
       }
 
       dialogRef.afterClosed().subscribe(result => {
