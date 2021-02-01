@@ -403,7 +403,7 @@ export class HotspotCreateComponent implements OnInit {
 
       svg.addEventListener('pointerenter', (e: MouseEvent) =>{
 
-        if ((this.modeService.currentDrawingTool === 'Polyline' || this.modeService.currentDrawingTool === 'redraw') && this.DrawPolyline === false){
+        if (this.modeService.choiceDrawing === 'Polyline' && this.DrawPolyline === false){
           this.DrawPolyline = true;
           this.DrawRectangle = false;
           this.DrawCircle = false;
@@ -419,7 +419,7 @@ export class HotspotCreateComponent implements OnInit {
           //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
         }
 
-        else if ((this.modeService.currentDrawingTool === 'Rectangle' || this.modeService.currentDrawingTool === 'redraw') && this.DrawRectangle === false) {
+        else if (this.modeService.choiceDrawing === 'Rectangle' && this.DrawRectangle === false) {
           this.DrawRectangle = true;
           this.DrawPolyline = false;
           this.DrawCircle = false;
@@ -434,7 +434,7 @@ export class HotspotCreateComponent implements OnInit {
           svg.addEventListener('pointerup', createMouseUpEventRect);
           //  svg.addEventListener('touchend', this.createMouseUpEvent(mouseMove));
         }
-        else if ((this.modeService.currentDrawingTool === 'Circle' || this.modeService.currentDrawingTool === 'redraw') && this.DrawCircle === false){
+        else if (this.modeService.choiceDrawing === 'Circle' && this.DrawCircle === false){
           this.DrawCircle = true;
           this.DrawPolyline = false;
           this.DrawRectangle = false;

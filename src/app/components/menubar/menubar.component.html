@@ -45,33 +45,28 @@
 
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'hotspot'">
-      <button [class.selected]="modeService.currentDrawingTool === 'Add' ||
-                                modeService.currentDrawingTool === 'Polyline' ||
-                                modeService.currentDrawingTool === 'Rectangle' ||
-                                modeService.currentDrawingTool === 'Circle'"
+      <button [class.selected]="modeService.currentDrawingTool === 'Add'"
               type="button" style="width: 4cm; min-width: 1cm;"
               (click)="changeColor('Add')">Add Hotspot
       </button>
 
       <div class="drawingModeForm"
            *ngIf="modeService.currentDrawingTool === 'Add' ||
-                  modeService.currentDrawingTool === 'Polyline' ||
-                  modeService.currentDrawingTool === 'Rectangle' ||
-                  modeService.currentDrawingTool === 'Circle'">
+                  modeService.currentDrawingTool === 'redraw'">
 
-        <button [class.selected]="modeService.currentDrawingTool === 'Polyline'"
+        <button [class.selected]="modeService.choiceDrawing === 'Polyline'"
                 type="button" style="width: 4cm; min-width: 1cm;"
-                (click)="changeColor('Polyline')"> Polyline
+                (click)="choiceDrawing('Polyline')"> Polyline
         </button>
 
-        <button [class.selected]="modeService.currentDrawingTool === 'Rectangle'"
+        <button [class.selected]="modeService.choiceDrawing === 'Rectangle'"
                 type="button" style="width: 4cm; min-width: 1cm;"
-                (click)="changeColor('Rectangle')"> Rectangle
+                (click)="choiceDrawing('Rectangle')"> Rectangle
         </button>
 
-        <button [class.selected]="modeService.currentDrawingTool === 'Circle'"
+        <button [class.selected]="modeService.choiceDrawing === 'Circle'"
                 type="button" style="width: 4cm; min-width: 1cm;"
-                (click)="changeColor('Circle')"> Circle
+                (click)="choiceDrawing('Circle')"> Circle
         </button>
       </div>
 
