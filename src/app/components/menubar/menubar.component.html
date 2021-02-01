@@ -47,7 +47,8 @@
          *ngIf="modeService.selectedMode === 'hotspot'">
       <button [class.selected]="modeService.currentDrawingTool === 'Add' ||
                                 modeService.currentDrawingTool === 'Polyline' ||
-                                modeService.currentDrawingTool === 'Rectangle'"
+                                modeService.currentDrawingTool === 'Rectangle' ||
+                                modeService.currentDrawingTool === 'Circle'"
               type="button" style="width: 4cm; min-width: 1cm;"
               (click)="changeColor('Add')">Add Hotspot
       </button>
