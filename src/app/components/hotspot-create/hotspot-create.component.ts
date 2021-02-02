@@ -106,7 +106,9 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  createMouseEventCircle(){
+  // Tracage du cercle depuis le centre
+
+  /*createMouseEventCircle(){
     const circle = document.querySelector('#circle');
     let ptsX = circle.getAttribute('cx');
     let ptsY = circle.getAttribute('cy');
@@ -125,6 +127,34 @@ export class HotspotCreateComponent implements OnInit {
         String(Math.sqrt(
            Math.pow(Number.parseInt(this.lastPt[0]) - Number.parseInt(ptsX),2)
             + Math.pow(Number.parseInt(this.lastPt[1]) - Number.parseInt(ptsY),2))));
+    };
+  }*/
+
+  // Tracage du cercle depuis un côté
+
+  createMouseEventCircle(){
+    const circle = document.querySelector('#circle');
+    let ptsX = circle.getAttribute('cx');
+    let ptsY = circle.getAttribute('cy');
+    return (e: MouseEvent) => {
+      if (e.offsetY !== undefined && e.offsetX !== undefined) {
+        this.lastPt = [e.offsetX, e.offsetY];
+        if (this.startDrawCircle === true){
+          ptsX = `${e.offsetX}`;
+          ptsY = `${e.offsetY}`;
+          this.startDrawCircle = false;
+        }
+      }
+
+      let milieuX = (Number.parseInt(this.lastPt[0]) + Number.parseInt(ptsX)) / 2;
+      let milieuY = (Number.parseInt(this.lastPt[1]) + Number.parseInt(ptsY)) / 2;
+
+      circle.setAttribute('cx', String(milieuX));
+      circle.setAttribute('cy', String(milieuY));
+      circle.setAttribute('r',
+        String(Math.sqrt(
+          Math.pow(Number.parseInt(this.lastPt[0]) - milieuX,2)
+          + Math.pow(Number.parseInt(this.lastPt[1]) - milieuY,2))));
     };
   }
 
