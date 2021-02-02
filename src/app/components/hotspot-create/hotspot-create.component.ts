@@ -37,6 +37,9 @@ export class HotspotCreateComponent implements OnInit {
   DrawPolyline = false;
   DrawRectangle = false;
   DrawCircle = false;
+  milieuCircle = null;
+  milieuRectangle = null;
+  milieuPolyline = null;
 
   ngOnInit() {
     this.drawsSVG();
@@ -44,6 +47,10 @@ export class HotspotCreateComponent implements OnInit {
 
   createMouseEventPolyline() {
     const polyline = document.querySelector('#polyline');
+    let xMin = null;
+    let xMax = null;
+    let yMin = null;
+    let yMax = null;
     return (e: MouseEvent) => {
       let pts = polyline.getAttribute('points');
       if (e.offsetY !== undefined && e.offsetX !== undefined) {
@@ -54,7 +61,29 @@ export class HotspotCreateComponent implements OnInit {
       if (this.firstPt === null) {
         this.firstPt = this.lastPt;
       }
+      this.calculeMilieuPolyline(xMin, xMax, yMin, yMax);
     };
+  }
+
+  calculeMilieuPolyline(xMin, xMax, yMin, yMax){
+
+    if (xMin === null){
+      xMin = xMax = Number.parseInt(this.lastPt[0]);
+      yMin = yMax = Number.parseInt(this.lastPt[1]);
+    }
+    if (Number.parseInt(this.lastPt[0]) < xMin){
+      xMin = Number.parseInt(this.lastPt[0]);
+    }
+    if (Number.parseInt(this.lastPt[1]) < yMin){
+      yMin = Number.parseInt(this.lastPt[1]);
+    }
+    if (Number.parseInt(this.lastPt[0]) > xMax){
+      xMax = Number.parseInt(this.lastPt[0]);
+    }
+    if (Number.parseInt(this.lastPt[1]) > yMax){
+      yMax = Number.parseInt(this.lastPt[1]);
+    }
+    this.milieuPolyline = [((xMin + xMax) / 2), ((yMin + yMax) / 2)];
   }
 
   createMouseEventRectangle() {
@@ -72,6 +101,9 @@ export class HotspotCreateComponent implements OnInit {
           ptsY = `${e.offsetY}`;
           this.startDrawRectangle = false;
         }
+
+        this.milieuRectangle = [((Number.parseInt(rectWidth) + Number.parseInt(ptsX)) / 2), ((Number.parseInt(rectHeight) + Number.parseInt(ptsY)) / 2)];
+
         this.rectangleDirection(Number.parseInt(ptsX), Number.parseInt(ptsY), Number.parseInt(rectWidth), Number.parseInt(rectHeight));
       }
     };
@@ -146,15 +178,14 @@ export class HotspotCreateComponent implements OnInit {
         }
       }
 
-      let milieuX = (Number.parseInt(this.lastPt[0]) + Number.parseInt(ptsX)) / 2;
-      let milieuY = (Number.parseInt(this.lastPt[1]) + Number.parseInt(ptsY)) / 2;
+      this.milieuCircle = [((Number.parseInt(this.lastPt[0]) + Number.parseInt(ptsX)) / 2), ((Number.parseInt(this.lastPt[1]) + Number.parseInt(ptsY)) / 2)];
 
-      circle.setAttribute('cx', String(milieuX));
-      circle.setAttribute('cy', String(milieuY));
+      circle.setAttribute('cx', String(this.milieuCircle[0]));
+      circle.setAttribute('cy', String(this.milieuCircle[1]));
       circle.setAttribute('r',
         String(Math.sqrt(
-          Math.pow(Number.parseInt(this.lastPt[0]) - milieuX,2)
-          + Math.pow(Number.parseInt(this.lastPt[1]) - milieuY,2))));
+          Math.pow(Number.parseInt(this.lastPt[0]) - this.milieuCircle[0],2)
+          + Math.pow(Number.parseInt(this.lastPt[1]) - this.milieuCircle[1],2))));
     };
   }
 
@@ -213,6 +244,7 @@ export class HotspotCreateComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
 
         polyline.setAttribute('points', '');
+        this.milieuPolyline = null;
 
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
@@ -277,6 +309,7 @@ export class HotspotCreateComponent implements OnInit {
         rect.setAttribute('width', '1');
         rect.setAttribute('height', '1');
         this.startDrawRectangle = true;
+        this.milieuRectangle = null;
 
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
@@ -391,6 +424,7 @@ export class HotspotCreateComponent implements OnInit {
         circle.setAttribute('cy', '0');
         circle.setAttribute('r', '1');
         this.startDrawCircle = true;
+        this.milieuCircle = null;
 
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
