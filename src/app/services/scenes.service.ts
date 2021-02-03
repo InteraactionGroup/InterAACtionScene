@@ -15,6 +15,8 @@ export class ScenesService {
   colorHotspot = '';
   soundHotspot = '';
 
+  haveAddHotspot = false;
+
   constructor(public modeService: ModeService,
               public settingsService: SettingsService) {
     this.init();
@@ -150,6 +152,7 @@ export class ScenesService {
         base64sound
       });
     }
+    this.haveAddHotspot = true;
     this.update();
   }
 

@@ -32,6 +32,7 @@ export class HotspotCreateComponent implements OnInit {
 
   lastPt = null;
   firstPt = null;
+  startDrawPolyline = true;
   startDrawRectangle = true;
   startDrawCircle = true;
   DrawPolyline = false;
@@ -41,16 +42,17 @@ export class HotspotCreateComponent implements OnInit {
   milieuRectangle = null;
   milieuPolyline = null;
 
+  xMin = null;
+  xMax = null;
+  yMin = null;
+  yMax = null;
+
   ngOnInit() {
     this.drawsSVG();
   }
 
   createMouseEventPolyline() {
     const polyline = document.querySelector('#polyline');
-    let xMin = null;
-    let xMax = null;
-    let yMin = null;
-    let yMax = null;
     return (e: MouseEvent) => {
       let pts = polyline.getAttribute('points');
       if (e.offsetY !== undefined && e.offsetX !== undefined) {
@@ -60,30 +62,28 @@ export class HotspotCreateComponent implements OnInit {
       }
       if (this.firstPt === null) {
         this.firstPt = this.lastPt;
+        this.xMin = this.xMax = this.lastPt[0];
+        this.yMin = this.yMax = this.lastPt[1];
       }
-      this.calculeMilieuPolyline(xMin, xMax, yMin, yMax);
+      this.calculeMilieuPolyline();
     };
   }
 
-  calculeMilieuPolyline(xMin, xMax, yMin, yMax){
+  calculeMilieuPolyline(){
 
-    if (xMin === null){
-      xMin = xMax = Number.parseInt(this.lastPt[0]);
-      yMin = yMax = Number.parseInt(this.lastPt[1]);
+    if (Number.parseInt(this.lastPt[0]) < this.xMin){
+      this.xMin = Number.parseInt(this.lastPt[0]);
     }
-    if (Number.parseInt(this.lastPt[0]) < xMin){
-      xMin = Number.parseInt(this.lastPt[0]);
+    if (Number.parseInt(this.lastPt[1]) < this.yMin){
+      this.yMin = Number.parseInt(this.lastPt[1]);
     }
-    if (Number.parseInt(this.lastPt[1]) < yMin){
-      yMin = Number.parseInt(this.lastPt[1]);
+    if (Number.parseInt(this.lastPt[0]) > this.xMax){
+      this.xMax = Number.parseInt(this.lastPt[0]);
     }
-    if (Number.parseInt(this.lastPt[0]) > xMax){
-      xMax = Number.parseInt(this.lastPt[0]);
+    if (Number.parseInt(this.lastPt[1]) > this.yMax){
+      this.yMax = Number.parseInt(this.lastPt[1]);
     }
-    if (Number.parseInt(this.lastPt[1]) > yMax){
-      yMax = Number.parseInt(this.lastPt[1]);
-    }
-    this.milieuPolyline = [((xMin + xMax) / 2), ((yMin + yMax) / 2)];
+    this.milieuPolyline = [((this.xMin + this.xMax) / 2), ((this.yMin + this.yMax) / 2)];
   }
 
   createMouseEventRectangle() {
@@ -222,6 +222,15 @@ export class HotspotCreateComponent implements OnInit {
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i]) / this.width);
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
       }
+
+      const svgPathCenter = this.circlePoints(this.milieuPolyline[0], this.milieuPolyline[1], 1);
+
+      const svgPathCenterPointsPercentage = [];
+      for (let i = 0; i < svgPathCenter.length - 1; i = i + 2) {
+        svgPathCenterPointsPercentage.push(Number.parseInt(svgPathCenter[i]) / this.width);
+        svgPathCenterPointsPercentage.push(Number.parseInt(svgPathCenter[i + 1]) / this.height);
+      }
+
       let dialogRef;
       if(this.modeService.currentDrawingTool=='redraw') {
         dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
@@ -243,7 +252,19 @@ export class HotspotCreateComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
 
+        if (this.scenesService.haveAddHotspot === true){
+          this.scenesService.addHotspot(this.selectedScene,
+            this.selectedImage,
+            this.scenesService.nameHotspot.concat('', 'Center'),
+            svgPathCenterPointsPercentage,
+            this.scenesService.colorHotspot,
+            this.scenesService.soundHotspot);
+
+          this.scenesService.haveAddHotspot = false;
+        }
+
         polyline.setAttribute('points', '');
+        this.startDrawPolyline = true;
         this.milieuPolyline = null;
 
         this.updateHotspots.emit('');
@@ -283,11 +304,7 @@ export class HotspotCreateComponent implements OnInit {
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
       }
 
-      let svgPathCenter = [this.milieuRectangle[0] - 1, this.milieuRectangle[1] - 1,
-        this.milieuRectangle[0] + 1, this.milieuRectangle[1] - 1,
-        this.milieuRectangle[0] + 1, this.milieuRectangle[1] + 1,
-        this.milieuRectangle[0] - 1, this.milieuRectangle[1] + 1,
-        this.milieuRectangle[0] - 1, this.milieuRectangle[1] - 1];
+      const svgPathCenter = this.circlePoints(this.milieuRectangle[0], this.milieuRectangle[1], 1);
 
       const svgPathCenterPointsPercentage = [];
       for (let i = 0; i < svgPathCenter.length - 1; i = i + 2) {
@@ -316,13 +333,23 @@ export class HotspotCreateComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
 
-        this.scenesService.addHotspot(this.selectedScene, this.selectedImage, this.scenesService.nameHotspot, svgPathCenterPointsPercentage, this.scenesService.colorHotspot, this.scenesService.soundHotspot);
+        if (this.scenesService.haveAddHotspot === true){
+          this.scenesService.addHotspot(this.selectedScene,
+            this.selectedImage,
+            this.scenesService.nameHotspot.concat('', 'Center'),
+            svgPathCenterPointsPercentage,
+            this.scenesService.colorHotspot,
+            this.scenesService.soundHotspot);
+
+          this.scenesService.haveAddHotspot = false;
+        }
 
         rect.setAttribute('x', '0');
         rect.setAttribute('y', '0');
         rect.setAttribute('width', '1');
         rect.setAttribute('height', '1');
         this.startDrawRectangle = true;
+        this.milieuRectangle = null;
 
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
@@ -412,6 +439,14 @@ export class HotspotCreateComponent implements OnInit {
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
       }
 
+      const svgPathCenter = this.circlePoints(this.milieuCircle[0], this.milieuCircle[1], 1);
+
+      const svgPathCenterPointsPercentage = [];
+      for (let i = 0; i < svgPathCenter.length - 1; i = i + 2) {
+        svgPathCenterPointsPercentage.push(Number.parseInt(svgPathCenter[i]) / this.width);
+        svgPathCenterPointsPercentage.push(Number.parseInt(svgPathCenter[i + 1]) / this.height);
+      }
+
       let dialogRef;
       if(this.modeService.currentDrawingTool=='redraw') {
         dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
@@ -432,6 +467,17 @@ export class HotspotCreateComponent implements OnInit {
       }
 
       dialogRef.afterClosed().subscribe(result => {
+
+        if (this.scenesService.haveAddHotspot === true){
+          this.scenesService.addHotspot(this.selectedScene,
+            this.selectedImage,
+            this.scenesService.nameHotspot.concat('', 'Center'),
+            svgPathCenterPointsPercentage,
+            this.scenesService.colorHotspot,
+            this.scenesService.soundHotspot);
+
+          this.scenesService.haveAddHotspot = false;
+        }
 
         circle.setAttribute('cx', '0');
         circle.setAttribute('cy', '0');
