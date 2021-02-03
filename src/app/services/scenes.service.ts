@@ -11,6 +11,10 @@ export class ScenesService {
   SCENES: Array<Scene> = [];
   openRequest;
 
+  nameHotspot = '';
+  colorHotspot = '';
+  soundHotspot = '';
+
   constructor(public modeService: ModeService,
               public settingsService: SettingsService) {
     this.init();

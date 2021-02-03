@@ -283,6 +283,18 @@ export class HotspotCreateComponent implements OnInit {
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
       }
 
+      let svgPathCenter = [this.milieuRectangle[0] - 1, this.milieuRectangle[1] - 1,
+        this.milieuRectangle[0] + 1, this.milieuRectangle[1] - 1,
+        this.milieuRectangle[0] + 1, this.milieuRectangle[1] + 1,
+        this.milieuRectangle[0] - 1, this.milieuRectangle[1] + 1,
+        this.milieuRectangle[0] - 1, this.milieuRectangle[1] - 1];
+
+      const svgPathCenterPointsPercentage = [];
+      for (let i = 0; i < svgPathCenter.length - 1; i = i + 2) {
+        svgPathCenterPointsPercentage.push(Number.parseInt(svgPathCenter[i]) / this.width);
+        svgPathCenterPointsPercentage.push(Number.parseInt(svgPathCenter[i + 1]) / this.height);
+      }
+
       let dialogRef;
       if(this.modeService.currentDrawingTool=='redraw') {
         dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
@@ -304,12 +316,13 @@ export class HotspotCreateComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
 
+        this.scenesService.addHotspot(this.selectedScene, this.selectedImage, this.scenesService.nameHotspot, svgPathCenterPointsPercentage, this.scenesService.colorHotspot, this.scenesService.soundHotspot);
+
         rect.setAttribute('x', '0');
         rect.setAttribute('y', '0');
         rect.setAttribute('width', '1');
         rect.setAttribute('height', '1');
         this.startDrawRectangle = true;
-        this.milieuRectangle = null;
 
         this.updateHotspots.emit('');
         this.modeService.selectedMode = '';
