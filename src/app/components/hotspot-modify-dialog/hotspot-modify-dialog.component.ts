@@ -63,8 +63,16 @@ export class HotspotModifyDialogComponent implements OnInit {
       this.hotspot.svgPointArray=this.svgPath;
     }
 
+    let nameCenter = this.scenesService.nameHotspot;
     this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
-    this.deleteOldCenterHotspot();
+
+    if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
+      this.deleteOldCenterHotspot();
+      this.scenesService.haveAddHotspot = true;
+    }
+    else {
+      this.modifyCenterHotspot(nameCenter);
+    }
 
     this.modeService.selectedMode = 'hotspot';
     this.modeService.modifyiedHotspot = null;
@@ -75,7 +83,6 @@ export class HotspotModifyDialogComponent implements OnInit {
   }
 
   redraw(){
-    this.scenesService.haveAddHotspot = true;
     this.modeService.selectedMode = 'hotspot';
     this.modeService.currentDrawingTool = 'redraw';
     this.modeService.modifyiedHotspot = this.hotspot;
@@ -118,5 +125,20 @@ export class HotspotModifyDialogComponent implements OnInit {
           }
         });
     }
+  }
+
+  modifyCenterHotspot(nameCenter){
+    this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots =
+      this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots.filter(x => {
+        if (x.name == nameCenter.concat('', 'Center')){
+          x.name = this.scenesService.nameHotspot.concat('', 'Center');
+          x.strokeColor = this.scenesService.colorHotspot;
+          x.base64sound = this.scenesService.soundHotspot;
+          return x;
+        }
+        else {
+          return x;
+        }
+      });
   }
 }
