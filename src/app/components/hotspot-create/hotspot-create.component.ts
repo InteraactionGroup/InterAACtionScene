@@ -41,6 +41,7 @@ export class HotspotCreateComponent implements OnInit {
   milieuCircle = null;
   milieuRectangle = null;
   milieuPolyline = null;
+  listePoints = [];
 
   xMin = null;
   xMax = null;
@@ -59,6 +60,8 @@ export class HotspotCreateComponent implements OnInit {
         pts += `${e.offsetX},${e.offsetY} `;
         polyline.setAttribute('points', pts);
         this.lastPt = [e.offsetX, e.offsetY];
+        this.listePoints.push(e.offsetX);
+        this.listePoints.push(e.offsetY);
       }
       if (this.firstPt === null) {
         this.firstPt = this.lastPt;
@@ -207,11 +210,46 @@ export class HotspotCreateComponent implements OnInit {
       svg.removeEventListener('pointermove', mouseMovePolyline);
       // svg.removeEventListener('touchmove',mouseMove);
 
+      let ptsXCenter = 0;
+      let indexX =0;
+      let ptsYCenter = 0;
+      let indexY = 0;
+      for (let i = 0; i < this.listePoints.length - 2; i = i + 2) {
+        if (this.listePoints[i] < this.milieuPolyline[0]) {
+          if (this.listePoints[i + 2] > this.milieuPolyline[0]) {
+            ptsYCenter = ptsYCenter + ((Number.parseInt(this.listePoints[i + 1]) + Number.parseInt(this.listePoints[i + 3])) / 2);
+            indexY = indexY + 1;
+          }
+        }
+        if (this.listePoints[i] > this.milieuPolyline[0]) {
+          if (this.listePoints[i + 2] < this.milieuPolyline[0]) {
+            ptsYCenter = ptsYCenter + ((Number.parseInt(this.listePoints[i + 1]) + Number.parseInt(this.listePoints[i + 3])) / 2);
+            indexY = indexY + 1;
+          }
+        }
+        if (this.listePoints[i + 1] < this.milieuPolyline[1]) {
+          if (this.listePoints[i + 3] > this.milieuPolyline[1]) {
+            ptsXCenter = ptsXCenter + ((Number.parseInt(this.listePoints[i]) + Number.parseInt(this.listePoints[i + 2])) / 2);
+            indexX = indexX + 1;
+          }
+        }
+        if (this.listePoints[i + 1] > this.milieuPolyline[1]) {
+          if (this.listePoints[i + 3] < this.milieuPolyline[1]) {
+            ptsXCenter = ptsXCenter + ((Number.parseInt(this.listePoints[i]) + Number.parseInt(this.listePoints[i + 2])) / 2);
+            indexX = indexX + 1;
+          }
+        }
+      }
+
+      console.log(ptsXCenter, ptsYCenter);
+      console.log(indexX, indexY);
+
       let pts = polyline.getAttribute('points');
       if (this.firstPt !== null) {
         pts += `${this.firstPt[0]},${this.firstPt[1]} `;
         polyline.setAttribute('points', pts);
       }
+
       this.firstPt = null;
       this.lastPt = null;
 
@@ -223,7 +261,7 @@ export class HotspotCreateComponent implements OnInit {
         svgPathPointsPercentage.push(Number.parseInt(svgPathPoints[i + 1]) / this.height);
       }
 
-      const svgPathCenter = this.circlePoints(this.milieuPolyline[0], this.milieuPolyline[1], 1);
+      const svgPathCenter = this.circlePoints(ptsXCenter / indexX, ptsYCenter / indexY, 1);
 
       const svgPathCenterPointsPercentage = [];
       for (let i = 0; i < svgPathCenter.length - 1; i = i + 2) {

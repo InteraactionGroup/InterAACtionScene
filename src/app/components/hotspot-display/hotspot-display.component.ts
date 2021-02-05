@@ -94,7 +94,7 @@ export class HotspotDisplayComponent implements OnInit {
     event.target.setAttribute('fill-opacity', "0.5");
     if (hotspot.name.includes('Center')){
       let textCenter = document.querySelector('#textCenter');
-      textCenter.textContent = 'Test';
+      textCenter.textContent = hotspot.name.replace('Center', '');
       textCenter.setAttribute('x', String(event.offsetX));
       textCenter.setAttribute('y', String(event.offsetY - 10));
       textCenter.setAttribute('class', 'showText');
