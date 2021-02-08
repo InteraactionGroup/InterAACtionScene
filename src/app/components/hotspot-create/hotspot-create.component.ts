@@ -210,25 +210,20 @@ export class HotspotCreateComponent implements OnInit {
       svg.removeEventListener('pointermove', mouseMovePolyline);
       // svg.removeEventListener('touchmove',mouseMove);
 
+      this.listePoints.push(this.firstPt[0]);
+      this.listePoints.push(this.firstPt[1]);
 
       let tabPtsYCenter = [];
       let tabPtsXCenter = [];
-      let index = 0;
 
       for (let i = 0; i < this.listePoints.length - 2; i = i + 2) {
         if ((this.listePoints[i] <= this.milieuPolyline[0]) && this.listePoints[i + 2] >= this.milieuPolyline[0]) {
-          if (index != 2) {
-            tabPtsXCenter.push((this.listePoints[i] + this.listePoints[i+2]) / 2);
-            tabPtsYCenter.push((this.listePoints[i+1] + this.listePoints[i+3]) /2);
-            index += 1;
-          }
+          tabPtsXCenter.push((this.listePoints[i] + this.listePoints[i+2]) / 2);
+          tabPtsYCenter.push((this.listePoints[i+1] + this.listePoints[i+3]) /2);
         }
         if ((this.listePoints[i] >= this.milieuPolyline[0]) && this.listePoints[i + 2] <= this.milieuPolyline[0]) {
-          if (index != 2) {
-            tabPtsXCenter.push((this.listePoints[i] + this.listePoints[i+2]) / 2);
-            tabPtsYCenter.push((this.listePoints[i+1] + this.listePoints[i+3]) /2);
-            index += 1;
-          }
+          tabPtsXCenter.push((this.listePoints[i] + this.listePoints[i+2]) / 2);
+          tabPtsYCenter.push((this.listePoints[i+1] + this.listePoints[i+3]) /2);
         }
       }
 
