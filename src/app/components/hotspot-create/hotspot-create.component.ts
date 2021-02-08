@@ -243,8 +243,6 @@ export class HotspotCreateComponent implements OnInit {
         polyline.setAttribute('points', pts);
       }
 
-      console.log(ptsXCenter, ptsYCenter);
-
       this.firstPt = null;
       this.lastPt = null;
 
