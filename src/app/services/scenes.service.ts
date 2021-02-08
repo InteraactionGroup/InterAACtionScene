@@ -54,6 +54,18 @@ export class ScenesService {
     this.update();
   }
 
+  checkNames(scene, image, name){
+    let check = true;
+    if(scene != undefined && image != undefined){
+      this.SCENES[scene].images[image].hotspots.forEach(x => {
+        if(name == x.name){
+          check = false;
+        }
+      });
+    }
+    return check;
+  }
+
   canvasSave(selectedScene: number, selectedImage: number, canvasData: string) {
     this.SCENES[selectedScene].images[selectedImage].canvasData = canvasData;
     this.update();

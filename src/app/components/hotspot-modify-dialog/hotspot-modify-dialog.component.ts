@@ -55,31 +55,37 @@ export class HotspotModifyDialogComponent implements OnInit {
 
   submit(form) {
     this.hotspot.strokeColor = `${form.value.color}`;
-    this.hotspot.name = `${form.value.name}`;
-    if (this.selectedSound !== '' && this.selectedSound !== null) {
-      this.hotspot.base64sound = this.selectedSound;
-    }
-    if(this.modeService.modifyiedHotspot != null){
-      this.hotspot.svgPointArray=this.svgPath;
-    }
+    if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`)) {
+      this.hotspot.name = `${form.value.name}`;
 
-    let nameCenter = this.scenesService.nameHotspot;
-    this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
+      if (this.selectedSound !== '' && this.selectedSound !== null) {
+        this.hotspot.base64sound = this.selectedSound;
+      }
+      if(this.modeService.modifyiedHotspot != null){
+        this.hotspot.svgPointArray=this.svgPath;
+      }
 
-    if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
-      this.deleteOldCenterHotspot();
-      this.scenesService.haveAddHotspot = true;
+      let nameCenter = this.scenesService.nameHotspot;
+      this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
+
+      if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
+        this.deleteOldCenterHotspot();
+        this.scenesService.haveAddHotspot = true;
+      }
+      else {
+        this.modifyCenterHotspot(nameCenter);
+      }
+
+      this.modeService.selectedMode = 'hotspot';
+      this.modeService.modifyiedHotspot = null;
+      this.modeService.currentDrawingTool ='modify';
+
+      this.scenesService.updateScenes();
+      this.dialogRef.close();
     }
-    else {
-      this.modifyCenterHotspot(nameCenter);
+    else{
+      this.error = 'Name already use';
     }
-
-    this.modeService.selectedMode = 'hotspot';
-    this.modeService.modifyiedHotspot = null;
-    this.modeService.currentDrawingTool ='modify';
-
-    this.scenesService.updateScenes();
-    this.dialogRef.close();
   }
 
   redraw(){
