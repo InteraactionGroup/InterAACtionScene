@@ -55,7 +55,7 @@ export class HotspotModifyDialogComponent implements OnInit {
 
   submit(form) {
     this.hotspot.strokeColor = `${form.value.color}`;
-    if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`)) {
+    if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) || this.hotspot.name === `${form.value.name}`) {
       this.hotspot.name = `${form.value.name}`;
 
       if (this.selectedSound !== '' && this.selectedSound !== null) {

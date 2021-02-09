@@ -58,7 +58,7 @@ export class ScenesService {
     let check = true;
     if(scene != undefined && image != undefined){
       this.SCENES[scene].images[image].hotspots.forEach(x => {
-        if(name == x.name){
+        if(name.toUpperCase() == x.name.toUpperCase()){
           check = false;
         }
       });
