@@ -10,7 +10,7 @@
 
     <div class="topBarAFSRLogo floatRight">
       <div class="imageAFSR" style="width: 100%"
-           [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl()}">
+           [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Logo-AFSR')}">
       </div>
     </div>
 
@@ -33,9 +33,15 @@
     </div>
   </div>
 </div>
-<div class="topBarAFSRLogoBottom floatRight">
-  <div class="imageAFSRBottom" style="width: 100%"
-       [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl()}">
+<div class="bottomBarAFSRText floatRight">
+  <div class="imageTextAFSR width-100"
+       [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Text_Only_InterAACtionbox-AFSR')}">
+
+  </div>
+</div>
+<div class="bottomBarAFSRLogo floatRight">
+  <div class="imageLogoAFSR width-100"
+       [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Logo_Only_InterAACtionbox-AFSR')}">
 
   </div>
 </div>
@@ -43,13 +49,13 @@
   <div style="
     margin-top: 7px;
     font-size: xx-small;
-    width: 70px;
+    width: 50px;
     height: fit-content;
     align-items: center;
     align-content: center;
     text-align: center;"
   >
-    Sponsorisé par
+    Conçu pour
   </div>
 </div>
 

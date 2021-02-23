@@ -12,7 +12,7 @@
 }
 
 .MenuBottomBar {
-  border-bottom: 5px solid #4766D8;
+  border-bottom: 5px solid #921e3d;
 }
 
 .menubar .menu {
@@ -38,7 +38,7 @@
 }
 
 .menubar .menu .button.selected {
-  background-color: #add8e6;
+  background-color: #fff6f9;
 }
 
 .menubar .menu .drawingMode {
@@ -108,7 +108,7 @@
 }
 
 .menubar .menu a:active {
-  background-color: #add8e6;
+  background-color: #fff6f9;
 }
 
 #hideShowButton {
