@@ -8,7 +8,14 @@
       Settings
     </div>
 
+    <div class="topBarAFSRLogo floatRight">
+      <div class="imageAFSR" style="width: 100%"
+           [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl()}">
+      </div>
+    </div>
+
   </div>
+
 </div>
 <div class="scene-display">
   <div class="scene"></div>
@@ -26,5 +33,23 @@
     </div>
   </div>
 </div>
+<div class="topBarAFSRLogoBottom floatRight">
+  <div class="imageAFSRBottom" style="width: 100%"
+       [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl()}">
 
+  </div>
+</div>
+<div class="floatRight" style="width: fit-content; height: 22px">
+  <div style="
+    margin-top: 7px;
+    font-size: xx-small;
+    width: 70px;
+    height: fit-content;
+    align-items: center;
+    align-content: center;
+    text-align: center;"
+  >
+    Sponsorisé par
+  </div>
+</div>
 

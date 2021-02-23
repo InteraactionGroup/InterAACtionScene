@@ -7,7 +7,7 @@
 
 .scene-display{
   width: 100vw;
-  height: calc(100% - 65px);
+  height: calc(100% - 95px);
   display: flex;
 }
 
@@ -73,4 +73,40 @@
   height: fit-content;
   margin: auto;
   font-size: xx-large;
+}
+
+.imageAFSR{
+  background-size: 75px;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.topBarAFSRLogo{
+  display: inline-block;
+  height: 55px;
+  width: 84px;
+}
+
+.imageAFSRBottom{
+  background-size: 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.topBarAFSRLogoBottom{
+  display: inline-block;
+  height: 35px;
+  width: 40px;
+}
+
+.floatRight {
+  float: right;
 }
