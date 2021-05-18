@@ -1,0 +1,42 @@
+{
+  "Dashboard":{
+    "Play": "Play",
+    "ManageHotspots": "Manage Hotspots",
+    "ManageScenes": "Manage Scenes",
+    "Draw": "Draw",
+    "Settings": "Settings",
+    "Scene": "Scene",
+    "Image": "Image",
+    "AddHotspot": "Add Hotspot",
+    "ModifyHotspot": "Modify Hotspot",
+    "DeleteHotspot": "Delete Hotspot",
+    "Hide": "Hide",
+    "Remove": "Remove",
+    "Rename": "Rename",
+    "Export": "Export",
+    "Import": "Import",
+    "Erase": "Erase",
+    "Clear": "Clear"
+  },
+  "Settings": {
+    "DwelltimeEnabled": "Dwell-time Enabled",
+    "DwellTime": "Dwell-Time",
+    "Back": "Back",
+    "Selectalanguage": "Select a language",
+    "French": "French",
+    "English": "English"
+  },
+  "Scene": {
+    "AddScene": "Add Scene",
+    "Enterascenename": "Enter a scene name",
+    "Entertheimagename": "Enter the image name",
+    "Add": "Add",
+    "Cancel": "Cancel"
+  },
+  "Image": {
+    "AddImage": "Add Image",
+    "Entertheimagename": "Enter the image name",
+    "Add": "Add",
+    "Cancel": "Cancel"
+  }
+}

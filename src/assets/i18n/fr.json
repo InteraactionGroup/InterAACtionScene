@@ -1,0 +1,42 @@
+{
+  "Dashboard": {
+    "Play": "Jouer",
+    "ManageHotspots": "Gérer les Hotspots",
+    "ManageScenes": "Gérer les Scènes",
+    "Draw": "Dessiner",
+    "Settings": "Options",
+    "Scene": "Scène",
+    "Image": "Image",
+    "AddHotspot": "Ajouter un Hotspot",
+    "ModifyHotspot": "Modifier un Hotspot",
+    "DeleteHotspot": "Supprimer un Hotspot",
+    "Hide": "Cacher",
+    "Remove": "Retirer",
+    "Rename": "Renommer",
+    "Export": "Exporter",
+    "Import": "Importer",
+    "Erase": "Gommer",
+    "Clear": "Effacer"
+  },
+  "Settings": {
+    "DwelltimeEnabled": "Activer la temporisation",
+    "DwellTime": "Temps de temporisation",
+    "Back": "Retour",
+    "Selectalanguage": "Selectionne un langage",
+    "French": "Français",
+    "English": "Anglais"
+  },
+  "Scene": {
+    "AddScene": "Ajouter une Scene",
+    "Enterascenename": "Entrer un nom de scène",
+    "Entertheimagename": "Entrer le nom de l'image",
+    "Add": "Ajouter",
+    "Cancel": "Annuler"
+  },
+  "Image": {
+    "AddImage": "Ajouter une image",
+    "Entertheimagename": "Entrer le nom de l'image",
+    "Add": "Ajouter",
+    "Cancel": "Annuler"
+  }
+}
