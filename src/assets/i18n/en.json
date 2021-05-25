@@ -38,5 +38,26 @@
     "Entertheimagename": "Enter the image name",
     "Add": "Add",
     "Cancel": "Cancel"
+  },
+  "Hotspot": {
+    "Createhotspot": "Create hotspot",
+    "Addthesound": "Add the sound",
+    "Importasound": "Import a sound",
+    "Recordasound": "Record a sound",
+    "Pickthestrokecolor": "Pick the stroke color",
+    "Enterthenameofthehotspot": "Enter the name of the hotspot",
+    "Import": "Import",
+    "Cancel": "Cancel",
+    "Black": "Black",
+    "White": "White",
+    "Blue": "Blue",
+    "Red": "Red",
+    "Orange": "Orange",
+    "Green": "Green",
+    "Modifyhotspot":  "Modify hotspot",
+    "redraw": "redraw",
+    "Modify": "Modify",
+    "Deletehotspot": "Delete hotspot",
+    "Delete": "Delete"
   }
 }
