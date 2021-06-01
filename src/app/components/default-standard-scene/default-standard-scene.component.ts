@@ -16,10 +16,12 @@ export class DefaultStandardSceneComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    if (this.scenesService.SCENES.length === 0){
-      this.defaultScene();
-      this.openDialog();
-    }
+    this.delay(50).then(r => {
+      if (this.scenesService.SCENES.length === 0){
+        this.defaultScene();
+        this.openDialog();
+      }
+    });
   }
   defaultScene(){
     const image = 'assets/images/example.jpg';
@@ -31,6 +33,10 @@ export class DefaultStandardSceneComponent implements OnInit {
       height: '75%',
       width: '75%'
     });
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 }
