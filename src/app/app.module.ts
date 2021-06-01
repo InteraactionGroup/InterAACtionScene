@@ -31,6 +31,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DefaultStandardSceneComponent } from './components/default-standard-scene/default-standard-scene.component';
+import { DialogTutorialComponent } from './components/dialog-tutorial/dialog-tutorial.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
@@ -54,6 +55,7 @@ export function createTranslateLoader(http: HttpClient) {
     DwellCursorComponent,
     SettingsComponent,
     DefaultStandardSceneComponent,
+    DialogTutorialComponent,
   ],
     imports: [
       TranslateModule.forRoot({

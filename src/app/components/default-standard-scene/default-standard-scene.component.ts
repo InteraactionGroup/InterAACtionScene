@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ScenesService} from '../../services/scenes.service';
-import * as url from 'url';
+import {LanguageService} from '../../services/language.service';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogTutorialComponent} from '../dialog-tutorial/dialog-tutorial.component';
 
 @Component({
   selector: 'app-default-standard-scene',
@@ -8,24 +10,27 @@ import * as url from 'url';
   styleUrls: ['./default-standard-scene.component.css']
 })
 export class DefaultStandardSceneComponent implements OnInit {
-  private imageExample: any;
 
-  constructor(public scenesService: ScenesService) { }
+  constructor(public scenesService: ScenesService,
+              public languageService: LanguageService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    console.log('nb delem dans le tableau scene', this.scenesService.getScenes().length);
     if (this.scenesService.SCENES.length === 0){
       this.defaultScene();
+      this.openDialog();
     }
   }
   defaultScene(){
-    const image = url('assets/images/example.jpg');
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = () => {
-      this.imageExample = reader.result;
-    };
-    this.scenesService.addScene(this.imageExample, 'Example Scene', 'Example Image');
+    const image = 'assets/images/example.jpg';
+    this.scenesService.addScene(image, 'Example Scene', 'Example Image');
+  }
+
+  openDialog(): void{
+    this.dialog.open(DialogTutorialComponent, {
+      height: '75%',
+      width: '75%'
+    });
   }
 
 }
