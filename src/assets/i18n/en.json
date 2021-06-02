@@ -38,5 +38,17 @@
     "Entertheimagename": "Enter the image name",
     "Add": "Add",
     "Cancel": "Cancel"
+  },
+  "Tutorial": {
+    "Howworkthisapp?": "How work this app?",
+    "CreateaScene": "Create a Scene",
+    "clickontheplusandfillthedifferentareas": "You have to click on the plus and fill the different areas",
+    "ManageScenes": "Manage Scenes",
+    "Youcanmanagetheexistingscenesbyclickingonthebuttonatthetop\"Managescenes\"": "You can manage the existing scenes by clicking on the button at the top \"Manage Scenes\"",
+    "ManageHotspots": "Manage Hotspots",
+    "OnasceneyoucanaddHotspotsallowyoutoplaymusic,clickonthebuttonatthetop\"ManageHotspots\"addHotspot,drawanareaontheimageandfillthedifferentareas.": "On a scene you can add Hotspots allow you to play music, click on the button at the top \"Manage Hotspots\" add Hotspot, draw an area on the image and fill the different areas.",
+    "Whenyouwillclickonthehotspotyouwillhearthesongrecordedorimported": "When you will click on the hotspot you will hear the song recorded or imported",
+    "Drawontheimage": "Draw on the image",
+    "Youcandrawontheimagebyclickingonthebuttonatthetop\"Draw\",chooseyourcolorandclickontheimage": "You can draw on the image by clicking on the button at the top \"Draw\", choose your color and click on the image"
   }
 }
