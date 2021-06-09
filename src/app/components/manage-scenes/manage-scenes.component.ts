@@ -5,6 +5,7 @@ import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-d
 import {RenameDialogComponent} from '../rename-dialog/rename-dialog.component';
 import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes-dialog.component';
 import {LanguageService} from '../../services/language.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-scenes',
@@ -20,7 +21,8 @@ export class ManageScenesComponent implements OnInit {
 
   constructor(private scenesService: ScenesService,
               private dialog: MatDialog,
-              public languageService: LanguageService) {
+              public languageService: LanguageService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -31,8 +33,8 @@ export class ManageScenesComponent implements OnInit {
     if (SCENES != null && SCENES.length !== 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: 'Do you want to hide ' +
-          (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name) + ' ?'
+        data: this.translateService.instant('Dashboard.Doyouwanttohide') +
+          (this.imageSelected ? this.translateService.instant('Dashboard.theimage:') + SCENES[this.selectedScene].images[this.selectedImage].name : this.translateService.instant('Dashboard.thescene:') + SCENES[this.selectedScene].name) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -52,7 +54,7 @@ export class ManageScenesComponent implements OnInit {
     if (SCENES != null && SCENES.length != 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: 'Do you confirm the deletion of ' + (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name) + ' ?'
+        data: this.translateService.instant('Dashboard.Doyouconfirmthedeletionof') + (this.imageSelected ? this.translateService.instant('Dashboard.theimage:') + SCENES[this.selectedScene].images[this.selectedImage].name : this.translateService.instant('Dashboard.thescene:') + SCENES[this.selectedScene].name) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {

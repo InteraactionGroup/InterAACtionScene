@@ -16,7 +16,19 @@
     "Export": "Export",
     "Import": "Import",
     "Erase": "Erase",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Doyouwanttohidetheimage": "Do you want to hide the image",
+    "Doyouconfrimthedeletionoftheimage": "Do you confirm the deletion of the image",
+    "Chooseaname": "Choose a name",
+    "Importscenes": "import scenes",
+    "Cancel": "Cancel",
+    "Doyouwanttohide": "Do you want to hide",
+    "No": "No",
+    "Yes": "Yes",
+    "theimage:": " the image : ",
+    "thescene:": " the scene : ",
+    "Doyouconfirmthedeletionof": "Do you confirm the deletion of ",
+    "Enteraname": "Enter a name"
   },
   "Settings": {
     "DwelltimeEnabled": "Dwell-time Enabled",
