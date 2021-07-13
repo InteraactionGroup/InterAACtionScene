@@ -27,7 +27,7 @@ import { HotspotDeleteDialogComponent } from './components/hotspot-delete-dialog
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { DwellCursorComponent } from './components/dwell-cursor/dwell-cursor.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 export function createTranslateLoader(http: HttpClient) {
@@ -74,7 +74,7 @@ export function createTranslateLoader(http: HttpClient) {
         MatButtonModule,
         MatSelectModule,
         MatButtonToggleModule,
-        HttpClientModule
+        HttpClientModule,
     ],
   providers: [],
   bootstrap: [AppComponent],
