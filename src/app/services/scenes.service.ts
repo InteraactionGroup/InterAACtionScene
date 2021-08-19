@@ -117,6 +117,9 @@ export class ScenesService {
         this.hideScene(selectedScene);
       }
     }
+    else {
+      this.SCENES[selectedScene].hidden = false;
+    }
     this.update();
   }
 
