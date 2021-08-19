@@ -72,10 +72,15 @@ export class HotspotCreateDialogComponent implements OnInit {
 
   submit(form) {
       if (this.selectedSound != null && this.audioIsValid()) {
-      this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
-      this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-        this.svgPath, `${form.value.color}`, this.selectedSound);
-      this.dialogRef.close();
+        if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`)) {
+          this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
+          this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
+            this.svgPath, `${form.value.color}`, this.selectedSound);
+          this.dialogRef.close();
+        }
+        else{
+          this.error = 'Name already use';
+        }
       } else {
         this.error = 'Invalid audio file';
       }
