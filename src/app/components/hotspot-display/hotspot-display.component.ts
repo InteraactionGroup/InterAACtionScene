@@ -98,6 +98,7 @@ export class HotspotDisplayComponent implements OnInit {
       textCenter.setAttribute('x', String(event.offsetX));
       textCenter.setAttribute('y', String(event.offsetY - 10));
       textCenter.setAttribute('class', 'showText');
+      textCenter.setAttribute('filter', 'url(#background)');
     }
   };
 
@@ -107,6 +108,7 @@ export class HotspotDisplayComponent implements OnInit {
     if (hotspot.name.includes('Center')){
       let textCenter = document.querySelector('#textCenter');
       textCenter.setAttribute('class', 'hideText');
+      textCenter.setAttribute('filter', '');
     }
   };
 

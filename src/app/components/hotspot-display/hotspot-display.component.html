@@ -4,7 +4,16 @@
     [attr.height]="height"
     [attr.width]="width"
   >
-    <text id="textCenter" class="hideText" x="" y="" font-size="20px"></text>
+    <defs>
+      <filter id="background" x="0" y="0" width="1" height="1">
+        <feFlood flood-color="white" result="bg"/>
+        <feMerge>
+          <feMergeNode in="bg"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <text id="textCenter" filter="" class="hideText" x="" y="" font-size="20px"></text>
     <polygon *ngFor="let hotspot of getHotspots()"
              [attr.fill]="hotspot.strokeColor"
              fill-opacity="0.0"
