@@ -29,7 +29,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field style="width: 100%">
-      <input matInput formControlName="name" placeholder="Enter the name of the hotspot" id="nameInput">
+      <input matInput formControlName="name" placeholder="Enter the name of the hotspot" id="nameInput" maxlength="64">
     </mat-form-field>
   </mat-dialog-content>
   <p *ngIf='error !== ""'>{{error}}</p>

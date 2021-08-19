@@ -2,11 +2,11 @@
   <h1 mat-dialog-title>Add scene</h1>
   <mat-dialog-content>
     <mat-form-field>
-      <input matInput formControlName="scenename" placeholder="Enter a scene name">
+      <input matInput formControlName="scenename" placeholder="Enter a scene name" maxlength="64">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput formControlName="firstimagename" placeholder="Enter the image name">
+      <input matInput formControlName="firstimagename" placeholder="Enter the image name" maxlength="64">
     </mat-form-field>
     <br>
     <input type="file" accept="image/*" (change)="onFileSelected($event)">

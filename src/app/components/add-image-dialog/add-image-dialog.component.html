@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>Add image</h1>
   <mat-dialog-content>
     <mat-form-field>
-      <input matInput formControlName="imagename" placeholder="Enter the image name">
+      <input matInput formControlName="imagename" placeholder="Enter the image name" maxlength="64">
     </mat-form-field>
     <br>
     <input type="file" accept="image/*" (change)="onFileSelected($event)">
