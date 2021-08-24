@@ -21,7 +21,7 @@
     </div>
     <div class="settings-item">
       <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" id="dwellTime" type="text"
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" id="dwellTime" type="text" maxlength="5"
       >
     </div>
     <div class="settings-item">
