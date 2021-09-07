@@ -5,17 +5,17 @@
 layout: splash
 permalink: /
 header:
-  overlay_image: /assets/images/logoVisualSceneDisplay.png
+  overlay_image: /assets/images/logoInteraactionScene.png
 excerpt: >
-  VisualSceneDisplay description : //TODO <br />
+  InteraactionScene description : //TODO <br />
 ---
 
-{% include figure image_path="/assets/images/visualSceneDisplay.png" alt="VisualSceneDisplay" %}
+{% include figure image_path="/assets/images/interaactionScene.png" alt="InteraactionScene" %}
 
 ## System Requirements
 
 //TODO
 
-## Why VisualSceneDisplay ?
+## Why InteraactionScene ?
 
 //TODO
