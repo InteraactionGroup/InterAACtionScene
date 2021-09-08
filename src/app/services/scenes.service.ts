@@ -185,7 +185,7 @@ export class ScenesService {
   init() {
 
 
-    this.openRequest = indexedDB.open('Saves', 3);
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -251,7 +251,7 @@ export class ScenesService {
   update() {
 
 
-    this.openRequest = indexedDB.open('Saves', 3);
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
 
     // ERROR
     this.openRequest.onerror = event => {
