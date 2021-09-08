@@ -56,11 +56,16 @@
     "CreateaScene": "Créer une Scène",
     "clickontheplusandfillthedifferentareas": "cliquez sur le plus et remplir les différents champs",
     "ManageScenes": "Gérer les Scènes",
-    "Youcanmanagetheexistingscenesbyclickingonthebuttonatthetop\"Managescenes\"": "Vous pouvez gérer les scènes existantes en cliquant sur le bouton en haut \"Manage Scènes\"",
+    "Youcanmanagetheexistingscenesbyclickingonthebuttonatthetop\"Managescenes\"": "Vous pouvez gérer les scènes existantes en cliquant sur le bouton en haut \"Manage Scènes\".",
     "ManageHotspots": "Gérer les Hotspots",
     "OnasceneyoucanaddHotspotsallowyoutoplaymusic,clickonthebuttonatthetop\"ManageHotspots\"addHotspot,drawanareaontheimageandfillthedifferentareas.": "Sur une scène vous pouvez ajouter des Hotspots qui vous permettent d'ajouter un son sur l'image, cliquez sur le bouton en haut \"Gérer les Hotspots\" ajouter Hotspot, dessinez une zone sur l'image et remplissez les différents champs.",
     "Whenyouwillclickonthehotspotyouwillhearthesongrecordedorimported": "Quand vous allez cliquer sur le hotspot vous allez entendre le son enregistré ou importé.",
     "Drawontheimage": "Dessiner sur l'image",
-    "Youcandrawontheimagebyclickingonthebuttonatthetop\"Draw\",chooseyourcolorandclickontheimage": "Vous pouvez dessiner sur l'image en cliquant sur le bouton \"Dessiner\" en haut, choisissez votre couleur et cliquez sur l'image"
+    "Youcandrawontheimagebyclickingonthebuttonatthetop\"Draw\",chooseyourcolorandclickontheimage": "Vous pouvez dessiner sur l'image en cliquant sur le bouton \"Dessiner\" en haut, choisissez votre couleur et cliquez sur l'image.",
+    "Youcanhideascene,whenyouwillplaythisscenewillnotbedisplayed": "Vous pouvez masquer une scène, lorsque vous jouerez cette scène ne sera pas affichée.",
+    "Youcanremoveascene": "Vous pouvez supprimer une scène.",
+    "Youcanrenameascene": "Vous pouvez renommer une scène.",
+    "Youcanexportasceneallowyoutosaveitandimportitfromyourcomputer": "Vous pouvez exporter une scène ce qui vous permet de la sauvegarder et de l'importer depuis votre ordinateur.",
+    "Youcanimportascene": "You pouvez importer une scène avec un fichier.json."
   }
 }
