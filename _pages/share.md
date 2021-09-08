@@ -3,6 +3,9 @@ title: Share
 permalink: /share/
 layout: single
 toc: true
+toc_sticky: true
 ---
 
-//TODO
+## Share
+
+Soon, different visual scenes created by the community will be shared here!
