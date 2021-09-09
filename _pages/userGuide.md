@@ -267,9 +267,9 @@ We can then:
 * Choose the duration of the Dwell-Time.
 * Go back to the main page via the "Back" button at the top left.
 
-## Hide/Show la barre de menu
+## Hide/Show toolbar
 
-You can hide or show the menu bar with the triangle-shaped button pointing up (to hide) or down (to display).
+You can hide or show the toolbar with the triangle-shaped button pointing up (to hide) or down (to display).
 
 {% include figure image_path="/assets/images/userGuideImages/hideShowButton.png" alt="Show or Hide button" %}
 
