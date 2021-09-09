@@ -30,7 +30,7 @@ In my example below, I want to create a scene whose name is "Lac" and the image 
 
 I validate and this is what I get :
 
-{% include figure image_path="/assets/images/userGuideImages/exampleScene.png" alt="Example of a scene" caption="My "Lac" scene with the Guéry lake as an image has been created." %}
+{% include figure image_path="/assets/images/userGuideImages/exampleScene.png" alt="Example of a scene" caption="My 'Lac' scene with the Guéry lake as an image has been created." %}
 
 ### Add image
 
@@ -70,7 +70,7 @@ Once you have clicked on it, 3 new buttons appear and allow:
 * To modify a hotspot of an image.
 * To remove a hotspot from an image.
 
-{% include figure image_path="/assets/images/userGuideImages/buttonsManageHotspots.png" alt="Boutons from manage hotspots" %}
+{% include figure image_path="/assets/images/userGuideImages/buttonsManageHotspots.png" alt="Buttons from manage hotspots" %}
 
 ### Add hotspot
 

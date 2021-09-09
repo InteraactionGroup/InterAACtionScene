@@ -31,7 +31,7 @@ Dans mon exemple ci-dessous, je souhaite créer une scène qui a pour nom "Lac" 
 
 Je valide et voilà ce que j'obtiens :
 
-{% include figure image_path="/assets/images/userGuideImages/exampleScene.png" alt="Exemple d'une scène" caption="Ma scène "Lac" avec pour image le lac de Guéry a bien été créer." %}
+{% include figure image_path="/assets/images/userGuideImages/exampleScene.png" alt="Exemple d'une scène" caption="Ma scène 'Lac' avec pour image le lac de Guéry a bien été créer." %}
 
 ### Ajouter une image
 
@@ -59,7 +59,7 @@ Ma nouvelle image du lac de Laffrey a bien été ajouté à ma scène "Lac". Cel
 
 ## Bouton "Jouer"
 
-{% include figure image_path="/assets/images/userGuideImages/playButton.png" alt="Bouton Jouer" caption="Ce bouton permet de jouer le son associé à l'hotspot lorsque l'on clique dessus." %}
+{% include figure image_path="/assets/images/userGuideImages/playButton.png" alt="Bouton Jouer" caption="Ce bouton permet de jouer le son associé à l'hotspot." %}
 
 ## Bouton "Gérer les hotspots"
 
@@ -96,11 +96,11 @@ J'importe donc un fichier "eau.mp3" qui fait le bruit de l'eau.<br />
 Je choisis de mettre en bleu la couleur de mon hotspot.<br />
 Et comme nom, je choisis "Eau du lac".
 
-{% include figure image_path="/assets/images/userGuideImages/exampleWindowAddHotspot.png" alt="Exemple d'une fenêtre d'ajout de hotspot remplie" %}
+{% include figure image_path="/assets/images/userGuideImages/exampleWindowAddHotspot.png" alt="Exemple fenêtre ajout hotspot remplie" %}
 
 Et voilà ce que j'obtiens :
 
-{% include figure image_path="/assets/images/userGuideImages/zoneHotspot.png" alt="Exemple d'ajout d'un hotspot" caption="Maintenant lorsque l'on cliquera sur cette hotspot il fera le bruit associé au son choisi (de l'eau pour ma part)." %}
+{% include figure image_path="/assets/images/userGuideImages/zoneHotspot.png" alt="Exemple ajout d'un hotspot" caption="Cette hotspot fera maintenant le bruit associé au son choisi (de l'eau pour ma part)." %}
 
 ### Modifier un hotspot
 
@@ -153,7 +153,7 @@ Une fois que l'on a cliqué dessus, 5 nouveaux boutons apparaissent et permetten
 
 Pour cacher une image, il faut cliquer sur le bouton "Hide".
 
-{% include figure image_path="/assets/images/userGuideImages/hideButton.png" alt="Bouton cacher unne image" %}
+{% include figure image_path="/assets/images/userGuideImages/hideButton.png" alt="Bouton cacher une image" %}
 
 Une fenêtre apparaît nous demandant si on est sûr de vouloir cacher l'image choisie.
 
