@@ -5,10 +5,10 @@
 layout: splash
 permalink: /
 header:
-  overlay_image: /assets/images/logoInteraactionScene.png
-  actions:
-    - label: "<i class='fas fa-hand-point-up'></i> Try now"
-      url: https://lig-interaactionscene.imag.fr/stable/#/dashboard
+    overlay_image: /assets/images/logoInteraactionScene.png
+    actions:
+        - label: "<i class='fas fa-hand-point-up'></i> Try now"
+          url: https://lig-interaactionscene.imag.fr/stable/#/dashboard
 excerpt: >
   InteraactionScene is a highly contextualized and personal augmentative and alternative communication system that can be used for children or adults of all ages with significant cognitive or linguistic limitations. <br />
 ---

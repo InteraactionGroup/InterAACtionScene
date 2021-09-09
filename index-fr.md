@@ -5,10 +5,10 @@
 layout: splash
 permalink: /fr
 header:
-  overlay_image: /assets/images/logoInteraactionScene.png
-  actions:
-    - label: "<i class='fas fa-hand-point-up'></i> Essayer maintenant"
-      url: https://lig-interaactionscene.imag.fr/stable/#/dashboard
+    overlay_image: /assets/images/logoInteraactionScene.png
+    actions:
+        - label: "<i class='fas fa-hand-point-up'></i> Essayer maintenant"
+          url: https://lig-interaactionscene.imag.fr/stable/#/dashboard
 excerpt: >
   InteraactionScene est un système de communication améliorée et alternative hautement contextualisé et personnel qui peut être utilisé pour les enfants ou les adultes de tous âges ayant des limitations cognitives ou linguistiques importantes. <br />
 ---
