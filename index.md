@@ -10,17 +10,18 @@ header:
         - label: "<i class='fas fa-hand-point-up'></i> Try now"
           url: https://lig-interaactionscene.imag.fr/stable/#/dashboard
 excerpt: >
-  InteraactionScene is a highly contextualized and personal augmentative and alternative communication system that can be used for children or adults of all ages with significant cognitive or linguistic limitations. <br />
+  InteraactionScene is a highly contextualized and personal Augmentative and Alternative Communication system that can be used for children or adults of all ages with significant cognitive or linguistic limitations. <br />
 ---
 
 {% include figure image_path="/assets/images/interaactionScene.png" alt="InteraactionScene" %}
 
 ## Why InteraactionScene ?
 
-InteraactionScene is easy and accessible to use, so he can :
+InteraactionScene is an easy to use and accessible software.
+It allows you to :
 
 1. Provide a high level of visual contextual information.
-2. Reduce cognitive demand on the user.
-3. Make learning to communicate easier and faster.
+2. Reduce the cognitive demand of the user.
+3. Facilitate and accelerate communication learning.
 4. Increase social interaction.
-5. Can be highly personalised, which is motivating !
+5. And it is also highly customizable!
