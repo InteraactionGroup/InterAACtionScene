@@ -8,7 +8,7 @@ toc_sticky: true
 
 ## Beginning
 
-{% include figure image_path="/assets/images/userGuideImages/interaactionScene.png" alt="InteraactionScene" caption="This is what InteraactionScene looks like on the 1st connection" %}
+{% include figure image_path="/assets/images/interaactionScene.png" alt="InteraactionScene" caption="This is what InteraactionScene looks like on the 1st connection" %}
 
 ### Add scene
 

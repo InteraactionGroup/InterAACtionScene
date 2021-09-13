@@ -9,7 +9,7 @@ toc_sticky: true
 
 ## Commencement
 
-{% include figure image_path="/assets/images/userGuideImages/interaactionScene.png" alt="InteraactionScene" caption="Voilà à quoi ressemble InteraactionScene lors de la 1er connexion." %}
+{% include figure image_path="/assets/images/interaactionScene.png" alt="InteraactionScene" caption="Voilà à quoi ressemble InteraactionScene lors de la 1er connexion." %}
 
 ### Ajouter une scène
 
@@ -17,7 +17,7 @@ Pour ajouter une scène, il faut cliquer sur le bouton "Scene" avec un "+" entou
 
 {% include figure image_path="/assets/images/userGuideImages/sceneButton.png" alt="Bouton Scene" %}
 
-Une fenêtre va s'ouvrir dans laquelle devez renseigner :
+Une fenêtre va s'ouvrir dans laquelle vous devez renseigner :
 
 * Le nom de votre scène
 * Le nom de votre image
@@ -35,7 +35,7 @@ Voici ce que nous obtenons après la validation :
 
 ### Ajouter une image
 
-Une image ne peux être ajoutée seulement dans une scene, sinon le bouton permettant d'ajouter une image ne sera pas disponible.<br />
+Une image ne peux être ajoutée seulement dans une scène, sinon le bouton permettant d'ajouter une image ne sera pas disponible.<br />
 Une fois que notre scène est crée, il faut cliquer sur le bouton "Image" avec un "+" entouré d'un cercle noir à droite du bouton qui permet d'ajouter une scène.
 
 {% include figure image_path="/assets/images/userGuideImages/imageButton.png" alt="Bouton image" %}
@@ -96,7 +96,7 @@ Nous importons donc un fichier "eau.mp3" qui fait le bruit de l'eau.<br />
 Nous pouvons ensuite choisir de mettre en bleu, par exemple, la couleur de notre hotspot.<br />
 Et comme nom, nous entrons "Eau du lac".
 
-{% include figure image_path="/assets/images/userGuideImages/exampleWindowAddHotspot.png" alt="Exemple fenêtre ajout hotspot remplie" %}
+{% include figure image_path="/assets/images/userGuideImages/exampleWindowAddHotspot.png" alt="Exemple fenêtre d’ajout d’un hotspot remplie" %}
 
 Voici ce que nous obtenons :
 
@@ -264,7 +264,7 @@ On arrive alors sur cette page :
 
 On peut alors :
 
-* Activer/Désactiver la selection par temps de fixation (Dwell-Time).
+* Activer/Désactiver la sélection par temps de fixation (Dwell-Time).
 * Choisir la durée du temps de fixation.
 * Revenir sur la page principale via le bouton "Back" tout en haut à gauche.
 
@@ -276,6 +276,7 @@ On peut cacher ou afficher la barre de menu avec le bouton en forme de triangle 
 
 ## Plein écran
 
-On peut entrer ou sortir du mode plein écran avec le bouton en forme de carré sous le bouton pour affichercacher la barre de menu.
+On peut entrer ou sortir du mode plein écran avec le bouton en forme de carré sous le bouton pour afficher/cacher la barre de menu.
 
 {% include figure image_path="/assets/images/userGuideImages/fullScreenButton.png" alt="Bouton pour entrer ou sortir du mode plein écran" %}
+
