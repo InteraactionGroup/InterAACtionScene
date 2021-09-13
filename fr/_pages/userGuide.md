@@ -13,11 +13,11 @@ toc_sticky: true
 
 ### Ajouter une scène
 
-Pour ajouter une scène, il faut cliquer sur le bouton "Scene" avec un "+" noir entouré d'un cercle noir en haut à gauche de l'écran.
+Pour ajouter une scène, il faut cliquer sur le bouton "Scene" avec un "+" entouré d'un cercle noir en haut à gauche de l'écran.
 
 {% include figure image_path="/assets/images/userGuideImages/sceneButton.png" alt="Bouton Scene" %}
 
-Une fenêtre va s'ouvrir demandant :
+Une fenêtre va s'ouvrir dans laquelle devez renseigner :
 
 * Le nom de votre scène
 * Le nom de votre image
@@ -25,18 +25,18 @@ Une fenêtre va s'ouvrir demandant :
 
 {% include figure image_path="/assets/images/userGuideImages/windowAddScene.png" alt="Fenêtre ajout d'une scène" %}
 
-Dans mon exemple ci-dessous, je souhaite créer une scène qui a pour nom "Lac" et pour image le lac de Guéry.
+Dans l'exemple ci-dessous, nous souhaitons créer une scène qui a pour nom "Lac" et pour image le lac de Guéry.
 
 {% include figure image_path="/assets/images/userGuideImages/exampleAddScene.png" alt="Exemple ajout d'une scène" %}
 
-Je valide et voilà ce que j'obtiens :
+Voici ce que nous obtenons après la validation :
 
 {% include figure image_path="/assets/images/userGuideImages/exampleScene.png" alt="Exemple d'une scène" caption="Ma scène 'Lac' avec pour image le lac de Guéry a bien été créer." %}
 
 ### Ajouter une image
 
-Pour ajouter une image, il faut au moins une scène sinon le bouton permettant d'ajouter une image ne sera pas disponible.<br />
-Une fois que l'on a une scène, il faut cliquer sur le bouton "Image" avec un "+" noir entouré d'un cercle noir à droite du bouton qui permet d'ajouter une scène.
+Une image ne peux être ajoutée seulement dans une scene, sinon le bouton permettant d'ajouter une image ne sera pas disponible.<br />
+Une fois que notre scène est crée, il faut cliquer sur le bouton "Image" avec un "+" entouré d'un cercle noir à droite du bouton qui permet d'ajouter une scène.
 
 {% include figure image_path="/assets/images/userGuideImages/imageButton.png" alt="Bouton image" %}
 
@@ -47,29 +47,29 @@ Une fenêtre va s'ouvrir demandant :
 
 {% include figure image_path="/assets/images/userGuideImages/windowAddImage.png" alt="Fenêtre ajout d'une image" %}
 
-Dans mon exemple ci-dessous, je souhaite ajouter une autre image à ma scène "Lac", celle du lac de Laffrey.
+Dans l'exemple ci-dessous, nous ajoutons une autre image à la scène "Lac", celle du lac de Laffrey.
 
 {% include figure image_path="/assets/images/userGuideImages/exampleAddImage.png" alt="Exemple ajout d'une scène" %}
 
-Je valide et voilà ce que j'obtiens :
+Après validation voici ce qu'on obtient :
 
 {% include figure image_path="/assets/images/userGuideImages/exampleImage.png" alt="Exemple ajout d'une scène" %}
 
-Ma nouvelle image du lac de Laffrey a bien été ajouté à ma scène "Lac". Celle-ci contient désormais mes 2 images.
+La nouvelle image du lac de Laffrey a bien été ajoutée à la scène "Lac". Celle-ci contient désormais nos 2 images.
 
 ## Bouton "Jouer"
 
-{% include figure image_path="/assets/images/userGuideImages/playButton.png" alt="Bouton Jouer" caption="Ce bouton permet de jouer le son associé à l'hotspot." %}
+{% include figure image_path="/assets/images/userGuideImages/playButton.png" alt="Bouton Jouer" caption="Ce bouton permet de jouer le son associé au hotspot." %}
 
 ## Bouton "Gérer les hotspots"
 
 {% include figure image_path="/assets/images/userGuideImages/manageHotspotsButton.png" alt="Bouton gérer les hotspots" caption="Ce bouton permet de gérer les hotspots de nos images." %}
 
-Une fois que l'on a cliqué dessus, 3 nouveaux boutons apparaissent et permettent :
+Une fois que l'on a cliqué sur le bouton "hotspots", 3 nouveaux boutons apparaissent et permettent :
 
-* D'ajouter un hotspot a une image.
-* De modifier un hotspot d'une image.
-* De supprimer une hotspot d'une image.
+* D'ajouter un hotspot à une image.
+* De modifier les hotspots d'une image.
+* De supprimer les hotspots d'une image.
 
 {% include figure image_path="/assets/images/userGuideImages/buttonsManageHotspots.png" alt="Les boutons du mode gérer les hotspots" %}
 
@@ -79,28 +79,28 @@ Pour ajouter un hotspot à notre image, il faut cliquer sur le bouton "Add Hotsp
 
 {% include figure image_path="/assets/images/userGuideImages/addHotspotButton.png" alt="Bouton ajouter un hotspot" %}
 
-Puis cliquer sur l'image, et tout en gardant son clic enfoncer, effectuer le tracer de toute la zone que l'on souhaite définir comme hotspot.
+Il faut ensuite presser le clic gauche de la souris et tracer la zone que l'on souhaite définir comme hotspot, tout en gardant le clic enfoncé.
 
-{% include figure image_path="/assets/images/userGuideImages/zoneHotspot.png" alt="Zone d'un hotspot" caption="Le tracé en noir et la zone assombrie sur l'image représentent mon hotspot." %}
+{% include figure image_path="/assets/images/userGuideImages/zoneHotspot.png" alt="Zone d'un hotspot" caption="La zone assombie aux contours noirs sur l'image représente notre hotspot." %}
 
-Une fois le clique relâché, une fenêtre apparaît demandant :
+Une fois le clic relâché, une fenêtre apparaît demandant :
 
-* Si on souhaite importer un son ou enregistrer un son via le micro de notre PC.
+* D'importer ou d'enregistrer un son via le micro de notre PC.
 * De choisir la couleur du hotspot : noir (par défaut), blanc, bleu, rouge, orange ou vert.
 * De donner un nom à notre hotspot.
 
 {% include figure image_path="/assets/images/userGuideImages/windowAddHotspot.png" alt="Fenêtre ajout d'un hotspot" %}
 
-Dans mon exemple ci-dessous, je souhaite ajouter un son d'eau pour le lac de Guéry.<br />
-J'importe donc un fichier "eau.mp3" qui fait le bruit de l'eau.<br />
-Je choisis de mettre en bleu la couleur de mon hotspot.<br />
-Et comme nom, je choisis "Eau du lac".
+Dans notre exemple ci-dessous, nous allons ajouter un bruit d'eau pour le lac de Guéry.<br />
+Nous importons donc un fichier "eau.mp3" qui fait le bruit de l'eau.<br />
+Nous pouvons ensuite choisir de mettre en bleu, par exemple, la couleur de notre hotspot.<br />
+Et comme nom, nous entrons "Eau du lac".
 
 {% include figure image_path="/assets/images/userGuideImages/exampleWindowAddHotspot.png" alt="Exemple fenêtre ajout hotspot remplie" %}
 
-Et voilà ce que j'obtiens :
+Voici ce que nous obtenons :
 
-{% include figure image_path="/assets/images/userGuideImages/zoneHotspot.png" alt="Exemple ajout d'un hotspot" caption="Cette hotspot fera maintenant le bruit associé au son choisi (de l'eau pour ma part)." %}
+{% include figure image_path="/assets/images/userGuideImages/zoneHotspot.png" alt="Exemple d'ajout d'un hotspot" caption="Ce hotspot fera maintenant le bruit associé au son choisi (de l'eau dans notre cas)." %}
 
 ### Modifier un hotspot
 
@@ -109,19 +109,19 @@ Pour modifier un hotspot, il faut cliquer sur le bouton "Modify Hotspot".
 {% include figure image_path="/assets/images/userGuideImages/modifyHotspotButton.png" alt="Bouton modifier un hotspot" %}
 
 Puis cliquer sur le hotspot que l'on souhaite modifier.<br />
-Dans l'exemple qui suit, je prens le hotspot crée dans la partie "Ajouter un hotspot".<br />
-Une fenêtre va s'ouvrir permettant :
+Dans l'exemple qui suit, nous prendrons le hotspot crée dans la partie "Ajouter un hotspot".<br />
+Une fenêtre semblable à la fenêtre de création d'un hotspot vas s'ouvrir, permettant :
 
-* D'importer un son ou enregistrer un son via le micro de notre PC.
+* D'importer ou d'enregistrer un son via le micro de notre PC pour remplacer le son existant.
 * De changer la couleur du hotspot.
 * De changer le nom du hotspot.
 * De redessiner le hotspot.
 
-{% include figure image_path="/assets/images/userGuideImages/windowModifyHotspot.png" alt="Fenêtre modifier un hospot" %}
+{% include figure image_path="/assets/images/userGuideImages/windowModifyHotspot.png" alt="Fenêtre de modification d'un hospot" %}
 
-Après avoir changé la couleur bleue en rouge, voilà ce que j'obtiens :
+Après avoir changé la couleur bleue en rouge, voici ce que nous obtenons :
 
-{% include figure image_path="/assets/images/userGuideImages/exampleModifyHotspot.png" alt="Exemple modifier un hotspot" %}
+{% include figure image_path="/assets/images/userGuideImages/exampleModifyHotspot.png" alt="Exemple de modification d'un hotspot" %}
 
 ### Supprimer un hotspot
 
@@ -139,10 +139,10 @@ Une fenêtre va s'ouvrir demandant si on est sûr de vouloir supprimé le hotspo
 
 {% include figure image_path="/assets/images/userGuideImages/manageScenesButton.png" alt="Bouton gérer les scènes" caption="Ce bouton permet de gérer nos scènes et images." %}
 
-Une fois que l'on a cliqué dessus, 5 nouveaux boutons apparaissent et permettent :
+Une fois que l'on a cliqué sur le bouton "Gérer les scènes", 5 nouveaux boutons apparaissent et permettent :
 
 * De cacher une image. Si c'est la seule image de la scène alors la scène est aussi caché.
-* D'enlever une image. Si c'est la seule image de la scène alors la scène est aussi enlevé.
+* De supprimer une image. Si c'est la seule image de la scène alors la scène est aussi supprimée.
 * De renommer une image.
 * D'exporter une scène.
 * D'importer une scène.
@@ -169,15 +169,15 @@ Si on accepte alors :
 
 Si l'on clique sur le bouton "Hide" pour cacher une image déjà cachée, alors celle-ci redevient visible.
 
-### Enlever une image
+### Supprimer une image
 
-Pour enlever une image, il faut cliquer sur le bouton "Remove".
+Pour supprimer une image, il faut cliquer sur le bouton "Remove".
 
-{% include figure image_path="/assets/images/userGuideImages/removeButton.png" alt="Bouton enlever une image" %}
+{% include figure image_path="/assets/images/userGuideImages/removeButton.png" alt="Bouton supprimer une image" %}
 
-Une fenêtre apparaît nous demandant si on est sûr de vouloir enlever l'image choisie.
+Une fenêtre apparaît nous demandant si on est sûr de vouloir supprimer l'image choisie.
 
-{% include figure image_path="/assets/images/userGuideImages/windowRemoveImage.png" alt="Image enlever" %}
+{% include figure image_path="/assets/images/userGuideImages/windowRemoveImage.png" alt="Image supprimée" %}
 
 ### Renommer une image
 
@@ -185,18 +185,18 @@ Pour renommer une image, il faut cliquer sur le bouton "Rename".
 
 {% include figure image_path="/assets/images/userGuideImages/renameButton.png" alt="Bouton renommer une image" %}
 
-Une fenêtre apparaît nous demandant quel nouveau nom, on veut donner à notre image.
+Une fenêtre apparaît nous demandant le nouveau nom de notre image.
 
 {% include figure image_path="/assets/images/userGuideImages/windowRenameImage.png" alt="Fenêtre pour renommer une image" %}
 
 ### Exporter une scène
 
-On peut exporter la scène en cours sous format JSON.<br />
+Nous pouvons exporter la scène en cours sous format JSON.<br />
 Pour le faire, il faut cliquer sur le bouton "Export".
 
 {% include figure image_path="/assets/images/userGuideImages/exportButton.png" alt="Bouton exporter" %}
 
-Ensuite, on nous demande de choisir un nom au fichier exporté et où on veut le sauvegarder sur notre PC.
+On nous demande ensuite de choisir un nom pour le fichier exporté et l'emplacement auquel il sera sauvegardé sur notre PC.
 
 ### Importer une scène
 
@@ -213,7 +213,7 @@ Ensuite une fenêtre apparaît, nous demandant quel fichier on veut importer.
 
 {% include figure image_path="/assets/images/userGuideImages/drawButton.png" alt="Bouton dessiner" caption="Ce bouton permet de dessiner sur nos images." %}
 
-Une fois que l'on a cliqué dessus, une palette de 6 couleurs et 2 nouveaux boutons apparaissent et permettent :
+Une fois que l'on a cliqué sur le bouton "Dessiner", une palette de 6 couleurs et 2 nouveaux boutons apparaissent et permettent :
 
 * De dessiner sur notre image avec les couleurs : Blanc, Noir, Rouge, Orange, Bleu et Vert.
 * De gommer certaines parties de nos dessins.
@@ -225,7 +225,7 @@ Une fois que l'on a cliqué dessus, une palette de 6 couleurs et 2 nouveaux bout
 
 Pour dessiner, il faut d'abord cliquer sur une des 6 couleurs disponibles.
 
-{% include figure image_path="/assets/images/userGuideImages/colorsButton.png" alt="Les boutons de couleurs" %}
+{% include figure image_path="/assets/images/userGuideImages/colorsButton.png" alt="La palette de couleurs" %}
 
 Ensuite, il faut cliquer sur notre image et, pendant que l'on garde le clic enfoncé, faire le tracer du dessin que l'on souhaite.
 
@@ -264,18 +264,18 @@ On arrive alors sur cette page :
 
 On peut alors :
 
-* Activer/Désactiver le Dwell-Time.
-* Choisir la durée du Dwell-Time.
+* Activer/Désactiver la selection par temps de fixation (Dwell-Time).
+* Choisir la durée du temps de fixation.
 * Revenir sur la page principale via le bouton "Back" tout en haut à gauche.
 
 ## Cacher/Afficher la barre de menu
 
-On peut cacher ou afficher la barre de menu avec le bouton en forme de triangle pointant vers le haut (pour cacher) ou vers le bas (pour afficher).
+On peut cacher ou afficher la barre de menu avec le bouton en forme de triangle pointant vers le haut (pour cacher) ou vers le bas (pour afficher), en dessous du bouton "Settings".
 
 {% include figure image_path="/assets/images/userGuideImages/hideShowButton.png" alt="Bouton pour cacher ou montrer la barre de menu" %}
 
 ## Plein écran
 
-On peut mettre ou sortir du plein écran avec le bouton en forme de carré.
+On peut entrer ou sortir du mode plein écran avec le bouton en forme de carré sous le bouton pour affichercacher la barre de menu.
 
 {% include figure image_path="/assets/images/userGuideImages/fullScreenButton.png" alt="Bouton pour entrer ou sortir du mode plein écran" %}
