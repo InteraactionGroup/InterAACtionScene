@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Hotspot, Scene} from '../types';
 import {ModeService} from "./mode.service";
 import {SettingsService} from "./settings.service";
+import {LanguageService} from './language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class ScenesService {
   haveAddHotspot = false;
 
   constructor(public modeService: ModeService,
-              public settingsService: SettingsService) {
+              public settingsService: SettingsService,
+              public languageService: LanguageService) {
     this.init();
   }
 
@@ -183,7 +185,7 @@ export class ScenesService {
   init() {
 
 
-    this.openRequest = indexedDB.open('Saves', 2);
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -208,6 +210,15 @@ export class ScenesService {
       configStore.onerror = e => {
       };
 
+      const languageStore = db.transaction(['Language'], 'readwrite').objectStore('Language').get(1);
+      languageStore.onsuccess = e => {
+        this.languageService.switchLanguage(languageStore.result);
+      };
+      languageStore.onerror = e => {
+        alert('LanguageStore error: ' + event.target.errorCode);
+      };
+
+
     };
 
     this.openRequest.onupgradeneeded = event => {
@@ -229,13 +240,18 @@ export class ScenesService {
           configurationStore.add(this.settingsService.getConfiguration());
         }
       }
+      if (!db.objectStoreNames.contains('Language')) {
+        db.createObjectStore('Language', {autoIncrement: true});
+        const languageStore = transaction.objectStore('Language');
+        languageStore.add(this.languageService.activeLanguage);
+      }
     };
   }
 
   update() {
 
 
-    this.openRequest = indexedDB.open('Saves', 2);
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -262,6 +278,13 @@ export class ScenesService {
         configurationObjectStore.put(this.settingsService.getConfiguration(), 1);
       };
 
+      // Update Language Store
+      const languageStore = db.transaction(['Language'], 'readwrite');
+      const languageObjectStore = languageStore.objectStore('Language');
+      const storeLanguageRequest = languageObjectStore.get(1);
+      storeLanguageRequest.onsuccess = () => {
+        languageObjectStore.put(this.languageService.activeLanguage, 1);
+      };
     };
   }
 
