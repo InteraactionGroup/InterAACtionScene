@@ -14,7 +14,7 @@ toc_sticky: true
 {% include figure image_path="/assets/images/share/farm.png" alt="scène Ferme pour interAAction Scène" %}
 
 Télécharger la scène : <br>
-<i class='fas fa-hand-point-right'></i> [ferme.zip](../assets/scenesFR/ferme.zip)
+<i class='fas fa-hand-point-right'></i> [ferme.json](../assets/scenesFR/ferme.json)
 
 ### Jungle
 
