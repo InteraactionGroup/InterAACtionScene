@@ -24,7 +24,7 @@ Download the scene : <br>
 
 ### Savanna
 
-{% include figure image_path="/assets/images/share/savanna.png" alt="scene Savanna for interAActionScene" %}
+{% include figure image_path="/assets/images/share/savana.png" alt="scene Savanna for interAActionScene" %}
 
 Download the scene : <br>
 <i class='fas fa-hand-point-right'></i> [savanna.zip](https://github.com/Noars/InteraactionScene/files/7225573/savanna.zip)
