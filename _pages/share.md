@@ -19,8 +19,9 @@ Download the scene : <br>
 
 {% include figure image_path="/assets/images/share/jungle.png" alt="scene Jungle for interAActionScene" %}
 
-Download the scene : <br>
-<i class='fas fa-hand-point-right'></i> [jungle.zip](https://github.com/Noars/InteraactionScene/files/7225601/jungle.zip)
+<a herf="/assets/jungle.zip" download>
+  <i class='fas fa-hand-point-right'></i> ici test avec zip
+</a>
 
 ### Savanna
 
