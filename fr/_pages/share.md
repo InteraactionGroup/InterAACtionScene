@@ -25,7 +25,7 @@ Télécharger la scène : <br>
 
 ### Savane
 
-{% include figure image_path="/assets/images/share/savanna.png" alt="scène Savane pour interAAction Scène" %}
+{% include figure image_path="/assets/images/share/savana.png" alt="scène Savane pour interAAction Scène" %}
 
 Télécharger la scène : <br>
 <i class='fas fa-hand-point-right'></i> [savane.zip](https://github.com/Noars/InteraactionScene/files/7225551/savane.zip)
