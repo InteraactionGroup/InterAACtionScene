@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'VisualSceneDisplay'`, () => {
+  it(`should have as title 'InterAACtionScene'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('VisualSceneDisplay');
+    expect(app.title).toEqual('InterAACtionScene');
   });
 
 });
