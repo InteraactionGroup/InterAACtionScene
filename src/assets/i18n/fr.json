@@ -21,6 +21,7 @@
   "Settings": {
     "DwelltimeEnabled": "Activer le temps de fixation",
     "DwellTime": "Temps de temporisation",
+    "SpeechSpeaker": "Synthèse vocal",
     "Back": "Retour",
     "Selectalanguage": "Selectionne une langue",
     "French": "Français",

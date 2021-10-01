@@ -7,6 +7,7 @@ import {Configuration} from "../types";
 
 export class SettingsService {
 
+  SPEECH_SPEAKER = false;
   DWELL_TIME_ENABLED = false;
   DWELL_TIME_TIMEOUT_VALUE = 500;
 
