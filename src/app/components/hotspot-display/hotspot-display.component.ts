@@ -100,6 +100,10 @@ export class HotspotDisplayComponent implements OnInit {
       textCenter.setAttribute('class', 'showText');
       textCenter.setAttribute('filter', 'url(#background)');
     }
+    if (this.modeService.selectedMode !== 'hotspot' && this.modeService.currentDrawingTool !== 'modify' && this.modeService.currentDrawingTool !== 'delete') {
+      let speakName = new SpeechSynthesisUtterance(hotspot.name);
+      window.speechSynthesis.speak(speakName);
+    }
   };
 
   leaveEvent(event, hotspot) {
