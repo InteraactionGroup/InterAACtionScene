@@ -33,7 +33,7 @@ footer:
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/InteraactionGroup/InterAACtionSceneInterAACtionScene"
+      url: "https://github.com/InteraactionGroup/InterAACtionScene"
 
 thumbnail_base: https://raw.githubusercontent.com/GazePlay/GazePlay/master/gazeplay-core/src/main/resources/data/Thumbnails
 
