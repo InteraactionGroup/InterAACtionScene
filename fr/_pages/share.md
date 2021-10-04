@@ -14,25 +14,37 @@ toc_sticky: true
 {% include figure image_path="/assets/images/share/farm.png" alt="scène Ferme pour interAAction Scène" %}
 
 Télécharger la scène : <br>
-<i class='fas fa-hand-point-right'></i> [ferme.zip](https://github.com/Noars/InteraactionScene/files/7225530/ferme.zip)
+<a href="../assets/scenesFR/ferme.json" download>
+  <i class='fas fa-hand-point-right'></i>
+  Ferme
+</a>
 
 ### Jungle
 
 {% include figure image_path="/assets/images/share/jungle.png" alt="scène Jungle pour interAAction Scène" %}
 
 Télécharger la scène : <br>
-<i class='fas fa-hand-point-right'></i> [jungle.zip](https://github.com/Noars/InteraactionScene/files/7225548/jungle.zip)
+<a href="../assets/scenesFR/jungle.json" download>
+  <i class='fas fa-hand-point-right'></i>
+  Jungle
+</a>
 
 ### Savane
 
 {% include figure image_path="/assets/images/share/savana.png" alt="scène Savane pour interAAction Scène" %}
 
 Télécharger la scène : <br>
-<i class='fas fa-hand-point-right'></i> [savane.zip](https://github.com/Noars/InteraactionScene/files/7225551/savane.zip)
+<a href="../assets/scenesFR/savane.json" download>
+  <i class='fas fa-hand-point-right'></i>
+  Savane
+</a>
 
 ### Mer
 
 {% include figure image_path="/assets/images/share/ocean.png" alt="scène Mer pour interAAction Scène" %}
 
 Télécharger la scène : <br>
-<i class='fas fa-hand-point-right'></i> [mer.zip](https://github.com/Noars/InteraactionScene/files/7225560/mer.zip)
+<a href="../assets/scenesFR/mer.json" download>
+  <i class='fas fa-hand-point-right'></i>
+  Mer
+</a>
