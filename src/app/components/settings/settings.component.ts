@@ -17,4 +17,8 @@ export class SettingsComponent implements OnInit {
     history.back();
   }
 
+  getAFSRLogoPNGUrl(s): string {
+    return 'url(assets/images/'+ s +'.png)';
+  }
+
 }
