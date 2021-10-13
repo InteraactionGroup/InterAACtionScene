@@ -95,6 +95,9 @@
 <button id="fullScreenButton" type="button" (click)="fullScreen()">
   <img src="assets/{{fullScreenPath}}" alt="Add a scene" class="buttonimg">
 </button>
+<button id="logout" type="button" (click)="logout()">
+  <img src="assets/images/logout.png" alt="Fermer interAAction Scene" class="buttonimg">
+</button>
 
 <app-scene-display
   [imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>

@@ -92,6 +92,25 @@ export class MenubarComponent implements OnInit {
     this.sceneTitle = imageName;
   }
 
+  logout(){
+    const closeFile = JSON.stringify("");
+    const file = new Blob([closeFile], {type: 'text/json'});
+    if (window.navigator.msSaveOrOpenBlob) { // IE10+
+      window.navigator.msSaveOrOpenBlob(file, 'close161918.txt');
+    } else { // Others
+      const a = document.createElement('a');
+      const url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = 'close161918.txt';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
+    }
+  }
+
   constructor(public modeService: ModeService,
               public scenesService: ScenesService,
               public audioRecorderService: AudioRecorderService,
