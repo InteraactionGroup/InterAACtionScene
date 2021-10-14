@@ -5,6 +5,8 @@ import {SceneDisplayService} from "../../services/scene-display.service";
 import {ScenesService} from "../../services/scenes.service";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
 import {LanguageService} from "../../services/language.service";
+import {MatDialog} from "@angular/material/dialog";
+import {LogoutAppComponent} from "../logoutApp/logout-app.component";
 
 @Component({
   selector: 'app-menubar',
@@ -93,29 +95,38 @@ export class MenubarComponent implements OnInit {
   }
 
   logout(){
-    const closeFile = JSON.stringify("");
-    const file = new Blob([closeFile], {type: 'text/json'});
-    if (window.navigator.msSaveOrOpenBlob) { // IE10+
-      window.navigator.msSaveOrOpenBlob(file, 'close161918.txt');
-    } else { // Others
-      const a = document.createElement('a');
-      const url = URL.createObjectURL(file);
-      a.href = url;
-      a.download = 'close161918.txt';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 0);
-    }
+    const logoutDialog = this.dialog.open(LogoutAppComponent, {
+      width: '500px',
+      data: 'Do you want to leaver InterAACtion Scene ?'
+    });
+    logoutDialog.afterClosed().subscribe(result => {
+      if (result) {
+        const closeFile = JSON.stringify("");
+        const file = new Blob([closeFile], {type: 'text/json'});
+        if (window.navigator.msSaveOrOpenBlob) { // IE10+
+          window.navigator.msSaveOrOpenBlob(file, 'close161918.txt');
+        } else { // Others
+          const a = document.createElement('a');
+          const url = URL.createObjectURL(file);
+          a.href = url;
+          a.download = 'close161918.txt';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+          }, 0);
+        }
+      }
+    });
   }
 
   constructor(public modeService: ModeService,
               public scenesService: ScenesService,
               public audioRecorderService: AudioRecorderService,
               public sceneDisplayService: SceneDisplayService,
-              public languageService: LanguageService) {
+              public languageService: LanguageService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
