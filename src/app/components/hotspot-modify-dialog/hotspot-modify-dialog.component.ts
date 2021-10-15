@@ -22,6 +22,7 @@ export class HotspotModifyDialogComponent implements OnInit {
   name = '';
   error = '';
   svgPath: number[];
+  typeSound = "soundAudio";
 
   constructor(
     private scenesService: ScenesService,
@@ -37,7 +38,8 @@ export class HotspotModifyDialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       soundSelected: '',
       name: this.hotspot.name,
-      color: this.hotspot.strokeColor
+      color: this.hotspot.strokeColor,
+      write: ''
     });
   }
 
@@ -57,18 +59,22 @@ export class HotspotModifyDialogComponent implements OnInit {
 
   submit(form) {
     this.hotspot.strokeColor = `${form.value.color}`;
+    this.hotspot.typeSound = this.typeSound;
     if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) || this.hotspot.name === `${form.value.name}`) {
       this.hotspot.name = `${form.value.name}`;
 
-      if (this.selectedSound !== '' && this.selectedSound !== null) {
+      if (this.typeSound == "soundAudio" && this.selectedSound !== '' && this.selectedSound !== null) {
         this.hotspot.base64sound = this.selectedSound;
+      }else if (this.typeSound == 'writeAudio' && `${form.value.write}` !== ''){
+        this.hotspot.base64sound = `${form.value.write}`;
       }
+
       if(this.modeService.modifyiedHotspot != null){
         this.hotspot.svgPointArray=this.svgPath;
       }
 
       let nameCenter = this.scenesService.nameHotspot;
-      this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
+      this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound);
 
       if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
         this.deleteOldCenterHotspot();
@@ -118,10 +124,11 @@ export class HotspotModifyDialogComponent implements OnInit {
     this.error = '';
   }
 
-  setModifyValues(name, color, sound){
+  setModifyValues(name, color, sound, type){
     this.scenesService.nameHotspot = name;
     this.scenesService.colorHotspot = color;
     this.scenesService.soundHotspot = sound;
+    this.scenesService.typeHotspot = type;
   }
 
   deleteOldCenterHotspot(){
@@ -148,5 +155,9 @@ export class HotspotModifyDialogComponent implements OnInit {
           return x;
         }
       });
+  }
+
+  getTypeSound(type){
+    this.typeSound = type;
   }
 }

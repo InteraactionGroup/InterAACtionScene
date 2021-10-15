@@ -7,6 +7,7 @@ import {HotspotModifyDialogComponent} from "../hotspot-modify-dialog/hotspot-mod
 import {HotspotDeleteDialogComponent} from "../hotspot-delete-dialog/hotspot-delete-dialog.component";
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {SettingsService} from "../../services/settings.service";
+import {LanguageService} from "../../services/language.service";
 
 declare const SVG: any;
 
@@ -31,7 +32,8 @@ export class HotspotDisplayComponent implements OnInit {
     private dialog: MatDialog,
     public dwellCursorService: DwellCursorService,
     public modeService: ModeService,
-    public settingsService: SettingsService
+    public settingsService: SettingsService,
+    public languageService: LanguageService
   ) {
   }
 
@@ -80,9 +82,15 @@ export class HotspotDisplayComponent implements OnInit {
   }
 
   PlayAudio(hotspot: Hotspot) {
-    let audio = new Audio(hotspot.base64sound);
-    audio.load();
-    audio.play();
+    if (hotspot.typeSound == "soundAudio"){
+      let audio = new Audio(hotspot.base64sound);
+      audio.load();
+      audio.play();
+    }else if (hotspot.typeSound == "writeAudio"){
+      let speak = new SpeechSynthesisUtterance(hotspot.base64sound);
+      speak.lang = this.languageService.activeSpeechSpeakerLanguage;
+      window.speechSynthesis.speak(speak);
+    }
   }
 
   delay(ms: number) {

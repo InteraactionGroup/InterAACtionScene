@@ -15,6 +15,7 @@ export class ScenesService {
   nameHotspot = '';
   colorHotspot = '';
   soundHotspot = '';
+  typeHotspot;
 
   haveAddHotspot = false;
 
@@ -153,20 +154,22 @@ export class ScenesService {
     this.updateScenes()
   }
 
-  addHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
+  addHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string, typeSound: string) {
     if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
       this.SCENES[selectedScene].images[selectedImage].hotspots = [{
         name: hotspotName,
         svgPointArray: svgPath,
         strokeColor,
-        base64sound
+        base64sound,
+        typeSound
       }];
     } else {
       this.SCENES[selectedScene].images[selectedImage].hotspots.push({
         name: hotspotName,
         svgPointArray: svgPath,
         strokeColor,
-        base64sound
+        base64sound,
+        typeSound
       });
     }
     this.haveAddHotspot = true;
