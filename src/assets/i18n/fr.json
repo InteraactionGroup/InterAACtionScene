@@ -1,8 +1,8 @@
 {
   "Dashboard": {
     "Play": "Jouer",
-    "ManageHotspots": "Gérer les Hotspots",
-    "ManageScenes": "Gérer les Scènes",
+    "ManageHotspots": "Hotspots",
+    "ManageScenes": "Scènes",
     "Draw": "Dessiner",
     "Settings": "Options",
     "Scene": "Scène",

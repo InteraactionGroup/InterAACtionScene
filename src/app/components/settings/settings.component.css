@@ -74,3 +74,11 @@
   margin: auto;
   font-size: xx-large;
 }
+
+.buttonTopImg{
+  height: 0.7cm;
+  width: 0.7cm;
+  min-width: 0.4cm;
+  min-height: 0.4cm;
+  margin: auto;
+}
