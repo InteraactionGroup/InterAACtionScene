@@ -100,6 +100,8 @@ export class MenubarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let lang = location.href.substring(24,26);
+    this.languageService.switchLanguage(lang);
   }
 
 }

@@ -85,7 +85,10 @@
            value="{{sceneTitle}}"
            *ngIf="modeService.selectedMode === 'play'"/>
 
-    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
+    <a *ngIf="languageService.activeLanguage === 'fr'" routerLink="/fr/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
+      {{'Dashboard.Settings' | translate}}
+    </a>
+    <a *ngIf="languageService.activeLanguage === 'en'" routerLink="/en/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
       {{'Dashboard.Settings' | translate}}
     </a>
 
