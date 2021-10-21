@@ -66,6 +66,7 @@
     "Youcanremoveascene": "You can remove a scene.",
     "Youcanrenameascene": "You can rename a scene.",
     "Youcanexportasceneallowyoutosaveitandimportitfromyourcomputer": "You can export a scene allow you to save it and import it from your computer.",
-    "Youcanimportascene": "You can import a scene with a file.json."
+    "Youcanimportascene": "You can import a scene with a file.json.",
+    "websiteTutorialHere": "Website tutorial here : "
   }
 }

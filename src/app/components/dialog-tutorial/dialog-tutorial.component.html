@@ -3,10 +3,14 @@
     <h2> {{'Tutorial.Howworkthisapp?' | translate}}</h2>
   </header>
   <body>
+    <p>{{'Tutorial.websiteTutorialHere' | translate}}</p>
+    <button (click)="displayIframe()"> display </button>
+    <br>
+    <iframe *ngIf="displayIFrame" id="tutoEN" title="tutoEN" width="90%" height="90%" src="https://interaactiongroup.github.io/InterAACtionScene/userGuide/"></iframe>
     <h3> {{'Tutorial.CreateaScene' | translate}}</h3>
     <p>{{'Tutorial.clickontheplusandfillthedifferentareas' | translate}}</p>
     <img src="assets/images/add.png" width="5%" height="5%">
-    <h3> {{'Tutorial.ManageScenes' | translate}}</h3>
+    <h3> {{'Tutorihttps://interaactiongroup.github.io/InterAACtionScene/userGuide/al.ManageScenes' | translate}}</h3>
     <p>{{'Tutorial.Youcanmanagetheexistingscenesbyclickingonthebuttonatthetop\"Managescenes\"' | translate}}</p>
     <p> {{'Tutorial.Youcanhideascene,whenyouwillplaythisscenewillnotbedisplayed' | translate}}</p>
     <p> {{'Tutorial.Youcanremoveascene' | translate}}</p>

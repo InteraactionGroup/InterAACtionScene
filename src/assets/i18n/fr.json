@@ -66,6 +66,7 @@
     "Youcanremoveascene": "Vous pouvez supprimer une scène.",
     "Youcanrenameascene": "Vous pouvez renommer une scène.",
     "Youcanexportasceneallowyoutosaveitandimportitfromyourcomputer": "Vous pouvez exporter une scène ce qui vous permet de la sauvegarder et de l'importer depuis votre ordinateur.",
-    "Youcanimportascene": "You pouvez importer une scène avec un fichier.json."
+    "Youcanimportascene": "You pouvez importer une scène avec un fichier.json.",
+    "websiteTutorialHere": "le tutoriel du site ici : "
   }
 }

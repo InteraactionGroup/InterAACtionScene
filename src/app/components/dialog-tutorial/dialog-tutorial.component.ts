@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-dialog-tutorial',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogTutorialComponent implements OnInit {
 
-  constructor() { }
+  displayIFrame: boolean = false;
+
+  constructor(public languageService: LanguageService) { }
 
   ngOnInit(): void {
   }
 
+  displayIframe() {
+    this.displayIFrame = !this.displayIFrame;
+  }
 }
