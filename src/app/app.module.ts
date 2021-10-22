@@ -30,6 +30,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { LogoutAppComponent } from './components/logoutApp/logout-app.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
@@ -52,6 +53,7 @@ export function createTranslateLoader(http: HttpClient) {
     HotspotDeleteDialogComponent,
     DwellCursorComponent,
     SettingsComponent,
+    LogoutAppComponent,
   ],
     imports: [
       TranslateModule.forRoot({
