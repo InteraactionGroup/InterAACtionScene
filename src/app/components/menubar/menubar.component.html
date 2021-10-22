@@ -6,24 +6,28 @@
     <button (click)="changeMode('play')"
             class="button"
             [class.selected]="modeService.selectedMode === 'play'">
+      <img src="assets/images/play.png" alt="Play" class="buttonTopImg">
       {{'Dashboard.Play' | translate}}
     </button>
 
     <button (click)="changeMode('hotspot')"
             class="button"
             [class.selected]="modeService.selectedMode === 'hotspot'">
+      <img src="assets/images/spots.png" alt="ManageHotspots" class="buttonTopImg">
       {{'Dashboard.ManageHotspots' | translate}}
     </button>
 
     <button (click)="changeMode('manage-scenes')"
             class="button"
             [class.selected]="modeService.selectedMode === 'manage-scenes'">
+      <img src="assets/images/scene.png" alt="ManageScenes" class="buttonTopImg">
       {{'Dashboard.ManageScenes' | translate}}
     </button>
 
     <button (click)="changeMode('draw')"
             class="button"
             [class.selected]="modeService.selectedMode === 'draw'">
+      <img src="assets/images/edit.svg" alt="Draw" class="buttonTopImg">
       {{'Dashboard.Draw' | translate}}
     </button>
 
@@ -35,11 +39,15 @@
               (click)="changeColor(color.name)">
       </button>
       <button type="button"
-              (click)="changeColor('erase')">{{'Dashboard.Erase' | translate}}
+              (click)="changeColor('erase')">
+        <img src="assets/images/eraser.png" alt="erase" class="buttonTopImg">
+        <!--{{'Dashboard.Erase' | translate}}-->
       </button>
 
       <button type="button"
-              (click)="changeColor('clear')">{{'Dashboard.Clear' | translate}}
+              (click)="changeColor('clear')">
+        <!--{{'Dashboard.Clear' | translate}}-->
+        <img src="assets/images/delete.png" alt="erase" class="buttonTopImg">
       </button>
     </div>
 
@@ -47,7 +55,9 @@
          *ngIf="modeService.selectedMode === 'hotspot'">
       <button [class.selected]="modeService.currentDrawingTool === 'Add'"
               type="button" style="width: 4cm; min-width: 1cm;"
-              (click)="changeColor('Add')">{{'Dashboard.AddHotspot' | translate}}
+              (click)="changeColor('Add')">
+        <img src="assets/images/add.png" alt="Play" class="buttonTopImg">
+        {{'Dashboard.AddHotspot' | translate}}
       </button>
 
       <div class="drawingModeForm"
@@ -56,28 +66,35 @@
 
         <button [class.selected]="modeService.choiceDrawing === 'Polyline'"
                 type="button" style="width: 4cm; min-width: 1cm;"
-                (click)="choiceDrawing('Polyline')"> Polyline
+                (click)="choiceDrawing('Polyline')">
+          <img src="assets/images/courbe.png" alt="Play" class="buttonTopImg">
         </button>
 
         <button [class.selected]="modeService.choiceDrawing === 'Rectangle'"
                 type="button" style="width: 4cm; min-width: 1cm;"
-                (click)="choiceDrawing('Rectangle')"> Rectangle
+                (click)="choiceDrawing('Rectangle')">
+          <img src="assets/images/rectangle.png" alt="Play" class="buttonTopImg">
         </button>
 
         <button [class.selected]="modeService.choiceDrawing === 'Circle'"
                 type="button" style="width: 4cm; min-width: 1cm;"
-                (click)="choiceDrawing('Circle')"> Circle
+                (click)="choiceDrawing('Circle')">
+          <img src="assets/images/circle.png" alt="Play" class="buttonTopImg">
         </button>
       </div>
 
       <button [class.selected]="modeService.currentDrawingTool === 'modify' || modeService.currentDrawingTool === 'redraw'"
               type="button" style="width: 4cm; min-width: 1cm;"
-              (click)="changeColor('modify')">{{'Dashboard.ModifyHotspot' | translate}}
+              (click)="changeColor('modify')">
+        <img src="assets/images/edit.svg" alt="Play" class="buttonTopImg">
+        {{'Dashboard.ModifyHotspot' | translate}}
       </button>
 
       <button [class.selected]="modeService.currentDrawingTool === 'delete'"
               type="button" style="width: 4cm; min-width: 1cm;"
-              (click)="changeColor('delete')">{{'Dashboard.DeleteHotspot' | translate}}
+              (click)="changeColor('delete')">
+        <img src="assets/images/delete.svg" alt="Play" class="buttonTopImg">
+        {{'Dashboard.DeleteHotspot' | translate}}
       </button>
     </div>
 
@@ -86,6 +103,7 @@
            *ngIf="modeService.selectedMode === 'play'"/>
 
     <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
+      <img src="assets/images/settings.svg" alt="Play" class="buttonTopImg" [ngStyle]="{'margin-bottom': '2px','margin': 'auto'}">
       {{'Dashboard.Settings' | translate}}
     </a>
 
