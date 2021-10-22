@@ -108,7 +108,8 @@
     </a>
     <a *ngIf="languageService.activeLanguage === 'en'" routerLink="/en/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
       <img src="assets/images/settings.svg" alt="Play" class="buttonTopImg" [ngStyle]="{'margin-bottom': '2px','margin': 'auto'}">
-
+      {{'Dashboard.Settings' | translate}}
+    </a>
   </div>
 </div>
 <button id="hideShowButton" type="button" (click)="hideShowMenu()">{{hideShowButtonChar}}</button>

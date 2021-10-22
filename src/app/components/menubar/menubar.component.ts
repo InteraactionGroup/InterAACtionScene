@@ -97,7 +97,7 @@ export class MenubarComponent implements OnInit {
   logout(){
     const logoutDialog = this.dialog.open(LogoutAppComponent, {
       width: '500px',
-      data: 'Do you want to leaver InterAACtion Scene ?'
+      data: ''
     });
     logoutDialog.afterClosed().subscribe(result => {
       if (result) {

@@ -14,9 +14,7 @@ export class SettingsComponent implements OnInit {
               public languageService: LanguageService,
               public router: Router) { }
 
-  selected = 'fr';
   ngOnInit(): void {
-
     let lang = location.href.substring(24,26);
     this.languageService.switchLanguage(lang);
   }
@@ -30,5 +28,4 @@ export class SettingsComponent implements OnInit {
   getAFSRLogoPNGUrl(s): string {
     return 'url(assets/images/'+ s +'.png)';
   }
-
 }

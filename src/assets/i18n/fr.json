@@ -59,5 +59,10 @@
     "Modify": "Modifier",
     "Deletehotspot": "Supprimer l'hotspot",
     "Delete": "Supprimer"
+  },
+  "Logout": {
+    "logout": "Voulez-vous quitter interAACtion Scene ?",
+    "yes": "Oui",
+    "no": "Non"
   }
 }

@@ -36,15 +36,6 @@
       <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" id="dwellTime" type="text" maxlength="5"
       >
     </div>
-    <div class="settings-item">
-      <mat-form-field  appearance ="fill" >
-        <mat-label > {{'Settings.Selectalanguage' | translate}} </mat-label>
-        <mat-select [(value)] = "selected">
-          <mat-option  value = "fr" (click)="languageService.switchLanguage(selected)"> {{'Settings.French' | translate}} </mat-option>
-          <mat-option  value = "en" (click)="languageService.switchLanguage(selected)"> {{'Settings.English' | translate}} </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
   </div>
 </div>
 <a class="bottomBarAFSRText floatRight" href="https://interaactionbox.afsr.fr/">
