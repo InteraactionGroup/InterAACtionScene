@@ -14,7 +14,7 @@
   width: 3cm;
   display: flex;
   flex-direction: column;
-  background-color: #4766D8;
+  background-color: #921e3d;
 }
 
 .scenes-virtual-viewport {
@@ -43,16 +43,16 @@
 }
 
 .scene-display .scenes .scenes-virtual-viewport .scene.selected {
-  background-color: #ff7f00;
+  background-color: #cd2653;
 }
 
 .scene-display .scenes .scenes-virtual-viewport .scene.selected:hover {
-  background-color: #ff9900;
+  background-color: #9d1e40;
 }
 
 .scene-display .images {
   width: 3cm;
-  background-color: #ff7f00;
+  background-color: #cd2653;
   display: flex;
   flex-direction: column;
 }
@@ -73,15 +73,15 @@
 }
 
 .image:hover {
-  background-color: #ff9900;
+  background-color: #9d1e40;
 }
 
 .image.selected {
-  background-color: #add8e6;
+  background-color: #fff6f9;
 }
 
 .image.selected:hover {
-  background-color: #83B2D4;
+  background-color: #fff6f9;
 }
 
 .image button {
@@ -94,14 +94,14 @@
 }
 
 .scene-display .bigImageContainer {
-  background-color: #add8e6;
+  background-color: #fff6f9;
   text-align: center;
   max-height: 100%;
   display: inline-grid;
   align-items: center;
   align-content: center;
   width: calc(100% - 6cm);
-  border-top: 5px solid #ff7f00;
+  border-top: 5px solid #cd2653;
   user-select: none;
 }
 

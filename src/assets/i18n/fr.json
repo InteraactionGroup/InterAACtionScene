@@ -1,8 +1,8 @@
 {
   "Dashboard": {
     "Play": "Jouer",
-    "ManageHotspots": "Gérer les Hotspots",
-    "ManageScenes": "Gérer les Scènes",
+    "ManageHotspots": "Hotspots",
+    "ManageScenes": "Scènes",
     "Draw": "Dessiner",
     "Settings": "Options",
     "Scene": "Scène",
@@ -11,7 +11,7 @@
     "ModifyHotspot": "Modifier un Hotspot",
     "DeleteHotspot": "Supprimer un Hotspot",
     "Hide": "Cacher",
-    "Remove": "Retirer",
+    "Remove": "Supprimer",
     "Rename": "Renommer",
     "Export": "Exporter",
     "Import": "Importer",
@@ -160,5 +160,31 @@
     "Youcanhideorshorwthetoolbar": "On peut cacher ou afficher la barre de menu avec le bouton en forme de triangle pointant vers le haut (pour cacher) ou vers le bas (pour afficher), en dessous du bouton “Settings”.",
     "Fullscreen": "Plein écran",
     "Youcanputorexit": "On peut entrer ou sortir du mode plein écran avec le bouton en forme de carré sous le bouton pour afficher/cacher la barre de menu."
+  },
+  "Hotspot": {
+    "Createhotspot": "Créer hotspot",
+    "Addthesound": "Ajouter un son",
+    "Importasound": "Importer un son",
+    "Recordasound": "Enregistrer un son",
+    "Pickthestrokecolor": "Selectionner la couleur",
+    "Enterthenameofthehotspot": "Entrer le nom du hotspot",
+    "Import": "Importer",
+    "Cancel": "Annuler",
+    "Black": "Noir",
+    "White": "Blanc",
+    "Blue": "Bleu",
+    "Red": "Rouge",
+    "Orange": "Orange",
+    "Green": "Vert",
+    "Modifyhotspot":  "Modifier l'hotspot",
+    "redraw": "redessiner",
+    "Modify": "Modifier",
+    "Deletehotspot": "Supprimer l'hotspot",
+    "Delete": "Supprimer"
+  },
+  "Logout": {
+    "logout": "Voulez-vous quitter interAACtion Scene ?",
+    "yes": "Oui",
+    "no": "Non"
   }
 }

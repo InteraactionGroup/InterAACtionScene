@@ -5,6 +5,7 @@ import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
 import {Hotspot} from "../../types";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -27,6 +28,7 @@ export class HotspotModifyDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     public modeService: ModeService,
     public audioRecorderService: AudioRecorderService,
+    public languageService: LanguageService,
     private dialogRef: MatDialogRef<HotspotModifyDialogComponent>
   ) {
   }
@@ -55,20 +57,37 @@ export class HotspotModifyDialogComponent implements OnInit {
 
   submit(form) {
     this.hotspot.strokeColor = `${form.value.color}`;
-    this.hotspot.name = `${form.value.name}`;
-    if (this.selectedSound !== '' && this.selectedSound !== null) {
-      this.hotspot.base64sound = this.selectedSound;
-    }
-    if(this.modeService.modifyiedHotspot != null){
-      this.hotspot.svgPointArray=this.svgPath;
-    }
+    if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) || this.hotspot.name === `${form.value.name}`) {
+      this.hotspot.name = `${form.value.name}`;
 
-    this.modeService.selectedMode = 'hotspot';
-    this.modeService.modifyiedHotspot = null;
-    this.modeService.currentDrawingTool ='modify';
+      if (this.selectedSound !== '' && this.selectedSound !== null) {
+        this.hotspot.base64sound = this.selectedSound;
+      }
+      if(this.modeService.modifyiedHotspot != null){
+        this.hotspot.svgPointArray=this.svgPath;
+      }
 
-    this.scenesService.updateScenes();
-    this.dialogRef.close();
+      let nameCenter = this.scenesService.nameHotspot;
+      this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
+
+      if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
+        this.deleteOldCenterHotspot();
+        this.scenesService.haveAddHotspot = true;
+      }
+      else {
+        this.modifyCenterHotspot(nameCenter);
+      }
+
+      this.modeService.selectedMode = 'hotspot';
+      this.modeService.modifyiedHotspot = null;
+      this.modeService.currentDrawingTool ='modify';
+
+      this.scenesService.updateScenes();
+      this.dialogRef.close();
+    }
+    else{
+      this.error = 'Name already use';
+    }
   }
 
   redraw(){
@@ -97,5 +116,37 @@ export class HotspotModifyDialogComponent implements OnInit {
       console.log('Error: ', error);
     };
     this.error = '';
+  }
+
+  setModifyValues(name, color, sound){
+    this.scenesService.nameHotspot = name;
+    this.scenesService.colorHotspot = color;
+    this.scenesService.soundHotspot = sound;
+  }
+
+  deleteOldCenterHotspot(){
+    if (this.selectedScene != undefined && this.selectedImage != undefined) {
+      this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots =
+        this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots.filter(x => {
+          if (x.name !== this.hotspot.name.concat('', 'Center')){
+            return x;
+          }
+        });
+    }
+  }
+
+  modifyCenterHotspot(nameCenter){
+    this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots =
+      this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots.filter(x => {
+        if (x.name == nameCenter.concat('', 'Center')){
+          x.name = this.scenesService.nameHotspot.concat('', 'Center');
+          x.strokeColor = this.scenesService.colorHotspot;
+          x.base64sound = this.scenesService.soundHotspot;
+          return x;
+        }
+        else {
+          return x;
+        }
+      });
   }
 }

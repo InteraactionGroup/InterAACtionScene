@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -25,7 +26,8 @@ export class HotspotCreateDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     public modeService: ModeService,
     public audioRecorderService: AudioRecorderService,
-    private dialogRef: MatDialogRef<HotspotCreateDialogComponent>
+    private dialogRef: MatDialogRef<HotspotCreateDialogComponent>,
+    public languageService: LanguageService
   ) {
   }
 
@@ -72,12 +74,23 @@ export class HotspotCreateDialogComponent implements OnInit {
 
   submit(form) {
       if (this.selectedSound != null && this.audioIsValid()) {
-      this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-        this.svgPath, `${form.value.color}`, this.selectedSound);
-      this.dialogRef.close();
+        if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`)) {
+          this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
+          this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
+            this.svgPath, `${form.value.color}`, this.selectedSound);
+          this.dialogRef.close();
+        }
+        else{
+          this.error = 'Name already use';
+        }
       } else {
         this.error = 'Invalid audio file';
       }
   }
 
+  setValues(name, color, sound){
+    this.scenesService.nameHotspot = name;
+    this.scenesService.colorHotspot = color;
+    this.scenesService.soundHotspot = sound;
+  }
 }

@@ -7,6 +7,7 @@ import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes
 import {LanguageService} from '../../services/language.service';
 import {TranslateService} from "@ngx-translate/core";
 
+
 @Component({
   selector: 'app-manage-scenes',
   templateUrl: './manage-scenes.component.html',

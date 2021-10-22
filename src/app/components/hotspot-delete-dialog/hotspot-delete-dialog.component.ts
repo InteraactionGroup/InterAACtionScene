@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ScenesService} from "../../services/scenes.service";
 import {ModeService} from "../../services/mode.service";
 import {MatDialogRef} from "@angular/material/dialog";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-hotspot-delete-dialog',
@@ -23,6 +24,7 @@ export class HotspotDeleteDialogComponent implements OnInit {
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
     private modeService: ModeService,
+    public languageService: LanguageService,
     private dialogRef: MatDialogRef<HotspotDeleteDialogComponent>
   ) {
   }
@@ -41,7 +43,10 @@ export class HotspotDeleteDialogComponent implements OnInit {
     if (this.selectedScene != undefined && this.selectedImage != undefined) {
       this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots =
         this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots.filter(x => {
-          return x !== this.hotspot
+          if ((x.name !== this.hotspot.name) && (x.name !== this.hotspot.name.concat('', 'Center'))){
+            return x;
+          }
+          //return x !== this.hotspot
         });
     }
   }

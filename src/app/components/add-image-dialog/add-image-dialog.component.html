@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>{{'Image.AddImage' | translate}}</h1>
   <mat-dialog-content>
     <mat-form-field>
-      <input matInput formControlName="imagename" placeholder="{{'Image.Entertheimagename' | translate}}">
+      <input matInput formControlName="imagename" placeholder="{{'Image.Entertheimagename' | translate}}" maxlength="64">
     </mat-form-field>
     <br>
     <input type="file" accept="image/*" (change)="onFileSelected($event)">

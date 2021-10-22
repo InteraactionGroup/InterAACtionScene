@@ -1,0 +1,9 @@
+<div class="confirmation-dialog">
+  <div mat-dialog-content>
+    {{ "Logout.logout" | translate}}
+  </div>
+  <div mat-dialog-actions id="buttonsDiv">
+    <button mat-button (click)="onNoClick()">{{ "Logout.yes" | translate}}</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{ "Logout.no" | translate}}</button>
+  </div>
+</div>

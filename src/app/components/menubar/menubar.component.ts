@@ -5,6 +5,8 @@ import {SceneDisplayService} from "../../services/scene-display.service";
 import {ScenesService} from "../../services/scenes.service";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
 import {LanguageService} from "../../services/language.service";
+import {MatDialog} from "@angular/material/dialog";
+import {LogoutAppComponent} from "../logoutApp/logout-app.component";
 
 @Component({
   selector: 'app-menubar',
@@ -28,11 +30,17 @@ export class MenubarComponent implements OnInit {
 
   changeMode(mode: string): void {
     this.modeService.currentDrawingTool = '';
+    this.modeService.choiceDrawing = '';
     this.modeService.selectedMode = mode;
   }
 
   changeColor(toolName: string): void {
+    this.modeService.choiceDrawing = '';
     this.modeService.currentDrawingTool = toolName;
+  }
+
+  choiceDrawing(drawingName: string): void {
+    this.modeService.choiceDrawing = drawingName;
   }
 
   async hideShowMenu() {
@@ -86,14 +94,44 @@ export class MenubarComponent implements OnInit {
     this.sceneTitle = imageName;
   }
 
+  logout(){
+    const logoutDialog = this.dialog.open(LogoutAppComponent, {
+      width: '500px',
+      data: ''
+    });
+    logoutDialog.afterClosed().subscribe(result => {
+      if (result) {
+        const closeFile = JSON.stringify("");
+        const file = new Blob([closeFile], {type: 'text/json'});
+        if (window.navigator.msSaveOrOpenBlob) { // IE10+
+          window.navigator.msSaveOrOpenBlob(file, 'close161918.txt');
+        } else { // Others
+          const a = document.createElement('a');
+          const url = URL.createObjectURL(file);
+          a.href = url;
+          a.download = 'close161918.txt';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+          }, 0);
+        }
+      }
+    });
+  }
+
   constructor(public modeService: ModeService,
               public scenesService: ScenesService,
               public audioRecorderService: AudioRecorderService,
               public sceneDisplayService: SceneDisplayService,
-              public languageService: LanguageService) {
+              public languageService: LanguageService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    let lang = location.href.substring(24,26);
+    this.languageService.switchLanguage(lang);
   }
 
 }
