@@ -75,6 +75,14 @@
   font-size: xx-large;
 }
 
+.buttonTopImg{
+  height: 0.7cm;
+  width: 0.7cm;
+  min-width: 0.4cm;
+  min-height: 0.4cm;
+  margin: auto;
+}
+
 .imageAFSR{
   background-size: 75px;
   background-repeat: no-repeat;
@@ -110,8 +118,6 @@
 .floatRight {
   float: right;
 }
-
-
 
 .imageLogoAFSR {
   background-size: 20px;

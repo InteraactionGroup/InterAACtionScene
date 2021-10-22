@@ -166,6 +166,15 @@
   min-width: 0.4cm;
   min-height: 0.4cm;
   margin: -5px -5px;
+
+}
+
+.buttonTopImg{
+  height: 0.7cm;
+  width: 0.7cm;
+  min-width: 0.4cm;
+  min-height: 0.4cm;
+  margin: auto;
 }
 
 .menubar .menu .drawingModeForm {
