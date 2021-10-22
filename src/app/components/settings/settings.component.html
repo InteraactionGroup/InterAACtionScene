@@ -1,6 +1,10 @@
 <div class="menuBar">
   <div class="menu">
-    <button (click)=back() class="button">
+    <button *ngIf="languageService.activeLanguage === 'en'" (click)=backEn() class="button">
+      <img src="assets/images/back.svg" alt="erase" class="buttonTopImg">
+      {{'Settings.Back' | translate}}
+    </button>
+    <button *ngIf="languageService.activeLanguage === 'fr'" (click)=backFr() class="button">
       <img src="assets/images/back.svg" alt="erase" class="buttonTopImg">
       {{'Settings.Back' | translate}}
     </button>
