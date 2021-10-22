@@ -210,6 +210,7 @@ export class ScenesService {
       configStore.onerror = e => {
       };
 
+      /*
       const languageStore = db.transaction(['Language'], 'readwrite').objectStore('Language').get(1);
       languageStore.onsuccess = e => {
         this.languageService.switchLanguage(languageStore.result);
@@ -217,6 +218,7 @@ export class ScenesService {
       languageStore.onerror = e => {
         alert('LanguageStore error: ' + event.target.errorCode);
       };
+      */
 
 
     };
@@ -240,11 +242,13 @@ export class ScenesService {
           configurationStore.add(this.settingsService.getConfiguration());
         }
       }
+      /*
       if (!db.objectStoreNames.contains('Language')) {
         db.createObjectStore('Language', {autoIncrement: true});
         const languageStore = transaction.objectStore('Language');
         languageStore.add(this.languageService.activeLanguage);
       }
+       */
     };
   }
 
@@ -279,12 +283,14 @@ export class ScenesService {
       };
 
       // Update Language Store
+      /*
       const languageStore = db.transaction(['Language'], 'readwrite');
       const languageObjectStore = languageStore.objectStore('Language');
       const storeLanguageRequest = languageObjectStore.get(1);
       storeLanguageRequest.onsuccess = () => {
         languageObjectStore.put(this.languageService.activeLanguage, 1);
       };
+       */
     };
   }
 

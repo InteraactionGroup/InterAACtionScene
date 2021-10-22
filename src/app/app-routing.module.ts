@@ -7,9 +7,13 @@ import {SettingsComponent} from "./components/settings/settings.component";
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: MenubarComponent },
-  { path: 'settings', component: SettingsComponent }
+  { path:'en', redirectTo: 'en/dashboard', pathMatch: 'full' },
+  { path:'fr', redirectTo: 'fr/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'fr/dashboard', pathMatch: 'full' },
+  { path: 'fr/dashboard', component: MenubarComponent },
+  { path: 'fr/settings', component: SettingsComponent },
+  { path: 'en/dashboard', component: MenubarComponent },
+  { path: 'en/settings', component: SettingsComponent }
 ];
 
 @NgModule({
