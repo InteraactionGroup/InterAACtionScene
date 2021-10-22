@@ -11,10 +11,16 @@ export class SettingsComponent implements OnInit {
 
   constructor(public settingsService: SettingsService, public languageService: LanguageService) { }
 
-  selected = 'en';
-  ngOnInit(): void {}
+  selected = 'fr';
+  ngOnInit(): void {
+  }
+
   back(){
     history.back();
+  }
+
+  getAFSRLogoPNGUrl(s): string {
+    return 'url(assets/images/'+ s +'.png)';
   }
 
 }
