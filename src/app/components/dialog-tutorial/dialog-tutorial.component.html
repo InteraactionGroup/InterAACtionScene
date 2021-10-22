@@ -2,13 +2,6 @@
   <header>
     <h2> {{'Tutorial.UserGuide' | translate}}</h2>
   </header>
-  <div class="iframeClass">
-    <p>{{'Tutorial.websiteTutorialHere' | translate}}</p>
-    <button (click)="displayIframe()"> {{'Tutorial.display'| translate}} </button>
-    <br>
-    <iframe *ngIf="displayIFrame && languageService.activeLanguage === 'en'" id="tutoEN" title="tutoEN" width="90%" height="100%" src="https://interaactiongroup.github.io/InterAACtionScene/userGuide/"></iframe>
-    <iframe *ngIf="displayIFrame && languageService.activeLanguage === 'fr'" id="tutoFR" title="tutoFR" width="90%" height="100%" src="https://interaactiongroup.github.io/InterAACtionScene/userGuide/fr"></iframe>
-  </div>
   <div *ngIf="!displayIFrame">
     <h3> {{'Tutorial.Beginning' | translate}}</h3>
     <img src="assets/tuto/interaactionScene.png" alt="interaactionScene">
