@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class LanguageService {
 
   public activeLanguage = 'fr';
+  public activeSpeechSpeakerLanguage = "en-FR";
 
   constructor(private translate: TranslateService) {
     this.translate.setDefaultLang(this.activeLanguage);
@@ -15,5 +16,14 @@ export class LanguageService {
   public switchLanguage(language: string){
     this.activeLanguage = language;
     this.translate.use(language);
+    this.switchSpeechSpeakerLanguage();
+  }
+
+  public switchSpeechSpeakerLanguage(){
+    if (this.activeLanguage === 'en'){
+      this.activeSpeechSpeakerLanguage = "en-GB";
+    }else if (this.activeLanguage === 'fr'){
+      this.activeSpeechSpeakerLanguage = "fr-FR";
+    }
   }
 }

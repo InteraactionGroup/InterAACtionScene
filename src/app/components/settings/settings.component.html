@@ -16,14 +16,16 @@
   <div class="images"></div>
   <div class="bigContainer">
     <div class="settings-item">
+      <label for="dwellTimeEnable">{{'Settings.SpeechSpeaker' | translate}}:</label>
+      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" id="speechSpeaker" type="checkbox">
+    </div>
+    <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" id="dwellTimeEnable" type="checkbox"
-      >
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" id="dwellTimeEnable" type="checkbox">
     </div>
     <div class="settings-item">
       <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" id="dwellTime" type="text" maxlength="5"
-      >
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" id="dwellTime" type="text" maxlength="5">
     </div>
     <div class="settings-item">
       <mat-form-field  appearance ="fill" >
