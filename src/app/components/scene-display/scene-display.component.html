@@ -1,5 +1,5 @@
 <div class="scene-display" [class.fullScreen-scene-display]="!this.modeService.displayBar">
-  <div class="scenes">
+  <div *ngIf="!this.sceneDisplayService.hidePanel" class="scenes">
     <cdk-virtual-scroll-viewport itemSize="6" class="scenes-virtual-viewport">
       <!-- Add a scene button -->
       <div class="scene"
@@ -31,7 +31,7 @@
   </div>
 
 
-  <div class="images">
+  <div *ngIf="!this.sceneDisplayService.hidePanel" class="images">
 
     <cdk-virtual-scroll-viewport itemSize="6" class="images-virtual-viewport" *ngIf="hasAtLeastOneScene()">
       <!-- Add an image button -->
@@ -65,7 +65,7 @@
     </cdk-virtual-scroll-viewport>
   </div>
   <!-- Selected image at the right -->
-  <div *ngIf="modeService.selectedMode != 'manage-scenes'" class="bigImageContainer" id="bigImageContainer">
+  <div *ngIf="modeService.selectedMode != 'manage-scenes'" [ngClass]="sizeContainer" class="bigImageContainer" id="bigImageContainer">
     <div
       *ngIf="hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
       id="sceneDiv"

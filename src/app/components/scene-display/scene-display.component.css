@@ -105,6 +105,10 @@
   user-select: none;
 }
 
+.fitImageContainer{
+  width: inherit !important;
+}
+
 .scene-display .bigImageContainer #sceneDiv img {
 }
 
