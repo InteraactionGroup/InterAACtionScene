@@ -20,6 +20,7 @@ export class HotspotCreateDialogComponent implements OnInit {
   name = '';
   error = '';
   svgPath: number[];
+  typeSound = "soundAudio";
 
   constructor(
     private scenesService: ScenesService,
@@ -35,7 +36,8 @@ export class HotspotCreateDialogComponent implements OnInit {
       this.form = this.formBuilder.group({
         soundSelected: '',
         name: '',
-        color: ''
+        color: '',
+        write: ''
       });
   }
 
@@ -73,24 +75,43 @@ export class HotspotCreateDialogComponent implements OnInit {
   }
 
   submit(form) {
+    if (this.typeSound == "soundAudio"){
       if (this.selectedSound != null && this.audioIsValid()) {
         if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`)) {
-          this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound);
+          this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound);
           this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-            this.svgPath, `${form.value.color}`, this.selectedSound);
+            this.svgPath, `${form.value.color}`, this.selectedSound, this.typeSound);
           this.dialogRef.close();
-        }
-        else{
+        }else{
           this.error = 'Name already use';
         }
-      } else {
+      }else {
         this.error = 'Invalid audio file';
       }
+    }else if (this.typeSound == "writeAudio"){
+      if (`${form.value.write}` != ""){
+        if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`)) {
+          this.setValues(`${form.value.name}`, `${form.value.color}`, `${form.value.write}`, this.typeSound);
+          this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
+            this.svgPath, `${form.value.color}`, `${form.value.write}`, this.typeSound);
+          this.dialogRef.close();
+        }else {
+          this.error = 'Name already use';
+        }
+      }else {
+        this.error = 'Text audio empty';
+      }
+    }
   }
 
-  setValues(name, color, sound){
+  setValues(name, color, sound, type){
     this.scenesService.nameHotspot = name;
     this.scenesService.colorHotspot = color;
     this.scenesService.soundHotspot = sound;
+    this.scenesService.typeHotspot = type;
+  }
+
+  getTypeSound(type){
+    this.typeSound = type;
   }
 }

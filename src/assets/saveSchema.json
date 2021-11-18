@@ -44,6 +44,9 @@
                   },
                   "svgPointArray": {
                     "type": "array"
+                  },
+                  "typeSound": {
+                    "type": "string"
                   }
                 }
               }

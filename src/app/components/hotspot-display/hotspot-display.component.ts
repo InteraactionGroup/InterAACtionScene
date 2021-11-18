@@ -82,9 +82,15 @@ export class HotspotDisplayComponent implements OnInit {
   }
 
   PlayAudio(hotspot: Hotspot) {
-    let audio = new Audio(hotspot.base64sound);
-    audio.load();
-    audio.play();
+    if (hotspot.typeSound == "soundAudio"){
+      let audio = new Audio(hotspot.base64sound);
+      audio.load();
+      audio.play();
+    }else if (hotspot.typeSound == "writeAudio"){
+      let speak = new SpeechSynthesisUtterance(hotspot.base64sound);
+      speak.lang = this.languageService.activeSpeechSpeakerLanguage;
+      window.speechSynthesis.speak(speak);
+    }
   }
 
   delay(ms: number) {
