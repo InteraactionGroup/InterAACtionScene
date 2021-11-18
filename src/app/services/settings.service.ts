@@ -7,6 +7,10 @@ import {Configuration} from "../types";
 
 export class SettingsService {
 
+  VERSION = "InteraactionScene v.2021.11.17";
+
+  SPEECH_SPEAKER = false;
+
   DWELL_TIME_ENABLED = false;
   DWELL_TIME_TIMEOUT_VALUE = 500;
 

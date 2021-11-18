@@ -1,8 +1,8 @@
 {
   "Dashboard":{
     "Play": "Play",
-    "ManageHotspots": "Manage Hotspots",
-    "ManageScenes": "Manage Scenes",
+    "ManageHotspots": "Hotspots",
+    "ManageScenes": "Scenes",
     "Draw": "Draw",
     "Settings": "Settings",
     "Scene": "Scene",
@@ -21,6 +21,7 @@
   "Settings": {
     "DwelltimeEnabled": "Dwell-time Enabled",
     "DwellTime": "Dwell-Time",
+    "SpeechSpeaker": "Speech synthesiser",
     "Back": "Back",
     "Selectalanguage": "Select a language",
     "French": "French",

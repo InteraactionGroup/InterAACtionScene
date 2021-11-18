@@ -12,7 +12,7 @@
     <input type="file" accept="image/*" (change)="onFileSelected($event)">
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button type="submit">{{'Scene.Add' | translate}}</button>
+    <button mat-button type="submit" [disabled]="selectedFile === null">{{'Scene.Add' | translate}}</button>
     <button mat-button type="button" mat-dialog-close>{{'Scene.Cancel' | translate}}</button>
   </mat-dialog-actions>
 </form>

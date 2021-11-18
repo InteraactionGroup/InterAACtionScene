@@ -34,6 +34,8 @@ export class SceneDisplayComponent implements OnInit {
   addButtonPath = 'images/add.png';
   SETTINGS: Array<Boolean> = [];
 
+  sizeContainer = "";
+
   changeScene(sceneNumber: number) {
     this.sceneDisplayService.selectedScene = sceneNumber;
     this.selectNonHiddenImage();
@@ -149,6 +151,9 @@ export class SceneDisplayComponent implements OnInit {
         this.sceneDisplayService.UpdateDimensions();
       }
     })();
+    this.sceneDisplayService.bigImageContainerObservable.subscribe(value => {
+      this.sizeContainer = value;
+    });
   }
 
   delay(ms: number) {
