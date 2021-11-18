@@ -26,12 +26,4 @@ export class LanguageService {
       this.activeSpeechSpeakerLanguage = "fr-FR";
     }
   }
-
-  public switchSpeechSpeakerLanguage(){
-    if (this.activeLanguage == 'en'){
-      this.activeSpeechSpeakerLanguage = "en-GB";
-    }else if (this.activeLanguage == 'fr'){
-      this.activeSpeechSpeakerLanguage = "fr-FR";
-    }
-  }
 }
