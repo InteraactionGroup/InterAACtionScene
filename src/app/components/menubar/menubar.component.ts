@@ -15,6 +15,8 @@ export class MenubarComponent implements OnInit {
 
   sceneTitle: string;
   hideShowButtonChar = "▲";
+  hideShowButtonChar2 = "◄"
+  positionPanelButton = "";
   fullScreenPath = 'images/enterfullscreen.png';
 
   COLORS: Color[] = [
@@ -53,6 +55,20 @@ export class MenubarComponent implements OnInit {
     await this.delay(20);
     this.scenesService.updateScenes();
     this.sceneDisplayService.UpdateDimensions();
+  }
+
+  async hideShowPanel(){
+    if (this.sceneDisplayService.hidePanel === false){
+      this.sceneDisplayService.hidePanel = true;
+      this.hideShowButtonChar2 = "►";
+      this.sceneDisplayService.emitBigImageContainer("fitImageContainer");
+      this.sceneDisplayService.emitHideShowPanelButton("positionHideShowButtonPanel");
+    }else {
+      this.sceneDisplayService.hidePanel = false;
+      this.hideShowButtonChar2 = "◄";
+      this.sceneDisplayService.emitBigImageContainer("");
+      this.sceneDisplayService.emitHideShowPanelButton("");
+    }
   }
 
   async fullScreen() {
@@ -100,6 +116,9 @@ export class MenubarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sceneDisplayService.hideShowPanelButtonObservable.subscribe(value => {
+      this.positionPanelButton = value;
+    });
   }
 
 }

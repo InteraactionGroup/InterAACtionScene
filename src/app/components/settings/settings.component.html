@@ -1,6 +1,7 @@
 <div class="menuBar">
   <div class="menu">
     <button (click)=back() class="button">
+      <img src="assets/images/back.svg" alt="erase" class="buttonTopImg">
       {{'Settings.Back' | translate}}
     </button>
 
@@ -35,6 +36,7 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <div class="version">{{this.settingsService.VERSION}}</div>
   </div>
 </div>
 

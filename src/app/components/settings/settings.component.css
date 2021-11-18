@@ -1,3 +1,9 @@
+.version{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 .menuBar{
   height: 65px;
   min-width: 7cm;
@@ -73,4 +79,12 @@
   height: fit-content;
   margin: auto;
   font-size: xx-large;
+}
+
+.buttonTopImg{
+  height: 0.7cm;
+  width: 0.7cm;
+  min-width: 0.4cm;
+  min-height: 0.4cm;
+  margin: auto;
 }

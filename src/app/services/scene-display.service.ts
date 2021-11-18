@@ -1,10 +1,14 @@
 import {Injectable} from '@angular/core';
 import {ScenesService} from "./scenes.service";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SceneDisplayService {
+
+  public bigImageContainerObservable = new Subject<string>();
+  public hideShowPanelButtonObservable = new Subject<string>();
 
   constructor(public scenesService: ScenesService) {
   }
@@ -14,6 +18,7 @@ export class SceneDisplayService {
   currImage = 0; // Variable used to reinitialize the canvas everytime the image is changed
   imageWidth: number;
   imageHeigth: number;
+  hidePanel = false; // Variable used to hide or show the left panel
 
   UpdateDimensions() {
     this.onCanvasChange();
@@ -43,4 +48,11 @@ export class SceneDisplayService {
     this.scenesService.SCENES = this.scenesService.getScenes();
   }
 
+  emitBigImageContainer(val){
+    this.bigImageContainerObservable.next(val);
+  }
+
+  emitHideShowPanelButton(val){
+    this.hideShowPanelButtonObservable.next(val);
+  }
 }
