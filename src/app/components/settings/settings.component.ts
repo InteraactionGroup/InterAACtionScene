@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SettingsService} from '../../services/settings.service';
 import {LanguageService} from '../../services/language.service';
+import {ScenesService} from "../../services/scenes.service";
 
 @Component({
   selector: 'app-settings',
@@ -9,10 +10,20 @@ import {LanguageService} from '../../services/language.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(public settingsService: SettingsService, public languageService: LanguageService) { }
+  constructor(public settingsService: SettingsService,
+              public languageService: LanguageService,
+              private sceneService: ScenesService) {
+  }
 
-  selected = 'fr';
+  selected;
   ngOnInit(): void {
+    setTimeout(() => {
+      this.selected = this.languageService.activeLanguage;
+    }, 500);
+  }
+
+  saveConfig(){
+    this.sceneService.update();
   }
 
   back(){
