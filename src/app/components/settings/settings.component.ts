@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {SettingsService} from '../../services/settings.service';
 import {LanguageService} from '../../services/language.service';
+import {MatDialog} from "@angular/material/dialog";
+import {DialogResetSettingsComponent} from "../dialog-reset-settings/dialog-reset-settings.component";
 
 @Component({
   selector: 'app-settings',
@@ -9,7 +11,9 @@ import {LanguageService} from '../../services/language.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(public settingsService: SettingsService, public languageService: LanguageService) { }
+  constructor(public settingsService: SettingsService,
+              public languageService: LanguageService,
+              public dialog: MatDialog) { }
 
   selected = 'fr';
   ngOnInit(): void {
@@ -17,6 +21,13 @@ export class SettingsComponent implements OnInit {
 
   back(){
     history.back();
+  }
+
+  openDialog():void {
+    this.dialog.open(DialogResetSettingsComponent, {
+      height: '150px',
+      width: '200px'
+    });
   }
 
 }

@@ -25,7 +25,8 @@
     "Back": "Retour",
     "Selectalanguage": "Selectionne une langue",
     "French": "Français",
-    "English": "Anglais"
+    "English": "Anglais",
+    "Reset": "Reinitialiser"
   },
   "Scene": {
     "AddScene": "Ajouter une Scene",
@@ -62,5 +63,10 @@
     "Modify": "Modifier",
     "Deletehotspot": "Supprimer l'hotspot",
     "Delete": "Supprimer"
+  },
+  "ResetHotspot": {
+    "title": "Etes-vous sûr ?",
+    "yes": "Oui",
+    "no": "Non"
   }
 }
