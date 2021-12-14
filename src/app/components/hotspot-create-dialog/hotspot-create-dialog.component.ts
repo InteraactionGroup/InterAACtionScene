@@ -36,8 +36,9 @@ export class HotspotCreateDialogComponent implements OnInit {
       this.form = this.formBuilder.group({
         soundSelected: '',
         name: '',
-        color: '',
-        write: ''
+        color: '#0080ff',
+        write: '',
+        strokeWidth: '2'
       });
   }
 
@@ -77,26 +78,34 @@ export class HotspotCreateDialogComponent implements OnInit {
   submit(form) {
     if (this.typeSound == "soundAudio"){
       if (this.selectedSound != null && this.audioIsValid()) {
-        if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`)) {
-          this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound);
-          this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-            this.svgPath, `${form.value.color}`, this.selectedSound, this.typeSound);
-          this.dialogRef.close();
-        }else{
-          this.error = 'Name already use';
+        if (Number(`${form.value.strokeWidth}`) > 0){
+          if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) && `${form.value.name}` != "") {
+            this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound, Number(`${form.value.strokeWidth}`));
+            this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
+              this.svgPath, `${form.value.color}`, this.selectedSound, this.typeSound, Number(`${form.value.strokeWidth}`));
+            this.dialogRef.close();
+          }else{
+            this.error = 'Name already use or empty';
+          }
+        }else {
+          this.error = "Stroke width less than 0";
         }
       }else {
         this.error = 'Invalid audio file';
       }
     }else if (this.typeSound == "writeAudio"){
       if (`${form.value.write}` != ""){
-        if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`)) {
-          this.setValues(`${form.value.name}`, `${form.value.color}`, `${form.value.write}`, this.typeSound);
-          this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-            this.svgPath, `${form.value.color}`, `${form.value.write}`, this.typeSound);
-          this.dialogRef.close();
+        if (Number(`${form.value.strokeWidth}`) > 0){
+          if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) && `${form.value.name}` != "") {
+            this.setValues(`${form.value.name}`, `${form.value.color}`, `${form.value.write}`, this.typeSound, Number(`${form.value.strokeWidth}`));
+            this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
+              this.svgPath, `${form.value.color}`, `${form.value.write}`, this.typeSound, Number(`${form.value.strokeWidth}`));
+            this.dialogRef.close();
+          }else {
+            this.error = 'Name already use';
+          }
         }else {
-          this.error = 'Name already use';
+          this.error = "Stroke width less than 0";
         }
       }else {
         this.error = 'Text audio empty';
@@ -104,11 +113,12 @@ export class HotspotCreateDialogComponent implements OnInit {
     }
   }
 
-  setValues(name, color, sound, type){
+  setValues(name, color, sound, type, strokeWidth){
     this.scenesService.nameHotspot = name;
     this.scenesService.colorHotspot = color;
     this.scenesService.soundHotspot = sound;
     this.scenesService.typeHotspot = type;
+    this.scenesService.strokeWidth = strokeWidth;
   }
 
   getTypeSound(type){

@@ -35,12 +35,23 @@ export class HotspotModifyDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      soundSelected: '',
-      name: this.hotspot.name,
-      color: this.hotspot.strokeColor,
-      write: ''
-    });
+    if (this.hotspot.typeSound == "soundAudio"){
+      this.form = this.formBuilder.group({
+        soundSelected: this.hotspot.base64sound,
+        name: this.hotspot.name,
+        color: this.hotspot.strokeColor,
+        write: '',
+        strokeWidth: this.hotspot.strokeWidth
+      });
+    }else {
+      this.form = this.formBuilder.group({
+        soundSelected: '',
+        name: this.hotspot.name,
+        color: this.hotspot.strokeColor,
+        write: this.hotspot.base64sound,
+        strokeWidth: this.hotspot.strokeWidth
+      });
+    }
   }
 
   onSoundSelected(event) {
@@ -63,33 +74,39 @@ export class HotspotModifyDialogComponent implements OnInit {
     if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) || this.hotspot.name === `${form.value.name}`) {
       this.hotspot.name = `${form.value.name}`;
 
-      if (this.typeSound == "soundAudio" && this.selectedSound !== '' && this.selectedSound !== null) {
-        this.hotspot.base64sound = this.selectedSound;
-      }else if (this.typeSound == 'writeAudio' && `${form.value.write}` !== ''){
-        this.hotspot.base64sound = `${form.value.write}`;
+      if (Number(`${form.value.strokeWidth}`) > 0){
+        this.hotspot.strokeWidth = Number(`${form.value.strokeWidth}`);
+
+        if (this.typeSound == "soundAudio" && this.selectedSound !== '' && this.selectedSound !== null) {
+          this.hotspot.base64sound = this.selectedSound;
+        }else if (this.typeSound == 'writeAudio' && `${form.value.write}` !== ''){
+          this.hotspot.base64sound = `${form.value.write}`;
+        }
+
+        if(this.modeService.modifyiedHotspot != null){
+          this.hotspot.svgPointArray=this.svgPath;
+        }
+
+        let nameCenter = this.scenesService.nameHotspot;
+        this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound, Number(`${form.value.strokeWidth}`));
+
+        if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
+          this.deleteOldCenterHotspot();
+          this.scenesService.haveAddHotspot = true;
+        }
+        else {
+          this.modifyCenterHotspot(nameCenter);
+        }
+
+        this.modeService.selectedMode = 'hotspot';
+        this.modeService.modifyiedHotspot = null;
+        this.modeService.currentDrawingTool ='modify';
+
+        this.scenesService.updateScenes();
+        this.dialogRef.close();
+      }else {
+        this.error = "Stroke width less than 0";
       }
-
-      if(this.modeService.modifyiedHotspot != null){
-        this.hotspot.svgPointArray=this.svgPath;
-      }
-
-      let nameCenter = this.scenesService.nameHotspot;
-      this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound);
-
-      if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
-        this.deleteOldCenterHotspot();
-        this.scenesService.haveAddHotspot = true;
-      }
-      else {
-        this.modifyCenterHotspot(nameCenter);
-      }
-
-      this.modeService.selectedMode = 'hotspot';
-      this.modeService.modifyiedHotspot = null;
-      this.modeService.currentDrawingTool ='modify';
-
-      this.scenesService.updateScenes();
-      this.dialogRef.close();
     }
     else{
       this.error = 'Name already use';
@@ -124,11 +141,12 @@ export class HotspotModifyDialogComponent implements OnInit {
     this.error = '';
   }
 
-  setModifyValues(name, color, sound, type){
+  setModifyValues(name, color, sound, type, strokeWidth){
     this.scenesService.nameHotspot = name;
     this.scenesService.colorHotspot = color;
     this.scenesService.soundHotspot = sound;
     this.scenesService.typeHotspot = type;
+    this.scenesService.strokeWidth = strokeWidth;
   }
 
   deleteOldCenterHotspot(){

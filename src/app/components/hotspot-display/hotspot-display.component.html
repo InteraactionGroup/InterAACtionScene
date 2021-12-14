@@ -19,7 +19,7 @@
              fill-opacity="0.0"
              [attr.stroke]="hotspot.strokeColor"
              [attr.points]="this.getPoints(hotspot)"
-             stroke-width="2"
+             [attr.stroke-width]="hotspot.strokeWidth"
              (mouseenter)="enterEvent($event,hotspot)"
              (mouseleave)="leaveEvent($event, hotspot)"
              (touchenter)="enterEvent($event,hotspot)"

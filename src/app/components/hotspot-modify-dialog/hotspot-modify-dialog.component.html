@@ -34,6 +34,9 @@
         <mat-option [value]="'#228b22'">{{'Hotspot.Green' | translate}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input matInput formControlName="strokeWidth" placeholder="{{'Hotspot.ChooseHotspotStrokeWidth' | translate}}" id="stokeWidthInput" maxlength="2" type="number">
+    </mat-form-field>
     <mat-form-field>
       <input matInput formControlName="name" placeholder="{{'Hotspot.Enterthenameofthehotspot' | translate}}" id="nameInput" maxlength="64">
     </mat-form-field>
