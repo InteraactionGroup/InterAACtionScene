@@ -63,5 +63,11 @@
     "Modify": "Modify",
     "Deletehotspot": "Delete hotspot",
     "Delete": "Delete"
+  },
+  "error": {
+    "name": "Name already use or empty",
+    "text": "Audio text empty",
+    "audio": "No file audio",
+    "stroke": "Stroke width less than 1"
   }
 }

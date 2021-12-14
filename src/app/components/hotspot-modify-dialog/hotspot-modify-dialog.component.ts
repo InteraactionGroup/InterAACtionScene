@@ -6,6 +6,7 @@ import {ModeService} from "../../services/mode.service";
 import {Hotspot} from "../../types";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
 import {LanguageService} from "../../services/language.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -30,7 +31,8 @@ export class HotspotModifyDialogComponent implements OnInit {
     public modeService: ModeService,
     public audioRecorderService: AudioRecorderService,
     public languageService: LanguageService,
-    private dialogRef: MatDialogRef<HotspotModifyDialogComponent>
+    private dialogRef: MatDialogRef<HotspotModifyDialogComponent>,
+    public translate: TranslateService
   ) {
   }
 
@@ -105,11 +107,11 @@ export class HotspotModifyDialogComponent implements OnInit {
         this.scenesService.updateScenes();
         this.dialogRef.close();
       }else {
-        this.error = "Stroke width less than 0";
+        this.error = this.translate.instant("error.stroke");
       }
     }
     else{
-      this.error = 'Name already use';
+      this.error = this.translate.instant('error.name');
     }
   }
 

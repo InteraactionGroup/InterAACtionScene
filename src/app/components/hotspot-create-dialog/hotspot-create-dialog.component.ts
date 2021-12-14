@@ -5,6 +5,7 @@ import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
 import {LanguageService} from "../../services/language.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -28,7 +29,8 @@ export class HotspotCreateDialogComponent implements OnInit {
     public modeService: ModeService,
     public audioRecorderService: AudioRecorderService,
     private dialogRef: MatDialogRef<HotspotCreateDialogComponent>,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    public translate: TranslateService
   ) {
   }
 
@@ -85,13 +87,13 @@ export class HotspotCreateDialogComponent implements OnInit {
               this.svgPath, `${form.value.color}`, this.selectedSound, this.typeSound, Number(`${form.value.strokeWidth}`));
             this.dialogRef.close();
           }else{
-            this.error = 'Name already use or empty';
+            this.error = this.translate.instant('error.name');
           }
         }else {
-          this.error = "Stroke width less than 0";
+          this.error = this.translate.instant("error.stroke");
         }
       }else {
-        this.error = 'Invalid audio file';
+        this.error = this.translate.instant('error.audio');
       }
     }else if (this.typeSound == "writeAudio"){
       if (`${form.value.write}` != ""){
@@ -102,13 +104,13 @@ export class HotspotCreateDialogComponent implements OnInit {
               this.svgPath, `${form.value.color}`, `${form.value.write}`, this.typeSound, Number(`${form.value.strokeWidth}`));
             this.dialogRef.close();
           }else {
-            this.error = 'Name already use';
+            this.error = this.translate.instant('error.name');
           }
         }else {
-          this.error = "Stroke width less than 0";
+          this.error = this.translate.instant("error.stroke");
         }
       }else {
-        this.error = 'Text audio empty';
+        this.error = this.translate.instant('error.text');
       }
     }
   }
