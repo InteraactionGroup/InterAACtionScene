@@ -98,10 +98,12 @@ export class HotspotDisplayComponent implements OnInit {
   }
 
   enterEvent(event, hotspot) {
+    let nameHotspot = hotspot.name;
     event.target.setAttribute("fill", hotspot.strokeColor);
     event.target.setAttribute('fill-opacity', "0.5");
     if (hotspot.name.includes('Center')){
       let textCenter = document.querySelector('#textCenter');
+      nameHotspot = hotspot.name.replace('Center', '');
       textCenter.textContent = hotspot.name.replace('Center', '');
       textCenter.setAttribute('x', String(event.offsetX));
       textCenter.setAttribute('y', String(event.offsetY - 10));
@@ -109,7 +111,7 @@ export class HotspotDisplayComponent implements OnInit {
       textCenter.setAttribute('filter', 'url(#background)');
     }
     if (this.settingsService.SPEECH_SPEAKER && this.modeService.selectedMode !== 'hotspot' && this.modeService.currentDrawingTool !== 'modify' && this.modeService.currentDrawingTool !== 'delete') {
-      let speechSpeakerName = new SpeechSynthesisUtterance(hotspot.name);
+      let speechSpeakerName = new SpeechSynthesisUtterance(nameHotspot);
       speechSpeakerName.lang = this.languageService.activeSpeechSpeakerLanguage;
       window.speechSynthesis.speak(speechSpeakerName);
     }
