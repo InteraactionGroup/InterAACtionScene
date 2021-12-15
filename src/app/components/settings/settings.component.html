@@ -25,7 +25,7 @@
     </div>
     <div class="settings-item">
       <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" (change)="saveConfig()" id="dwellTime" type="text" maxlength="5">
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" (keyup)="saveConfig()" id="dwellTime" type="text" maxlength="5">
     </div>
     <div class="settings-item">
       <mat-form-field  appearance ="fill" >
