@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DwellCursorComponent } from './dwell-cursor.component';
+import {TranslateModule} from "@ngx-translate/core";
 
 describe('DwellCursorComponent', () => {
   let component: DwellCursorComponent;
@@ -8,7 +9,8 @@ describe('DwellCursorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DwellCursorComponent ]
+      declarations: [ DwellCursorComponent ],
+      imports: [TranslateModule.forRoot()]
     })
     .compileComponents();
   }));

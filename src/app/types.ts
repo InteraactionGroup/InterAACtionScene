@@ -46,4 +46,6 @@
 export class Configuration {
   'DWELL_TIME_ENABLED': boolean;
   'DWELL_TIME_TIMEOUT_VALUE': number;
+  'SPEECH_SPEAKER_ENABLE': boolean;
+  'LANGUAGE_CHOICE': string;
 }
