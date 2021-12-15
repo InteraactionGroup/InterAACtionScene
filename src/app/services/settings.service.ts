@@ -19,6 +19,7 @@ export class SettingsService {
   DWELL_TIME_TIMEOUT_VALUE_DEFAULT = 500;
 
   constructor(private languageService: LanguageService) {
+  }
 
   setConfiguration(configuration: Configuration){
     this.DWELL_TIME_ENABLED = configuration.DWELL_TIME_ENABLED;
@@ -41,5 +42,4 @@ export class SettingsService {
       'LANGUAGE_CHOICE': this.languageService.activeLanguage
     }
   }
-
 }
