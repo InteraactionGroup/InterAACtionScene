@@ -6,6 +6,7 @@ import {ModeService} from "../../services/mode.service";
 import {Hotspot} from "../../types";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
 import {LanguageService} from "../../services/language.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-hotspot-create-dialog',
@@ -30,17 +31,29 @@ export class HotspotModifyDialogComponent implements OnInit {
     public modeService: ModeService,
     public audioRecorderService: AudioRecorderService,
     public languageService: LanguageService,
-    private dialogRef: MatDialogRef<HotspotModifyDialogComponent>
+    private dialogRef: MatDialogRef<HotspotModifyDialogComponent>,
+    public translate: TranslateService
   ) {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      soundSelected: '',
-      name: this.hotspot.name,
-      color: this.hotspot.strokeColor,
-      write: ''
-    });
+    if (this.hotspot.typeSound == "soundAudio"){
+      this.form = this.formBuilder.group({
+        soundSelected: this.hotspot.base64sound,
+        name: this.hotspot.name,
+        color: this.hotspot.strokeColor,
+        write: '',
+        strokeWidth: this.hotspot.strokeWidth
+      });
+    }else {
+      this.form = this.formBuilder.group({
+        soundSelected: '',
+        name: this.hotspot.name,
+        color: this.hotspot.strokeColor,
+        write: this.hotspot.base64sound,
+        strokeWidth: this.hotspot.strokeWidth
+      });
+    }
   }
 
   onSoundSelected(event) {
@@ -63,36 +76,42 @@ export class HotspotModifyDialogComponent implements OnInit {
     if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) || this.hotspot.name === `${form.value.name}`) {
       this.hotspot.name = `${form.value.name}`;
 
-      if (this.typeSound == "soundAudio" && this.selectedSound !== '' && this.selectedSound !== null) {
-        this.hotspot.base64sound = this.selectedSound;
-      }else if (this.typeSound == 'writeAudio' && `${form.value.write}` !== ''){
-        this.hotspot.base64sound = `${form.value.write}`;
+      if (Number(`${form.value.strokeWidth}`) > 0){
+        this.hotspot.strokeWidth = Number(`${form.value.strokeWidth}`);
+
+        if (this.typeSound == "soundAudio" && this.selectedSound !== '' && this.selectedSound !== null) {
+          this.hotspot.base64sound = this.selectedSound;
+        }else if (this.typeSound == 'writeAudio' && `${form.value.write}` !== ''){
+          this.hotspot.base64sound = `${form.value.write}`;
+        }
+
+        if(this.modeService.modifyiedHotspot != null){
+          this.hotspot.svgPointArray=this.svgPath;
+        }
+
+        let nameCenter = this.scenesService.nameHotspot;
+        this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound, Number(`${form.value.strokeWidth}`));
+
+        if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
+          this.deleteOldCenterHotspot();
+          this.scenesService.haveAddHotspot = true;
+        }
+        else {
+          this.modifyCenterHotspot(nameCenter);
+        }
+
+        this.modeService.selectedMode = 'hotspot';
+        this.modeService.modifyiedHotspot = null;
+        this.modeService.currentDrawingTool ='modify';
+
+        this.scenesService.updateScenes();
+        this.dialogRef.close();
+      }else {
+        this.error = this.translate.instant("error.stroke");
       }
-
-      if(this.modeService.modifyiedHotspot != null){
-        this.hotspot.svgPointArray=this.svgPath;
-      }
-
-      let nameCenter = this.scenesService.nameHotspot;
-      this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound);
-
-      if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
-        this.deleteOldCenterHotspot();
-        this.scenesService.haveAddHotspot = true;
-      }
-      else {
-        this.modifyCenterHotspot(nameCenter);
-      }
-
-      this.modeService.selectedMode = 'hotspot';
-      this.modeService.modifyiedHotspot = null;
-      this.modeService.currentDrawingTool ='modify';
-
-      this.scenesService.updateScenes();
-      this.dialogRef.close();
     }
     else{
-      this.error = 'Name already use';
+      this.error = this.translate.instant('error.name');
     }
   }
 
@@ -124,11 +143,12 @@ export class HotspotModifyDialogComponent implements OnInit {
     this.error = '';
   }
 
-  setModifyValues(name, color, sound, type){
+  setModifyValues(name, color, sound, type, strokeWidth){
     this.scenesService.nameHotspot = name;
     this.scenesService.colorHotspot = color;
     this.scenesService.soundHotspot = sound;
     this.scenesService.typeHotspot = type;
+    this.scenesService.strokeWidth = strokeWidth;
   }
 
   deleteOldCenterHotspot(){

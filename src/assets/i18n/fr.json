@@ -48,6 +48,7 @@
     "Writeasound": "Écrire un son",
     "Pickthestrokecolor": "Selectionner la couleur",
     "Enterthenameofthehotspot": "Entrer le nom du hotspot",
+    "ChooseHotspotStrokeWidth": "Entrer la taille du trait",
     "Writethesound": "Entrer le texte à dire",
     "Import": "Importer",
     "Cancel": "Annuler",
@@ -62,5 +63,11 @@
     "Modify": "Modifier",
     "Deletehotspot": "Supprimer l'hotspot",
     "Delete": "Supprimer"
+  },
+  "error": {
+    "name": "Nom déjà utilisé ou vide",
+    "text": "Text audio vide",
+    "audio": "Pas de fichier audio",
+    "stroke": "Epaisseur du trait inférieur à 1"
   }
 }

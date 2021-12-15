@@ -34,6 +34,9 @@
         <mat-option [value]="'#228b22'">{{'Hotspot.Green' | translate}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input matInput formControlName="strokeWidth" placeholder="{{'Hotspot.ChooseHotspotStrokeWidth' | translate}}" id="stokeWidthInput" min="1" max="10" type="number">
+    </mat-form-field>
     <mat-form-field>
       <input matInput formControlName="name" placeholder="{{'Hotspot.Enterthenameofthehotspot' | translate}}" id="nameInput" maxlength="64">
     </mat-form-field>
@@ -43,7 +46,7 @@
       </mat-button-toggle>
     </div>
   </mat-dialog-content>
-  <p *ngIf='error !== ""'>{{error}}</p>
+  <p *ngIf='error !== ""'>{{error | translate}}</p>
   <mat-dialog-actions style="display: grid;grid-template-columns: 1fr 1fr;">
     <button mat-button type="submit" >{{'Hotspot.Modify' | translate}}</button>
     <button mat-button type="button" (click)="close()" mat-dialog-close>{{'Hotspot.Cancel' | translate}}</button>
