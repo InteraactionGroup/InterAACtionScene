@@ -49,6 +49,10 @@
   border-bottom: 5px solid #4766D8;
 }
 
+.btnReset{
+  margin-left: 15px;
+}
+
 .button {
   display: inline;
   cursor: pointer;

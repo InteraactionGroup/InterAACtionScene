@@ -290,7 +290,8 @@ export class HotspotCreateComponent implements OnInit {
             svgPathCenterPointsPercentage,
             this.scenesService.colorHotspot,
             this.scenesService.soundHotspot,
-            this.scenesService.typeHotspot);
+            this.scenesService.typeHotspot,
+            this.scenesService.strokeWidth);
 
           this.scenesService.haveAddHotspot = false;
         }
@@ -372,7 +373,8 @@ export class HotspotCreateComponent implements OnInit {
             svgPathCenterPointsPercentage,
             this.scenesService.colorHotspot,
             this.scenesService.soundHotspot,
-            this.scenesService.typeHotspot);
+            this.scenesService.typeHotspot,
+            this.scenesService.strokeWidth);
 
           this.scenesService.haveAddHotspot = false;
         }
@@ -508,7 +510,8 @@ export class HotspotCreateComponent implements OnInit {
             svgPathCenterPointsPercentage,
             this.scenesService.colorHotspot,
             this.scenesService.soundHotspot,
-            this.scenesService.typeHotspot);
+            this.scenesService.typeHotspot,
+            this.scenesService.strokeWidth);
 
           this.scenesService.haveAddHotspot = false;
         }

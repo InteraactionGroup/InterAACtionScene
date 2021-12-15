@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsComponent } from './settings.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {MatDialogModule} from "@angular/material/dialog";
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -10,7 +11,7 @@ describe('SettingsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SettingsComponent ],
-      imports: [TranslateModule.forRoot()]
+      imports: [TranslateModule.forRoot(), MatDialogModule]
     })
     .compileComponents();
   }));
