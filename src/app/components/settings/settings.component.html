@@ -36,6 +36,7 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <button mat-raised-button color="warn" class="btnReset" (click)="openDialog()">{{'Settings.Reset' | translate}}</button>
     <div class="version">{{this.settingsService.VERSION}}</div>
   </div>
 </div>
