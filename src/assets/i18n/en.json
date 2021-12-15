@@ -49,6 +49,7 @@
     "Writeasound": "Write a sound",
     "Pickthestrokecolor": "Pick the stroke color",
     "Enterthenameofthehotspot": "Enter the name of the hotspot",
+    "ChooseHotspotStrokeWidth": "Enter the stroke width",
     "Writethesound": "Enter the text to say",
     "Import": "Import",
     "Cancel": "Cancel",
@@ -68,5 +69,11 @@
     "title": "Are you sur ?",
     "yes": "Yes",
     "no": "No"
+  },
+  "error": {
+    "name": "Name already use or empty",
+    "text": "Audio text empty",
+    "audio": "No file audio",
+    "stroke": "Stroke width less than 1"
   }
 }

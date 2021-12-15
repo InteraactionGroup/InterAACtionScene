@@ -39,7 +39,8 @@
    svgPointArray: number[]; // Each point is in percentage
    strokeColor: string;
    base64sound: string;
-   typeSound : string;
+   typeSound: string;
+   strokeWidth: number
  }
 
 export class Configuration {
