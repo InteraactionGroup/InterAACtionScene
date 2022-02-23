@@ -27,6 +27,8 @@ export class HotspotDisplayComponent implements OnInit {
 
   dwellTimer;
 
+  audioPlayer = new Audio();
+
   constructor(
     public scenesService: ScenesService,
     private dialog: MatDialog,
@@ -83,9 +85,9 @@ export class HotspotDisplayComponent implements OnInit {
 
   PlayAudio(hotspot: Hotspot) {
     if (hotspot.typeSound == "soundAudio"){
-      let audio = new Audio(hotspot.base64sound);
-      audio.load();
-      audio.play();
+      this.audioPlayer.src = hotspot.base64sound;
+      this.audioPlayer.load();
+      this.audioPlayer.play();
     }else if (hotspot.typeSound == "writeAudio"){
       let speak = new SpeechSynthesisUtterance(hotspot.base64sound);
       speak.lang = this.languageService.activeSpeechSpeakerLanguage;
