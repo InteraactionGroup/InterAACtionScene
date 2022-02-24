@@ -15,6 +15,7 @@ export class ImportScenesDialogComponent implements OnInit {
 
   form: FormGroup;
   selectedFile = null;
+  extensionSelectedFile = null;
   error = '';
 
   constructor(
@@ -33,6 +34,7 @@ export class ImportScenesDialogComponent implements OnInit {
 
   onFileSelected(event) {
     const file = event.target.files[0];
+    this.extensionSelectedFile = file.name.split('.').pop();
     const reader = new FileReader();
     reader.readAsText(file, 'UTF-8');
     reader.onload = () => {
@@ -46,7 +48,7 @@ export class ImportScenesDialogComponent implements OnInit {
 
 
   submit(form) {
-    if (this.selectedFile != null) {
+    if (this.selectedFile != null && this.extensionSelectedFile == "scene") {
       try {
         const scenes = this.jsonValidatorService.getCheckedGrid(JSON.parse(this.selectedFile));
         if (scenes as Array<Scene>) {
@@ -57,6 +59,8 @@ export class ImportScenesDialogComponent implements OnInit {
       } catch (error) {
         this.error = 'Invalid file.';
       }
+    }else {
+      this.error = 'Invalid file, only .scene file !';
     }
   }
 

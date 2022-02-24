@@ -31,6 +31,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DialogResetSettingsComponent } from './components/dialog-reset-settings/dialog-reset-settings.component';
+import { ExportScenesDialogComponent } from './components/export-scenes-dialog/export-scenes-dialog.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -54,6 +55,7 @@ export function createTranslateLoader(http: HttpClient) {
     DwellCursorComponent,
     SettingsComponent,
     DialogResetSettingsComponent,
+    ExportScenesDialogComponent,
   ],
     imports: [
       TranslateModule.forRoot({

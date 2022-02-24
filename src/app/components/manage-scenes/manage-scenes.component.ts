@@ -5,6 +5,7 @@ import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-d
 import {RenameDialogComponent} from '../rename-dialog/rename-dialog.component';
 import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes-dialog.component';
 import {LanguageService} from '../../services/language.service';
+import {ExportScenesDialogComponent} from "../export-scenes-dialog/export-scenes-dialog.component";
 
 @Component({
   selector: 'app-manage-scenes',
@@ -83,22 +84,9 @@ export class ManageScenesComponent implements OnInit {
   }
 
   export(): void {
-    const SCENESjson = JSON.stringify(this.scenesService.getScenes());
-    const file = new Blob([SCENESjson], {type: 'text/json'});
-    if (window.navigator.msSaveOrOpenBlob) { // IE10+
-      window.navigator.msSaveOrOpenBlob(file, 'scenes.json');
-    } else { // Others
-      const a = document.createElement('a');
-      const url = URL.createObjectURL(file);
-      a.href = url;
-      a.download = 'scenes.json';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 0);
-    }
+    const dialogRef = this.dialog.open(ExportScenesDialogComponent, {
+      width: '350px',
+    });
   }
 
   import(): void {
