@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExportScenesDialogComponent } from './export-scenes-dialog.component';
+import {ImportScenesDialogComponent} from "../import-scenes-dialog/import-scenes-dialog.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {TranslateModule} from "@ngx-translate/core";
 
 describe('ExportScenesDialogComponent', () => {
   let component: ExportScenesDialogComponent;
@@ -8,9 +12,16 @@ describe('ExportScenesDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExportScenesDialogComponent ]
+      declarations: [ImportScenesDialogComponent],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot()],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
