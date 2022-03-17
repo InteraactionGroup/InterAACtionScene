@@ -13,7 +13,7 @@ toc_sticky: true
 {% include figure image_path="/assets/images/share/farm.png" alt="scene Farm for interAActionScene" %}
 
 Download the scene : <br>
-<a href="../assets/scenesEN/farm.json" download>
+<a href="../assets/scenesEN/farm.scene" download>
   <i class='fas fa-hand-point-right'></i>
   Farm
 </a>
@@ -23,7 +23,7 @@ Download the scene : <br>
 {% include figure image_path="/assets/images/share/jungle.png" alt="scene Jungle for interAActionScene" %}
 
 Download the scene : <br>
-<a href="../assets/scenesEN/jungle.json" download>
+<a href="../assets/scenesEN/jungle.scene" download>
   <i class='fas fa-hand-point-right'></i>
   Jungle
 </a>
@@ -33,7 +33,7 @@ Download the scene : <br>
 {% include figure image_path="/assets/images/share/savana.png" alt="scene Savanna for interAActionScene" %}
 
 Download the scene : <br>
-<a href="../assets/scenesEN/savanna.json" download>
+<a href="../assets/scenesEN/savanna.scene" download>
   <i class='fas fa-hand-point-right'></i>
   Savanna
 </a>
@@ -43,7 +43,7 @@ Download the scene : <br>
 {% include figure image_path="/assets/images/share/ocean.png" alt="scene Sea for interAActionScene" %}
 
 Download the scene : <br>
-<a href="../assets/scenesEN/sea.json" download>
+<a href="../assets/scenesEN/sea.scene" download>
   <i class='fas fa-hand-point-right'></i>
   Sea
 </a>
