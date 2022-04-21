@@ -92,3 +92,74 @@
   min-height: 0.4cm;
   margin: auto;
 }
+.imageAFSR{
+  background-size: 75px;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.topBarAFSRLogo{
+  display: inline-block;
+  height: 55px;
+  width: 84px;
+}
+
+.imageAFSRBottom{
+  background-size: 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.topBarAFSRLogoBottom{
+  display: inline-block;
+  height: 35px;
+  width: 40px;
+}
+
+.floatRight {
+  float: right;
+}
+
+.imageLogoAFSR {
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  /* padding: 5px;*/
+}
+
+.imageTextAFSR {
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  /* padding: 5px;*/
+}
+
+.bottomBarAFSRLogo {
+  display: inline-block;
+  height: 22px;
+  width: 25px;
+  /* padding: 5px;*/
+}
+
+.bottomBarAFSRText {
+  display: inline-block;
+  height: 22px;
+  width: 70px;
+  /* padding: 5px;*/
+}

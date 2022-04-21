@@ -40,5 +40,29 @@
     <div class="version">{{this.settingsService.VERSION}}</div>
   </div>
 </div>
+<a class="bottomBarAFSRText floatRight" (click)="openDialogInteraactionBoxAFSR()">
+  <div class="imageTextAFSR width-100"
+       [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Text_Only_InterAACtionbox-AFSR')}">
 
+  </div>
+</a>
+<a class="bottomBarAFSRLogo floatRight" (click)="openDialogInteraactionBoxAFSR()">
+  <div class="imageLogoAFSR width-100"
+       [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Logo_Only_InterAACtionbox-AFSR')}">
+
+  </div>
+</a>
+<div class="floatRight" style="width: fit-content; height: 22px">
+  <div style="
+    margin-top: 7px;
+    font-size: xx-small;
+    width: 50px;
+    height: fit-content;
+    align-items: center;
+    align-content: center;
+    text-align: center;"
+  >
+    Conçu pour
+  </div>
+</div>
 

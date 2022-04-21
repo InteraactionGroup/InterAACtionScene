@@ -107,6 +107,11 @@
       {{'Dashboard.Settings' | translate}}
     </a>
 
+    <button *ngIf="settingsService.AFSR === true" class="button" type="button"
+            (click)="logout()">
+      <img src="assets/images/logout.png" alt="Fermer interAAction Scene" class="buttonTopImg">
+    </button>
+
   </div>
 </div>
 <button id="hideShowButtonPanel" type="button" [ngClass]="positionPanelButton" (click)="hideShowPanel()">{{hideShowButtonChar2}}</button>
