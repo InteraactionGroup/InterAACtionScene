@@ -10,7 +10,7 @@ export class SettingsService {
 
   VERSION = "InteraactionScene v.2021.11.17";
 
-  AFSR = false;
+  AFSR = true;
 
   SPEECH_SPEAKER = false;
   DWELL_TIME_ENABLED = false;

@@ -35,6 +35,8 @@ import { ExportScenesDialogComponent } from './components/export-scenes-dialog/e
 import {DialogLinkInteraactionboxComponent} from './components/dialog-link-interaactionbox/dialog-link-interaactionbox.component';
 import {DisplaySiteASFRComponent} from './components/display-site-asfr/display-site-asfr.component';
 import {LogoutAppComponent} from './components/logoutApp/logout-app.component';
+import {DialogTutorialComponent} from './components/dialog-tutorial/dialog-tutorial.component';
+import {DefaultStandardSceneComponent} from './components/default-standard-scene/default-standard-scene.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -62,6 +64,8 @@ export function createTranslateLoader(http: HttpClient) {
     DialogLinkInteraactionboxComponent,
     DisplaySiteASFRComponent,
     LogoutAppComponent,
+    DialogTutorialComponent,
+    DefaultStandardSceneComponent,
   ],
     imports: [
       TranslateModule.forRoot({

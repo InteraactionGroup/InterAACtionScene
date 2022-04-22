@@ -144,7 +144,7 @@ export class SceneDisplayComponent implements OnInit {
   ngOnInit(): void {
     (async () => {
       this.sceneDisplayService.onCanvasChange();
-      await this.delay(400);
+      await this.delay(700);
       if (this.scenesService.SCENES != null && this.scenesService.SCENES.length != 0) {
         this.selectNonHiddenScene();
         this.imageChange.emit(this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name);

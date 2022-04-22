@@ -1,6 +1,6 @@
 <div id="menuBar" class="menubar" *ngIf="modeService.displayBar">
 
-  <div class="menu"
+  <div *ngIf="!settingsService.AFSR" class="menu"
        [class.MenuBottomBar]="modeService.displayBar">
 
     <button (click)="changeMode('play')"
@@ -101,6 +101,131 @@
     <input [(ngModel)]="sceneTitle"
            value="{{sceneTitle}}"
            *ngIf="modeService.selectedMode === 'play'"/>
+
+    <button class="button" type="button"
+            (click)="openDialogTuto()">
+      <img src="assets/images/help.svg" alt="Help" class="buttonTopImg">
+      {{'Tutorial.Tuto' | translate}}
+    </button>
+
+    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
+      <img src="assets/images/settings.svg" alt="Play" class="buttonTopImg" [ngStyle]="{'margin-bottom': '2px','margin': 'auto'}">
+      {{'Dashboard.Settings' | translate}}
+    </a>
+
+    <button *ngIf="settingsService.AFSR === true" class="button" type="button"
+            (click)="logout()">
+      <img src="assets/images/logout.png" alt="Fermer interAAction Scene" class="buttonTopImg">
+    </button>
+
+  </div>
+  <div *ngIf="settingsService.AFSR" class="menu"
+       [class.MenuBottomBarAFSR]="modeService.displayBar">
+
+    <button (click)="changeMode('play')"
+            class="button"
+            [class.selected]="modeService.selectedMode === 'play'">
+      <img src="assets/images/play.png" alt="Play" class="buttonTopImg">
+      {{'Dashboard.Play' | translate}}
+    </button>
+
+    <button (click)="changeMode('hotspot')"
+            class="button"
+            [class.selected]="modeService.selectedMode === 'hotspot'">
+      <img src="assets/images/spots.png" alt="ManageHotspots" class="buttonTopImg">
+      {{'Dashboard.ManageHotspots' | translate}}
+    </button>
+
+    <button (click)="changeMode('manage-scenes')"
+            class="button"
+            [class.selected]="modeService.selectedMode === 'manage-scenes'">
+      <img src="assets/images/scene.png" alt="ManageScenes" class="buttonTopImg">
+      {{'Dashboard.ManageScenes' | translate}}
+    </button>
+
+    <button (click)="changeMode('draw')"
+            class="button"
+            [class.selected]="modeService.selectedMode === 'draw'">
+      <img src="assets/images/edit.svg" alt="Draw" class="buttonTopImg">
+      {{'Dashboard.Draw' | translate}}
+    </button>
+
+    <div class="drawingMode"
+         *ngIf="modeService.selectedMode === 'draw'">
+      <button type="button"
+              *ngFor="let color of COLORS"
+              [style.background-color]="color.hex"
+              (click)="changeColor(color.name)">
+      </button>
+      <button type="button"
+              (click)="changeColor('erase')">
+        <img src="assets/images/eraser.png" alt="erase" class="buttonTopImg">
+        <!--{{'Dashboard.Erase' | translate}}-->
+      </button>
+
+      <button type="button"
+              (click)="changeColor('clear')">
+        <!--{{'Dashboard.Clear' | translate}}-->
+        <img src="assets/images/delete.png" alt="erase" class="buttonTopImg">
+      </button>
+    </div>
+
+    <div class="drawingMode"
+         *ngIf="modeService.selectedMode === 'hotspot'">
+      <button [class.selected]="modeService.currentDrawingTool === 'Add'"
+              type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('Add')">
+        <img src="assets/images/add.png" alt="Play" class="buttonTopImg">
+        {{'Dashboard.AddHotspot' | translate}}
+      </button>
+
+      <div class="drawingModeForm"
+           *ngIf="modeService.currentDrawingTool === 'Add' ||
+                  modeService.currentDrawingTool === 'redraw'">
+
+        <button [class.selected]="modeService.choiceDrawing === 'Polyline'"
+                type="button" style="width: 4cm; min-width: 1cm;"
+                (click)="choiceDrawing('Polyline')">
+          <img src="assets/images/courbe.png" alt="Play" class="buttonTopImg">
+        </button>
+
+        <button [class.selected]="modeService.choiceDrawing === 'Rectangle'"
+                type="button" style="width: 4cm; min-width: 1cm;"
+                (click)="choiceDrawing('Rectangle')">
+          <img src="assets/images/rectangle.png" alt="Play" class="buttonTopImg">
+        </button>
+
+        <button [class.selected]="modeService.choiceDrawing === 'Circle'"
+                type="button" style="width: 4cm; min-width: 1cm;"
+                (click)="choiceDrawing('Circle')">
+          <img src="assets/images/circle.png" alt="Play" class="buttonTopImg">
+        </button>
+      </div>
+
+      <button [class.selected]="modeService.currentDrawingTool === 'modify' || modeService.currentDrawingTool === 'redraw'"
+              type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('modify')">
+        <img src="assets/images/edit.svg" alt="Play" class="buttonTopImg">
+        {{'Dashboard.ModifyHotspot' | translate}}
+      </button>
+
+      <button [class.selected]="modeService.currentDrawingTool === 'delete'"
+              type="button" style="width: 4cm; min-width: 1cm;"
+              (click)="changeColor('delete')">
+        <img src="assets/images/delete.svg" alt="Play" class="buttonTopImg">
+        {{'Dashboard.DeleteHotspot' | translate}}
+      </button>
+    </div>
+
+    <input [(ngModel)]="sceneTitle"
+           value="{{sceneTitle}}"
+           *ngIf="modeService.selectedMode === 'play'"/>
+
+    <button class="button" type="button"
+            (click)="openDialogTuto()">
+      <img src="assets/images/help.svg" alt="Help" class="buttonTopImg">
+      {{'Tutorial.Tuto' | translate}}
+    </button>
 
     <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
       <img src="assets/images/settings.svg" alt="Play" class="buttonTopImg" [ngStyle]="{'margin-bottom': '2px','margin': 'auto'}">

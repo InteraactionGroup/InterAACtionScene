@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ScenesService} from "./scenes.service";
 import {Subject} from "rxjs";
+import {SettingsService} from './settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class SceneDisplayService {
   public bigImageContainerObservable = new Subject<string>();
   public hideShowPanelButtonObservable = new Subject<string>();
 
-  constructor(public scenesService: ScenesService) {
+  constructor(public scenesService: ScenesService,
+              public settingsService: SettingsService) {
   }
 
   selectedScene = 0;
@@ -30,7 +32,14 @@ export class SceneDisplayService {
     //variable to call an update on the canvas
     this.currImage++;
 
-    let bigImageContainer: HTMLElement = document.getElementById('bigImageContainer');
+    let bigImageContainer: HTMLElement;
+
+    if(this.settingsService.AFSR){
+      bigImageContainer = document.getElementById('bigImageContainerAFSR');
+    }else{
+      bigImageContainer = document.getElementById('bigImageContainer');
+    }
+
     // Resizes the image if its bigger than the div holding it
     if (this.imageWidth > bigImageContainer.clientWidth) {
       let relation = (bigImageContainer.clientWidth - 20) / this.imageWidth;

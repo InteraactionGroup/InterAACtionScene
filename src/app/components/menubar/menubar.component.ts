@@ -8,6 +8,7 @@ import {LanguageService} from "../../services/language.service";
 import {MatDialog} from '@angular/material/dialog';
 import {LogoutAppComponent} from '../logoutApp/logout-app.component';
 import {SettingsService} from '../../services/settings.service';
+import {DialogTutorialComponent} from '../dialog-tutorial/dialog-tutorial.component';
 
 @Component({
   selector: 'app-menubar',
@@ -113,6 +114,13 @@ export class MenubarComponent implements OnInit {
 
   logout() : void{
     this.dialog.open(LogoutAppComponent);
+  }
+
+  openDialogTuto(): void{
+    this.dialog.open(DialogTutorialComponent, {
+      height: '75%',
+      width: '75%'
+    });
   }
 
   constructor(public modeService: ModeService,
