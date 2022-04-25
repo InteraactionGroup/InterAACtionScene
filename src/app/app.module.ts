@@ -37,6 +37,7 @@ import {DisplaySiteASFRComponent} from './components/display-site-asfr/display-s
 import {LogoutAppComponent} from './components/logoutApp/logout-app.component';
 import {DialogTutorialComponent} from './components/dialog-tutorial/dialog-tutorial.component';
 import {DefaultStandardSceneComponent} from './components/default-standard-scene/default-standard-scene.component';
+import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -66,6 +67,7 @@ export function createTranslateLoader(http: HttpClient) {
     LogoutAppComponent,
     DialogTutorialComponent,
     DefaultStandardSceneComponent,
+    LoadingUserComponent
   ],
     imports: [
       TranslateModule.forRoot({
