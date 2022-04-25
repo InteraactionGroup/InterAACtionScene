@@ -4,6 +4,12 @@
   right: 0;
 }
 
+.versionAFSR{
+  position: absolute;
+  bottom: 35px;
+  right: 0;
+}
+
 .menuBar{
   height: 65px;
   min-width: 7cm;
@@ -13,7 +19,7 @@
 
 .scene-display{
   width: 100vw;
-  height: calc(100% - 65px);
+  height: calc(100% - 95px);
   display: flex;
 }
 
@@ -24,9 +30,23 @@
   background-color: #4766D8;
 }
 
+.sceneAFSR{
+  width: 3cm;
+  display: flex;
+  flex-direction: column;
+  background-color: #921e3d;
+}
+
 .images{
   width: 3cm;
   background-color: #ff7f00;
+  display: flex;
+  flex-direction: column;
+}
+
+.imagesAFSR{
+  width: 3cm;
+  background-color: #cd2653;
   display: flex;
   flex-direction: column;
 }
@@ -42,11 +62,29 @@
   user-select: none;
 }
 
+.bigContainerAFSR{
+  background-color: #fff6f9;
+  max-height: 100%;
+  width: calc(100% - 6cm);
+  border-top: 5px solid #cd2653;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .menu {
   flex-grow: 4;
   display: flex;
   margin-top: 2px;
   border-bottom: 5px solid #4766D8;
+}
+
+.menuAFSR {
+  flex-grow: 4;
+  display: flex;
+  margin-top: 2px;
+  border-bottom: 5px solid #921e3d;
 }
 
 .btnReset{

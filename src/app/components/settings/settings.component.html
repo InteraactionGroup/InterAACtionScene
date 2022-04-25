@@ -1,5 +1,15 @@
 <div class="menuBar">
-  <div class="menu">
+  <div *ngIf="!settingsService.AFSR" class="menu">
+    <button (click)=back() class="button">
+      <img src="assets/images/back.svg" alt="back" class="buttonTopImg">
+      {{'Settings.Back' | translate}}
+    </button>
+
+    <div class="title">
+      {{'Dashboard.Settings' | translate}}
+    </div>
+  </div>
+  <div *ngIf="settingsService.AFSR" class="menuAFSR">
     <button (click)=back() class="button">
       <img src="assets/images/back.svg" alt="back" class="buttonTopImg">
       {{'Settings.Back' | translate}}
@@ -9,9 +19,15 @@
       {{'Dashboard.Settings' | translate}}
     </div>
 
+    <a class="topBarAFSRLogo floatRight" (click)="openDialogASFR()">
+      <div class="imageAFSR" style="width: 100%"
+           [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Logo-AFSR')}">
+      </div>
+    </a>
+
   </div>
 </div>
-<div class="scene-display">
+<div *ngIf="!settingsService.AFSR" class="scene-display">
   <div class="scene"></div>
   <div class="images"></div>
   <div class="bigContainer">
@@ -40,6 +56,35 @@
     <div class="version">{{this.settingsService.VERSION}}</div>
   </div>
 </div>
+<div *ngIf="settingsService.AFSR" class="scene-display">
+  <div class="sceneAFSR"></div>
+  <div class="imagesAFSR"></div>
+  <div class="bigContainerAFSR">
+    <div class="settings-item">
+      <label for="dwellTimeEnable">{{'Settings.SpeechSpeaker' | translate}}:</label>
+      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="saveConfig()" id="speechSpeaker" type="checkbox">
+    </div>
+    <div class="settings-item">
+      <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="saveConfig()" id="dwellTimeEnable" type="checkbox">
+    </div>
+    <div class="settings-item">
+      <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" (keyup)="saveConfig()" id="dwellTime" type="text" maxlength="5">
+    </div>
+    <div class="settings-item">
+      <mat-form-field  appearance ="fill" >
+        <mat-label > {{'Settings.Selectalanguage' | translate}} </mat-label>
+        <mat-select [(value)] = "selected">
+          <mat-option  value = "fr" (click)="languageService.switchLanguage(selected); saveConfig()"> {{'Settings.French' | translate}} </mat-option>
+          <mat-option  value = "en" (click)="languageService.switchLanguage(selected); saveConfig()"> {{'Settings.English' | translate}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="warn" class="btnReset" (click)="openDialog()">{{'Settings.Reset' | translate}}</button>
+    <div class="versionAFSR">{{this.settingsService.VERSION}}</div>
+  </div>
+</div>
 <a class="bottomBarAFSRText floatRight" (click)="openDialogInteraactionBoxAFSR()">
   <div class="imageTextAFSR width-100"
        [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Text_Only_InterAACtionbox-AFSR')}">
@@ -65,4 +110,3 @@
     Conçu pour
   </div>
 </div>
-
