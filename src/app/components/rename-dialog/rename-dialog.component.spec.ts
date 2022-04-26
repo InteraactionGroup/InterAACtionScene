@@ -4,6 +4,7 @@ import {RenameDialogComponent} from './rename-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {TranslateModule} from '@ngx-translate/core';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('RenameDialogComponent', () => {
   let component: RenameDialogComponent;
@@ -13,7 +14,7 @@ describe('RenameDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [RenameDialogComponent]
       ,
-      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot()],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule],
       providers: [
         {
           provide: MatDialogRef,
