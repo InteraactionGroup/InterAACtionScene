@@ -5,6 +5,10 @@ import {SceneDisplayService} from "../../services/scene-display.service";
 import {ScenesService} from "../../services/scenes.service";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
 import {LanguageService} from "../../services/language.service";
+import {MatDialog} from '@angular/material/dialog';
+import {LogoutAppComponent} from '../logoutApp/logout-app.component';
+import {SettingsService} from '../../services/settings.service';
+import {DialogTutorialComponent} from '../dialog-tutorial/dialog-tutorial.component';
 
 @Component({
   selector: 'app-menubar',
@@ -108,11 +112,24 @@ export class MenubarComponent implements OnInit {
     this.sceneTitle = imageName;
   }
 
+  logout() : void{
+    this.dialog.open(LogoutAppComponent);
+  }
+
+  openDialogTuto(): void{
+    this.dialog.open(DialogTutorialComponent, {
+      height: '75%',
+      width: '75%'
+    });
+  }
+
   constructor(public modeService: ModeService,
               public scenesService: ScenesService,
               public audioRecorderService: AudioRecorderService,
               public sceneDisplayService: SceneDisplayService,
-              public languageService: LanguageService) {
+              public languageService: LanguageService,
+              private dialog: MatDialog,
+              public settingsService: SettingsService) {
   }
 
   ngOnInit(): void {

@@ -153,3 +153,155 @@
 .button-selected {
   background-color: #808080;
 }
+
+
+
+
+
+.scene-display-AFSR {
+  width: 100vw;
+  height: calc(100% - 65px);
+  display: flex;
+}
+
+.fullScreen-scene-display-AFSR {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.scene-display-AFSR .scenesAFSR {
+  width: 3cm;
+  display: flex;
+  flex-direction: column;
+  background-color: #921e3d;
+}
+
+.scenesAFSR-virtual-viewport {
+  height: 90vh;
+  overflow-x: hidden;
+}
+
+.scene-display-AFSR .scenesAFSR .scenesAFSR-virtual-viewport .sceneAFSR {
+  padding: 5px;
+  width: calc(100% - 10px);
+  height: 3cm;
+}
+
+.scene-displayAFSR .scenesAFSR .scenesAFSR-virtual-viewport .sceneAFSR:hover {
+  background-color: #477cd8;
+}
+
+.scene-display-AFSR .scenesAFSR .scenesAFSR-virtual-viewport .sceneAFSR button {
+  float: right;
+  width: calc(3cm - 10px);
+  height: 3cm;
+  min-width: 1cm;
+  /* max-width: 3cm; */
+  border-radius: 5px;
+  background-color: white;
+}
+
+.scene-display-AFSR .scenesAFSR .scenesAFSR-virtual-viewport .sceneAFSR.selected {
+  background-color: #cd2653;
+}
+
+.scene-display-AFSR .scenesAFSR .scenesAFSR-virtual-viewport .sceneAFSR.selected:hover {
+  background-color: #9d1e40;
+}
+
+.scene-display-AFSR .imagesAFSR {
+  width: 3cm;
+  background-color: #cd2653;
+  display: flex;
+  flex-direction: column;
+}
+
+.imagesAFSR-virtual-viewport {
+  height: 90vh;
+  overflow-x: hidden;
+}
+
+.imageAFSR {
+  padding: 5px;
+  width: calc(100% - 10px);
+  height: 3cm;
+}
+
+.imageAFSR:hover {
+  background-color: #9d1e40;
+}
+
+.imageAFSR.selected {
+  background-color: #fff6f9;
+}
+
+.imageAFSR.selected:hover {
+  background-color: #fff6f9;
+}
+
+.imageAFSR button {
+  float: right;
+  width: calc(3cm - 10px);
+  height: 3cm;
+  min-width: 1cm;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.scene-display-AFSR .bigImageContainer {
+  background-color: #fff6f9;
+  text-align: center;
+  max-height: 100%;
+  display: inline-grid;
+  align-items: center;
+  align-content: center;
+  width: calc(100% - 6cm);
+  border-top: 5px solid #cd2653;
+  user-select: none;
+}
+
+.scene-display-AFSR .bigImageContainer #sceneDivAFSR img {
+}
+
+#sceneDivAFSR {
+  display: inline-block;
+  margin: 0 auto;
+  background: black;
+  position: relative;
+  border: 3px solid black;
+  border-radius: 10px;
+  /*box-shadow: 0 5px 50px #333;*/
+}
+
+#canvasAFSR {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.hotspotAFSR {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.buttonimgAFSR {
+  max-width: 2.5cm;
+  max-height: 2cm;
+  margin: 0 -5px;
+}
+
+.hidden {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}
+
+.show-hidden {
+  opacity: 0.5;
+}
+
+.buttonAFSR-selected {
+  background-color: #808080;
+}

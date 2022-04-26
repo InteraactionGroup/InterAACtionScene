@@ -4,6 +4,7 @@ import {HotspotCreateDialogComponent} from './hotspot-create-dialog.component';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('HotspotCreateDialogComponent', () => {
   let component: HotspotCreateDialogComponent;
@@ -12,7 +13,7 @@ describe('HotspotCreateDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HotspotCreateDialogComponent],
-      imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot()],
+      imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule],
       providers: [
         {
           provide: MatDialogRef,

@@ -5,6 +5,7 @@ import {ImportScenesDialogComponent} from "../import-scenes-dialog/import-scenes
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('ExportScenesDialogComponent', () => {
   let component: ExportScenesDialogComponent;
@@ -13,7 +14,7 @@ describe('ExportScenesDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ImportScenesDialogComponent],
-      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot()],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(),RouterTestingModule],
       providers: [
         {
           provide: MatDialogRef,

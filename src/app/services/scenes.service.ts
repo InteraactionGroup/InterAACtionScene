@@ -3,6 +3,8 @@ import {Hotspot, Scene} from '../types';
 import {ModeService} from "./mode.service";
 import {SettingsService} from "./settings.service";
 import {LanguageService} from './language.service';
+import {UserDBService} from './user-db.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,9 @@ export class ScenesService {
 
   constructor(public modeService: ModeService,
               public settingsService: SettingsService,
-              public languageService: LanguageService) {
+              public languageService: LanguageService,
+              public userDBService: UserDBService,
+              public router: Router) {
     this.init();
   }
 
@@ -202,6 +206,13 @@ export class ScenesService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
+      const userListStore = db.transaction(['UserList'], 'readwrite').objectStore('UserList').get(1);
+      userListStore.onsuccess = e => {
+        this.userDBService.usersList = userListStore.result;
+      };
+      userListStore.onerror = e => {
+      };
+
       const gridStore = db.transaction(['Scenes'], 'readwrite').objectStore('Scenes').get(1);
       gridStore.onsuccess = e => {
         this.SCENES = gridStore.result;
@@ -222,6 +233,12 @@ export class ScenesService {
       // Creaction of Store
       const db = event.target.result;
       const transaction = event.target.transaction;
+
+      if (!db.objectStoreNames.contains("UserList")) {
+        db.createObjectStore('UserList', {autoIncrement: true});
+        const userListStore = transaction.objectStore('UserList');
+        userListStore.add(this.userDBService.usersList);
+      }
 
       if (!db.objectStoreNames.contains("Scenes")) {
         db.createObjectStore('Scenes', {autoIncrement: true});
@@ -270,4 +287,183 @@ export class ScenesService {
       };
     };
   }
+  updateUserList() {
+
+
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      // UPDATE THE USER LIST
+      const userListStore = db.transaction(['UserList'], 'readwrite');
+      const userListObjectStore = userListStore.objectStore('UserList');
+      const storeUserListRequest = userListObjectStore.get(1);
+      storeUserListRequest.onsuccess = () => {
+        userListObjectStore.put(this.userDBService.usersList, 1);
+      };
+    };
+  }
+
+  // INITIALISATION
+  loadUsersList() {
+
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      const gridRequest = db.transaction(['UserList']).objectStore('UserList').get(1);
+      gridRequest.onsuccess = e => {
+        const loggedUser = localStorage.getItem('logged');
+        if (loggedUser != null) {
+          this.userDBService.currentUser = loggedUser;
+        }
+        this.userDBService.usersList = gridRequest.result;
+        this.loadInfoFromCurrentUser();
+      };
+
+    };
+
+    // NEW DATABASE VERSION
+    this.openRequest.onupgradeneeded = event => {
+      // Creaction of Store
+      const db = event.target.result;
+      const transaction = event.target.transaction;
+      this.createUsersListObject(db, transaction);
+      this.createSceneObject(db, transaction);
+      this.createConfigurationObject(db, transaction);
+    };
+  }
+
+  private createUsersListObject(db: any, transaction: any) {
+    db.createObjectStore('UserList', {autoIncrement: true});
+    const userList = transaction.objectStore('UserList');
+    userList.add(this.userDBService.usersList);
+  }
+
+  private createSceneObject(db: any, transaction: any) {
+    db.createObjectStore('Scenes', {autoIncrement: true});
+    const scenesStore = transaction.objectStore('Scenes');
+    scenesStore.add(this.SCENES);
+  }
+
+  private createConfigurationObject(db: any, transaction: any) {
+    db.createObjectStore('Configuration', {autoIncrement: true});
+    const configurationStore = transaction.objectStore('Configuration');
+    configurationStore.add(this.settingsService.getConfiguration());
+  }
+
+  loadInfoFromCurrentUser() {
+    console.log('currentUser :', this.userDBService.currentUser);
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      //LOAD CONFIGURATION
+      const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(this.userDBService.currentUser);
+      configRequest.onsuccess = e => {
+        let resultConfig = configRequest.result;
+        //IF CONFIG DOES NOT EXIST YET FOR THIS USER
+        if (resultConfig == null) {
+          //GET DEFAULT CONFIG
+          resultConfig = this.settingsService.getConfiguration();
+        }
+        this.settingsService.setConfiguration(resultConfig);
+      };
+
+      const sceneRequest = db.transaction(['Scenes']).objectStore('Scenes').get(this.userDBService.currentUser);
+      sceneRequest.onsuccess = e => {
+        let resultScene = sceneRequest.result;
+        if(resultScene == null){
+          this.SCENES = [];
+        }
+        else{
+          this.SCENES = sceneRequest.result;
+        }
+      }
+    };
+    //this.router.navigate(['fr/dashboard']);
+  }
+
+
+  loadUserOfUsersList(username: string) {
+    // this.init();
+
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      const gridRequest = db.transaction(['UserList']).objectStore('UserList').get(1);
+      gridRequest.onsuccess = e => {
+        this.userDBService.usersList = gridRequest.result;
+        let findUser = this.userDBService.usersList.find(user => user.toLowerCase() == username.toLowerCase());
+        if (findUser != null) {
+          this.userDBService.currentUser = findUser;
+          //this.userDBService.setLoggedIn();
+          this.loadInfoFromCurrentUser();
+        } else {
+          this.userDBService.addUser(username);
+          this.updateUserList();
+          this.loadUserOfUsersList(username);
+        }
+      };
+
+    };
+    // NEW DATABASE VERSION
+    this.openRequest.onupgradeneeded = event => {
+      // Creaction of Store
+      const db = event.target.result;
+      const transaction = event.target.transaction;
+      this.createUsersListObject(db, transaction);
+      this.createSceneObject(db, transaction);
+      this.createConfigurationObject(db, transaction);
+    };
+  }
+
+  updateConfig() {
+    this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      // UPDATE THE GRID
+      const configurationStore = db.transaction(['Configuration'], 'readwrite');
+      const configurationObjectStore = configurationStore.objectStore('Configuration');
+      const storeConfigurationRequest = configurationObjectStore.get(this.userDBService.currentUser);
+      storeConfigurationRequest.onsuccess = () => {
+        configurationObjectStore.put(this.settingsService.getConfiguration(), this.userDBService.currentUser);
+      };
+    };
+  }
+
 }

@@ -32,6 +32,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DialogResetSettingsComponent } from './components/dialog-reset-settings/dialog-reset-settings.component';
 import { ExportScenesDialogComponent } from './components/export-scenes-dialog/export-scenes-dialog.component';
+import {DialogLinkInteraactionboxComponent} from './components/dialog-link-interaactionbox/dialog-link-interaactionbox.component';
+import {DisplaySiteASFRComponent} from './components/display-site-asfr/display-site-asfr.component';
+import {LogoutAppComponent} from './components/logoutApp/logout-app.component';
+import {DialogTutorialComponent} from './components/dialog-tutorial/dialog-tutorial.component';
+import {DefaultStandardSceneComponent} from './components/default-standard-scene/default-standard-scene.component';
+import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -56,6 +62,12 @@ export function createTranslateLoader(http: HttpClient) {
     SettingsComponent,
     DialogResetSettingsComponent,
     ExportScenesDialogComponent,
+    DialogLinkInteraactionboxComponent,
+    DisplaySiteASFRComponent,
+    LogoutAppComponent,
+    DialogTutorialComponent,
+    DefaultStandardSceneComponent,
+    LoadingUserComponent
   ],
     imports: [
       TranslateModule.forRoot({

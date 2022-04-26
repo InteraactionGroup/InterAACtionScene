@@ -1,0 +1,278 @@
+<div class="textAndImage-center">
+  <header>
+    <h2> {{'Tutorial.UserGuide' | translate}}</h2>
+  </header>
+  <div *ngIf="!displayIFrame">
+    <h3> {{'Tutorial.Beginning' | translate}}</h3>
+    <img src="assets/tuto/interaactionScene.png" alt="interaactionScene">
+    <h3> {{'Tutorial.Addscene' | translate}}</h3>
+    <p>{{'Tutorial.Toaddasceneyoumustclickonthe“Scene”buttonwithablack“surroundedbyablackcircleatthetopleftofthescreen' | translate}}</p>
+    <img src="assets/tuto/sceneButton.png" alt="add scene">
+    <p> {{'Tutorial.Awindowwillopenasking' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Thenameofyourscene' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Thenameofyourimage' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Andfinallytheimageyouwanttoadd' | translate}}
+      </li>
+    </ul>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowAddScene.png" alt="window add scene">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowAddSceneFR.png" alt="window add scene">
+    <p>
+      {{'Tutorial.Inmyexamplebelow,Iwanttocreateascenewhosenameis“Lac”andtheimageofLakeGuéry' | translate}}
+    </p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/exampleAddScene.png" alt="exempleAddScene">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/exampleAddSceneFR.png" alt="exempleAddScene">
+    <p>
+      {{'Tutorial.IvalidateandthisiswhatIget' | translate}}
+    </p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/exampleScene.png" height="50%" width="50%" alt="exampleScene">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/exampleSceneFR.png" height="50%" width="50%" alt="exampleScene">
+    <p>{{'Tutorial.MyLacscene' | translate}}</p>
+    <h3>{{'Tutorial.Addimage' | translate}}</h3>
+    <p>{{'Tutorial.Toaddanimage,youneedatleastonesceneotherwisethebuttontoaddanimagewillnotbeavaible' | translate}}</p>
+    <p>{{'Tutorial.Unefois' | translate}}</p>
+    <img src="assets/tuto/imageButton.png" alt="imageButton">
+    <p>{{'Tutorial.Awindowwillopenasking' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Thenameofyourimage' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Andfinallytheimageyouwanttoadd' | translate}}
+      </li>
+    </ul>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowAddImage.png" alt="imageButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowAddImageFR.png" alt="imageButton">
+    <p>{{'Tutorial.Inmyexamplebelow,iwanttoadd' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/exampleAddImage.png" alt="exampleAddImage">
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/exampleAddImageFR.png" alt="exampleAddImage">
+    <p>{{'Tutorial.Ivalidateandthisiswhatiget:' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/exampleImage.png" height="50%" width="50%" alt="exampleImage">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/exampleImageFR.png" height="50%" width="50%" alt="exampleImage">
+    <p>{{'Tutorial.MynewimageoflacdeLaffreyhasbeenaddedtomy' | translate}}</p>
+    <h3>{{'Tutorial.buttonplay' | translate}}</h3>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/playButton.png" alt="playButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/playButtonFR.png" alt="playButton">
+    <p>{{'Tutorial.Thisbuttonallowsyoutoplaythesound' | translate}}</p>
+    <h3>{{'Tutorial.Button"ManageHotspot"' | translate}}</h3>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/manageHotspotsButton.png" alt="manageHotspotsButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/manageHotspotsButtonFR.png" alt="manageHotspotsButton">
+    <p>{{'Tutorial.thisbuttonisusedtomanagethehotspots' | translate}}</p>
+    <p>{{'Tutorial.Onceyouhaveclickedonit,3newbuttonsappearandallow' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Toaddahotspottoanimage.' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Tomodifyahotspotofanimage.' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Toremoveahotspotfromanimage.' | translate}}
+      </li>
+    </ul>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/buttonsManageHotspots.png" alt="buttonsManageHotspots">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/buttonsManageHotspotsFR.png" alt="buttonsManageHotspots">
+    <h3>{{'Tutorial.Addhotspot' | translate}}</h3>
+    <p>{{'Tutorial.Toaddahotspottoourimage,clickonthe"AddHotspot"' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/addHotspotButton.png" alt="buttonsManageHotspots">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/addHotspotButtonFR.png" alt="buttonsManageHotspots">
+    <p>{{'Tutorial.Thenclickontheimage,andwhilekeeping' | translate}}</p>
+    <img src="assets/tuto/zoneHotspot.png" alt="zoneHotspot">
+    <p>{{'Tutorial.Theblacklineandthedarkenendarea' | translate}}</p>
+    <p>{{'Tutorial.Oncetheclickisreleased,awindowappearsasking:' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Ifyouwanttoimportasoundorrecord' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Choosethecolorofthehotspot' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Togiveanametoourhotspot' | translate}}
+      </li>
+    </ul>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowAddHotspot.png" alt="windowAddHotspot">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowAddHotspotFR.png" alt="windowAddHotspot">
+    <p>{{'Tutorial.Inmyexamplebelow,IwanttoaddawatersoundforLake' | translate}}</p>
+    <p>{{'Tutorial.Soiimportafile"eau.mp3"' | translate}}</p>
+    <p>{{'Tutorial.Etcommenom' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/exampleWindowAddHotspot.png" alt="exampleWindowAddHotspot">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/exampleWindowAddHotspotFR.png" alt="exampleWindowAddHotspot">
+    <p>{{'Tutorial.andthisiswhatiget' | translate}}</p>
+    <img src="assets/tuto/zoneHotspot.png" alt="zoneHotspot">
+    <p>{{'Tutorial.Nowwhenweclickonthishtospotitwillmakethenoise' | translate}}</p>
+    <h3>{{'Tutorial.Modifyhotspot' | translate}}</h3>
+    <p>{{'Tutorial.Tomodifyahotspot,youmustclickonthe"ModifyHotspot"button.' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/modifyHotspotButton.png" alt="modifyHotspotButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/modifyHotspotButtonFR.png" alt="modifyHotspotButton">
+    <p>{{'Tutorial.Thenclickonthehotspotyouwanttomodify.' | translate}}</p>
+    <p>{{'Tutorial.Inthefollowingexample,itakethehotspot' | translate}}</p>
+    <p>{{'Tutorial.Awindowwillopenallowing' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Importasoundorrecordasoundviathemicro' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.tochangethecolorofthehotspot.' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Tochangethenameofthehotspot.' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Toredrawthehotspot' | translate}}
+      </li>
+    </ul>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowModifyHotspot.png" alt="windowModifyHotspot">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowModifyHotspotFR.png" alt="windowModifyHotspot">
+    <p>{{'Tutorial.Afterchangingthecolorbluetored,thisiswhatiget:' | translate}}</p>
+    <img src="assets/tuto/exampleModifyHotspot.png" alt="exampleModifyHotspot">
+    <h3>{{'Tutorial.Deletehotspot' | translate}}</h3>
+    <p>{{'Tutorial.Todeleteahotspot' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/deleteHotspotButton.png" alt="deleteHotspotButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/deleteHotspotButtonFR.png" alt="deleteHotspotButton">
+    <p>{{'Tutorial.Thenclickonthehotspotyouwantomodify' | translate}}</p>
+    <p>{{'Tutorial.inthefollowingexample,itakethehotspotcreated' | translate}}</p>
+    <p>{{'Tutorial.Awindowwillopenaskingifyouaresureyouwanttodeletetheselectedhotspot' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowDeleteHotspot.png" alt="windowDeleteHotspot">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowDeleteHotspotFR.png" alt="windowDeleteHotspot">
+    <h3>{{'Tutorial.Bouton"ManageScene"' | translate}}</h3>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/manageScenesButton.png" alt="manageScenesButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/manageScenesButtonFR.png" alt="manageScenesButton">
+    <p>{{'Tutorial.Thisbuttonisusedtomanageourscenesandimages' | translate}}</p>
+    <p>{{'Tutorial.Onceyouhaveclickedonit,5newbuttons' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Tohideanimage' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Toremoveanimage' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.torenameanimage' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Toexportascene' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Importascene' | translate}}
+      </li>
+    </ul>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/buttonsManageScenes.png" alt="buttonsManageScenes">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/buttonsManageScenesFR.png" alt="buttonsManageScenes">
+    <h3>
+      {{'Tutorial.Hideimage' | translate}}
+    </h3>
+    <p>{{'Tutorial.Tohideanimage,you' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/hideButton.png" alt="hideButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/hideButtonFR.png" alt="hideButton">
+    <p>{{'Tutorial.awindowappearsakingusif' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowHideImage.png" alt="windowHideImage">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowHideImageFR.png" alt="windowHideImage">
+    <p>{{'Tutorial.Ifweacceptthen:' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Thechosenimagebecomesmoreopaque' | translate}}
+      </li>
+      <img src="assets/tuto/opaqueImage.png" alt="opaqueImage">
+      <li>
+        {{'Tutorial.Andthechosenimageisnolongervisible' | translate}}
+      </li>
+    </ul>
+    <p> {{'Tutorial.Ifyouclickonthe"hide"' | translate}}</p>
+    <h3> {{'Tutorial.Removeimage' | translate}}</h3>
+    <p> {{'Tutorial.Toremoveanimage,youmustclick' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/removeButton.png" alt="removeButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/removeButtonFR.png" alt="removeButton">
+    <p> {{'Tutorial.Awindowappearsaskingusifwearesurewewanttoremove' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowRemoveImage.png" alt="windowRemoveImage">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowRemoveImageFR.png" alt="windowRemoveImage">
+    <h3> {{'Tutorial.Renameimage' | translate}}</h3>
+    <p>{{'Tutorial.Torenameanimage' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/renameButton.png" alt="renameButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/renameButtonFR.png" alt="renameButton">
+    <p> {{'Tutorial.Awindowappearsaskinguswhat' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowRenameImage.png" alt="windowRenameImage">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowRenameImageFR.png" alt="windowRenameImage">
+    <h3> {{'Tutorial.Exportscene' | translate}}</h3>
+    <p> {{'Tutorial.YoucanexportthecurrentsceneinJSON' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/exportButton.png" alt="exportButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/exportButtonFR.png" alt="exportButton">
+    <p> {{'Tutorial.Then,weareaskedtochooseanamefortheexportedfile' | translate}}</p>
+    <h3>{{'Tutorial.ImportScene' | translate}}</h3>
+    <p>{{'Tutorial.Youcanimportascene.' | translate}}</p>
+    <p>{{'Tutorial.Todothis,youmustclickonthe"import"' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/importButton.png" alt="importButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/importButtonFR.png" alt="importButton">
+    <p>{{'Tutorial.Thenawindowappears,askinguswhichfile' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/windowImport.png" alt="windowImport">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/windowImportFR.png" alt="windowImport">
+    <h3>{{'Tutorial.Button"Draw"' | translate}}</h3>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/drawButton.png" alt="drawButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/drawButtonFR.png" alt="drawButton">
+    <p>{{'Tutorial.thisbuttonallowsyoutodraw' | translate}}</p>
+    <p>{{'Tutorial.Onceyouhaveclickedonit,apalette' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Todrawonyourimage' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Toerase' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Todeleteall' | translate}}
+      </li>
+    </ul>
+    <img src="assets/tuto/buttonsDraw.png" alt="buttonsDraw">
+    <h3> {{'Tutorial.Colourpalette' | translate}}</h3>
+    <p> {{'Tutorial.Todraw,youmustfirstclick' | translate}}</p>
+    <img src="assets/tuto/colorsButton.png" alt="colorsButton">
+    <p> {{'Tutorial.Then,wemustclickonourimage' | translate}}</p>
+    <p>{{'Tutorial.intheexamplebelow,idrawaredsquare' | translate}}</p>
+    <img src="assets/tuto/exampleDrawing.png" alt="exampleDrawing">
+    <h3> {{'Tutorial.Erase' | translate}}</h3>
+    <p> {{'Tutorial.Toerase,youmustfirstclickon' | translate}}</p>
+    <img src="assets/tuto/eraseButton.png" alt="eraseButton">
+    <p> {{'Tutorial.Then,wemustclickonourimageand,whilewekeeptheclick' | translate}}</p>
+    <img src="assets/tuto/exampleErase.png" alt="exampleErase">
+    <h3> {{'Tutorial.Clear' | translate}}</h3>
+    <p> {{'Tutorial.Tocleareverything,clickonthe"Clear"button' | translate}}</p>
+    <img src="assets/tuto/clearButton.png" alt="clearButton">
+    <p>{{'Tutorial.Onceclicked,itremovesallthe' | translate}}</p>
+    <h3>{{'Tutorial.Settings' | translate}}</h3>
+    <p>{{'Tutorial.Toaccessthesettgins,clickonthe"Settings"' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/settingsButton.png" alt="settingsButton">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/settingsButtonFR.png" alt="settingsButton">
+    <p>{{'Tutorial.Thenwearriveonthispage:' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/settingsPage.png" width="50%" height="50%" alt="settingsPage">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/settingsPageFR.png" width="50%" height="50%" alt="settingsPage">
+    <p>{{'Tutorial.Wecanthen:' | translate}}</p>
+    <ul>
+      <li>
+        {{'Tutorial.Activate/deactivate' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Choosetheduration' | translate}}
+      </li>
+      <li>
+        {{'Tutorial.Gobacktothemainpage' | translate}}
+      </li>
+    </ul>
+    <h3>
+      {{'Tutorial.Hide/Showtooldbar' | translate}}
+    </h3>
+    <p>{{'Tutorial.Youcanhideorshorwthetoolbar' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/hideShowButton.png" alt="hideShowButton.png">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/hideShowButtonFR.png" alt="hideShowButton.png">
+    <h3>
+      {{'Tutorial.Fullscreen' | translate}}
+    </h3>
+    <p>{{'Tutorial.Youcanputorexit' | translate}}</p>
+    <img *ngIf="languageService.activeLanguage === 'en'" src="assets/tuto/fullScreenButton.png" alt="fullScreenButton.png">
+    <img *ngIf="languageService.activeLanguage === 'fr'" src="assets/tuto/fullScreenButtonFR.png" alt="fullScreenButton.png">
+  </div>
+</div>

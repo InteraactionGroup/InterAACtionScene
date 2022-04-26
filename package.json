@@ -25,6 +25,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "@svgdotjs/svg.js": "^3.0.16",
     "ajv": "^6.12.3",
+    "file-saver": "^2.0.5",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

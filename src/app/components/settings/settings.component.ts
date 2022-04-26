@@ -4,6 +4,8 @@ import {LanguageService} from '../../services/language.service';
 import {ScenesService} from "../../services/scenes.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogResetSettingsComponent} from "../dialog-reset-settings/dialog-reset-settings.component";
+import {DialogLinkInteraactionboxComponent} from '../dialog-link-interaactionbox/dialog-link-interaactionbox.component';
+import {DisplaySiteASFRComponent} from '../display-site-asfr/display-site-asfr.component';
 
 @Component({
   selector: 'app-settings',
@@ -37,6 +39,24 @@ export class SettingsComponent implements OnInit {
       height: '150px',
       width: '200px'
     });
+  }
+
+  openDialogASFR() {
+    this.dialog.open(DisplaySiteASFRComponent,{
+      height: '90%',
+      width: '90%'
+    });
+  }
+
+  openDialogInteraactionBoxAFSR(){
+    this.dialog.open(DialogLinkInteraactionboxComponent,{
+      height: '90%',
+      width: '90%'
+    });
+  }
+
+  getAFSRLogoPNGUrl(s): string {
+    return 'url(assets/images/'+ s +'.png)';
   }
 
 }
