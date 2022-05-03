@@ -8,7 +8,7 @@ import {LanguageService} from "./language.service";
 
 export class SettingsService {
 
-  VERSION = "InteraactionScene v.2021.11.17";
+  VERSION = "InterAACtionScene v.2022.05.03";
 
   AFSR = false;
 
