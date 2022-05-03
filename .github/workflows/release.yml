@@ -33,6 +33,7 @@ jobs:
       - name: Get Env
         run: |
           echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
+          echo "REPO_BASENAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
       - name: New tag
         id: new-tag
         run: |
@@ -55,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.new-tag.outputs.tag }}
-          release_name: ${{ env.REPO_NAME }} ${{ steps.new-tag.outputs.tag }}
+          release_name: ${{ env.REPO_BASENAME }} ${{ steps.new-tag.outputs.tag }}
           draft: false
           prerelease: false
 
