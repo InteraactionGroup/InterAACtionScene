@@ -62,15 +62,15 @@
   <div class="bigContainerAFSR">
     <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.SpeechSpeaker' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="saveConfig()" id="speechSpeaker" type="checkbox">
+      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="saveConfig()" id="speechSpeakerAfsr" type="checkbox">
     </div>
     <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="saveConfig()" id="dwellTimeEnable" type="checkbox">
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="saveConfig()" id="dwellTimeEnableAfsr" type="checkbox">
     </div>
     <div class="settings-item">
       <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" (keyup)="saveConfig()" id="dwellTime" type="text" maxlength="5">
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" (keyup)="saveConfig()" id="dwellTimeAfsr" type="text" maxlength="5">
     </div>
     <div class="settings-item">
       <mat-form-field  appearance ="fill" >
@@ -84,19 +84,17 @@
     <button mat-raised-button color="warn" class="btnReset" (click)="openDialog()">{{'Settings.Reset' | translate}}</button>
     <div class="versionAFSR">{{this.settingsService.VERSION}}</div>
   </div>
+  <a class="bottomBarAFSRText floatRight" (click)="openDialogInteraactionBoxAFSR()">
+    <div class="imageTextAFSR width-100"
+         [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Text_Only_InterAACtionbox-AFSR')}">
+    </div>
+  </a>
+  <a class="bottomBarAFSRLogo floatRight" (click)="openDialogInteraactionBoxAFSR()">
+    <div class="imageLogoAFSR width-100"
+         [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Logo_Only_InterAACtionbox-AFSR')}">
+    </div>
+  </a>
 </div>
-<a class="bottomBarAFSRText floatRight" (click)="openDialogInteraactionBoxAFSR()">
-  <div class="imageTextAFSR width-100"
-       [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Text_Only_InterAACtionbox-AFSR')}">
-
-  </div>
-</a>
-<a class="bottomBarAFSRLogo floatRight" (click)="openDialogInteraactionBoxAFSR()">
-  <div class="imageLogoAFSR width-100"
-       [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Logo_Only_InterAACtionbox-AFSR')}">
-
-  </div>
-</a>
 <div class="floatRight" style="width: fit-content; height: 22px">
   <div style="
     margin-top: 7px;
