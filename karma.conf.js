@@ -19,8 +19,19 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, './coverage/InterAACtionScene'),
+      dir: require('path').join(__dirname, '../coverage'),
       reports: ['html', 'lcovonly', 'text-summary'],
+      'report-config': {
+        html: { subdir: 'html' }
+      },
+      thresholds: {
+        global: {
+          statements: 50,
+          lines: 50,
+          branches: 50,
+          functions: 50
+        }
+      },
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],
@@ -41,7 +52,6 @@ module.exports = function (config) {
         ]
       }
     },
-    singleRun: false,
-    restartOnFileChange: true
+    singleRun: true
   });
 };

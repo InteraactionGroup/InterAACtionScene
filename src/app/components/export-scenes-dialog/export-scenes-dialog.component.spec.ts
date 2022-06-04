@@ -6,20 +6,26 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterTestingModule} from '@angular/router/testing';
+import { ScenesService } from 'src/app/services/scenes.service';
 
 describe('ExportScenesDialogComponent', () => {
   let component: ExportScenesDialogComponent;
   let fixture: ComponentFixture<ExportScenesDialogComponent>;
+  let dialogRef: jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
+  let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
+    const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
+    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes']);
     TestBed.configureTestingModule({
       declarations: [ImportScenesDialogComponent],
       imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(),RouterTestingModule],
       providers: [
         {
           provide: MatDialogRef,
-          useValue: {}
-        }
+          useValue: dialogRef
+        },
+        { provide: ScenesService, useValue: sceneServiceMock }
       ]
     })
       .compileComponents();
@@ -29,9 +35,17 @@ describe('ExportScenesDialogComponent', () => {
     fixture = TestBed.createComponent(ExportScenesDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    dialogRef = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
+    sceneService = TestBed.inject(ScenesService) as jasmine.SpyObj<ScenesService>;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('submit:: should export scenes and close dialog', () => {
+    sceneService.getScenes.and.returnValue('{ "id": 1 }' as any);
+    component.submit({ value: { name: 'test' } });
+    expect(dialogRef.close).toHaveBeenCalled();
   });
 });
