@@ -1,5 +1,5 @@
 // Karma configuration file, see link for more information
-// https://karma-runner.github.io/1.0/config/configuration-file.html
+// https://karma-runner.github.io/1.0/config/configgeuration-file.html
 
 module.exports = function (config) {
   config.set({
@@ -19,7 +19,7 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../coverage'),
+      dir: require('path').join(__dirname, './coverage/InterAACtionScene'),
       reports: ['html', 'lcovonly', 'text-summary'],
       'report-config': {
         html: { subdir: 'html' }
