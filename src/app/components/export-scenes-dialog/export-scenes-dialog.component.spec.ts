@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExportScenesDialogComponent } from './export-scenes-dialog.component';
-import {ImportScenesDialogComponent} from "../import-scenes-dialog/import-scenes-dialog.component";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {TranslateModule} from "@ngx-translate/core";
+import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes-dialog.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
 
@@ -19,7 +19,7 @@ describe('ExportScenesDialogComponent', () => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes']);
     TestBed.configureTestingModule({
       declarations: [ImportScenesDialogComponent],
-      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(),RouterTestingModule],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule],
       providers: [
         {
           provide: MatDialogRef,
@@ -43,6 +43,7 @@ describe('ExportScenesDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it calls specific methods and closes the dialog
   it('submit:: should export scenes and close dialog', () => {
     sceneService.getScenes.and.returnValue('{ "id": 1 }' as any);
     component.submit({ value: { name: 'test' } });

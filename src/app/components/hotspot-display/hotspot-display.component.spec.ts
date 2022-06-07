@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HotspotDisplayComponent} from './hotspot-display.component';
-import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
@@ -18,7 +18,7 @@ describe('HotspotDisplayComponent', () => {
   beforeEach(async(() => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getImageHotspots']);
     TestBed.configureTestingModule({
-      declarations: [HotspotDisplayComponent, HotspotModifyDialogComponent,HotspotDeleteDialogComponent],
+      declarations: [HotspotDisplayComponent, HotspotModifyDialogComponent, HotspotDeleteDialogComponent],
       imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule, BrowserAnimationsModule],
       providers: [
         {
@@ -42,12 +42,14 @@ describe('HotspotDisplayComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it returns the value which is returned from the service
   it('getHotspots:: should return hotspots from service', () => {
     sceneService.getImageHotspots.and.returnValue([{} as any]);
     const hotspot = component.getHotspots();
     expect(hotspot.length).toEqual(1);
   });
 
+  // check if it returns specific string with specific param
   it('getPoints:: should return path string based on hotspot', () => {
     component.height = 10;
     component.width = 10;
@@ -55,6 +57,7 @@ describe('HotspotDisplayComponent', () => {
     expect(pathArr).toEqual('10,20 ');
   });
 
+  // check if it returns specific string with specific param
   it('getPointsInNumber:: should return points based on hotspot', () => {
     component.height = 10;
     component.width = 10;
@@ -62,6 +65,7 @@ describe('HotspotDisplayComponent', () => {
     expect(points).toEqual([{ x: 10, y: 20 }]);
   });
 
+  // check if it returns specific string with specific param
   it('enterEvent:: should set attributes to element', () => {
     const event = {
       target: {
@@ -94,12 +98,14 @@ describe('HotspotDisplayComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it calls specific service method
   it('clickEvent:: should open relative dialog', () => {
     spyOn(component, 'PlayAudio');
     component.clickEvent(null, null);
     expect(component.PlayAudio).toHaveBeenCalled();
   });
-  
+
+  // check if it calls specific service method if required param is missing
   it('clickEvent:: should open relative dialog', () => {
     spyOn(component, 'PlayAudio');
     component.modeService.selectedMode = 'hotspot';
@@ -108,9 +114,10 @@ describe('HotspotDisplayComponent', () => {
     expect(component.PlayAudio).not.toHaveBeenCalled();
   });
 
+  // check if it returns default value
   it('getColor:: should return black color as default', () => {
     const color = component.getColor(0);
     expect(color).toEqual('black');
   });
-  
+
 });

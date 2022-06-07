@@ -26,6 +26,7 @@ describe('CanvasComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // Setter should not do anything if cx is not set
   it('currentDrawingTool:: should not do anything if cx is not set', () => {
       // @ts-ignore Ignoring as private member of class
       component.cx = undefined as any;
@@ -33,6 +34,7 @@ describe('CanvasComponent', () => {
       expect(component).toBeTruthy();
   });
 
+  // Configured all the switch cases with different values
   describe('setter:: currentDrawingTool', () => {
     beforeEach(() => {
       // @ts-ignore Ignoring as private member of class
@@ -101,12 +103,14 @@ describe('CanvasComponent', () => {
     });
   });
 
+  // check console log from passed value
   it('print:: should log in the console', () => {
     spyOn(console, 'log');
     component.print('test');
     expect(console.log).toHaveBeenCalledWith('test');
   });
 
+  // check if function sets up the variables to specific values
   it('stopDraw:: should stop drawing', () => {
     spyOn(component, 'saveCanvas').and.callThrough();
     component.stopDraw();
@@ -116,6 +120,7 @@ describe('CanvasComponent', () => {
     expect(component.saveCanvas).toHaveBeenCalled();
   });
 
+  // check if draw function is worked with variables with different conditions
   describe('draw', () => {
     const mouseEvent = { offsetX: 1, offsetY: 2 } as any;
     beforeEach(() => {

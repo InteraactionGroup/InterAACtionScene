@@ -14,7 +14,7 @@ describe('MenubarComponent', () => {
   beforeEach(async(() => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes', 'getScenes']);
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),RouterTestingModule, MatDialogModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, MatDialogModule],
       declarations: [MenubarComponent],
       providers: [
         { provide: ScenesService, useValue: sceneServiceMock }
@@ -34,6 +34,7 @@ describe('MenubarComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it calls specific functions to expand into fullscreen
   it('fullScreen:: should enter full screen', fakeAsync(() => {
     spyOnProperty(document, 'fullscreenElement', 'get').and.returnValue(true);
     spyOn(document, 'exitFullscreen');
@@ -45,6 +46,7 @@ describe('MenubarComponent', () => {
     expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
   }));
 
+  // check if it calls specific functions to exit fullscreen
   it('fullScreen:: should exit full screen', fakeAsync(() => {
     spyOnProperty(document, 'fullscreenElement', 'get').and.returnValue(null);
     spyOn(document.documentElement, 'requestFullscreen');

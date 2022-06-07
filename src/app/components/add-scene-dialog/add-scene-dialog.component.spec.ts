@@ -15,10 +15,12 @@ describe('AddSceneDialogComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
+    // tslint:disable-next-line:no-shadowed-variable
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['addScene']);
     TestBed.configureTestingModule({
       declarations: [AddSceneDialogComponent],
+      // tslint:disable-next-line:max-line-length
       imports: [MatDialogModule, ReactiveFormsModule, MatInputModule, BrowserAnimationsModule, TranslateModule.forRoot(), RouterTestingModule],
       providers: [
         {
@@ -43,11 +45,12 @@ describe('AddSceneDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // setup blob and set to selectedFile and checked if it calls the service method
   it('submit:: should add scene and close the dialog', () => {
-    const blob = new Blob([""], { type: "image/jpeg" });
-    blob["lastModifiedDate"] = "";
-    blob["name"] = "filename";
-    const file = <File>blob;
+    const blob = new Blob([''], { type: 'image/jpeg' });
+    blob['lastModifiedDate'] = '';
+    blob['name'] = 'filename';
+    const file = blob as File;
     component.selectedFile = file;
 
     component.submit({value: {scenename: 'test', firstimagename: '123'}});

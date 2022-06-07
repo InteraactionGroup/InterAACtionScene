@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HotspotDeleteDialogComponent} from './hotspot-delete-dialog.component';
-import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ScenesService } from 'src/app/services/scenes.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -14,6 +14,7 @@ describe('HotspotDeleteDialogComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
+    // tslint:disable-next-line:no-shadowed-variable
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes']);
     TestBed.configureTestingModule({
@@ -44,6 +45,7 @@ describe('HotspotDeleteDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it is calling specific service method with specific variables set
   it('submit:: should delete hotspot and update scenes', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -54,6 +56,7 @@ describe('HotspotDeleteDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
+  // check if it is calling specific service method with specific variables set
   it('submit:: should delete hotspot and update scenes', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -64,6 +67,7 @@ describe('HotspotDeleteDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
+  // check if it is calling specific service method with specific variables set
   it('submit:: should delete hotspot and update scenes', () => {
     component.selectedScene = 0;
     component.selectedImage = undefined;

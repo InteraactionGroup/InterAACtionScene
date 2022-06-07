@@ -35,6 +35,7 @@ describe('RenameDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it is calls specific service method based on the params
   it('submit:: should rename image if image is selected', () => {
     // @ts-ignore
     spyOn(component.scenesService, 'renameImage');
@@ -44,6 +45,7 @@ describe('RenameDialogComponent', () => {
     expect(component.scenesService.renameImage).toHaveBeenCalled();
   });
 
+  // check if it is calls specific service method based on the params
   it('submit:: should rename scene if image is not selected', () => {
     // @ts-ignore
     spyOn(component.scenesService, 'renameScene');

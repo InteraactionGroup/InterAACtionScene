@@ -14,6 +14,7 @@ describe('HotspotCreateDialogComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
+    // tslint:disable-next-line:no-shadowed-variable
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['addHotspot', 'checkNames']);
     TestBed.configureTestingModule({
@@ -42,8 +43,9 @@ describe('HotspotCreateDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it calls specific function with specific selected items
   it('submit:: should submit hotSpot with soundAudio', () => {
-    component.typeSound = "soundAudio";
+    component.typeSound = 'soundAudio';
     component.selectedScene = 1;
     component.selectedSound = 'data:audio/wav';
     sceneService.checkNames.and.returnValue(true);
@@ -52,8 +54,9 @@ describe('HotspotCreateDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
+  // check if it calls specific function with specific selected items
   it('submit:: should submit hotSpot with writeAudio', () => {
-    component.typeSound = "writeAudio";
+    component.typeSound = 'writeAudio';
     component.selectedScene = 1;
     component.selectedSound = 'data:audio/wav';
     sceneService.checkNames.and.returnValue(true);

@@ -29,6 +29,7 @@ describe('DefaultStandardSceneComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it doesn't call function if required variable is missing
   it('it should not call defaultScene if scenes is present', fakeAsync(() => {
     component.scenesService.SCENES = [{}] as any;
     spyOn(component, 'defaultScene');
@@ -37,12 +38,14 @@ describe('DefaultStandardSceneComponent', () => {
     expect(component.defaultScene).not.toHaveBeenCalled();
   }));
 
+  // check if it loads the data which is returned from service method
   it('defaultScene:: should load default scene', () => {
     spyOn(component, 'getJSON').and.returnValue(of([true]));
     component.defaultScene();
     expect(component.scenesService.SCENES).toEqual([true] as any);
   });
 
+  // check if it loads the data which is returned from service method
   it('defaultScene:: should load default scene', () => {
     spyOn(component, 'getJSON').and.returnValue(of(null));
     component.defaultScene();

@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HotspotModifyDialogComponent} from './hotspot-modify-dialog.component';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule} from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
 
@@ -43,6 +43,7 @@ describe('HotspotCreateDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if it calls specific service method
   it('submit:: should submit the modification from dialog', () => {
     spyOn(component, 'modifyCenterHotspot');
     sceneService.checkNames.and.returnValue(false);
@@ -55,6 +56,7 @@ describe('HotspotCreateDialogComponent', () => {
     expect(component.modifyCenterHotspot).toHaveBeenCalled();
   });
 
+  // check if it calls specific service method
   it('submit:: should redraw and delete oldCenter hotspot', () => {
     spyOn(component, 'deleteOldCenterHotspot');
     spyOn(component, 'modifyCenterHotspot');
@@ -70,6 +72,7 @@ describe('HotspotCreateDialogComponent', () => {
     expect(component.deleteOldCenterHotspot).toHaveBeenCalled();
   });
 
+  // check if it shows specific error
   it('submit:: should show error if name is incorrect', () => {
     spyOn(component.translate, 'instant');
     sceneService.checkNames.and.returnValue(false);
@@ -77,6 +80,7 @@ describe('HotspotCreateDialogComponent', () => {
     expect(component.translate.instant).toHaveBeenCalledWith('error.name');
   });
 
+  // check if it shows specific error
   it('submit:: should show error if strokeWidth is incorrect', () => {
     spyOn(component.translate, 'instant');
     sceneService.checkNames.and.returnValue(false);

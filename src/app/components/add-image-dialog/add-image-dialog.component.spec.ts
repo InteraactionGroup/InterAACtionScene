@@ -19,6 +19,7 @@ describe('AddImageDialogComponent', () => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['addImage']);
     TestBed.configureTestingModule({
       declarations: [AddImageDialogComponent],
+      // tslint:disable-next-line:max-line-length
       imports: [MatDialogModule, ReactiveFormsModule, MatInputModule, BrowserAnimationsModule, TranslateModule.forRoot(), RouterTestingModule],
       providers: [
         {
@@ -43,11 +44,12 @@ describe('AddImageDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // setup blob and set to selectedFile and checked if it calls the service method
   it('submit:: should add image and close the dialog', () => {
-    const blob = new Blob([""], { type: "image/jpeg" });
-    blob["lastModifiedDate"] = "";
-    blob["name"] = "filename";
-    const file = <File>blob;
+    const blob = new Blob([''], { type: 'image/jpeg' });
+    blob['lastModifiedDate'] = '';
+    blob['name'] = 'filename';
+    const file = blob as File;
     component.selectedFile = file;
 
     component.submit({value: {imagename: 'test'}});

@@ -34,6 +34,7 @@ describe('HotspotCreateComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // setup variables and check if it does right calculation and setting right variables
   it('calculeMilieuPolyline:: should set milieuPolyline with different conditions', () => {
     component.lastPt = [2, 3];
     component.xMin = 1;
@@ -44,6 +45,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.milieuPolyline).toEqual([2.5, 2.5]);
   });
 
+  // setup variables and check if it does right calculation and setting right variables
   it('calculeMilieuPolyline:: should set milieuPolyline with different conditions', () => {
     component.lastPt = [2, 2];
     component.xMin = 3;
@@ -54,6 +56,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.milieuPolyline).toEqual([2, 2]);
   });
 
+  // setup variables and check if it does right calculation and setting right variables
   it('rectangleDirection:: should set variables based on direction', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -64,6 +67,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).toHaveBeenCalledWith('height', '2');
   });
 
+  // setup variables and check if it does right calculation and setting right variables
   it('rectangleDirection:: should set variables based on direction', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -74,6 +78,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).toHaveBeenCalledWith('height', '2');
   });
 
+  // setup variables and check if it does right calculation and setting right variables
   it('rectangleDirection:: should set variables based on direction', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -84,6 +89,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).toHaveBeenCalledWith('height', '1');
   });
 
+  // setup variables and check if it does right calculation and setting right variables
   it('rectangleDirection:: should set variables based on direction', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -94,6 +100,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).toHaveBeenCalledWith('height', '1');
   });
 
+  // setup variables and check if it does right calculation and setting right variables
   it('rectangleDirection:: should not set variables based on direction if invalid values passed', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -101,11 +108,13 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).not.toHaveBeenCalled();
   });
 
+  // setup variables and check if it does right calculation and setting right variables
   it('circlePoints:: should return points based on inputs and calculations', () => {
     const value = component.circlePoints(1, 2, 3);
     expect(value).toEqual(['1', '-1', '2', '-0.8284271247461903', '3', '-0.2360679774997898', '4', '2', '4', '2', '3', '4.23606797749979', '2', '4.82842712474619', '0', '4.82842712474619', '-1', '4.23606797749979', '-2', '2', '-2', '2', '-1', '-0.2360679774997898', '0', '-0.8284271247461903', '1', '-1']);
   });
 
+  // check all the scenario with different shapes and mouse events to know if it does right calculations
   describe('drawsSVG', () => {
     it('should draw Polyline', () => {
       component.modeService.choiceDrawing = 'Polyline';
