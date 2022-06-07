@@ -44,7 +44,7 @@ describe('HotspotDeleteDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-   it('submit:: should delete hotspot and update scenes', () => {
+  it('submit:: should delete hotspot and update scenes', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
     sceneService.SCENES = [{images: [{ hotspots: [{ name: 'Center' }]}]}] as any;
@@ -52,7 +52,25 @@ describe('HotspotDeleteDialogComponent', () => {
     component.submit();
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(dialogRef.close).toHaveBeenCalled();
-   });
+  });
+
+  it('submit:: should delete hotspot and update scenes', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.SCENES = [{images: [{ hotspots: [{ name: 'Abc' }]}]}] as any;
+    component.hotspot = {name: 'xyz'} as any;
+    component.submit();
+    expect(sceneService.updateScenes).toHaveBeenCalled();
+    expect(dialogRef.close).toHaveBeenCalled();
+  });
+
+  it('submit:: should delete hotspot and update scenes', () => {
+    component.selectedScene = 0;
+    component.selectedImage = undefined;
+    sceneService.SCENES = [{images: [{ hotspots: [{ name: 'Center' }]}]}] as any;
+    component.hotspot = {name: ''} as any;
+    component.submit();
+    expect(sceneService.updateScenes).toHaveBeenCalled();
+    expect(dialogRef.close).toHaveBeenCalled();
+  });
 });
-
-

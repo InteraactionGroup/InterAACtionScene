@@ -18,7 +18,7 @@ describe('RenameDialogComponent', () => {
       providers: [
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: jasmine.createSpyObj('MatDialogRef', ['close'])
         }
       ]
     })
@@ -33,5 +33,23 @@ describe('RenameDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('submit:: should rename image if image is selected', () => {
+    // @ts-ignore
+    spyOn(component.scenesService, 'renameImage');
+    component.imageSelected = true;
+    component.submit({value: {name: 'abc'}});
+    // @ts-ignore
+    expect(component.scenesService.renameImage).toHaveBeenCalled();
+  });
+
+  it('submit:: should rename scene if image is not selected', () => {
+    // @ts-ignore
+    spyOn(component.scenesService, 'renameScene');
+    component.imageSelected = false;
+    component.submit({value: {name: 'abc'}});
+    // @ts-ignore
+    expect(component.scenesService.renameScene).toHaveBeenCalled();
   });
 });
