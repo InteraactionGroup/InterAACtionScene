@@ -12,7 +12,7 @@ describe('DialogTutorialComponent', () => {
       declarations: [ DialogTutorialComponent, TranslatePipe ],
       imports: [TranslateModule.forRoot()]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -23,5 +23,11 @@ describe('DialogTutorialComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  // should set variable to the opposite of what it already has
+  it('displayIframe:: should toggle displayIframe', () => {
+    component.displayIframe();
+    expect(component.displayIFrame).toBeTruthy();
   });
 });

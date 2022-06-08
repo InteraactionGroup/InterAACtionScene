@@ -14,7 +14,7 @@ describe('LogoutAppComponent', () => {
       providers: [
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: jasmine.createSpyObj('MatDialogRef', ['close'])
         },
         {
           provide: MAT_DIALOG_DATA,
@@ -32,6 +32,8 @@ describe('LogoutAppComponent', () => {
   });
 
   it('should create', () => {
+    component.onNoClick();
+    component.putYes();
     expect(component).toBeTruthy();
   });
 });
