@@ -57,6 +57,8 @@ describe('MenubarComponent', () => {
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
   }));
+
+  // check if it calls specific service methods
   it('hideShowMenu:: should hide show menu', fakeAsync(() => {
     component.modeService.displayBar = true;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
@@ -66,6 +68,8 @@ describe('MenubarComponent', () => {
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
   }));
+
+  // check if it calls specific service methods
   it('hideShowMenu:: should show show menu', fakeAsync(() => {
     component.modeService.displayBar = false;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
@@ -75,19 +79,22 @@ describe('MenubarComponent', () => {
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
   }));
+
+  // check if it sets specific service variables
   it('hideShowPanel:: should hide show panel', fakeAsync(() => {
     component.sceneDisplayService.hidePanel = true;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.hideShowPanel();
     expect(component.sceneDisplayService.hidePanel).toBeFalsy();
   }));
+
+  // check if it sets specific service variables
   it('hideShowPanel:: should show show panel', fakeAsync(() => {
     component.sceneDisplayService.hidePanel  = false;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.hideShowPanel();
     expect(component.sceneDisplayService.hidePanel).toBeTruthy();
   }));
-
 
   // check if it opens the dialog
   it('logout:: should open logout dialog', () => {
@@ -99,7 +106,7 @@ describe('MenubarComponent', () => {
   });
 
   // check if it opens the dialog
-  it('openDialogTut:: should open Tutorial dialog', () => {
+  it('openDialogTuto:: should open Tutorial dialog', () => {
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true)});
     component.openDialogTuto();
@@ -107,13 +114,13 @@ describe('MenubarComponent', () => {
     expect(component.dialog.open).toHaveBeenCalled();
   });
 
-  // checked if it sets specific variable
+  // check if it sets specific variable
   it('onImageChange:: should change scene title', () => {
     component.onImageChange('test');
     expect(component.sceneTitle).toEqual('test');
   });
 
-  // check if it is sets specific values in the service variables
+  // check if it sets specific values in the service variables
   it('changeMode:: should change mode to given mode', () => {
     component.changeMode('mode1');
     expect(component.modeService.currentDrawingTool).toEqual('');
@@ -121,14 +128,14 @@ describe('MenubarComponent', () => {
     expect(component.modeService.selectedMode).toEqual('mode1');
   });
 
-  // check if it is sets specific values in the service variables
+  // check if it sets specific values in the service variables
   it('changeColor:: should change color to given color', () => {
     component.changeColor('color1');
     expect(component.modeService.choiceDrawing).toEqual('');
     expect(component.modeService.currentDrawingTool).toEqual('color1');
   });
 
-  // check if it is sets specific values in the service variables
+  // check if it sets specific values in the service variables
   it('choiceDrawing:: should change drawing to given drawing', () => {
     component.choiceDrawing('drawing1');
     expect(component.modeService.choiceDrawing).toEqual('drawing1');
