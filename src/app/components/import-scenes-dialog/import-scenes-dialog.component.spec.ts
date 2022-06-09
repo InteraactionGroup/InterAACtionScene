@@ -63,7 +63,7 @@ describe('ImportScenesDialogComponent', () => {
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(dialogRef.close).toHaveBeenCalled();
   });
-  // checked if it is throwing specific error if we pass invalid file
+  // check if it throws specific error if we pass invalid file
   it('submit:: should show error if file is other then .scene', () => {
     component.selectedFile = '{"file": "abc"}';
     component.extensionSelectedFile = 'png';
@@ -73,7 +73,7 @@ describe('ImportScenesDialogComponent', () => {
     expect(component.error).toEqual('Invalid file, only .scene file !');
   });
 
-  // checked if it is throwing specific error if we return invalid response
+  // check if it throws specific error if we return invalid response
   it('submit:: should not do anything if scene response is invalid', () => {
     component.selectedFile = '{"file": "abc"}';
     component.extensionSelectedFile = 'scene';

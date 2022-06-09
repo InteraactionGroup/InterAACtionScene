@@ -45,7 +45,7 @@ describe('HotspotDeleteDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // check if it is calling specific service method with specific variables set
+  // check if it calls specific service method with specific variables set
   it('submit:: should delete hotspot and update scenes', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -56,7 +56,7 @@ describe('HotspotDeleteDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
-  // check if it is calling specific service method with specific variables set
+  // check if it calls specific service method with specific variables set
   it('submit:: should delete hotspot and update scenes', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -67,7 +67,7 @@ describe('HotspotDeleteDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
-  // check if it is calling specific service method with specific variables set
+  // check if it calls specific service method with specific variables set
   it('submit:: should delete hotspot and update scenes', () => {
     component.selectedScene = 0;
     component.selectedImage = undefined;

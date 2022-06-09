@@ -34,7 +34,7 @@ describe('CanvasComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Configured all the switch cases with different values
+  // Configure all the switch cases with different values
   describe('setter:: currentDrawingTool', () => {
     beforeEach(() => {
       // @ts-ignore Ignoring as private member of class
@@ -103,14 +103,14 @@ describe('CanvasComponent', () => {
     });
   });
 
-  // call function and check if it is setting value
+  // call function and check if it sets value
   it('should clear canvas', () => {
     component.currentDrawingTool = 'erase';
     // @ts-ignore Ignoring as private member of class
     expect(component.cx.globalCompositeOperation).toEqual('destination-out');
   });
 
-  // checked console log from passed value
+  // check console log from passed value
   it('print:: should log in the console', () => {
     spyOn(console, 'log');
     component.print('test');
@@ -194,7 +194,7 @@ describe('CanvasComponent', () => {
     expect(component.currentPos).toEqual({ x: 1, y: 2 });
   });
 
-  // checked if it is not doing anything if required variable is not set
+  // check if it doesn't do anything if required variable is not set
   it('drawOnCanvas:: should not do anything if cx is not defined', () => {
     // @ts-ignore
     component.cx = undefined;

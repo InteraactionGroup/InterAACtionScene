@@ -46,7 +46,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.milieuPolyline).toEqual([2.5, 2.5]);
   });
 
-  // setup variables and checked if it does right calculation and sets right variable
+  // setup variables and check if it does right calculation and sets right variable
   it('calculeMilieuPolyline:: should set milieuPolyline with different conditions', () => {
     component.lastPt = [2, 2];
     component.xMin = 3;
@@ -160,7 +160,7 @@ describe('HotspotCreateComponent', () => {
     });
   });
 
-  // setup variables and checked if it sets variables or not
+  // setup variables and check if it sets variables or not
   it('createMouseEventPolyline:: should create mouse event for polyline', () => {
     component.createMouseEventPolyline()({offsetX: 1, offsetY: 2} as any);
     expect(component.lastPt).toEqual([1, 2]);
@@ -171,7 +171,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.lastPt).toEqual([1, 2]);
   });
 
-  // setup variables and checked if it sets variables or not
+  // setup variables and check if it sets variables or not
   it('createMouseEventCircle:: should create mouse event for polyline', () => {
     component.createMouseEventCircle()({offsetX: 1, offsetY: 2} as any);
     expect(component.lastPt).toEqual([1, 2]);
@@ -187,7 +187,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.lastPt).toEqual([1, 2]);
   });
 
-  // setup variables and checked if it sets variables or not
+  // setup variables and check if it sets variables or not
   it('createMouseEventRectangle:: should create mouse event for rectangle', () => {
     spyOn(component, 'rectangleDirection');
     component.createMouseEventRectangle()({offsetX: 1, offsetY: 2} as any);

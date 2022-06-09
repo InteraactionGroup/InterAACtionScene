@@ -45,7 +45,7 @@ describe('AddSceneDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // setup blob and set to selectedFile and checked if it calls the service method
+  // setup blob and set to selectedFile and check if it calls the service method
   it('submit:: should add scene and close the dialog', () => {
     const blob = new Blob([''], { type: 'image/jpeg' });
     blob['lastModifiedDate'] = '';
@@ -58,7 +58,7 @@ describe('AddSceneDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
-  // made selectedFile null and check if it does not call the service method
+  // mke selectedFile null and check if it does not call the service method
   it('submit:: should not add image if selected file is not present', () => {
     component.selectedFile = null;
     component.submit({value: {scenename: 'test', firstimagename: '123'}});

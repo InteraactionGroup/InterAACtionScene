@@ -15,6 +15,7 @@ describe('ExportScenesDialogComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
+    // tslint:disable-next-line:no-shadowed-variable
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes']);
     TestBed.configureTestingModule({

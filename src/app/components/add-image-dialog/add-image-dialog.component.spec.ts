@@ -58,7 +58,7 @@ describe('AddImageDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
-  // made selectedFile null and check if it does not call the service method
+  // make selectedFile null and check if it does not call the service method
   it('submit:: should not add image if selected file is not present', () => {
     component.selectedFile = null;
     component.submit({value: {imagename: 'test'}});

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DwellCursorComponent } from './dwell-cursor.component';
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule} from '@ngx-translate/core';
 
 describe('DwellCursorComponent', () => {
   let component: DwellCursorComponent;
