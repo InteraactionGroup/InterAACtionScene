@@ -9,6 +9,7 @@ import { ScenesService } from 'src/app/services/scenes.service';
 import { HotspotModifyDialogComponent } from '../hotspot-modify-dialog/hotspot-modify-dialog.component';
 import { HotspotDeleteDialogComponent } from '../hotspot-delete-dialog/hotspot-delete-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { imgBase64Mock } from 'src/app/services/scene-display.service.spec';
 
 describe('HotspotDisplayComponent', () => {
   let component: HotspotDisplayComponent;
@@ -120,4 +121,30 @@ describe('HotspotDisplayComponent', () => {
     expect(color).toEqual('black');
   });
 
+  // check if it doesn't call specific service method if required param is missing
+  it('enter:: should start cursor service', () => {
+    component.settingsService.DWELL_TIME_ENABLED = false;
+    spyOn(component.dwellCursorService, 'stop');
+    component.enter(null, null);
+    expect(component.dwellCursorService.stop).not.toHaveBeenCalled();
+  });
+
+  // check if it calls specific service method
+  it('exit:: should stop cursor service', () => {
+    component.settingsService.DWELL_TIME_ENABLED = true;
+    spyOn(component.dwellCursorService, 'stop');
+    component.exit();
+    expect(component.dwellCursorService.stop).toHaveBeenCalled();
+  });
+
+  // check if it calls specific service method
+  it('PlayAudio:: should play audio based on passed hotspot', () => {
+    component.settingsService.DWELL_TIME_ENABLED = true;
+    spyOn(component.dwellCursorService, 'stop');
+    spyOn(component.audioPlayer, 'load');
+    spyOn(component.audioPlayer, 'play');
+    component.PlayAudio({typeSound: 'soundAudio', base64sound: imgBase64Mock} as any);
+    expect(component.audioPlayer.load).toHaveBeenCalled();
+    expect(component.audioPlayer.play).toHaveBeenCalled();
+  });
 });

@@ -15,6 +15,7 @@ describe('AddImageDialogComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
+    // tslint:disable-next-line:no-shadowed-variable
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['addImage']);
     TestBed.configureTestingModule({
@@ -44,7 +45,7 @@ describe('AddImageDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // setup blob and set to selectedFile and checked if it calls the service method
+  // setup blob and set to selectedFile and check if it calls the service method
   it('submit:: should add image and close the dialog', () => {
     const blob = new Blob([''], { type: 'image/jpeg' });
     blob['lastModifiedDate'] = '';
@@ -55,5 +56,28 @@ describe('AddImageDialogComponent', () => {
     component.submit({value: {imagename: 'test'}});
     expect(sceneService.addImage).toHaveBeenCalledWith(component.selectedFile, component.sceneNumber, 'test');
     expect(dialogRef.close).toHaveBeenCalled();
+  });
+
+  // made selectedFile null and check if it does not call the service method
+  it('submit:: should not add image if selected file is not present', () => {
+    component.selectedFile = null;
+    component.submit({value: {imagename: 'test'}});
+    expect(sceneService.addImage).not.toHaveBeenCalledWith(component.selectedFile, component.sceneNumber, 'test');
+    expect(dialogRef.close).toHaveBeenCalled();
+  });
+
+  // function should set file from the passed event
+  it('onFileSelected:: should set selected file from event', () => {
+    const blob = new Blob([''], { type: 'text/html' });
+    blob['lastModifiedDate'] = '';
+    blob['name'] = 'filename';
+    const file = blob as File;
+    const fileList: FileList = {
+      0: file,
+      1: file,
+      length: 2,
+      item: (index: number) => file
+    };
+    component.onFileSelected({target: {files: fileList}});
   });
 });

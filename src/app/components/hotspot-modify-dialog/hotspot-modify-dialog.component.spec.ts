@@ -14,6 +14,7 @@ describe('HotspotCreateDialogComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
+    // tslint:disable-next-line:no-shadowed-variable
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes', 'checkNames']);
     TestBed.configureTestingModule({
@@ -41,6 +42,8 @@ describe('HotspotCreateDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    component.getTypeSound('abc');
+    expect(component.typeSound).toEqual('abc');
   });
 
   // check if it calls specific service method
@@ -90,5 +93,20 @@ describe('HotspotCreateDialogComponent', () => {
     sceneService.modeService = component.modeService;
     component.submit({value : {soundSelected: '', name: 'abc', color: '#ffffff', write: 'test', strokeWidth: 0}});
     expect(component.translate.instant).toHaveBeenCalledWith('error.stroke');
+  });
+
+  // check if it sets up specific variables in service
+  it('redraw:: should set properties in modeService', () => {
+    component.redraw();
+    expect(component.modeService.selectedMode).toEqual('hotspot');
+    expect(component.modeService.currentDrawingTool).toEqual('redraw');
+  });
+
+  // check if it sets up specific variables in service
+  it('close:: should set properties in modeService', () => {
+    component.close();
+    expect(component.modeService.selectedMode).toEqual('hotspot');
+    expect(component.modeService.currentDrawingTool).toEqual('modify');
+    expect(component.modeService.modifyiedHotspot).toEqual(null);
   });
 });

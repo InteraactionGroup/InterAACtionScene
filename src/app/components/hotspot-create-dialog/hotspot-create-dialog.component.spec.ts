@@ -41,9 +41,11 @@ describe('HotspotCreateDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    component.getTypeSound('abc');
+    expect(component.typeSound).toEqual('abc');
   });
 
-  // check if it calls specific function with specific selected items
+  // check if it doesn't call specific function with specific selected items
   it('submit:: should submit hotSpot with soundAudio', () => {
     component.typeSound = 'soundAudio';
     component.selectedScene = 1;
@@ -54,7 +56,7 @@ describe('HotspotCreateDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
-  // check if it calls specific function with specific selected items
+  // check if it doesn't call specific function with specific selected items
   it('submit:: should submit hotSpot with writeAudio', () => {
     component.typeSound = 'writeAudio';
     component.selectedScene = 1;
@@ -63,5 +65,27 @@ describe('HotspotCreateDialogComponent', () => {
     component.submit({value: { soundSelected: 'abc', name: 'xyz', color: '#0080ff', write: 'pqr', strokeWidth: '2' }});
     expect(sceneService.addHotspot).toHaveBeenCalledWith(component.selectedScene, component.selectedImage, 'xyz', component.svgPath, `#0080ff`, 'pqr', component.typeSound, Number(`2`));
     expect(dialogRef.close).toHaveBeenCalled();
+  });
+
+  // check if it doesn't call specific function with specific selected items
+  it('submit:: should submit hotSpot with soundAudio', () => {
+    component.typeSound = 'soundAudio';
+    component.selectedScene = 1;
+    component.selectedSound = 'data:audio/wav';
+    sceneService.checkNames.and.returnValue(false);
+    spyOn(component, 'audioIsValid').and.returnValue(false);
+    component.submit({value: { soundSelected: 'abc', name: 'xyz', color: '#0080ff', write: '', strokeWidth: '2' }});
+    expect(sceneService.addHotspot).not.toHaveBeenCalledWith(component.selectedScene, component.selectedImage, 'xyz', component.svgPath, `#0080ff`, component.selectedSound, component.typeSound, Number(`2`));
+    expect(dialogRef.close).not.toHaveBeenCalled();
+  });
+
+  // check if it doesn't call specific function with specific selected items
+  it('submit:: should submit hotSpot with soundAudio', () => {
+    component.typeSound = 'soundAudio';
+    component.selectedScene = 1;
+    component.selectedSound = 'data:audio/wav';
+    component.submit({value: { soundSelected: 'abc', name: 'xyz', color: '#0080ff', write: '', strokeWidth: 0 }});
+    expect(sceneService.addHotspot).not.toHaveBeenCalledWith(component.selectedScene, component.selectedImage, 'xyz', component.svgPath, `#0080ff`, component.selectedSound, component.typeSound, Number(`2`));
+    expect(dialogRef.close).not.toHaveBeenCalled();
   });
 });

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {CanvasComponent} from './canvas.component';
 import {TranslateModule} from '@ngx-translate/core';
@@ -26,12 +26,12 @@ describe('CanvasComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Setter should not do anything if cx is not set
+  // setter should not do anything if cx is not set
   it('currentDrawingTool:: should not do anything if cx is not set', () => {
-      // @ts-ignore Ignoring as private member of class
-      component.cx = undefined as any;
-      component.currentDrawingTool = 'white';
-      expect(component).toBeTruthy();
+    // @ts-ignore Ignoring as private member of class
+    component.cx = undefined as any;
+    component.currentDrawingTool = 'white';
+    expect(component).toBeTruthy();
   });
 
   // Configured all the switch cases with different values
@@ -103,7 +103,14 @@ describe('CanvasComponent', () => {
     });
   });
 
-  // check console log from passed value
+  // call function and check if it is setting value
+  it('should clear canvas', () => {
+    component.currentDrawingTool = 'erase';
+    // @ts-ignore Ignoring as private member of class
+    expect(component.cx.globalCompositeOperation).toEqual('destination-out');
+  });
+
+  // checked console log from passed value
   it('print:: should log in the console', () => {
     spyOn(console, 'log');
     component.print('test');
@@ -120,7 +127,7 @@ describe('CanvasComponent', () => {
     expect(component.saveCanvas).toHaveBeenCalled();
   });
 
-  // check if draw function is worked with variables with different conditions
+  // check if draw function works with variables with different conditions
   describe('draw', () => {
     const mouseEvent = { offsetX: 1, offsetY: 2 } as any;
     beforeEach(() => {
@@ -142,5 +149,61 @@ describe('CanvasComponent', () => {
       expect(component.prevPos).toEqual({ x: 2, y: 3 });
       expect(component.currentPos).toEqual({ x: 1, y: 2 });
     });
+  });
+
+  // check if it calls specific functions after setting up required values
+  it('imageChange:: should saveCanvas', fakeAsync(() => {
+    spyOn(component, 'InitializeCanvasWithJSON').and.callThrough();
+    spyOn(component, 'ngAfterViewInit').and.callThrough();
+    spyOn(component, 'saveCanvas');
+    // @ts-ignore
+    component.cx = 1;
+    component.canvasD = '{"test": 123}';
+    component.canvas = undefined;
+    component.imageChange = 10;
+    tick(15);
+    expect(component.saveCanvas).toHaveBeenCalled();
+    expect(component.ngAfterViewInit).toHaveBeenCalled();
+    expect(component.InitializeCanvasWithJSON).toHaveBeenCalled();
+  }));
+
+  // check if it calls function after not setting up required values
+  it('imageChange:: should not saveCanvas if cx is not set', fakeAsync(() => {
+    spyOn(component, 'InitializeCanvasWithJSON').and.callThrough();
+    spyOn(component, 'ngAfterViewInit').and.callThrough();
+    spyOn(component, 'saveCanvas');
+    // @ts-ignore
+    component.cx = undefined;
+    component.canvasD = '{"test": 123}';
+    component.canvas = undefined;
+    component.imageChange = 10;
+    tick(15);
+    expect(component.saveCanvas).not.toHaveBeenCalled();
+    expect(component.ngAfterViewInit).toHaveBeenCalled();
+    expect(component.InitializeCanvasWithJSON).toHaveBeenCalled();
+  }));
+
+  // should set variable if it is set to null and done the same
+  it('draw:: should set currentPos if currentPos is not set', () => {
+    component.drawStarted = true;
+    component.currentPos = { x: null, y: null } as any;
+    const mouseEvent = { offsetX: 1, offsetY: 2 } as any;
+    component.modeService.selectedMode = 'draw';
+    component.draw(mouseEvent);
+    expect(component.prevPos).toEqual({ x: 1, y: 2 });
+    expect(component.currentPos).toEqual({ x: 1, y: 2 });
+  });
+
+  // checked if it is not doing anything if required variable is not set
+  it('drawOnCanvas:: should not do anything if cx is not defined', () => {
+    // @ts-ignore
+    component.cx = undefined;
+    // @ts-ignore
+    component.drawOnCanvas({x: 1, y: 2}, {x: 3, y: 4});
+    // @ts-ignore
+    component.cx = { beginPath: () => {} };
+    // @ts-ignore
+    component.drawOnCanvas(null, {x: 3, y: 4});
+    expect(component).toBeTruthy();
   });
 });

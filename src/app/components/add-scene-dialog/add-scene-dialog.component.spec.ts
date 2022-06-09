@@ -57,4 +57,27 @@ describe('AddSceneDialogComponent', () => {
     expect(sceneService.addScene).toHaveBeenCalledWith(component.selectedFile, 'test', '123');
     expect(dialogRef.close).toHaveBeenCalled();
   });
+
+  // made selectedFile null and check if it does not call the service method
+  it('submit:: should not add image if selected file is not present', () => {
+    component.selectedFile = null;
+    component.submit({value: {scenename: 'test', firstimagename: '123'}});
+    expect(sceneService.addScene).not.toHaveBeenCalledWith(component.selectedFile, '123', 'test');
+    expect(dialogRef.close).toHaveBeenCalled();
+  });
+
+  // function should set file from the passed event
+  it('onFileSelected:: should set selected file from event', () => {
+    const blob = new Blob([''], { type: 'text/html' });
+    blob['lastModifiedDate'] = '';
+    blob['name'] = 'filename';
+    const file = blob as File;
+    const fileList: FileList = {
+      0: file,
+      1: file,
+      length: 2,
+      item: (index: number) => file
+    };
+    component.onFileSelected({target: {files: fileList}});
+  });
 });
