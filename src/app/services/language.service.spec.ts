@@ -16,4 +16,14 @@ describe('LanguageService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  // check if it sets specific variables after calling the function
+  it('switchSpeechSpeakerLanguage:: should set language', () => {
+    service.activeLanguage = 'en';
+    service.switchSpeechSpeakerLanguage();
+    expect(service.activeSpeechSpeakerLanguage).toEqual('en-GB');
+    service.activeLanguage = null;
+    service.switchSpeechSpeakerLanguage();
+    expect(service.activeSpeechSpeakerLanguage).toEqual('en-GB');
+  });
 });
