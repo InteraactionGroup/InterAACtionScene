@@ -28,23 +28,17 @@ describe('CanvasComponent', () => {
 
   // setter should not do anything if cx is not set
   it('currentDrawingTool:: should not do anything if cx is not set', () => {
-    // @ts-ignore Ignoring as private member of class
-    component.cx = undefined as any;
-    component.currentDrawingTool = 'white';
-    expect(component).toBeTruthy();
+      // @ts-ignore Ignoring as private member of class
+      component.cx = undefined as any;
+      component.currentDrawingTool = 'white';
+      expect(component).toBeTruthy();
   });
 
-  // Configure all the switch cases with different values
+  // configure all the switch cases with different values
   describe('setter:: currentDrawingTool', () => {
     beforeEach(() => {
       // @ts-ignore Ignoring as private member of class
       component.cx = { clearRect: () => {} } as any;
-    });
-
-    it('should set as white strokeStyle', () => {
-      component.currentDrawingTool = 'white';
-      // @ts-ignore Ignoring as private member of class
-      expect(component.cx.strokeStyle).toEqual('#FFFFFF');
     });
 
     it('should set as white strokeStyle', () => {
@@ -103,7 +97,7 @@ describe('CanvasComponent', () => {
     });
   });
 
-  // call function and check if it sets value
+  // call function and check if it is setting value
   it('should clear canvas', () => {
     component.currentDrawingTool = 'erase';
     // @ts-ignore Ignoring as private member of class
@@ -127,7 +121,7 @@ describe('CanvasComponent', () => {
     expect(component.saveCanvas).toHaveBeenCalled();
   });
 
-  // check if draw function works with variables with different conditions
+  // check if Draw function works with variables with different conditions
   describe('draw', () => {
     const mouseEvent = { offsetX: 1, offsetY: 2 } as any;
     beforeEach(() => {
@@ -167,7 +161,7 @@ describe('CanvasComponent', () => {
     expect(component.InitializeCanvasWithJSON).toHaveBeenCalled();
   }));
 
-  // check if it calls function after not setting up required values
+  // check if it doesn't call function after not setting up required values
   it('imageChange:: should not saveCanvas if cx is not set', fakeAsync(() => {
     spyOn(component, 'InitializeCanvasWithJSON').and.callThrough();
     spyOn(component, 'ngAfterViewInit').and.callThrough();
@@ -183,7 +177,7 @@ describe('CanvasComponent', () => {
     expect(component.InitializeCanvasWithJSON).toHaveBeenCalled();
   }));
 
-  // should set variable if it is set to null and done the same
+  // should set variable if it is set to null and do the same
   it('draw:: should set currentPos if currentPos is not set', () => {
     component.drawStarted = true;
     component.currentPos = { x: null, y: null } as any;
@@ -206,4 +200,40 @@ describe('CanvasComponent', () => {
     component.drawOnCanvas(null, {x: 3, y: 4});
     expect(component).toBeTruthy();
   });
+
+  // set up the variables which are required for the method
+  // create the image class and call on load method
+  // check if it calls specific components methods or not
+  it('InitializeCanvasWithJSON:: should initialize canvas with json data', () => {
+    component.canvasD = '{"test": 123}';
+    spyOn(window, 'Image').and.returnValue({
+      onload: () => {}
+    } as any);
+    // @ts-ignore
+    component.cx = { clearRect: () => {}, drawImage: () => {} };
+    // @ts-ignore
+    spyOn(component.cx, 'clearRect');
+    // @ts-ignore
+    spyOn(component.cx, 'drawImage');
+    component.InitializeCanvasWithJSON();
+    // @ts-ignore
+    window.Image().onload();
+    // @ts-ignore
+    expect(component.cx.clearRect).toHaveBeenCalled();
+    // @ts-ignore
+    expect(component.cx.drawImage).toHaveBeenCalled();
+  });
+
+  // use fakeAsync as we have added timeout
+  // spy upon the canvas method and call the save function
+  // check if service Save method is called
+  it('saveCanvas:: should save canvas to scene service', fakeAsync(() => {
+    spyOn(component.canvas.nativeElement, 'toDataURL').and.returnValue('test');
+    // @ts-ignore
+    spyOn(component.scenesService, 'canvasSave');
+    component.saveCanvas();
+    tick(10);
+    // @ts-ignore
+    expect(component.scenesService.canvasSave).toHaveBeenCalled();
+  }));
 });

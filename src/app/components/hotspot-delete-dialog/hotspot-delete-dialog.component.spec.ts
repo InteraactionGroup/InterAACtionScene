@@ -1,11 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {HotspotDeleteDialogComponent} from './hotspot-delete-dialog.component';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ScenesService } from 'src/app/services/scenes.service';
 import { LanguageService } from 'src/app/services/language.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('HotspotDeleteDialogComponent', () => {
   let component: HotspotDeleteDialogComponent;
@@ -54,7 +53,7 @@ describe('HotspotDeleteDialogComponent', () => {
     component.submit();
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(dialogRef.close).toHaveBeenCalled();
-  });
+   });
 
   // check if it calls specific service method with specific variables set
   it('submit:: should delete hotspot and update scenes', () => {
@@ -65,9 +64,9 @@ describe('HotspotDeleteDialogComponent', () => {
     component.submit();
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(dialogRef.close).toHaveBeenCalled();
-  });
+   });
 
-  // check if it calls specific service method with specific variables set
+  // check if it is calls specific service method with specific variables set
   it('submit:: should delete hotspot and update scenes', () => {
     component.selectedScene = 0;
     component.selectedImage = undefined;
@@ -76,5 +75,5 @@ describe('HotspotDeleteDialogComponent', () => {
     component.submit();
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(dialogRef.close).toHaveBeenCalled();
-  });
+   });
 });

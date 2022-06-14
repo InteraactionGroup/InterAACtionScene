@@ -7,6 +7,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HotspotCreateDialogComponent } from '../hotspot-create-dialog/hotspot-create-dialog.component';
+import { of } from 'rxjs';
 
 describe('HotspotCreateComponent', () => {
   let component: HotspotCreateComponent;
@@ -35,7 +36,7 @@ describe('HotspotCreateComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // setup variables and check if it does right calculation and sets right variable
+  // set up variables and check if it does right calculation and sets right variable
   it('calculeMilieuPolyline:: should set milieuPolyline with different conditions', () => {
     component.lastPt = [2, 3];
     component.xMin = 1;
@@ -46,7 +47,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.milieuPolyline).toEqual([2.5, 2.5]);
   });
 
-  // setup variables and check if it does right calculation and sets right variable
+  // set up variables and check if it does right calculation and sets right variable
   it('calculeMilieuPolyline:: should set milieuPolyline with different conditions', () => {
     component.lastPt = [2, 2];
     component.xMin = 3;
@@ -57,7 +58,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.milieuPolyline).toEqual([2, 2]);
   });
 
-  // setup variables and check if it does right calculation and sets right variable
+  // set up variables and check if it does right calculation and sets right variable
   it('rectangleDirection:: should set variables based on direction', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -68,7 +69,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).toHaveBeenCalledWith('height', '2');
   });
 
-  // setup variables and check if it does right calculation and sets right variable
+  // set up variables and check if it does right calculation and sets right variable
   it('rectangleDirection:: should set variables based on direction', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -79,7 +80,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).toHaveBeenCalledWith('height', '2');
   });
 
-  // setup variables and check if it does right calculation and sets right variable
+  // set up variables and check if it does right calculation and sets right variable
   it('rectangleDirection:: should set variables based on direction', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -90,7 +91,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).toHaveBeenCalledWith('height', '1');
   });
 
-  // setup variables and check if it does right calculation and sets right variable
+  // set up variables and check if it does right calculation and sets right variable
   it('rectangleDirection:: should set variables based on direction', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -101,7 +102,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).toHaveBeenCalledWith('height', '1');
   });
 
-  // setup variables and check if it does right calculation and sets right variable
+  // set up variables and check if it does right calculation and sets right variable
   it('rectangleDirection:: should not set variables based on direction if invalid values passed', () => {
     spyOn(document.querySelector('#rectangle'), 'setAttribute');
     const elem = document.querySelector('#rectangle');
@@ -109,7 +110,7 @@ describe('HotspotCreateComponent', () => {
     expect(elem.setAttribute).not.toHaveBeenCalled();
   });
 
-  // setup variables and check if it does right calculation and sets right variable
+  // set up variables and check if it does right calculation and sets right variable
   it('circlePoints:: should return points based on inputs and calculations', () => {
     const value = component.circlePoints(1, 2, 3);
     expect(value).toEqual(['1', '-1', '2', '-0.8284271247461903', '3', '-0.2360679774997898', '4', '2', '4', '2', '3', '4.23606797749979', '2', '4.82842712474619', '0', '4.82842712474619', '-1', '4.23606797749979', '-2', '2', '-2', '2', '-1', '-0.2360679774997898', '0', '-0.8284271247461903', '1', '-1']);
@@ -158,9 +159,23 @@ describe('HotspotCreateComponent', () => {
       expect(component.DrawPolyline).toBeFalsy();
       expect(component.DrawRectangle).toBeFalsy();
     });
+
+    it('should draw nothing', () => {
+      component.modeService.choiceDrawing = 'lol!';
+      component.DrawCircle = false;
+      component.firstPt = [1, 2];
+      component.milieuCircle =  [1, 2];
+      fixture.detectChanges();
+      document.querySelector('#svg').dispatchEvent(new Event('pointerenter'));
+      document.querySelector('#svg').dispatchEvent(new Event('pointerdown'));
+      document.querySelector('#svg').dispatchEvent(new Event('pointerup'));
+      expect(component.DrawCircle).toBeFalsy();
+      expect(component.DrawPolyline).toBeFalsy();
+      expect(component.DrawRectangle).toBeFalsy();
+    });
   });
 
-  // setup variables and check if it sets variables or not
+  // set up variables and check if it sets variables or not
   it('createMouseEventPolyline:: should create mouse event for polyline', () => {
     component.createMouseEventPolyline()({offsetX: 1, offsetY: 2} as any);
     expect(component.lastPt).toEqual([1, 2]);
@@ -171,7 +186,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.lastPt).toEqual([1, 2]);
   });
 
-  // setup variables and check if it sets variables or not
+  // set up variables and check if it sets variables or not
   it('createMouseEventCircle:: should create mouse event for polyline', () => {
     component.createMouseEventCircle()({offsetX: 1, offsetY: 2} as any);
     expect(component.lastPt).toEqual([1, 2]);
@@ -187,7 +202,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.lastPt).toEqual([1, 2]);
   });
 
-  // setup variables and check if it sets variables or not
+  // set up variables and check if it sets variables or not
   it('createMouseEventRectangle:: should create mouse event for rectangle', () => {
     spyOn(component, 'rectangleDirection');
     component.createMouseEventRectangle()({offsetX: 1, offsetY: 2} as any);
@@ -202,5 +217,137 @@ describe('HotspotCreateComponent', () => {
     component.firstPt = [1, 2];
     component.createMouseEventRectangle()({offsetX: undefined, offsetY: undefined} as any);
     expect(component.rectangleDirection).toHaveBeenCalled();
+  });
+
+  // set up the variables and spy upon the service method and call the function with event
+  // check if it sets proper values for variable and calls the service method
+  it('createMouseUpEventPolyline:: should create polyline on mouse up event', () => {
+    component.firstPt = [0, 1];
+    component.listePoints = [1, 2, 3];
+    component.milieuPolyline = [1, 2, 3];
+    component.modeService.currentDrawingTool = 'redraw';
+    // @ts-ignore
+    spyOn(component.scenesService, 'addHotspot');
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue(
+      { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
+    component.createMouseUpEventPolyline({} as any)({} as any);
+    expect(component.startDrawPolyline).toBeTruthy();
+    expect(component.milieuPolyline).toEqual(null);
+    expect(component.modeService.selectedMode).toEqual('hotspot');
+    expect(component.modeService.soundType).toEqual('import');
+    // @ts-ignore
+    expect(component.scenesService.addHotspot).not.toHaveBeenCalled();
+  });
+
+  // set up the variables and spy upon the service method and call the function with event
+  // check if it sets proper values for variable and calls the service method
+  it('createMouseUpEventPolyline:: should create polyline on mouse up event and open dialog of modify hotspot', () => {
+    component.firstPt = [0, 1];
+    component.listePoints = [1, 2, 3];
+    component.milieuPolyline = [1, 2, 3];
+    component.modeService.currentDrawingTool = 'redraw';
+    // @ts-ignore
+    component.scenesService.haveAddHotspot = true;
+    // @ts-ignore
+    spyOn(component.scenesService, 'addHotspot');
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue(
+      { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
+    component.createMouseUpEventPolyline({} as any)({} as any);
+    expect(component.startDrawPolyline).toBeTruthy();
+    expect(component.milieuPolyline).toEqual(null);
+    expect(component.modeService.selectedMode).toEqual('hotspot');
+    expect(component.modeService.soundType).toEqual('import');
+    // @ts-ignore
+    expect(component.scenesService.addHotspot).toHaveBeenCalled();
+  });
+
+  // set up the variables and spy upon the service method and call the function with event
+  // check if it sets proper values for variable and calls the service method
+  it('createMouseUpEventRectangle:: should create rectangle on mouse up event and open dialog of modify hotspot', () => {
+    component.firstPt = [0, 1];
+    component.listePoints = [1, 2, 3];
+    component.milieuRectangle = [1, 2, 3];
+    component.modeService.currentDrawingTool = 'redraw';
+    // @ts-ignore
+    component.scenesService.haveAddHotspot = true;
+    // @ts-ignore
+    spyOn(component.scenesService, 'addHotspot');
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue(
+      { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
+    component.createMouseUpEventRectangle({} as any)({} as any);
+    expect(component.startDrawPolyline).toBeTruthy();
+    expect(component.milieuRectangle).toEqual(null);
+    expect(component.modeService.selectedMode).toEqual('hotspot');
+    expect(component.modeService.soundType).toEqual('import');
+    // @ts-ignore
+    expect(component.scenesService.addHotspot).toHaveBeenCalled();
+  });
+
+  // set up the variables and spy upon the service method and call the function with event
+  // check if it sets proper values for variable and calls the service method
+  it('createMouseUpEventRectangle:: should create rectangle on mouse up event', () => {
+    component.firstPt = [0, 1];
+    component.listePoints = [1, 2, 3];
+    component.milieuRectangle = [1, 2, 3];
+    component.modeService.currentDrawingTool = 'redraw';
+    // @ts-ignore
+    spyOn(component.scenesService, 'addHotspot');
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue(
+      { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
+    component.createMouseUpEventRectangle({} as any)({} as any);
+    expect(component.startDrawPolyline).toBeTruthy();
+    expect(component.milieuRectangle).toEqual(null);
+    expect(component.modeService.selectedMode).toEqual('hotspot');
+    expect(component.modeService.soundType).toEqual('import');
+    // @ts-ignore
+    expect(component.scenesService.addHotspot).not.toHaveBeenCalled();
+  });
+
+  // set up the variables and spy upon the service method and call the function with event
+  // check if it sets proper values for variable and calls the service method
+  it('createMouseUpEventCircle:: should create circle on mouse up event and open dialog of modify hotspot', () => {
+    component.firstPt = [0, 1];
+    component.listePoints = [1, 2, 3];
+    component.milieuCircle = [1, 2, 3];
+    component.modeService.currentDrawingTool = 'redraw';
+    // @ts-ignore
+    component.scenesService.haveAddHotspot = true;
+    // @ts-ignore
+    spyOn(component.scenesService, 'addHotspot');
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue(
+      { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
+    component.createMouseUpEventCircle({} as any)({} as any);
+    expect(component.startDrawPolyline).toBeTruthy();
+    expect(component.milieuCircle).toEqual(null);
+    expect(component.modeService.selectedMode).toEqual('hotspot');
+    expect(component.modeService.soundType).toEqual('import');
+    // @ts-ignore
+    expect(component.scenesService.addHotspot).toHaveBeenCalled();
+  });
+
+  // set up the variables and spy upon the service method and call the function with event
+  // check if it sets proper values in variable and calls the service method
+  it('createMouseUpEventCircle:: should create circle on mouse up event', () => {
+    component.firstPt = [0, 1];
+    component.listePoints = [1, 2, 3];
+    component.milieuCircle = [1, 2, 3];
+    component.modeService.currentDrawingTool = 'redraw';
+    // @ts-ignore
+    spyOn(component.scenesService, 'addHotspot');
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue(
+      { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
+    component.createMouseUpEventCircle({} as any)({} as any);
+    expect(component.startDrawPolyline).toBeTruthy();
+    expect(component.milieuCircle).toEqual(null);
+    expect(component.modeService.selectedMode).toEqual('hotspot');
+    expect(component.modeService.soundType).toEqual('import');
+    // @ts-ignore
+    expect(component.scenesService.addHotspot).not.toHaveBeenCalled();
   });
 });

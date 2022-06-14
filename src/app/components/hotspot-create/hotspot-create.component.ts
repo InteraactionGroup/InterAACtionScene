@@ -238,6 +238,7 @@ export class HotspotCreateComponent implements OnInit {
       let ptsYCenter = (tabPtsYCenter[0] + tabPtsYCenter[1]) / 2;
 
       let pts = polyline.getAttribute('points');
+      /* istanbul ignore next */ 
       if (this.firstPt !== null) {
         pts += `${this.firstPt[0]},${this.firstPt[1]} `;
         polyline.setAttribute('points', pts);

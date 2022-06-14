@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DisplaySiteASFRComponent } from './display-site-asfr.component';
 
 describe('DisplaySiteASFRComponent', () => {

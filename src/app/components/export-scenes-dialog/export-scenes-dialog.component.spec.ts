@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { ExportScenesDialogComponent } from './export-scenes-dialog.component';
 import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes-dialog.component';
@@ -45,12 +45,13 @@ describe('ExportScenesDialogComponent', () => {
   });
 
   // check if it calls specific methods and closes the dialog
-  it('submit:: should export scenes and close dialog', () => {
+  it('submit:: should export scenes and close dialog', fakeAsync(() => {
     sceneService.getScenes.and.returnValue('{ "id": 1 }' as any);
     component.submit({ value: { name: 'test' } });
+    tick(10);
     expect(dialogRef.close).toHaveBeenCalled();
     spyOnProperty(window, 'navigator', 'get').and.returnValue({msSaveOrOpenBlob: () => {}} as any);
     component.submit({ value: { name: 'test' } });
     expect(dialogRef.close).toHaveBeenCalled();
-  });
+  }));
 });

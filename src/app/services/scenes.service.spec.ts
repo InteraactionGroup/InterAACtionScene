@@ -57,7 +57,7 @@ describe('ScenesService', () => {
     expect(service.SCENES[0].images[0].canvasData).toEqual('abc');
   });
 
-  // check if it calls specific function after calling the function
+  // check if it sets specific variable after calling the function
   it('updateScenes:: should call update function', () => {
     spyOn(service, 'update');
     service.updateScenes();
@@ -87,7 +87,7 @@ describe('ScenesService', () => {
     expect(service.SCENES.length).toEqual(0);
   });
 
-  // check if it sets specific variable after calling the function
+  // check if it calls specific function after calling the function
   it('hideImage:: should hide scene and images', () => {
     spyOn(service, 'update');
     service.SCENES = [
@@ -103,7 +103,7 @@ describe('ScenesService', () => {
     expect(service.update).toHaveBeenCalled();
   });
 
-  // check if it sets specific variable after calling the function
+  // check if it calls specific function after calling the function
   it('hideScene:: should hide scene', () => {
     spyOn(service, 'update');
     service.SCENES = [{hidden: true, images: [{hidden: true}]}] as any;
@@ -139,6 +139,138 @@ describe('ScenesService', () => {
     service.SCENES = [{images: [{ hotspots: true }]}] as any;
     expect(service.getImageHotspots(0, 0)).toEqual(true as any);
     expect(service.getImageHotspots(0, undefined)).toEqual([]);
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it calls alert with passed data
+  it('updateConfig:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    service.updateConfig();
+    service.openRequest.onerror({target: {errorCode: 1}});
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  // call the method, and it will create the db stores in the indexDb
+  // check if it is not breaking the service
+  it('should create lists in index db', () => {
+    const dbObj = { createObjectStore: () => {} };
+    const transactionObj = { objectStore: () => {return {add: () => {}} }};
+    // @ts-ignore
+    service.createUsersListObject(dbObj, transactionObj);
+    // @ts-ignore
+    service.createSceneObject(dbObj, transactionObj);
+    // @ts-ignore
+    service.createConfigurationObject(dbObj, transactionObj);
+    expect(service).toBeTruthy();
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it is calling alert with passed data
+  it('loadUserOfUsersList:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    // @ts-ignore
+    spyOn(service, 'createUsersListObject');
+    // @ts-ignore
+    spyOn(service, 'createSceneObject');
+    // @ts-ignore
+    spyOn(service, 'createConfigurationObject');
+    service.loadUserOfUsersList('name');
+    service.openRequest.onerror({target: {errorCode: 1}});
+    service.openRequest.onupgradeneeded({ target: { result: {}, transaction: {}} });
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it is calling alert with passed data
+  it('loadInfoFromCurrentUser:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    service.loadInfoFromCurrentUser();
+    service.openRequest.onerror({target: {errorCode: 1}});
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it is calling alert with passed data
+  it('init:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    service.init();
+    service.openRequest.onerror({target: {errorCode: 1}});
+    service.openRequest.onupgradeneeded(
+      {oldVersion: 0,
+      target: {
+        result: {createObjectStore: () => {}, objectStoreNames: {contains: () => false}},
+        transaction: {objectStore: () => {return {add: () => {}}}}
+      }});
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it is calling alert with passed data
+  it('init:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    service.init();
+    service.openRequest.onerror({target: {errorCode: 1}});
+    service.openRequest.onupgradeneeded(
+      {oldVersion: 0,
+      target: {
+        result: {createObjectStore: () => {}, objectStoreNames: {contains: () => true}},
+        transaction: {objectStore: () => {return {add: () => {}}}}
+      }});
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it is calling alert with passed data
+  it('init:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    service.init();
+    service.openRequest.onerror({target: {errorCode: 1}});
+    service.openRequest.onupgradeneeded(
+      {oldVersion: 2,
+      target: {
+        result: {createObjectStore: () => {}, objectStoreNames: {contains: () => true}},
+        transaction: {objectStore: () => {return {add: () => {}}}}
+      }});
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it is calling alert with passed data
+  it('update:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    service.update();
+    service.openRequest.onerror({target: {errorCode: 1}});
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it is calling alert with passed data
+  it('updateUserList:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    service.updateUserList();
+    service.openRequest.onerror({target: {errorCode: 1}});
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  // spy upon the alert
+  // call onerror method of index db to check if it is calling alert with passed data
+  it('loadUsersList:: should show error if index db could not open', () => {
+    spyOn(window, 'alert');
+    // @ts-ignore
+    spyOn(service, 'createUsersListObject');
+    // @ts-ignore
+    spyOn(service, 'createSceneObject');
+    // @ts-ignore
+    spyOn(service, 'createConfigurationObject');
+    service.loadUsersList();
+    service.openRequest.onerror({target: {errorCode: 1}});
+    service.openRequest.onupgradeneeded(
+      {oldVersion: 0,
+      target: {
+        result: {createObjectStore: () => {}, objectStoreNames: {contains: () => false}},
+        transaction: {objectStore: () => {return {add: () => {}}}}
+      }});
+    expect(window.alert).toHaveBeenCalledWith('Database error: 1');
   });
 });
 

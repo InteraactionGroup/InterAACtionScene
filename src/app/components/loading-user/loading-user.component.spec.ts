@@ -1,8 +1,8 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { LoadingUserComponent } from './loading-user.component';
-import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateModule} from '@ngx-translate/core';
+import {RouterTestingModule} from "@angular/router/testing";
+import {TranslateModule} from "@ngx-translate/core";
 
 describe('LoadingUserComponent', () => {
   let component: LoadingUserComponent;
@@ -11,9 +11,12 @@ describe('LoadingUserComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoadingUserComponent],
-      imports: [RouterTestingModule, TranslateModule.forRoot()]
+      imports: [RouterTestingModule.withRoutes(
+        [{path: 'fr/dashboard', component: LoadingUserComponent},
+        {path: 'en/dashboard', component: LoadingUserComponent}]),
+         TranslateModule.forRoot()]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,10 +24,11 @@ describe('LoadingUserComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should create', () => {
+  it('should create', fakeAsync(() => {
     fixture.detectChanges();
+    tick(110);
     expect(component).toBeTruthy();
-  });
+  }));
 
   // check if it redirects to language specific dashboard
   it('should redirect to fr dashboard', fakeAsync(() => {

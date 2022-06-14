@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DialogTutorialComponent } from './dialog-tutorial.component';
 import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
 
@@ -12,7 +11,7 @@ describe('DialogTutorialComponent', () => {
       declarations: [ DialogTutorialComponent, TranslatePipe ],
       imports: [TranslateModule.forRoot()]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {

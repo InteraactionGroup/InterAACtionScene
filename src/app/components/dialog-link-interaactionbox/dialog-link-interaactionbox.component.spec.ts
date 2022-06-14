@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DialogLinkInteraactionboxComponent } from './dialog-link-interaactionbox.component';
 
 describe('DialogLinkASFRComponent', () => {

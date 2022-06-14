@@ -16,7 +16,7 @@ describe('ManageScenesComponent', () => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes', 'hideImage', 'hideScene', 'removeImage', 'removeScene']);
     TestBed.configureTestingModule({
       declarations: [ManageScenesComponent, ConfirmationDialogComponent],
-      imports: [MatDialogModule, TranslateModule.forRoot(), RouterTestingModule],
+      imports: [MatDialogModule, TranslateModule.forRoot(),RouterTestingModule],
       providers: [
         { provide: ScenesService, useValue: sceneServiceMock }
       ]
@@ -35,7 +35,7 @@ describe('ManageScenesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // check if calls specific service function if required params is passed
+  // check if calls specific service function if passing required params
   it('hide:: should hide images based on condition', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -47,7 +47,7 @@ describe('ManageScenesComponent', () => {
     expect(sceneService.hideImage).toHaveBeenCalled();
   });
 
-  // check if calls specific service function if required params is passed
+  // check if it calls specific service function if passing required params
   it('hide:: should hide scene based on condition', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -59,7 +59,7 @@ describe('ManageScenesComponent', () => {
     expect(sceneService.hideScene).toHaveBeenCalled();
   });
 
-  // check if calls specific service function if required params is passed
+  // check if it doesn't call specific service function if not passing required params
   it('hide:: should not hide scene if scene is not set', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -71,7 +71,7 @@ describe('ManageScenesComponent', () => {
     expect(sceneService.hideScene).not.toHaveBeenCalled();
   });
 
-  // check if calls specific service function if required params is passed
+  // check if it calls specific service function if passing required params
   it('hide:: should not hide scene if dialog is not closed', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -83,7 +83,7 @@ describe('ManageScenesComponent', () => {
     expect(sceneService.hideScene).not.toHaveBeenCalled();
   });
 
-  // check if calls specific service function if required params is passed
+  // check if it calls specific service function if passing required params
   it('remove:: should remove images based on condition', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -95,7 +95,7 @@ describe('ManageScenesComponent', () => {
     expect(sceneService.removeImage).toHaveBeenCalled();
   });
 
-  // check if calls specific service function if required params is passed
+  // check if it calls specific service function if passing required params
   it('remove:: should remove scene based on condition', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -107,7 +107,7 @@ describe('ManageScenesComponent', () => {
     expect(sceneService.removeScene).toHaveBeenCalled();
   });
 
-  // check if calls specific service function if required params is passed
+  // check if it calls specific service function if passing required params
   it('remove:: should not remove scene if scene is not set', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -119,7 +119,7 @@ describe('ManageScenesComponent', () => {
     expect(sceneService.removeScene).not.toHaveBeenCalled();
   });
 
-  // check if calls specific service function if required params is passed
+  // check if it calls specific service function if passing required params
   it('remove:: should not remove scene if dialog is not closed', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
@@ -131,7 +131,7 @@ describe('ManageScenesComponent', () => {
     expect(sceneService.removeScene).not.toHaveBeenCalled();
   });
 
-  // check if it opens rename dialog
+  // check if it opens the dialog
   it('rename:: should open rename dialog with data', () => {
     sceneService.getScenes.and.returnValue([{images: [{ name: 'abc' }], name: 'xyz'}] as any);
     // @ts-ignore
@@ -142,7 +142,7 @@ describe('ManageScenesComponent', () => {
     expect(component.dialog.open).toHaveBeenCalled();
   });
 
-  // check if it opens rename dialog without the scene
+  // check if it opens the dialog
   it('rename:: should not open rename dialog if scene is not present', () => {
     sceneService.getScenes.and.returnValue([] as any);
     // @ts-ignore
@@ -153,7 +153,7 @@ describe('ManageScenesComponent', () => {
     expect(component.dialog.open).not.toHaveBeenCalled();
   });
 
-  // check if it opens the export dialog
+  // check if it opens the dialog
   it('export:: should open export dialog', () => {
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue(true);
@@ -162,7 +162,7 @@ describe('ManageScenesComponent', () => {
     expect(component.dialog.open).toHaveBeenCalled();
   });
 
-  // check if it opens the import dialog
+  // check if it opens the dialog
   it('import:: should open import dialog', () => {
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true)});

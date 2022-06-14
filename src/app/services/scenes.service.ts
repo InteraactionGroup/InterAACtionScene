@@ -210,6 +210,7 @@ export class ScenesService {
       userListStore.onsuccess = e => {
         this.userDBService.usersList = userListStore.result;
       };
+      /* istanbul ignore next */ 
       userListStore.onerror = e => {
       };
 
@@ -217,6 +218,7 @@ export class ScenesService {
       gridStore.onsuccess = e => {
         this.SCENES = gridStore.result;
       };
+      /* istanbul ignore next */ 
       gridStore.onerror = e => {
       };
 
@@ -224,6 +226,7 @@ export class ScenesService {
       configStore.onsuccess = e => {
         this.settingsService.setConfiguration(configStore.result);
       };
+      /* istanbul ignore next */ 
       configStore.onerror = e => {
       };
     };
@@ -326,6 +329,7 @@ export class ScenesService {
       const gridRequest = db.transaction(['UserList']).objectStore('UserList').get(1);
       gridRequest.onsuccess = e => {
         const loggedUser = localStorage.getItem('logged');
+        /* istanbul ignore next */ 
         if (loggedUser != null) {
           this.userDBService.currentUser = loggedUser;
         }
@@ -381,7 +385,7 @@ export class ScenesService {
       const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(this.userDBService.currentUser);
       configRequest.onsuccess = e => {
         let resultConfig = configRequest.result;
-        //IF CONFIG DOES NOT EXIST YET FOR THIS USER
+        //IF CONFIG DOES NOT EXIST YET FOR THIS USER /* istanbul ignore next */ 
         if (resultConfig == null) {
           //GET DEFAULT CONFIG
           resultConfig = this.settingsService.getConfiguration();
@@ -392,6 +396,7 @@ export class ScenesService {
       const sceneRequest = db.transaction(['Scenes']).objectStore('Scenes').get(this.userDBService.currentUser);
       sceneRequest.onsuccess = e => {
         let resultScene = sceneRequest.result;
+        /* istanbul ignore next */ 
         if(resultScene == null){
           this.SCENES = [];
         }
@@ -421,6 +426,7 @@ export class ScenesService {
       gridRequest.onsuccess = e => {
         this.userDBService.usersList = gridRequest.result;
         let findUser = this.userDBService.usersList.find(user => user.toLowerCase() == username.toLowerCase());
+        /* istanbul ignore next */ 
         if (findUser != null) {
           this.userDBService.currentUser = findUser;
           //this.userDBService.setLoggedIn();

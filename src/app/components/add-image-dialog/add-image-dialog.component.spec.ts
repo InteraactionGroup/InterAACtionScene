@@ -80,4 +80,21 @@ describe('AddImageDialogComponent', () => {
     };
     component.onFileSelected({target: {files: fileList}});
   });
+
+  // spy upon the FileReader and return the object which is used in the function
+  // at last just check if fileReader instance is getting created or not
+  it('onFileSelected:: should show error if file reader fails', () => {
+    spyOn(window, 'FileReader').and.returnValue({
+      // tslint:disable-next-line:only-arrow-functions
+      onload() {},
+      readAsDataURL() {
+        return true;
+      },
+      onerror: () => {}
+    } as any);
+    component.onFileSelected({target: {files: 'test'}});
+    // @ts-ignore
+    window.FileReader().onerror('error');
+    expect(window.FileReader).toHaveBeenCalled();
+  });
 });

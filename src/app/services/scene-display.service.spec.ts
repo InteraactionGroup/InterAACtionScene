@@ -21,7 +21,7 @@ describe('SceneDisplayService', () => {
     expect(service).toBeTruthy();
   });
 
-  // check if it is calls specific function after calling the function
+  // check if it calls specific function after calling the function
   it('UpdateDimensions:: should update dimensions of canvas', () => {
     spyOn(service, 'onCanvasChange');
     service.selectedScene = 0;
@@ -32,8 +32,8 @@ describe('SceneDisplayService', () => {
     expect(service.onCanvasChange).toHaveBeenCalled();
   });
 
-  // check if it is calls specific function after calling the function
-  it('UpdateDimensions:: should set image width and height if condition suffice', () => {
+  // check if it calls specific function after calling the function
+  it('UpdateDimensions:: should set image width and height if condtion suffise', () => {
     spyOn(service, 'onCanvasChange');
     service.selectedScene = 0;
     service.selectedImage = 0;

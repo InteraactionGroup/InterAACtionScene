@@ -14,7 +14,7 @@ describe('MenubarComponent', () => {
   beforeEach(async(() => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes', 'getScenes']);
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule, MatDialogModule],
+      imports: [TranslateModule.forRoot(),RouterTestingModule, MatDialogModule],
       declarations: [MenubarComponent],
       providers: [
         { provide: ScenesService, useValue: sceneServiceMock }
@@ -34,7 +34,7 @@ describe('MenubarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // check if it is calls specific functions to make fullscreen
+  // check if it calls specific functions to make fullscreen
   it('fullScreen:: should enter full screen', fakeAsync(() => {
     spyOnProperty(document, 'fullscreenElement', 'get').and.returnValue(true);
     spyOn(document, 'exitFullscreen');
@@ -114,13 +114,13 @@ describe('MenubarComponent', () => {
     expect(component.dialog.open).toHaveBeenCalled();
   });
 
-  // check if it is sets specific values
+  // check if it sets specific variable
   it('onImageChange:: should change scene title', () => {
     component.onImageChange('test');
     expect(component.sceneTitle).toEqual('test');
   });
 
-  // check if it is sets specific values in the service variables
+  // check if it sets specific values in the service variables
   it('changeMode:: should change mode to given mode', () => {
     component.changeMode('mode1');
     expect(component.modeService.currentDrawingTool).toEqual('');
@@ -128,14 +128,14 @@ describe('MenubarComponent', () => {
     expect(component.modeService.selectedMode).toEqual('mode1');
   });
 
-  // check if it is sets specific values in the service variables
+  // check if it sets specific values in the service variables
   it('changeColor:: should change color to given color', () => {
     component.changeColor('color1');
     expect(component.modeService.choiceDrawing).toEqual('');
     expect(component.modeService.currentDrawingTool).toEqual('color1');
   });
 
-  // check if it is sets specific values in the service variables
+  // check if it sets specific values in the service variables
   it('choiceDrawing:: should change drawing to given drawing', () => {
     component.choiceDrawing('drawing1');
     expect(component.modeService.choiceDrawing).toEqual('drawing1');

@@ -57,13 +57,15 @@ describe('AudioRecorderService', () => {
 
   // check if it sets specific variables after calling the function
   it('goToSuccess:: should success the process for steaming', () => {
+    // spyOn(window, 'AudioContext').and.returnValue({ createMediaStreamSource: () => {}, createScriptProcessor: () => { onaudioprocess: () => true } } as any);
     service.context = { createMediaStreamSource: () => ({connect: (val) => {}}),
-      createScriptProcessor: () => ({ connect: (val) => {}, onaudioprocess: () => true})};
+    createScriptProcessor: () => ({ connect: (val) => {}, onaudioprocess: () => true})};
     spyOn(window, 'AudioContext').and.returnValue({ createMediaStreamSource: () => ({connect: (val) => {}}),
-      createScriptProcessor: () => ({ connect: (val) => {}, onaudioprocess: () => true})} as any);
+    createScriptProcessor: () => ({ connect: (val) => {}, onaudioprocess: () => true})} as any);
     spyOn(service.context, 'createMediaStreamSource').and.returnValue({ connect: (val) => {} });
     spyOn(service.context, 'createScriptProcessor').and.returnValue({ connect: (val) => {}, onaudioprocess: () => true });
     service.goToSuccess(new MediaStream());
+    service.recorder.onaudioprocess({inputBuffer: { getChannelData: (param) => param }} as any);
     expect(service).toBeTruthy();
   });
 
@@ -94,9 +96,17 @@ describe('AudioRecorderService', () => {
     expect(service.view).toBeDefined();
   });
 
-  // check if it is returns specific variables after calling the function
+  // check if it returns specific variables after calling the function
   it('getRecord:: should return record', () => {
     service.view = [];
     expect(service.getRecord()).toBeDefined();
+  });
+
+  it('flattenArray:: should return flatten array from passed params', () => {
+    expect(service.flattenArray([1, 2, 3], [])).toBeDefined();
+  });
+
+  it('interleave:: should return interleave array from passed params', () => {
+    expect(service.interleave([1, 2, 3], [])).toBeDefined();
   });
 });

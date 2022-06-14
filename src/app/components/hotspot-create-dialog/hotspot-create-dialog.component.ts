@@ -21,7 +21,7 @@ export class HotspotCreateDialogComponent implements OnInit {
   name = '';
   error = '';
   svgPath: number[];
-  typeSound = 'soundAudio';
+  typeSound = "soundAudio";
 
   constructor(
     private scenesService: ScenesService,

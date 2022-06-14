@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {SettingsService} from './settings.service';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule} from "@ngx-translate/core";
 
 describe('SettingsService', () => {
   let service: SettingsService;

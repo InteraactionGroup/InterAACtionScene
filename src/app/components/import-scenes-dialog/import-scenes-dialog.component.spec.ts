@@ -14,7 +14,6 @@ describe('ImportScenesDialogComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
-    // tslint:disable-next-line:no-shadowed-variable
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes']);
     TestBed.configureTestingModule({
@@ -43,7 +42,7 @@ describe('ImportScenesDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // check if it throws specific error if invalid file is passed
+  // check if it throws specific error if we pass invalid file
   it('submit:: should not update scene if file is invalid', () => {
     component.selectedFile = 'base64';
     component.extensionSelectedFile = 'scene';
@@ -53,7 +52,7 @@ describe('ImportScenesDialogComponent', () => {
     expect(component.error).toEqual('Invalid file.');
   });
 
-  // check if it calls specific service method if passing required params
+  // check if it calls specific service method if required params are passed
   it('submit:: should update scene and close dialog', () => {
     component.selectedFile = '{"file": "abc"}';
     component.extensionSelectedFile = 'scene';
@@ -63,6 +62,7 @@ describe('ImportScenesDialogComponent', () => {
     expect(sceneService.updateScenes).toHaveBeenCalled();
     expect(dialogRef.close).toHaveBeenCalled();
   });
+
   // check if it throws specific error if we pass invalid file
   it('submit:: should show error if file is other then .scene', () => {
     component.selectedFile = '{"file": "abc"}';
@@ -82,5 +82,46 @@ describe('ImportScenesDialogComponent', () => {
     component.submit({ fileSelected: 'base64' });
     expect(sceneService.updateScenes).not.toHaveBeenCalled();
     expect(dialogRef.close).not.toHaveBeenCalled();
+  });
+
+  // function should set file from the passed event
+  it('onFileSelected:: should set selected file from event', () => {
+    const blob = new Blob([""], { type: "text/html" });
+    blob["lastModifiedDate"] = "";
+    blob["name"] = "filename";
+    const file = <File>blob;
+    const fileList: FileList = {
+      0: file,
+      1: file,
+      length: 2,
+      item: (index: number) => file
+    };
+    component.onFileSelected({target: {files: fileList}});
+  });
+
+  // spy upon the FileReader and returnd the object which is used in the function
+  // at last just check if FileReader instance is getting created or not
+  it('onFileSelected:: should show error if file reader fails', () => {
+    const blob = new Blob([""], { type: "text/html" });
+    blob["lastModifiedDate"] = "";
+    blob["name"] = "filename";
+    const file = <File>blob;
+    const fileList: FileList = {
+      0: file,
+      1: file,
+      length: 2,
+      item: (index: number) => file
+    };
+    spyOn(window, 'FileReader').and.returnValue({
+      onload: function() {},
+      readAsText : function() {
+        return true;
+      },
+      onerror: () => {}
+    } as any);
+    component.onFileSelected({target: {files: fileList}});
+    // @ts-ignore
+    window.FileReader().onerror('error');
+    expect(window.FileReader).toHaveBeenCalled();
   });
 });

@@ -4,7 +4,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
-
+import { of } from 'rxjs';
 
 describe('SceneDisplayComponent', () => {
   let component: SceneDisplayComponent;
@@ -89,7 +89,7 @@ describe('SceneDisplayComponent', () => {
     expect(component.hasAtLeastOneScene()).toBeFalsy();
   });
 
-  // check if it calls specific service method based on the setup params
+  // check if it is calls specific service method based on the setup params
   it('exit:: should stop dwellCursorService', () => {
     component.settingsService.DWELL_TIME_ENABLED = true;
     spyOn(component.dwellCursorService, 'stop');
@@ -112,10 +112,10 @@ describe('SceneDisplayComponent', () => {
       { name: 'abc', images: [{name: 'xyz'}, { name: 'xyz' }, { name: 'xyz' }] },
       { name: 'abc', images: [{name: 'xyz'}, { name: 'xyz' }, { name: 'xyz' }] },
       { name: 'abc', images: [{name: 'xyz'}, { name: 'xyz' }, { name: 'xyz' }] }] as any;
-    component.imageName = 'test';
-    expect(
-      component.scenesService.SCENES[component.sceneDisplayService.selectedScene].images[component.sceneDisplayService.selectedImage].name
-    ).toEqual('test');
+      component.imageName = 'test';
+      expect(
+        component.scenesService.SCENES[component.sceneDisplayService.selectedScene].images[component.sceneDisplayService.selectedImage].name
+        ).toEqual('test');
   });
 
   // check if ngOnInit calls some specific service methods based on the setup params
@@ -127,11 +127,12 @@ describe('SceneDisplayComponent', () => {
     component.sceneDisplayService.selectedImage = 0;
     component.scenesService.SCENES = [{images: [{name: 'abc'}]}] as any;
     fixture.detectChanges();
+    component.sceneDisplayService.bigImageContainerObservable.next('test');
     tick(800);
     expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
   }));
 
-  // check if ngOnInit calls some specific service methods based on the setup params
+  // check if ngOnInit doesn't call some specific service methods based on the setup params
   it('it should update dimensions after some delay', fakeAsync(() => {
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     fixture.detectChanges();
@@ -139,7 +140,7 @@ describe('SceneDisplayComponent', () => {
     expect(component.sceneDisplayService.UpdateDimensions).not.toHaveBeenCalled();
   }));
 
-  // check if function doesn't call service method if required params are missing
+  // checked if function doesn't call service method if required params are missing
   it('enterScene:: should play scene to max', () => {
     component.settingsService.DWELL_TIME_ENABLED = false;
     component.settingsService.DWELL_TIME_TIMEOUT_VALUE = 10;
@@ -156,4 +157,101 @@ describe('SceneDisplayComponent', () => {
     component.onHotspotsChange();
     expect(component.sceneDisplayService.currImage).toEqual(curImg + 1);
   });
+
+  // spy upon the service and component methods and set up scenes variable
+  // call the function and check if it calls components and service methods
+  it('changeScene:: should change scene', () => {
+    spyOn(component, 'selectNonHiddenImage');
+    spyOn(component.scenesService, 'updateScenes');
+    spyOn(component.sceneDisplayService, 'UpdateDimensions');
+    component.scenesService.SCENES = [{images: [{hotspots: [{name: 'Center'}, {name: 'ABC'}]}]}] as any;
+    component.sceneDisplayService.selectedImage = 0;
+    component.sceneDisplayService.selectedScene = 0;
+    component.changeScene(0);
+    expect(component.sceneDisplayService.selectedScene).toEqual(0);
+    expect(component.selectNonHiddenImage).toHaveBeenCalled();
+    expect(component.scenesService.updateScenes).toHaveBeenCalled();
+    expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
+    expect(component.imageSelected).toBeFalsy();
+  });
+
+  // spy upon the service and component methods and setup scenes variable
+  // call the function and check if it calls components and service methods
+  it('changeImage:: should change image', () => {
+    spyOn(component.scenesService, 'updateScenes');
+    spyOn(component.sceneDisplayService, 'UpdateDimensions');
+    component.scenesService.SCENES = [{images: [{hotspots: [{name: 'Center'}, {name: 'ABC'}]}]}] as any;
+    component.sceneDisplayService.selectedImage = 0;
+    component.sceneDisplayService.selectedScene = 0;
+    component.changeImage(0);
+    expect(component.sceneDisplayService.selectedImage).toEqual(0);
+    expect(component.scenesService.updateScenes).toHaveBeenCalled();
+    expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
+    expect(component.imageSelected).toBeTruthy();
+  });
+
+  // spy upon the dialog ref
+  // call the function and check if it calls the open method of dialog
+  it('openAddSceneDialog:: should open add scene dialog', () => {
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true)});
+    component.openAddSceneDialog();
+    // @ts-ignore
+    expect(component.dialog.open).toHaveBeenCalled();
+  });
+
+  // spy upon the dialog ref
+  // call the function and check if it calls the open method of dialog
+  it('openAddImageDialog:: should open add image dialog', () => {
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true), componentInstance: {sceneNumber: 0}});
+    component.openAddImageDialog();
+    // @ts-ignore
+    expect(component.dialog.open).toHaveBeenCalled();
+  });
+
+  // spy upon the service and component methods and set up scenes variable
+  // call the function and check if it calls components and service methods
+  it('enterScene:: should update position and play scene', fakeAsync(() => {
+    component.settingsService.DWELL_TIME_ENABLED = true;
+    spyOn(component.dwellCursorService, 'updatePositionHTMLElement');
+    spyOn(component.dwellCursorService, 'playToMax');
+    spyOn(component, 'changeScene');
+    component.settingsService.DWELL_TIME_TIMEOUT_VALUE = 50;
+    component.enterScene({target: ''} as any, 0);
+    tick(60);
+    expect(component.dwellCursorService.updatePositionHTMLElement).toHaveBeenCalled();
+    expect(component.dwellCursorService.playToMax).toHaveBeenCalled();
+    expect(component.changeScene).toHaveBeenCalled();
+  }));
+
+  // spy upon the service and component methods and set up scenes variable
+  // call the function and check if it calls components and service methods
+  it('enterImage:: should update position and play scene', fakeAsync(() => {
+    component.settingsService.DWELL_TIME_ENABLED = true;
+    spyOn(component.dwellCursorService, 'updatePositionHTMLElement');
+    spyOn(component.dwellCursorService, 'playToMax');
+    spyOn(component, 'changeImage');
+    component.settingsService.DWELL_TIME_TIMEOUT_VALUE = 50;
+    component.enterImage({target: ''} as any, 0);
+    tick(60);
+    expect(component.dwellCursorService.updatePositionHTMLElement).toHaveBeenCalled();
+    expect(component.dwellCursorService.playToMax).toHaveBeenCalled();
+    expect(component.changeImage).toHaveBeenCalled();
+  }));
+
+  // spy upon the service and component methods and set up scenes variable
+  // call the function and check if it calls components and service methods
+  it('enterImage:: should not update position and play scene if dwell time is not enabled', fakeAsync(() => {
+    component.settingsService.DWELL_TIME_ENABLED = false;
+    spyOn(component.dwellCursorService, 'updatePositionHTMLElement');
+    spyOn(component.dwellCursorService, 'playToMax');
+    spyOn(component, 'changeImage');
+    component.settingsService.DWELL_TIME_TIMEOUT_VALUE = 50;
+    component.enterImage({target: ''} as any, 0);
+    tick(60);
+    expect(component.dwellCursorService.updatePositionHTMLElement).not.toHaveBeenCalled();
+    expect(component.dwellCursorService.playToMax).not.toHaveBeenCalled();
+    expect(component.changeImage).not.toHaveBeenCalled();
+  }));
 });

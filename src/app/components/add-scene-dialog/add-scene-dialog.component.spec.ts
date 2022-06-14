@@ -45,7 +45,7 @@ describe('AddSceneDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // setup blob and set to selectedFile and check if it calls the service method
+  // set up blob and set to selectedFile and check if it calls the service method
   it('submit:: should add scene and close the dialog', () => {
     const blob = new Blob([''], { type: 'image/jpeg' });
     blob['lastModifiedDate'] = '';
@@ -58,7 +58,7 @@ describe('AddSceneDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
-  // mke selectedFile null and check if it does not call the service method
+  // make selectedFile null and check if it does not call the service method
   it('submit:: should not add image if selected file is not present', () => {
     component.selectedFile = null;
     component.submit({value: {scenename: 'test', firstimagename: '123'}});
@@ -79,5 +79,21 @@ describe('AddSceneDialogComponent', () => {
       item: (index: number) => file
     };
     component.onFileSelected({target: {files: fileList}});
+  });
+
+  // spy upon the FileReader and return the object which is used in the function
+  // at last just check if fileReader instance is getting created or not
+  it('onFileSelected:: should show error if file reader fails', () => {
+    spyOn(window, 'FileReader').and.returnValue({
+      onload() {},
+      readAsDataURL() {
+        return true;
+      },
+      onerror: () => {}
+    } as any);
+    component.onFileSelected({target: {files: 'test'}});
+    // @ts-ignore
+    window.FileReader().onerror('error');
+    expect(window.FileReader).toHaveBeenCalled();
   });
 });

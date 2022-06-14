@@ -2,7 +2,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 
 import { SettingsComponent } from './settings.component';
 import {TranslateModule} from '@ngx-translate/core';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule} from "@angular/material/dialog";
 import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SettingsComponent', () => {
@@ -14,13 +14,12 @@ describe('SettingsComponent', () => {
       declarations: [ SettingsComponent ],
       imports: [TranslateModule.forRoot(), MatDialogModule, RouterTestingModule]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -28,6 +27,12 @@ describe('SettingsComponent', () => {
   });
 
   // check if it sets specific language in service
+  it('should set active language in onInit', fakeAsync(() => {
+    fixture.detectChanges();
+    component.selected = 'fr';
+    tick(550);
+    expect(component.selected).toEqual(component.languageService.activeLanguage);
+  }));
   it('should set active language in onInit', fakeAsync(() => {
     fixture.detectChanges();
     component.selected = 'fr';
@@ -49,7 +54,7 @@ describe('SettingsComponent', () => {
     expect(history.back).toHaveBeenCalled();
   });
 
-  // check if it opens the reset setting dialog
+  // check if it opens the dialog
   it('openDialog:: should open reset setting dialog', () => {
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true)});
@@ -58,7 +63,7 @@ describe('SettingsComponent', () => {
     expect(component.dialog.open).toHaveBeenCalled();
   });
 
-  // check if it opens the AFSR dialog
+  // check if it opens the dialog
   it('openDialogASFR:: should open site AFSR dialog', () => {
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true)});
@@ -67,7 +72,7 @@ describe('SettingsComponent', () => {
     expect(component.dialog.open).toHaveBeenCalled();
   });
 
-  // check if it opens the LinkInteraActionBox dialog
+  // check if it opens the dialog
   it('openDialogInteraactionBoxAFSR:: should open LinkInteraactionbox dialog', () => {
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true)});

@@ -33,4 +33,13 @@ describe('ConfirmationDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // spy upon the dialog ref
+  // check if Close method is called
+  it('onNoClick:: should close the dialog', () => {
+    component.dialogRef = { close: () => {} } as any;
+    spyOn(component.dialogRef, 'close');
+    component.onNoClick();
+    expect(component.dialogRef.close).toHaveBeenCalled();
+  });
 });
