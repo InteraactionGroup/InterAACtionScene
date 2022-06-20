@@ -1,9 +1,11 @@
 import {TestBed} from '@angular/core/testing';
+import Ajv from 'ajv';
 
 import {JsonValidatorService} from './json-validator.service';
 
 describe('JsonValidatorServiceService', () => {
   let service: JsonValidatorService;
+  let ajv;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -11,6 +13,12 @@ describe('JsonValidatorServiceService', () => {
   });
 
   it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  // check if it returns specific error on invalid data
+  it('getCheckedGrid:: should check and parse valid grid data', () => {
+    expect(function(){service.getCheckedGrid('test') }).toThrow(new Error('JSON file has invalid format'));
     expect(service).toBeTruthy();
   });
 });

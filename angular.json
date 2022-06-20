@@ -98,7 +98,8 @@
             "scripts": [
               "./bower_components/svg.js/dist/svg.js",
               "./bower_components/svg.draw.js/dist/svg.draw.js"
-            ]
+            ],
+            "codeCoverage": true
           }
         },
         "lint": {

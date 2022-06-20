@@ -13,5 +13,11 @@ describe('UserDBService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  // check if it sets specific variable after calling the function
+  it('addUser:: should add user', () => {
+    service.addUser('user1');
+    expect(service.usersList.indexOf('user1')).toBeGreaterThan(-1);
+  });
 });
 

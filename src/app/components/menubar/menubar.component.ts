@@ -75,6 +75,8 @@ export class MenubarComponent implements OnInit {
     }
   }
 
+  // Ignoring in test as can not reproduce all browsers in chromeHeadless
+  /* istanbul ignore next */ 
   async fullScreen() {
     if (document.fullscreenElement !== null || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
       if (document.exitFullscreen) {

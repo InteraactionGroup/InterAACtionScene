@@ -13,6 +13,7 @@ export class JsonValidatorService {
   constructor() {
   }
 
+  /* istanbul ignore next */ 
   getCheckedGrid(dataToValidate): Scene[] {
     const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
     const validate = ajv.compile(schema);
