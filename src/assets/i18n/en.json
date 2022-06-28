@@ -28,7 +28,8 @@
     "theimage:": " the image : ",
     "thescene:": " the scene : ",
     "Doyouconfirmthedeletionof": "Do you confirm the deletion of ",
-    "Enteraname": "Enter a name"
+    "Enteraname": "Enter a name",
+    "Show": "Show"
   },
   "Settings": {
     "DwelltimeEnabled": "Dwell-time Enabled",

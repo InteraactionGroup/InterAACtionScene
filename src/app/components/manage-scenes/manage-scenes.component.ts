@@ -19,7 +19,7 @@ export class ManageScenesComponent implements OnInit {
   @Input() imageSelected: boolean;
   @Output() updateScenes = new EventEmitter<string>();
 
-  constructor(private scenesService: ScenesService,
+  constructor(public scenesService: ScenesService,
               private dialog: MatDialog,
               public languageService: LanguageService) {
   }

@@ -28,7 +28,8 @@
     "theimage:": " l'image : ",
     "thescene:": " la scène : ",
     "Doyouconfirmthedeletionof": "Confirmez-vous la suppression de ",
-    "Enteraname": "Entrer un nom"
+    "Enteraname": "Entrer un nom",
+    "Show": "Montrer"
   },
   "Settings": {
     "DwelltimeEnabled": "Activer le temps de fixation",

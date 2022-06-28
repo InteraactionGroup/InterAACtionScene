@@ -18,7 +18,6 @@ export class ConfirmationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageTab = this.message.split(' ');
-    console.log('this.messageTab',this.messageTab);
   }
 
   onNoClick(): void {
