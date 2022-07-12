@@ -35,6 +35,94 @@ describe('ManageScenesComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // check if calls specific service function if passing required params
+  it('hide:: should hide images based on condition', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    component.imageSelected = true;
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true) } as any);
+    component.hide();
+    expect(sceneService.hideImage).toHaveBeenCalled();
+  });
+
+  // check if it calls specific service function if passing required params
+  it('hide:: should hide scene based on condition', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    component.imageSelected = false;
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true) } as any);
+    component.hide();
+    expect(sceneService.hideScene).toHaveBeenCalled();
+  });
+
+  // check if it doesn't call specific service function if not passing required params
+  it('hide:: should not hide scene if scene is not set', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    component.imageSelected = false;
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true) } as any);
+    component.hide();
+    expect(sceneService.hideScene).not.toHaveBeenCalled();
+  });
+
+  // check if it calls specific service function if passing required params
+  it('hide:: should not hide scene if dialog is not closed', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    component.imageSelected = true;
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(false) } as any);
+    component.hide();
+    expect(sceneService.hideScene).not.toHaveBeenCalled();
+  });
+
+  // check if it calls specific service function if passing required params
+  it('remove:: should remove images based on condition', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    component.imageSelected = true;
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true) } as any);
+    component.remove();
+    expect(sceneService.removeImage).toHaveBeenCalled();
+  });
+
+  // check if it calls specific service function if passing required params
+  it('remove:: should remove scene based on condition', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    component.imageSelected = false;
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true) } as any);
+    component.remove();
+    expect(sceneService.removeScene).toHaveBeenCalled();
+  });
+
+  // check if it calls specific service function if passing required params
+  it('remove:: should not remove scene if scene is not set', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    component.imageSelected = false;
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true) } as any);
+    component.remove();
+    expect(sceneService.removeScene).not.toHaveBeenCalled();
+  });
+
+  // check if it calls specific service function if passing required params
+  it('remove:: should not remove scene if dialog is not closed', () => {
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    component.imageSelected = true;
+    // @ts-ignore
+    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(false) } as any);
+    component.remove();
+    expect(sceneService.removeScene).not.toHaveBeenCalled();
+  });
+
   // check if it opens the dialog
   it('rename:: should open rename dialog with data', () => {
     // @ts-ignore
