@@ -13,12 +13,11 @@ describe('ExportScenesDialogComponent', () => {
   let fixture: ComponentFixture<ExportScenesDialogComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
   let sceneService: jasmine.SpyObj<ScenesService>;
-  let sceneServiceMock: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
     // tslint:disable-next-line:no-shadowed-variable
-    dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
-    sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes']);
+    const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
+    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes']);
     TestBed.configureTestingModule({
       declarations: [ImportScenesDialogComponent],
       imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule],

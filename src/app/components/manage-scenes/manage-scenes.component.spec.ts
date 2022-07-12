@@ -6,16 +6,14 @@ import {RouterTestingModule} from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
 import { of } from 'rxjs';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import SpyObj = jasmine.SpyObj;
 
 describe('ManageScenesComponent', () => {
   let component: ManageScenesComponent;
   let fixture: ComponentFixture<ManageScenesComponent>;
   let sceneService: jasmine.SpyObj<ScenesService>;
-  let sceneServiceMock: SpyObj<ScenesService>;
 
   beforeEach(async(() => {
-    sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes', 'hideImage', 'hideScene', 'removeImage', 'removeScene']);
+    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes', 'hideImage', 'hideScene', 'removeImage', 'removeScene']);
     TestBed.configureTestingModule({
       declarations: [ManageScenesComponent, ConfirmationDialogComponent],
       imports: [MatDialogModule, TranslateModule.forRoot(),RouterTestingModule],
