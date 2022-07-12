@@ -75,7 +75,7 @@ describe('ManageScenesComponent', () => {
   it('hide:: should not hide scene if dialog is not closed', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
-    sceneService.getScenes.and.returnValue([{images: [{ name: 'abc' }], name: 'xyz'}] as any);
+    sceneService.getScenes.and.returnValue([] as any);
     component.imageSelected = true;
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(false) } as any);
@@ -87,7 +87,7 @@ describe('ManageScenesComponent', () => {
   it('remove:: should remove images based on condition', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
-    sceneService.getScenes.and.returnValue([{images: [{ name: 'abc' }], name: 'xyz'}] as any);
+    sceneService.getScenes.and.returnValue([] as any);
     component.imageSelected = true;
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true) } as any);
@@ -123,7 +123,7 @@ describe('ManageScenesComponent', () => {
   it('remove:: should not remove scene if dialog is not closed', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
-    sceneService.getScenes.and.returnValue([{images: [{ name: 'abc' }], name: 'xyz'}] as any);
+    sceneService.getScenes.and.returnValue([] as any);
     component.imageSelected = true;
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(false) } as any);
@@ -133,7 +133,7 @@ describe('ManageScenesComponent', () => {
 
   // check if it opens the dialog
   it('rename:: should open rename dialog with data', () => {
-    sceneService.getScenes.and.returnValue([{images: [{ name: 'abc' }], name: 'xyz'}] as any);
+    sceneService.getScenes.and.returnValue([] as any);
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true),
       componentInstance: { selectedScene: null, selectedImage: null, imageSelected: null} } as any);
