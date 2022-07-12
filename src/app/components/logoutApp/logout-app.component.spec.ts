@@ -30,10 +30,4 @@ describe('LogoutAppComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  it('should create', () => {
-    component.onNoClick();
-    component.putYes();
-    expect(component).toBeTruthy();
-  });
 });
