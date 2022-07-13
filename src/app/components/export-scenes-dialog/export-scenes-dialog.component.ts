@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ScenesService} from "../../services/scenes.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MatDialogRef} from "@angular/material/dialog";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-export-scenes-dialog',
@@ -15,7 +16,8 @@ export class ExportScenesDialogComponent implements OnInit {
   constructor(
     private scenesService: ScenesService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<ExportScenesDialogComponent>
+    private dialogRef: MatDialogRef<ExportScenesDialogComponent>,
+    public languageService: LanguageService
   ) {
   }
 

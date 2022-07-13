@@ -1,7 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { ExportScenesDialogComponent } from './export-scenes-dialog.component';
-import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {TranslateModule} from '@ngx-translate/core';
@@ -11,16 +10,15 @@ import { ScenesService } from 'src/app/services/scenes.service';
 describe('ExportScenesDialogComponent', () => {
   let component: ExportScenesDialogComponent;
   let fixture: ComponentFixture<ExportScenesDialogComponent>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
+  let dialogRef: jasmine.SpyObj<MatDialogRef<ExportScenesDialogComponent>>;
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
-    // tslint:disable-next-line:no-shadowed-variable
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes']);
     TestBed.configureTestingModule({
-      declarations: [ImportScenesDialogComponent],
-      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule],
+      declarations: [ExportScenesDialogComponent],
+      imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, MatDialogModule, RouterTestingModule],
       providers: [
         {
           provide: MatDialogRef,
@@ -36,7 +34,7 @@ describe('ExportScenesDialogComponent', () => {
     fixture = TestBed.createComponent(ExportScenesDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    dialogRef = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
+    dialogRef = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<ExportScenesDialogComponent>>;
     sceneService = TestBed.inject(ScenesService) as jasmine.SpyObj<ScenesService>;
   });
 
