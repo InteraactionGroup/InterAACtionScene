@@ -1,7 +1,11 @@
 <div class="manage-scenes">
-  <button type="button" name="hide" (click)="hide()">
+  <button *ngIf="!getStatusHideShow()" type="button" name="hide" (click)="hide()">
     <img src="assets/images/hide.svg" alt="erase" class="buttonTopImg">
     {{'Dashboard.Hide' | translate}}
+  </button>
+  <button *ngIf="getStatusHideShow()" type="button" name="show" (click)="hide()">
+    <img src="assets/images/show.svg" alt="erase" class="buttonTopImg">
+    {{'Dashboard.Show' | translate}}
   </button>
   <button type="button" name="remove" (click)="remove()">
     <img src="assets/images/delete.svg" alt="erase" class="buttonTopImg">

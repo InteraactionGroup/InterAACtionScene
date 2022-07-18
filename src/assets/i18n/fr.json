@@ -18,7 +18,7 @@
     "Erase": "Gommer",
     "Clear": "Effacer",
     "Doyouwanttohidetheimage": "Voulez vous cacher l'image",
-    "Doyouconfrimthedeletionoftheimage": "Confirmez-vous que vous voulez supprimer l'image",
+    "Doyouconfirmthedeletionoftheimage": "Confirmez-vous que vous voulez supprimer l'image",
     "Chooseaname": "Choisissez un nom",
     "Importscenes": "Importer scènes",
     "Cancel": "Annuler",
@@ -28,7 +28,8 @@
     "theimage:": " l'image : ",
     "thescene:": " la scène : ",
     "Doyouconfirmthedeletionof": "Confirmez-vous la suppression de ",
-    "Enteraname": "Entrer un nom"
+    "Enteraname": "Entrer un nom",
+    "Show": "Montrer"
   },
   "Settings": {
     "DwelltimeEnabled": "Activer le temps de fixation",

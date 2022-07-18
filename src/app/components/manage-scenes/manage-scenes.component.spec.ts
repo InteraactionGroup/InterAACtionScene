@@ -13,7 +13,7 @@ describe('ManageScenesComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
-    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes', 'hideImage', 'hideScene', 'removeImage', 'removeScene']);
+    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes', 'hideImage', 'hideScene', 'removeImage', 'removeScene', "statusHideShowSceneImage"]);
     TestBed.configureTestingModule({
       declarations: [ManageScenesComponent, ConfirmationDialogComponent],
       imports: [MatDialogModule, TranslateModule.forRoot(),RouterTestingModule],
