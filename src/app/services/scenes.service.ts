@@ -150,7 +150,11 @@ export class ScenesService {
   }
 
   statusHideShowSceneImage(selectedScene: number, selectedImage: number){
-    return this.SCENES[selectedScene].images[selectedImage].hidden;
+    if (this.SCENES.length != 0){
+      return this.SCENES[selectedScene].images[selectedImage].hidden;
+    } else {
+      return false;
+    }
   }
 
   changeHotspot(hotspot: Hotspot, selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
