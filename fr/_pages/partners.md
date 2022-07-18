@@ -7,10 +7,12 @@ layout: single
 <table>
   <thead>
     <tr>
-      <th style="text-align: center">Association Française du syndrome de Rett</th>
-      <th style="text-align: center">Université Grenoble Alpes</th>
-      <th style="text-align: center">Laboratoire d’informatique de Grenoble</th>
-      <th style="text-align: center">Laboratoire de Grenoble Images Parole Signal Automatique</th>
+      <th style="text-align: center">AFSR</th>
+      <th style="text-align: center">UGA</th>
+      <th style="text-align: center">LIG</th>
+      <th style="text-align: center">gipsa-lab</th>
+      <th style="text-align: center">CNRS</th>
+      <th style="text-align: center">INRIA</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +21,8 @@ layout: single
       <td style="text-align: center;width: 25%;"><a href="https://www.univ-grenoble-alpes.fr/"><img src="../assets/images/userGuideImages/UGA.png" alt="uga"></a></td>
       <td style="text-align: center;width: 25%;"><a href="https://www.liglab.fr/"><img src="../assets/images/userGuideImages/lig.png" alt="lig"></a></td>
       <td style="text-align: center;width: 25%;"><a href="http://www.gipsa-lab.fr/"><img src="../assets/images/userGuideImages/Gipsa_Lab.png" alt="gipsa"></a></td>
+      <td style="text-align: center;width: 25%;"><a href="https://www.cnrs.fr/"><img src="../assets/images/userGuideImages/cnrs.png" alt="cnrs"></a></td>
+      <td style="text-align: center;width: 25%;"><a href="https://www.inria.fr/"><img src="../assets/images/userGuideImages/inria.png" alt="inria"></a></td>
     </tr>
   </tbody>
 </table>
