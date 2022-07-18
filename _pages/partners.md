@@ -23,8 +23,8 @@ layout: single
       <td style="text-align: center;width: 25%;"><a href="https://www.univ-grenoble-alpes.fr/"><img src="../assets/images/userGuideImages/UGA.png" alt="uga"></a></td>
       <td style="text-align: center;width: 25%;"><a href="https://www.liglab.fr/"><img src="../assets/images/userGuideImages/lig.png" alt="lig"></a></td>
       <td style="text-align: center;width: 25%;"><a href="http://www.gipsa-lab.fr/"><img src="../assets/images/userGuideImages/Gipsa_Lab.png" alt="gipsa"></a></td>
-      <td style="text-align: center;width: 33%;"><a href="https://www.cnrs.fr/en"><img src="../assets/images/userGuideImages/cnrs.png" alt="cnrs"></a></td>
-      <td style="text-align: center;width: 33%;"><a href="https://www.inria.fr/en"><img src="../assets/images/userGuideImages/inria.png" alt="inria"></a></td>
+      <td style="text-align: center;width: 100%;"><a href="https://www.cnrs.fr/en"><img src="../assets/images/userGuideImages/cnrs.png" alt="cnrs"></a></td>
+      <td style="text-align: center;width: 100%;"><a href="https://www.inria.fr/en"><img src="../assets/images/userGuideImages/inria.png" alt="inria"></a></td>
     </tr>
   </tbody>
 </table>
