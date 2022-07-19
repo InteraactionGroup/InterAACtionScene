@@ -6,6 +6,7 @@ import {RenameDialogComponent} from '../rename-dialog/rename-dialog.component';
 import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes-dialog.component';
 import {LanguageService} from '../../services/language.service';
 import {ExportScenesDialogComponent} from "../export-scenes-dialog/export-scenes-dialog.component";
+import {Scene} from "../../types";
 
 @Component({
   selector: 'app-manage-scenes',
@@ -32,8 +33,8 @@ export class ManageScenesComponent implements OnInit {
     if (SCENES != null && SCENES.length !== 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: 'Do you want to hide ' +
-          (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name) + ' ?'
+        data: 'Doyouwanttohide' +
+          (this.imageSelected ? 'theimage ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'thescene ' + SCENES[this.selectedScene].name) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -53,7 +54,7 @@ export class ManageScenesComponent implements OnInit {
     if (SCENES != null && SCENES.length != 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: 'Do you confirm the deletion of ' + (this.imageSelected ? 'the image : ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'the scene : ' + SCENES[this.selectedScene].name) + ' ?'
+        data: 'Doyouconfirmthedeletionof' + (this.imageSelected ? 'theimage ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'thescene ' + SCENES[this.selectedScene].name) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -99,5 +100,7 @@ export class ManageScenesComponent implements OnInit {
 
   }
 
-
+  getStatusHideShow(): boolean {
+    return this.scenesService.statusHideShowSceneImage(this.selectedScene, this.selectedImage);
+  }
 }
