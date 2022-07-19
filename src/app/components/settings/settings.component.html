@@ -33,22 +33,23 @@
   <div class="bigContainer">
     <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.SpeechSpeaker' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="saveConfig()" id="speechSpeaker" type="checkbox">
+      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="checkValue()" id="speechSpeaker" type="checkbox">
     </div>
     <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="saveConfig()" id="dwellTimeEnable" type="checkbox">
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="checkValue()" id="dwellTimeEnable" type="checkbox">
     </div>
     <div class="settings-item">
       <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" (keyup)="saveConfig()" id="dwellTime" type="text" maxlength="5">
+      <input [(ngModel)]="this.dwellTime" (keyup)="checkValue()" id="dwellTime" type="text" maxlength="5">
+      <p *ngIf="dwellTimeError" class="error">{{'Settings.DwellTimeError' | translate}}</p>
     </div>
     <div class="settings-item">
       <mat-form-field  appearance ="fill" >
         <mat-label > {{'Settings.Selectalanguage' | translate}} </mat-label>
         <mat-select [(value)] = "selected">
-          <mat-option  value = "fr" (click)="languageService.switchLanguage(selected); saveConfig()"> {{'Settings.French' | translate}} </mat-option>
-          <mat-option  value = "en" (click)="languageService.switchLanguage(selected); saveConfig()"> {{'Settings.English' | translate}} </mat-option>
+          <mat-option  value = "fr" (click)="languageService.switchLanguage(selected); checkValue()"> {{'Settings.French' | translate}} </mat-option>
+          <mat-option  value = "en" (click)="languageService.switchLanguage(selected); checkValue()"> {{'Settings.English' | translate}} </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -62,22 +63,23 @@
   <div class="bigContainerAFSR">
     <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.SpeechSpeaker' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="saveConfig()" id="speechSpeakerAfsr" type="checkbox">
+      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="checkValue()" id="speechSpeakerAfsr" type="checkbox">
     </div>
     <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="saveConfig()" id="dwellTimeEnableAfsr" type="checkbox">
+      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="checkValue()" id="dwellTimeEnableAfsr" type="checkbox">
     </div>
     <div class="settings-item">
       <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_TIMEOUT_VALUE" (keyup)="saveConfig()" id="dwellTimeAfsr" type="text" maxlength="5">
+      <input [(ngModel)]="this.dwellTime" (keyup)="checkValue()" id="dwellTimeAfsr" type="text" maxlength="5">
+      <p *ngIf="dwellTimeError" class="error">{{'Settings.DwellTimeError' | translate}}</p>
     </div>
     <div class="settings-item">
       <mat-form-field  appearance ="fill" >
         <mat-label > {{'Settings.Selectalanguage' | translate}} </mat-label>
         <mat-select [(value)] = "selected">
-          <mat-option  value = "fr" (click)="languageService.switchLanguage(selected); saveConfig()"> {{'Settings.French' | translate}} </mat-option>
-          <mat-option  value = "en" (click)="languageService.switchLanguage(selected); saveConfig()"> {{'Settings.English' | translate}} </mat-option>
+          <mat-option  value = "fr" (click)="languageService.switchLanguage(selected); checkValue()"> {{'Settings.French' | translate}} </mat-option>
+          <mat-option  value = "en" (click)="languageService.switchLanguage(selected); checkValue()"> {{'Settings.English' | translate}} </mat-option>
         </mat-select>
       </mat-form-field>
     </div>

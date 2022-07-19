@@ -10,6 +10,13 @@
   right: 0;
 }
 
+.error{
+  color: red;
+  grid-column: 3;
+  margin: 0;
+  padding-left: 10px;
+}
+
 .menuBar{
   height: 65px;
   min-width: 7cm;

@@ -34,6 +34,7 @@
   "Settings": {
     "DwelltimeEnabled": "Activer le temps de fixation",
     "DwellTime": "Temps de temporisation",
+    "DwellTimeError": "La valeur doit être entre 0 et 5000",
     "SpeechSpeaker": "Synthèse vocal",
     "Back": "Retour",
     "Selectalanguage": "Selectionne une langue",
