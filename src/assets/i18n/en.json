@@ -34,6 +34,7 @@
   "Settings": {
     "DwelltimeEnabled": "Dwell-time Enabled",
     "DwellTime": "Dwell-Time",
+    "DwellTimeError": "Value must be in 0 and 5000",
     "SpeechSpeaker": "Speech synthesiser",
     "Back": "Back",
     "Selectalanguage": "Select a language",

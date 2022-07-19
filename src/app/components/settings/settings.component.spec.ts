@@ -29,16 +29,34 @@ describe('SettingsComponent', () => {
   // check if it sets specific language in service
   it('should set active language in onInit', fakeAsync(() => {
     fixture.detectChanges();
-    component.selected = 'fr';
+    component.selected = component.languageService.activeLanguage;
     tick(550);
     expect(component.selected).toEqual(component.languageService.activeLanguage);
   }));
-  it('should set active language in onInit', fakeAsync(() => {
+
+  // check if it sets specific value
+  it('should set value dwelltime in onInit', fakeAsync(() => {
     fixture.detectChanges();
-    component.selected = 'fr';
+    component.dwellTime = component.settingsService.DWELL_TIME_TIMEOUT_VALUE;
     tick(550);
-    expect(component.selected).toEqual(component.languageService.activeLanguage);
+    expect(component.dwellTime).toEqual(component.settingsService.DWELL_TIME_TIMEOUT_VALUE);
   }));
+
+  // check if the method 'checkValue()' return true
+  it('checkValue:: dwellTimeError should be equal to false', () => {
+    fixture.detectChanges();
+    component.dwellTime = 1000;
+    component.checkValue()
+    expect(component.dwellTimeError).toEqual(false);
+  });
+
+  // check if the method 'checkValue()' return false
+  it('checkValue:: dwellTimeError should be equal to true', () => {
+    fixture.detectChanges();
+    component.dwellTime = 7000;
+    component.checkValue()
+    expect(component.dwellTimeError).toEqual(true);
+  });
 
   // check if it calls specific service method
   it('saveConfig:: should update scene', () => {

@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogResetSettingsComponent} from "../dialog-reset-settings/dialog-reset-settings.component";
 import {DialogLinkInteraactionboxComponent} from '../dialog-link-interaactionbox/dialog-link-interaactionbox.component';
 import {DisplaySiteASFRComponent} from '../display-site-asfr/display-site-asfr.component';
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-settings',
@@ -14,16 +15,31 @@ import {DisplaySiteASFRComponent} from '../display-site-asfr/display-site-asfr.c
 })
 export class SettingsComponent implements OnInit {
 
+  selected;
+  dwellTime = 0;
+  dwellTimeError = false;
+
   constructor(public settingsService: SettingsService,
               public languageService: LanguageService,
               public sceneService: ScenesService,
               public dialog: MatDialog) { }
 
-  selected;
   ngOnInit(): void {
+    this.dwellTimeError = false;
     setTimeout(() => {
       this.selected = this.languageService.activeLanguage;
+      this.dwellTime = this.settingsService.DWELL_TIME_TIMEOUT_VALUE;
     }, 500);
+  }
+
+  checkValue(){
+    if ((this.dwellTime >= 0) && (this.dwellTime <= 5000)){
+      this.dwellTimeError = false;
+      this.settingsService.DWELL_TIME_TIMEOUT_VALUE = this.dwellTime;
+      this.saveConfig();
+    }else {
+      this.dwellTimeError = true;
+    }
   }
 
   saveConfig(){
