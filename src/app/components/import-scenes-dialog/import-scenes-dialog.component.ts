@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
 import {Scene} from '../../types';
 import {JsonValidatorService} from '../../services/json-validator.service';
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -20,9 +21,10 @@ export class ImportScenesDialogComponent implements OnInit {
 
   constructor(
     private scenesService: ScenesService,
-    private jsonValidatorService: JsonValidatorService,
+    public jsonValidatorService: JsonValidatorService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<ImportScenesDialogComponent>
+    private dialogRef: MatDialogRef<ImportScenesDialogComponent>,
+    public http: HttpClient
   ) {
   }
 
@@ -45,7 +47,6 @@ export class ImportScenesDialogComponent implements OnInit {
       console.log('Error: ', error);
     };
   }
-
 
   submit(form) {
     if (this.selectedFile != null && this.extensionSelectedFile == "scene") {

@@ -5,20 +5,24 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
-import { ScenesService } from 'src/app/services/scenes.service';
+import {ScenesService} from 'src/app/services/scenes.service';
+import {readFile} from "fs";
+import * as http from "http";
+import {HttpClientModule, HttpHeaders} from "@angular/common/http";
 
 describe('ImportScenesDialogComponent', () => {
   let component: ImportScenesDialogComponent;
   let fixture: ComponentFixture<ImportScenesDialogComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
   let sceneService: jasmine.SpyObj<ScenesService>;
+  const data = require('../../../assets/share/farm.scene');
 
   beforeEach(async(() => {
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes']);
     TestBed.configureTestingModule({
       declarations: [ImportScenesDialogComponent],
-      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule, HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,
@@ -36,6 +40,7 @@ describe('ImportScenesDialogComponent', () => {
     fixture.detectChanges();
     dialogRef = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
     sceneService = TestBed.inject(ScenesService) as jasmine.SpyObj<ScenesService>;
+    component.selectedFile = data;
   });
 
   it('should create', () => {
@@ -123,5 +128,19 @@ describe('ImportScenesDialogComponent', () => {
     // @ts-ignore
     window.FileReader().onerror('error');
     expect(window.FileReader).toHaveBeenCalled();
+  });
+
+  // check import our file
+  it('import:: should import our file.scene', () => {
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    var data = component.http.get("../../../assets/share/farm.scene", {'headers': headers}).toPromise();
+    var blobData = new Blob([JSON.stringify(data)], {type:'application/json'});
+
+    const reader = new FileReader();
+    reader.readAsText(blobData, 'UTF-8');
+    reader.onload = () => {
+      this.selectedFile = reader.result;
+      expect(component.jsonValidatorService.getCheckedGrid(JSON.parse(this.selectedFile))).toBeTruthy();
+    };
   });
 });
