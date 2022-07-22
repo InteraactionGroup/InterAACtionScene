@@ -130,15 +130,16 @@ describe('ImportScenesDialogComponent', () => {
 
   // check import our file
   it('import:: should import our file.scene', () => {
+    const file = require('../../../assets/share/farm.scene');
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    var data = component.http.get("../../../assets/share/farm.scene", {'headers': headers}).toPromise();
-    var blobData = new Blob([JSON.stringify(data)], {type:'application/json'});
+    const data = component.http.get(file, {'headers': headers}).toPromise();
+    const blobData = new Blob([JSON.stringify(data)], {type: 'application/json;charset=utf-8;'});
 
     const reader = new FileReader();
     reader.readAsText(blobData, 'UTF-8');
     reader.onload = () => {
-      this.selectedFile = reader.result;
-      expect(component.jsonValidatorService.getCheckedGrid(JSON.parse(this.selectedFile))).toBeTruthy();
+      component.selectedFile = reader.result;
+      expect(component.jsonValidatorService.getCheckedGrid(JSON.parse(component.selectedFile))).toBeTruthy();
     };
   });
 });
