@@ -6,8 +6,6 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ScenesService} from 'src/app/services/scenes.service';
-import {readFile} from "fs";
-import * as http from "http";
 import {HttpClientModule, HttpHeaders} from "@angular/common/http";
 
 describe('ImportScenesDialogComponent', () => {
