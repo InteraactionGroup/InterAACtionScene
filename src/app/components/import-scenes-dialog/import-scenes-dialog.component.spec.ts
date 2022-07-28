@@ -6,21 +6,21 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ScenesService} from 'src/app/services/scenes.service';
-import {HttpClientModule, HttpHeaders} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('ImportScenesDialogComponent', () => {
   let component: ImportScenesDialogComponent;
   let fixture: ComponentFixture<ImportScenesDialogComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
   let sceneService: jasmine.SpyObj<ScenesService>;
-  const data = require('../../../assets/share/farm.scene');
 
   beforeEach(async(() => {
     const dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes']);
     TestBed.configureTestingModule({
       declarations: [ImportScenesDialogComponent],
-      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule, HttpClientModule],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule, HttpClientModule, HttpClientTestingModule],
       providers: [
         {
           provide: MatDialogRef,
@@ -38,21 +38,10 @@ describe('ImportScenesDialogComponent', () => {
     fixture.detectChanges();
     dialogRef = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
     sceneService = TestBed.inject(ScenesService) as jasmine.SpyObj<ScenesService>;
-    component.selectedFile = data;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  // check if it throws specific error if we pass invalid file
-  it('submit:: should not update scene if file is invalid', () => {
-    component.selectedFile = 'base64';
-    component.extensionSelectedFile = 'scene';
-    // @ts-ignore
-    spyOn(component.jsonValidatorService, 'getCheckedGrid').and.returnValue([]);
-    component.submit({ fileSelected: 'base64' });
-    expect(component.error).toEqual('Invalid file.');
   });
 
   // check if it calls specific service method if required params are passed
@@ -102,7 +91,7 @@ describe('ImportScenesDialogComponent', () => {
     component.onFileSelected({target: {files: fileList}});
   });
 
-  // spy upon the FileReader and returnd the object which is used in the function
+  // spy upon the FileReader and returndthe object which is used in the function
   // at last just check if FileReader instance is getting created or not
   it('onFileSelected:: should show error if file reader fails', () => {
     const blob = new Blob([""], { type: "text/html" });
@@ -128,18 +117,41 @@ describe('ImportScenesDialogComponent', () => {
     expect(window.FileReader).toHaveBeenCalled();
   });
 
-  // check import our file
-  it('import:: should import our file.scene', () => {
-    const file = require('../../../assets/share/farm.scene');
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-    const data = component.http.get(file, {'headers': headers}).toPromise();
-    const blobData = new Blob([JSON.stringify(data)], {type: 'application/json;charset=utf-8;'});
+  it('import:: should import our file farm.scene',() => {
+    let scene;
+    const req = new XMLHttpRequest();
 
-    const reader = new FileReader();
-    reader.readAsText(blobData, 'UTF-8');
-    reader.onload = () => {
-      component.selectedFile = reader.result;
-      expect(component.jsonValidatorService.getCheckedGrid(JSON.parse(component.selectedFile))).toBeTruthy();
-    };
+    req.open('GET', '../../../assets/share/farm.scene', false);
+    req.send(null);
+
+    scene = component.jsonValidatorService.getCheckedGrid(JSON.parse(req.responseText));
+    expect(scene).not.toBeNull();
   });
+
+  // check import wrong file
+  it('import:: should not import our file falseFarm.scene', () => {
+    let scene;
+    const req = new XMLHttpRequest();
+
+    req.open('GET', '../../../assets/share/falseFarm.scene', false);
+    req.send(null);
+
+    scene = component.jsonValidatorService.getCheckedGrid(JSON.parse(req.responseText));
+    expect(scene).toBeNull();
+  });
+
+  // get zip file
+  /*it('import zip:: should import our file farm.zip', ()  => {
+    console.log("-------------------TEST----------------------")
+
+    const file = require('../../../assets/share/farm.zip');
+
+    function checkZipFile(file: any) {
+      const blob = new Blob([file], {type: 'application/zip'});
+      console.log("BLOB : " + blob);
+    }
+
+    const headers = new HttpHeaders().set('content-type', 'application/zip');
+    component.http.get('../../../assets/share/farm.zip', {'headers': headers}).subscribe(data => checkZipFile(data));
+  });*/
 });
