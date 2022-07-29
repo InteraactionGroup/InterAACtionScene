@@ -18,7 +18,7 @@ describe('JsonValidatorServiceService', () => {
 
   // check if it returns specific error on invalid data
   it('getCheckedGrid:: should check and parse valid grid data', () => {
-    expect(function(){service.getCheckedGrid('test') }).toThrow(new Error('JSON file has invalid format'));
+    expect(service.getCheckedGrid("test")).toBeNull();
     expect(service).toBeTruthy();
   });
 });

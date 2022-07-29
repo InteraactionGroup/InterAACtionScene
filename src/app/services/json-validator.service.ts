@@ -13,7 +13,7 @@ export class JsonValidatorService {
   constructor() {
   }
 
-  /* istanbul ignore next */ 
+  /* istanbul ignore next */
   getCheckedGrid(dataToValidate): Scene[] {
     const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
     const validate = ajv.compile(schema);
@@ -21,7 +21,7 @@ export class JsonValidatorService {
     if (!valid) {
       console.log('ERROR WHEN PARSING THE GRID:');
       console.log(validate.errors);
-      throw new Error('JSON file has invalid format');
+      return null;
     } else {
       console.log('PARSING SUCCESSFUL');
       return dataToValidate;
