@@ -117,26 +117,18 @@ describe('ImportScenesDialogComponent', () => {
 
   // check import good file
   it('import:: should import our file farm.scene',() => {
-    let scene;
     const req = new XMLHttpRequest();
-
     req.open('GET', '../../../assets/share/farm.scene', false);
     req.send(null);
-
-    scene = component.jsonValidatorService.getCheckedGrid(JSON.parse(req.responseText));
-    expect(scene).not.toBeNull();
+    expect(component.jsonValidatorService.getCheckedGrid(JSON.parse(req.responseText))).not.toBeNull();
   });
 
   // check import wrong file
   it('import:: should not import our file falseFarm.scene', () => {
-    let scene;
     const req = new XMLHttpRequest();
-
     req.open('GET', '../../../assets/share/falseFarm.scene', false);
     req.send(null);
-
-    scene = component.jsonValidatorService.getCheckedGrid(JSON.parse(req.responseText));
-    expect(scene).toBeNull();
+    expect(component.jsonValidatorService.getCheckedGrid(JSON.parse(req.responseText))).toBeNull();
   });
 
   /*// get zip file
