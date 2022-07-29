@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick} from '@angular/core/testing';
 
 import {ImportScenesDialogComponent} from './import-scenes-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -8,6 +8,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {ScenesService} from 'src/app/services/scenes.service';
 import {HttpClientModule} from "@angular/common/http";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import JSZip from "jszip";
 
 describe('ImportScenesDialogComponent', () => {
   let component: ImportScenesDialogComponent;
@@ -26,7 +27,9 @@ describe('ImportScenesDialogComponent', () => {
           provide: MatDialogRef,
           useValue: dialogRef
         },
-        { provide: ScenesService, useValue: sceneServiceMock }
+        { provide: ScenesService,
+          useValue: sceneServiceMock
+        }
       ]
     })
       .compileComponents();
@@ -38,6 +41,7 @@ describe('ImportScenesDialogComponent', () => {
     fixture.detectChanges();
     dialogRef = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<ImportScenesDialogComponent>>;
     sceneService = TestBed.inject(ScenesService) as jasmine.SpyObj<ScenesService>;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
   });
 
   it('should create', () => {
@@ -91,7 +95,7 @@ describe('ImportScenesDialogComponent', () => {
     component.onFileSelected({target: {files: fileList}});
   });
 
-  // spy upon the FileReader and returndthe object which is used in the function
+  // spy upon the FileReader and return the object which is used in the function
   // at last just check if FileReader instance is getting created or not
   it('onFileSelected:: should show error if file reader fails', () => {
     const blob = new Blob([""], { type: "text/html" });
@@ -117,6 +121,7 @@ describe('ImportScenesDialogComponent', () => {
     expect(window.FileReader).toHaveBeenCalled();
   });
 
+  // check import good file
   it('import:: should import our file farm.scene',() => {
     let scene;
     const req = new XMLHttpRequest();
@@ -140,18 +145,23 @@ describe('ImportScenesDialogComponent', () => {
     expect(scene).toBeNull();
   });
 
-  // get zip file
-  /*it('import zip:: should import our file farm.zip', ()  => {
-    console.log("-------------------TEST----------------------")
+  /*// get zip file
+  it('import zip:: should import our file farm.zip',fakeAsync(async () => {
+    const req = new XMLHttpRequest();
+    req.responseType = "blob";
+    req.open('GET', '../../../assets/share/farm.zip', false);
+    req.send(null);
 
-    const file = require('../../../assets/share/farm.zip');
+    setTimeout(async () => {
+      const request = req.response;
+      const zipFolder = new JSZip();
+      const zip = await zipFolder.loadAsync(request);
+      const isSceneFile = (name) => name.toLowerCase().endsWith(".scene");
+      const fileInZip = Object.keys(zip.files);
+      const sceneFile = fileInZip.find(isSceneFile)
+      const sceneData = await zip.file(sceneFile).async("string");
+      this.valueRequest = this.jsonValidatorService.getCheckedGrid(JSON.parse(sceneData));
+    }, 5000);
+  }));*/
 
-    function checkZipFile(file: any) {
-      const blob = new Blob([file], {type: 'application/zip'});
-      console.log("BLOB : " + blob);
-    }
-
-    const headers = new HttpHeaders().set('content-type', 'application/zip');
-    component.http.get('../../../assets/share/farm.zip', {'headers': headers}).subscribe(data => checkZipFile(data));
-  });*/
 });
