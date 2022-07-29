@@ -4,8 +4,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
 import {Scene} from '../../types';
 import {JsonValidatorService} from '../../services/json-validator.service';
-import {HttpClient} from "@angular/common/http";
-
 
 @Component({
   selector: 'app-import-scenes-dialog',
@@ -23,8 +21,7 @@ export class ImportScenesDialogComponent implements OnInit {
     private scenesService: ScenesService,
     public jsonValidatorService: JsonValidatorService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<ImportScenesDialogComponent>,
-    public http: HttpClient
+    private dialogRef: MatDialogRef<ImportScenesDialogComponent>
   ) {
   }
 
@@ -50,14 +47,14 @@ export class ImportScenesDialogComponent implements OnInit {
 
   submit(form) {
     if (this.selectedFile != null && this.extensionSelectedFile == "scene") {
-      try {
-        const scenes = this.jsonValidatorService.getCheckedGrid(JSON.parse(this.selectedFile));
+      const scenes = this.jsonValidatorService.getCheckedGrid(JSON.parse(this.selectedFile));
+      if(scenes != null) {
         if (scenes as Array<Scene>) {
           this.scenesService.SCENES = scenes;
           this.scenesService.updateScenes();
           this.dialogRef.close();
         }
-      } catch (error) {
+      } else {
         this.error = 'Invalid file.';
       }
     }else {

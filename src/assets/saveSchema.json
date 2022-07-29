@@ -54,7 +54,8 @@
           }
         }
       }
-    }
+    },
+    "required": ["name", "hidden", "images"]
   }
 }
 
