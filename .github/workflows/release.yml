@@ -25,15 +25,19 @@ jobs:
       - name: Build prod
         run: npm run build --prod
 
-      - name: Tar gz
+      - name: Tar gz & Zip
         run: |
           cd ./dist/
           tar -czvf InterAACtionScene.tar.gz *
           mv InterAACtionScene.tar.gz ../
+          zip InterAACtionScene.zip *
+          mv InterAACtionScene.zip ../
+
       - name: Get Env
         run: |
           echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
           echo "REPO_BASENAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+
       - name: New tag
         id: new-tag
         run: |
@@ -49,6 +53,7 @@ jobs:
           NEW_TAG=$(echo "$(( $TAG_3 + 1 ))")
           TAG="${TAG_1}.${TAG_2}.${NEW_TAG}"
           echo ::set-output name=tag::$(echo $TAG)
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -67,4 +72,5 @@ jobs:
           release-url: ${{ steps.create_release.outputs.upload_url }}
           files: |
             InterAACtionScene.tar.gz
+            InterAACtionScene.zip
           github-token: ${{ secrets.GITHUB_TOKEN }}
