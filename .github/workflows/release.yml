@@ -25,13 +25,13 @@ jobs:
       - name: Build prod
         run: npm run build --prod
 
-      - name: Tar gz & Zip
+      - name: Zip & Tar gz
         run: |
           cd ./dist/
+          zip -r InterAACtionScene.zip *
+          mv InterAACtionScene.zip ../
           tar -czvf InterAACtionScene.tar.gz *
           mv InterAACtionScene.tar.gz ../
-          zip InterAACtionScene.zip *
-          mv InterAACtionScene.zip ../
 
       - name: Get Env
         run: |
