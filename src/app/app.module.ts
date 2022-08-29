@@ -97,6 +97,7 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     AddSceneDialogComponent,
     AddImageDialogComponent,
+    DialogTutorialComponent,
   ]
 
 })
