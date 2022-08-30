@@ -97,6 +97,16 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     AddSceneDialogComponent,
     AddImageDialogComponent,
+    ConfirmationDialogComponent,
+    RenameDialogComponent,
+    ImportScenesDialogComponent,
+    HotspotCreateDialogComponent,
+    HotspotModifyDialogComponent,
+    HotspotDeleteDialogComponent,
+    DialogResetSettingsComponent,
+    ExportScenesDialogComponent,
+    DialogLinkInteraactionboxComponent,
+    LogoutAppComponent,
     DialogTutorialComponent,
   ]
 
