@@ -102,13 +102,13 @@
            value="{{sceneTitle}}"
            *ngIf="modeService.selectedMode === 'play'"/>
 
-    <button class="button" type="button"
+    <button class="button" type="button" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}"
             (click)="openDialogTuto()">
       <img src="assets/images/help.svg" alt="Help" class="buttonTopImg">
       {{'Tutorial.Tuto' | translate}}
     </button>
 
-    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
+    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'right' : '0'}" >
       <img src="assets/images/settings.svg" alt="Play" class="buttonTopImg" [ngStyle]="{'margin-bottom': '2px','margin': 'auto'}">
       {{'Dashboard.Settings' | translate}}
     </a>
@@ -221,18 +221,18 @@
            value="{{sceneTitle}}"
            *ngIf="modeService.selectedMode === 'play'"/>
 
-    <button class="button" type="button"
+    <button class="button" type="button" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}"
             (click)="openDialogTuto()">
       <img src="assets/images/help.svg" alt="Help" class="buttonTopImg">
       {{'Tutorial.Tuto' | translate}}
     </button>
 
-    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}" >
+    <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'right' : '0'}" >
       <img src="assets/images/settings.svg" alt="Play" class="buttonTopImg" [ngStyle]="{'margin-bottom': '2px','margin': 'auto'}">
       {{'Dashboard.Settings' | translate}}
     </a>
 
-    <button *ngIf="settingsService.AFSR === true" class="button" type="button"
+    <button *ngIf="settingsService.AFSR === true" class="button" type="button" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'right' : '0'}"
             (click)="logout()">
       <img src="assets/images/logout.png" alt="Fermer interAAction Scene" class="buttonTopImg">
     </button>
