@@ -25,9 +25,6 @@ jobs:
       - name: Build prod
         run: npm run build --prod
 
-      - name: Build prod Ligone
-        run: npm run build --prod --output-path dist/prod --base-href /stable/
-
       - name: Zip & Tar gz
         run: |
           cd ./dist/
@@ -35,9 +32,16 @@ jobs:
           mv InterAACtionScene.zip ../
           tar -czvf InterAACtionScene.tar.gz *
           mv InterAACtionScene.tar.gz ../
-          cd ./prod/
+          cd ../
+
+      - name: Build prod Ligone
+        run: npm run build --prod --base-href /stable/
+
+      - name: Zip prod Ligone
+        run: |
+          cd ./dist/
           zip -r InterAACtionSceneLigone.zip *
-          mv InterAACtionSceneLigone.zip ../../
+          mv InterAACtionSceneLigone.zip ../
 
       - name: Get Env
         run: |
