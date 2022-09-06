@@ -56,7 +56,7 @@ export class MenubarComponent implements OnInit {
       this.modeService.displayBar = true;
       this.hideShowButtonChar = "▲"
     }
-    await this.delay(20);
+    await this.delay(1000);
     this.scenesService.updateScenes();
     this.sceneDisplayService.UpdateDimensions();
   }
@@ -76,7 +76,7 @@ export class MenubarComponent implements OnInit {
   }
 
   // Ignoring in test as can not reproduce all browsers in chromeHeadless
-  /* istanbul ignore next */ 
+  /* istanbul ignore next */
   async fullScreen() {
     if (document.fullscreenElement !== null || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
       if (document.exitFullscreen) {
@@ -101,7 +101,7 @@ export class MenubarComponent implements OnInit {
       this.fullScreenPath = 'images/exitfullscreen.png';
     }
 
-    await this.delay(20);
+    await this.delay(1000);
     this.scenesService.updateScenes();
     this.sceneDisplayService.UpdateDimensions();
   }
@@ -138,6 +138,10 @@ export class MenubarComponent implements OnInit {
     this.sceneDisplayService.hideShowPanelButtonObservable.subscribe(value => {
       this.positionPanelButton = value;
     });
+    setTimeout(() => {
+      this.scenesService.updateScenes();
+      this.sceneDisplayService.UpdateDimensions();
+    }, 1000)
   }
 
 }
