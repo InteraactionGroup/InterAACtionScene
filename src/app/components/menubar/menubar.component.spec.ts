@@ -40,6 +40,7 @@ describe('MenubarComponent', () => {
     spyOn(document, 'exitFullscreen');
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.fullScreen();
+    tick(1500);
     expect(document.exitFullscreen).toHaveBeenCalled();
     tick(30);
     expect(sceneService.updateScenes).toHaveBeenCalled();
@@ -52,6 +53,7 @@ describe('MenubarComponent', () => {
     spyOn(document.documentElement, 'requestFullscreen');
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.fullScreen();
+    tick(1500);
     expect(document.documentElement.requestFullscreen).toHaveBeenCalled();
     tick(30);
     expect(sceneService.updateScenes).toHaveBeenCalled();
@@ -63,6 +65,7 @@ describe('MenubarComponent', () => {
     component.modeService.displayBar = true;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.hideShowMenu();
+    tick(1500);
     expect(component.modeService.displayBar).toBeFalsy();
     tick(30);
     expect(sceneService.updateScenes).toHaveBeenCalled();
@@ -74,6 +77,7 @@ describe('MenubarComponent', () => {
     component.modeService.displayBar = false;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.hideShowMenu();
+    tick(1500);
     expect(component.modeService.displayBar).toBeTruthy();
     tick(30);
     expect(sceneService.updateScenes).toHaveBeenCalled();
@@ -85,6 +89,7 @@ describe('MenubarComponent', () => {
     component.sceneDisplayService.hidePanel = true;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.hideShowPanel();
+    tick(1500);
     expect(component.sceneDisplayService.hidePanel).toBeFalsy();
   }));
 
@@ -93,6 +98,7 @@ describe('MenubarComponent', () => {
     component.sceneDisplayService.hidePanel  = false;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.hideShowPanel();
+    tick(1500);
     expect(component.sceneDisplayService.hidePanel).toBeTruthy();
   }));
 
