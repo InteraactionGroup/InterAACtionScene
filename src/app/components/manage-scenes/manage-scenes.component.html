@@ -1,26 +1,26 @@
 <div class="manage-scenes">
   <button *ngIf="!getStatusHideShow()" type="button" name="hide" (click)="hide()">
-    <img src="assets/images/hide.svg" alt="erase" class="buttonTopImg">
+    <img src="assets/images/hide.svg" alt="hide" class="buttonTopImg">
     {{'Dashboard.Hide' | translate}}
   </button>
   <button *ngIf="getStatusHideShow()" type="button" name="show" (click)="hide()">
-    <img src="assets/images/show.svg" alt="erase" class="buttonTopImg">
+    <img src="assets/images/show.svg" alt="show" class="buttonTopImg">
     {{'Dashboard.Show' | translate}}
   </button>
   <button type="button" name="remove" (click)="remove()">
-    <img src="assets/images/delete.svg" alt="erase" class="buttonTopImg">
+    <img src="assets/images/delete.svg" alt="delete" class="buttonTopImg">
     {{'Dashboard.Remove' | translate}}
   </button>
   <button type="button" name="rename" (click)="rename()">
-    <img src="assets/images/rename.png" alt="erase" class="buttonTopImg">
+    <img src="assets/images/rename.png" alt="rename" class="buttonTopImg">
     {{'Dashboard.Rename' | translate}}
   </button>
   <button type="button" name="export" (click)="export()">
-    <img src="assets/images/export.svg" alt="erase" class="buttonTopImg">
+    <img src="assets/images/export.svg" alt="export" class="buttonTopImg">
     {{'Dashboard.Export' | translate}}
   </button>
   <button type="button" name="import" (click)="import()">
-    <img src="assets/images/import.svg" alt="erase" class="buttonTopImg">
+    <img src="assets/images/import.svg" alt="import" class="buttonTopImg">
     {{'Dashboard.Import' | translate}}
   </button>
 </div>
