@@ -2,13 +2,14 @@ import {TestBed} from '@angular/core/testing';
 
 import {SettingsService} from './settings.service';
 import {TranslateModule} from "@ngx-translate/core";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('SettingsService', () => {
   let service: SettingsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()]
+      imports: [TranslateModule.forRoot(), HttpClientModule]
     });
     service = TestBed.inject(SettingsService);
   });

@@ -3,6 +3,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { LoadingUserComponent } from './loading-user.component';
 import {RouterTestingModule} from "@angular/router/testing";
 import {TranslateModule} from "@ngx-translate/core";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('LoadingUserComponent', () => {
   let component: LoadingUserComponent;
@@ -14,7 +15,7 @@ describe('LoadingUserComponent', () => {
       imports: [RouterTestingModule.withRoutes(
         [{path: 'fr/dashboard', component: LoadingUserComponent},
         {path: 'en/dashboard', component: LoadingUserComponent}]),
-         TranslateModule.forRoot()]
+         TranslateModule.forRoot(), HttpClientModule]
     })
     .compileComponents();
   }));

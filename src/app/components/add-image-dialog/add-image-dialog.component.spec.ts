@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('AddImageDialogComponent', () => {
   let component: AddImageDialogComponent;
@@ -21,7 +22,7 @@ describe('AddImageDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AddImageDialogComponent],
       // tslint:disable-next-line:max-line-length
-      imports: [MatDialogModule, ReactiveFormsModule, MatInputModule, BrowserAnimationsModule, TranslateModule.forRoot(), RouterTestingModule],
+      imports: [MatDialogModule, ReactiveFormsModule, MatInputModule, BrowserAnimationsModule, TranslateModule.forRoot(), RouterTestingModule, HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,

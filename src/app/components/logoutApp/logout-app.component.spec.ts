@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LogoutAppComponent } from './logout-app.component';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('LogoutAppComponent', () => {
   let component: LogoutAppComponent;
@@ -10,7 +11,7 @@ describe('LogoutAppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LogoutAppComponent],
-      imports: [MatDialogModule, TranslateModule.forRoot()],
+      imports: [MatDialogModule, TranslateModule.forRoot(), HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,

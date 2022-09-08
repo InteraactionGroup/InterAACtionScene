@@ -3,6 +3,7 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {CanvasComponent} from './canvas.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -11,7 +12,7 @@ describe('CanvasComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CanvasComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule]
+      imports: [TranslateModule.forRoot(), RouterTestingModule, HttpClientModule]
     })
       .compileComponents();
   }));

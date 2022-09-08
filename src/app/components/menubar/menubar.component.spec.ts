@@ -5,6 +5,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ScenesService } from 'src/app/services/scenes.service';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('MenubarComponent', () => {
   let component: MenubarComponent;
@@ -14,7 +15,7 @@ describe('MenubarComponent', () => {
   beforeEach(async(() => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes', 'getScenes']);
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),RouterTestingModule, MatDialogModule],
+      imports: [TranslateModule.forRoot(),RouterTestingModule, MatDialogModule, HttpClientModule],
       declarations: [MenubarComponent],
       providers: [
         { provide: ScenesService, useValue: sceneServiceMock }

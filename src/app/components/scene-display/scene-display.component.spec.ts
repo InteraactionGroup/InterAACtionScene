@@ -5,6 +5,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import { of } from 'rxjs';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('SceneDisplayComponent', () => {
   let component: SceneDisplayComponent;
@@ -13,7 +14,7 @@ describe('SceneDisplayComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SceneDisplayComponent],
-      imports: [MatDialogModule, ScrollingModule, TranslateModule.forRoot(), RouterTestingModule]
+      imports: [MatDialogModule, ScrollingModule, TranslateModule.forRoot(), RouterTestingModule, HttpClientModule]
     })
       .compileComponents();
   }));

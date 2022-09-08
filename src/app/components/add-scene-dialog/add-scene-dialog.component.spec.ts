@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('AddSceneDialogComponent', () => {
   let component: AddSceneDialogComponent;
@@ -21,7 +22,7 @@ describe('AddSceneDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AddSceneDialogComponent],
       // tslint:disable-next-line:max-line-length
-      imports: [MatDialogModule, ReactiveFormsModule, MatInputModule, BrowserAnimationsModule, TranslateModule.forRoot(), RouterTestingModule],
+      imports: [MatDialogModule, ReactiveFormsModule, MatInputModule, BrowserAnimationsModule, TranslateModule.forRoot(), RouterTestingModule, HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,

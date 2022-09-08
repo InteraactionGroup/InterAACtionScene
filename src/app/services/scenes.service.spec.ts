@@ -4,13 +4,14 @@ import {ScenesService} from './scenes.service';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import { imgBase64Mock } from './scene-display.service.spec';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ScenesService', () => {
   let service: ScenesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule]
+      imports: [TranslateModule.forRoot(), RouterTestingModule, HttpClientModule]
     });
     service = TestBed.inject(ScenesService);
   });

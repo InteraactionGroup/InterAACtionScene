@@ -6,6 +6,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
 import { of } from 'rxjs';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ManageScenesComponent', () => {
   let component: ManageScenesComponent;
@@ -16,7 +17,7 @@ describe('ManageScenesComponent', () => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getScenes', 'hideImage', 'hideScene', 'removeImage', 'removeScene', "statusHideShowSceneImage"]);
     TestBed.configureTestingModule({
       declarations: [ManageScenesComponent, ConfirmationDialogComponent],
-      imports: [MatDialogModule, TranslateModule.forRoot(),RouterTestingModule],
+      imports: [MatDialogModule, TranslateModule.forRoot(),RouterTestingModule, HttpClientModule],
       providers: [
         { provide: ScenesService, useValue: sceneServiceMock }
       ]

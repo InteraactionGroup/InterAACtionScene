@@ -10,6 +10,7 @@ import { HotspotDeleteDialogComponent } from '../hotspot-delete-dialog/hotspot-d
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { imgBase64Mock } from 'src/app/services/scene-display.service.spec';
 import { of } from 'rxjs';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('HotspotDisplayComponent', () => {
   let component: HotspotDisplayComponent;
@@ -20,7 +21,7 @@ describe('HotspotDisplayComponent', () => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getImageHotspots']);
     TestBed.configureTestingModule({
       declarations: [HotspotDisplayComponent, HotspotModifyDialogComponent, HotspotDeleteDialogComponent],
-      imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule, BrowserAnimationsModule],
+      imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule, BrowserAnimationsModule, HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,

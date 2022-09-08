@@ -6,6 +6,7 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ScenesService} from 'src/app/services/scenes.service';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ImportScenesDialogComponent', () => {
   let component: ImportScenesDialogComponent;
@@ -18,7 +19,7 @@ describe('ImportScenesDialogComponent', () => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes']);
     TestBed.configureTestingModule({
       declarations: [ImportScenesDialogComponent],
-      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, TranslateModule.forRoot(), RouterTestingModule, HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,

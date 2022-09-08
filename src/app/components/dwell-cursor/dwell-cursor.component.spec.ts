@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DwellCursorComponent } from './dwell-cursor.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('DwellCursorComponent', () => {
   let component: DwellCursorComponent;
@@ -10,7 +11,7 @@ describe('DwellCursorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DwellCursorComponent ],
-      imports: [TranslateModule.forRoot()]
+      imports: [TranslateModule.forRoot(), HttpClientModule]
     })
     .compileComponents();
   }));

@@ -4,6 +4,7 @@ import { SettingsComponent } from './settings.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {MatDialogModule} from "@angular/material/dialog";
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -12,7 +13,7 @@ describe('SettingsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SettingsComponent ],
-      imports: [TranslateModule.forRoot(), MatDialogModule, RouterTestingModule]
+      imports: [TranslateModule.forRoot(), MatDialogModule, RouterTestingModule, HttpClientModule]
     })
     .compileComponents();
   }));

@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ScenesService } from 'src/app/services/scenes.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('HotspotDeleteDialogComponent', () => {
   let component: HotspotDeleteDialogComponent;
@@ -18,8 +19,7 @@ describe('HotspotDeleteDialogComponent', () => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes']);
     TestBed.configureTestingModule({
       declarations: [HotspotDeleteDialogComponent],
-      imports: [MatDialogModule, FormsModule, ReactiveFormsModule,
-        TranslateModule.forRoot()],
+      imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,

@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
 import { RouterTestingModule } from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('HotspotCreateDialogComponent', () => {
   let component: HotspotModifyDialogComponent;
@@ -18,7 +19,7 @@ describe('HotspotCreateDialogComponent', () => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes', 'checkNames']);
     TestBed.configureTestingModule({
       declarations: [HotspotModifyDialogComponent],
-      imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule],
+      imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule, HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,

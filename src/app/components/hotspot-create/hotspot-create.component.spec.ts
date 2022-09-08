@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HotspotCreateDialogComponent } from '../hotspot-create-dialog/hotspot-create-dialog.component';
 import { of } from 'rxjs';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('HotspotCreateComponent', () => {
   let component: HotspotCreateComponent;
@@ -16,7 +17,7 @@ describe('HotspotCreateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HotspotCreateComponent, HotspotCreateDialogComponent],
-      imports: [MatDialogModule, TranslateModule.forRoot(), RouterTestingModule, BrowserAnimationsModule, ReactiveFormsModule],
+      imports: [MatDialogModule, TranslateModule.forRoot(), RouterTestingModule, BrowserAnimationsModule, ReactiveFormsModule, HttpClientModule],
       providers: [
         {
           provide: MatDialogRef,
