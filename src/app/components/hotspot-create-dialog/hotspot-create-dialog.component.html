@@ -7,7 +7,7 @@
       <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='record'" (click)="this.modeService.soundType='record'; this.getTypeSound('soundAudio')">{{'Hotspot.Recordasound' | translate}}</button>
       <button mat-button type="button" style="border: lightgray 2px solid;margin-top: 5px;margin-left: 0;" [class.selected]="this.modeService.soundType==='write'" (click)="this.modeService.soundType='write'; this.getTypeSound('writeAudio')">{{'Hotspot.Writeasound' | translate}}</button>
     </mat-dialog-actions>
-    <input *ngIf="this.modeService.soundType=='import'" formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-top: .50375em;">
+    <input *ngIf="this.modeService.soundType=='import'" accept=".mp3,.mp4,.mpeg,.wav" formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-top: .50375em;">
     <mat-dialog-actions *ngIf="this.modeService.soundType=='record'" style="display: grid;grid-template-columns: 1fr 1fr 1fr; margin-bottom: .25em;padding: 0;">
       <button class="recButton"  type="button" mat-button style="margin-left: 3px" (click)="this.audioRecorderService.startRecording()" >
         <img [src]="this.audioRecorderService.getRecValue()" alt="Record" class="buttonimg">
