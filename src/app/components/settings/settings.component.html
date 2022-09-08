@@ -36,7 +36,7 @@
       <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="checkValue()" id="speechSpeaker" type="checkbox">
     </div>
     <div class="settings-item">
-      <label>Volume : {{ this.settingsService.VOLUME }}</label>
+      <label>Volume : {{ this.getVolume() }}</label>
       <input type="range" min="0.0" max="1.0" step="0.01" value="{{this.settingsService.VOLUME}}" name="pitch"
              [(ngModel)]="this.settingsService.VOLUME"/>
     </div>

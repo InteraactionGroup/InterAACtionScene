@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Configuration} from "../types";
 import {LanguageService} from "./language.service";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import {LanguageService} from "./language.service";
 
 export class SettingsService {
 
-  VERSION = "InterAACtionScene v.2022.08.09";
+  VERSION = "";
+  JsonFile: any;
 
   AFSR = false;
 
@@ -16,13 +18,21 @@ export class SettingsService {
   DWELL_TIME_ENABLED = false;
   DWELL_TIME_TIMEOUT_VALUE = 500;
 
-   SPEECH_SPEAKER_DEFAULT = false;
+  SPEECH_SPEAKER_DEFAULT = false;
   DWELL_TIME_ENABLED_DEFAULT = false;
   DWELL_TIME_TIMEOUT_VALUE_DEFAULT = 500;
 
   VOLUME = 1;
 
-  constructor(private languageService: LanguageService) {
+  constructor(private languageService: LanguageService,
+              private http: HttpClient) {
+    this.setVersion();
+  }
+
+  setVersion(){
+    this.http.get("https://api.github.com/repos/AFSR/InteraactionScene-AFSR/releases/latest").subscribe(data => {
+      this.VERSION = data["name"] + " Dev v." + data["created_at"].substring(0, 10).replace("-", ".");
+    })
   }
 
   setConfiguration(configuration: Configuration){

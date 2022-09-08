@@ -42,6 +42,10 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  getVolume(){
+    return Math.round(this.settingsService.VOLUME * 100);
+  }
+
   saveConfig(){
     this.sceneService.update();
   }
