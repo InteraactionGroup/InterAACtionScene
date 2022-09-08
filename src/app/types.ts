@@ -44,6 +44,7 @@
  }
 
 export class Configuration {
+   'VOLUME': number;
   'DWELL_TIME_ENABLED': boolean;
   'DWELL_TIME_TIMEOUT_VALUE': number;
   'SPEECH_SPEAKER_ENABLE': boolean;

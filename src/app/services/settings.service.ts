@@ -20,10 +20,13 @@ export class SettingsService {
   DWELL_TIME_ENABLED_DEFAULT = false;
   DWELL_TIME_TIMEOUT_VALUE_DEFAULT = 500;
 
+  VOLUME = 1;
+
   constructor(private languageService: LanguageService) {
   }
 
   setConfiguration(configuration: Configuration){
+    this.VOLUME = configuration.VOLUME;
     this.DWELL_TIME_ENABLED = configuration.DWELL_TIME_ENABLED;
     this.DWELL_TIME_TIMEOUT_VALUE = configuration.DWELL_TIME_TIMEOUT_VALUE;
     this.SPEECH_SPEAKER = configuration.SPEECH_SPEAKER_ENABLE;
@@ -31,6 +34,7 @@ export class SettingsService {
   }
 
   setDefaultConfiguration(){
+    this.VOLUME = 1;
     this.SPEECH_SPEAKER = this.SPEECH_SPEAKER_DEFAULT;
     this.DWELL_TIME_ENABLED = this.DWELL_TIME_ENABLED_DEFAULT;
     this.DWELL_TIME_TIMEOUT_VALUE = this.DWELL_TIME_TIMEOUT_VALUE_DEFAULT;
@@ -38,6 +42,7 @@ export class SettingsService {
 
   getConfiguration(): Configuration{
     return {
+      'VOLUME': this.VOLUME,
       'DWELL_TIME_ENABLED': this.DWELL_TIME_ENABLED,
       'DWELL_TIME_TIMEOUT_VALUE': this.DWELL_TIME_TIMEOUT_VALUE,
       'SPEECH_SPEAKER_ENABLE': this.SPEECH_SPEAKER,

@@ -36,6 +36,11 @@
       <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="checkValue()" id="speechSpeaker" type="checkbox">
     </div>
     <div class="settings-item">
+      <label>Volume : {{ this.settingsService.VOLUME }}</label>
+      <input type="range" min="0.0" max="1.0" step="0.01" value="{{this.settingsService.VOLUME}}" name="pitch"
+             [(ngModel)]="this.settingsService.VOLUME"/>
+    </div>
+    <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
       <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="checkValue()" id="dwellTimeEnable" type="checkbox">
     </div>
@@ -66,6 +71,11 @@
       <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="checkValue()" id="speechSpeakerAfsr" type="checkbox">
     </div>
     <div class="settings-item">
+      <label>Volume : {{ this.settingsService.VOLUME }}</label>
+      <input type="range" min="0.0" max="1.0" step="0.01" value="{{this.settingsService.VOLUME}}" name="pitch"
+             [(ngModel)]="this.settingsService.VOLUME"/>
+    </div>
+    <div class="settings-item">
       <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
       <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="checkValue()" id="dwellTimeEnableAfsr" type="checkbox">
     </div>
@@ -87,17 +97,17 @@
     <div class="versionAFSR">{{this.settingsService.VERSION}}</div>
   </div>
 </div>
-<a class="bottomBarAFSRText floatRight" (click)="openDialogInteraactionBoxAFSR()">
+<a *ngIf="settingsService.AFSR" class="bottomBarAFSRText floatRight" (click)="openDialogInteraactionBoxAFSR()">
   <div class="imageTextAFSR width-100"
        [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Text_Only_InterAACtionbox-AFSR')}">
   </div>
 </a>
-<a class="bottomBarAFSRLogo floatRight" (click)="openDialogInteraactionBoxAFSR()">
+<a *ngIf="settingsService.AFSR" class="bottomBarAFSRLogo floatRight" (click)="openDialogInteraactionBoxAFSR()">
   <div class="imageLogoAFSR width-100"
        [ngStyle]="{'background-image':this.getAFSRLogoPNGUrl('Logo_Only_InterAACtionbox-AFSR')}">
   </div>
 </a>
-<div class="floatRight" style="width: fit-content; height: 22px">
+<div *ngIf="settingsService.AFSR" class="floatRight" style="width: fit-content; height: 22px">
   <div style="
     margin-top: 7px;
     font-size: xx-small;
