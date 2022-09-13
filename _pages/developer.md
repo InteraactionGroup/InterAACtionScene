@@ -11,8 +11,8 @@ toc: true
 
 ## Readme
 <img src="../assets/images/file-text.png" alt="File logo"><br>
-<a href="https://github.com/InteraactionGroup/InterAACtionScene/blob/master/README-FR">Our readme</a>
+<a href="https://github.com/InteraactionGroup/InterAACtionScene/blob/master/README.md">Our readme</a>
 
 ## Database
 <img src="../assets/images/logo-bdd.png" alt="Database logo"><br>
-<a href="https://github.com/InteraactionGroup/InterAACtionScene/blob/master/DATABASE-FR">Our database</a>
+<a href="https://github.com/InteraactionGroup/InterAACtionScene/blob/master/DATABASE-EN.md">Our database</a>
