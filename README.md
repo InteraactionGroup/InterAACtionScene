@@ -15,7 +15,11 @@ The app will automatically reload if you change any of the source files.
 
 ## Build --prod
 
-Run `ng build --prod --output-path dist/prod --base-href /stable/` to generate a build prod.<br>
+Run `ng build --prod --output-path dist/prod --base-href /stable/` to generate a build prod.
+
+## Build --prod special Ligone
+
+Run `ng build --prod --output-path dist/prod --base-href /stable/` to generate a build prod special Ligone.<br>
 You can also run `npm ligone`.
 
 ## Running unit tests

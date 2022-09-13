@@ -16,7 +16,11 @@ L'application se rechargera automatiquement si vous modifiez l'un des fichiers s
 
 ## Build --prod
 
-Lancer `ng build --prod --output-path dist/prod --base-href /stable/` pour générer un build prod.<br>
+Lancer `ng build --prod --output-path dist/prod --base-href /stable/` pour générer un build prod.
+
+## Build --prod spécial Ligone
+
+Lancer `ng build --prod --output-path dist/prod --base-href /stable/` pour générer un build prod spécial Ligone.<br>
 On peut lancer aussi `npm ligone`.
 
 ## Lancement des tests
