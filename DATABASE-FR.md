@@ -1,18 +1,18 @@
-# Database tutorial
+# Tutoriel base de donnée
 
-For this tutorial, I use Scene as an example source as well as the Google Chrome browser.
+Pour ce tuto, j’utilise Scene comme source d’exemple ainsi que le navigateur Google Chrome.
 
-To see the database, right click then “inspect” or press F12. Choose App from the top tabs.
+Pour voir la base de données, clique droit puis “inspecter” ou pressez F12. Choisissez Appli dans les onglets du haut.
 
 ![appli](src/assets/readme/Appli.png)
 
-Then in storage expand indexed database and you will find the AugCom database and its various tables as well as their data.
+Puis dans stockage dépliez base de donnée indexée et vous y trouverez la base de données d’AugCom et ses différentes tables ainsi que leurs données.
 
 ![stockage](src/assets/readme/Stockage.png)
 
-This database if you decide to delete it from the browser, this database will reform automatically when you refresh the AugCom application page with default values, so you will lose all other users, grids etc…
+Cette base de données si vous décidez de la supprimer du navigateur, cette base de données se reformera automatiquement quand vous rafraichissez la page de l’application AugCom avec les valeurs par défaut, donc vous perdrez tous les autres utilisateurs, grilles etc…
 
-The first thing to do for every database operation is an open query like the following:
+La première chose à faire pour chaque opération sur la base de données est une requête d’ouverture comme la suivante :
 
 ```ts
 this.openRequest = indexedDB.open('saveVisualSceneDisplay', 3);
@@ -26,22 +26,22 @@ this.openRequest = indexedDB.open('saveVisualSceneDisplay', 3);
       this.openRequest.onsuccess = event => {
 ```
 
-## Add a table to the database
+## Ajouter une table à la base de données
 
-To add a table, just use the event to target the database then use the createObjectStore() function which is present in angular without a package and indicate the name of the table here 'Scene' and put in auto-increment.
+Pour ajouter une table il suffit d’utiliser l’event pour cibler la base de donnée puis d’utiliser la fonction createObjectStore() qui est présente dans angular sans package et d’indiquer le nom de la table ici ‘Scene’ et mettre en auto-incrémentation.
 ```ts
 const transaction = event.target.transaction;
 ```
 
-## Add/modify/delete data in a table
+## Ajouter/modifier/supprimer des données dans une table
 
-To add data to a table, you must use the event to make a transaction.
+Pour ajouter des données dans une table, il faut utiliser l’event pour faire une transaction.
 ```ts
 const db = event.target.result;
 db.createObjectStore('Scene', {autoIncrement: true});
 ```
-Then, if you want to add data to the table, you must use 'add' giving the data as an argument, even if 'put' works the same way but it targets a key (here the 2nd argument is the key). If it exists, it will modify the contents of this key, otherwise it adds a line with the key and the data.
-In the same way, to delete a line, simply use “delete” giving the key of the data to be deleted as an argument.
+Ensuite, si on veut ajouter une donnée dans la table il faut utiliser ‘add’ en donnant en argument la donnée, même si ‘put’ marche de la même manière mais il cible une clé (ici le 2ème argument est la clé). Si elle existe, il modifiera le contenu de cette clé, sinon il ajoute une ligne avec la clé et les données.
+De la même manière, pour supprimer une ligne il suffit d’utiliser “delete” en donnant comme argument la clé de la donnée à supprimer.
 ```ts
 const scencesStore = transaction.objectStore('Scene');
 
