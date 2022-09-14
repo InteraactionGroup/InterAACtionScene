@@ -16,3 +16,7 @@ toc: true
 ## La base de données
 <img src="../assets/images/logo-bdd.png" alt="Logo base de données"><br>
 <a href="https://github.com/InteraactionGroup/InterAACtionScene/blob/master/DATABASE-FR.md">Notre BDD</a>
+
+### Site web
+<img src="../assets/images/logo-website.png" alt="Logo site web"><br>
+<a href="https://github.com/InteraactionGroup/InterAACtionPlayer/blob/master/WEBSITE-FR.md">Notre site web</a>
