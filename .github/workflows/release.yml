@@ -8,14 +8,13 @@ name: Release Scene
 jobs:
   release:
     runs-on: ubuntu-latest
+      
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@master
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: '10.x'
 
@@ -33,7 +32,6 @@ jobs:
           tar -czvf InterAACtionScene.tar.gz *
           mv InterAACtionScene.tar.gz ../
           cd ../
-
       - name: Build prod Ligone
         run: npm run ligone
 
@@ -42,12 +40,10 @@ jobs:
           cd ./dist/
           zip -r InterAACtionSceneLigone.zip *
           mv InterAACtionSceneLigone.zip ../
-
       - name: Get Env
         run: |
           echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
           echo "REPO_BASENAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
-
       - name: New tag
         id: new-tag
         run: |
@@ -62,26 +58,16 @@ jobs:
           TAG_3=$(echo "$GET_TAG" | cut -d. -f3)
           NEW_TAG=$(echo "$(( $TAG_3 + 1 ))")
           TAG="${TAG_1}.${TAG_2}.${NEW_TAG}"
-          echo ::set-output name=tag::$(echo $TAG)
-
-      - name: Create Release
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          
+      - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ steps.new-tag.outputs.tag }}
-          release_name: ${{ env.REPO_BASENAME }} ${{ steps.new-tag.outputs.tag }}
+          tag: ${{ steps.new-tag.outputs.tag }}
+          name: ${{ env.REPO_BASENAME }} ${{ steps.new-tag.outputs.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit: "master"
+          prerelease: true
           draft: false
-          prerelease: false
-
-      - name: Upload Release
-        id: upload-assets
-        uses: csexton/release-asset-action@v2
-        with:
-          release-url: ${{ steps.create_release.outputs.upload_url }}
-          files: |
-            InterAACtionScene.tar.gz
-            InterAACtionScene.zip
-            InterAACtionSceneLigone.zip
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "InterAACtionScene.zip,InterAACtionScene.tar.gz,InterAACtionSceneLigone.zip"
