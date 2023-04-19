@@ -25,12 +25,15 @@
 }
 
 .menubar .menu .button {
-  display: inline;
+  /*display: inline;*/
+  display: flex;
+  flex-direction: column;
+
   cursor: pointer;
   border-radius: 5px;
   height: 1.5cm;
-  width: 2cm;
-  min-width: 1cm;
+  /*width: 2cm;*/ width: auto;
+  /*min-width: 1cm;*/ min-width: 2cm;
   min-height: 1cm;
   margin: 0 5px;
   background-color: white;

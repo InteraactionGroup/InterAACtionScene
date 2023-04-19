@@ -31,6 +31,12 @@
       {{'Dashboard.Draw' | translate}}
     </button>
 
+    <!-- Ajout d'un bouton reset -->
+    <button (click)="openDialogReset()" class="button">
+      <img src="assets/images/reset.png" alt="Reset" class="buttonTopImg">
+      {{'Dashboard.Reset' | translate }}
+    </button>
+
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'draw'">
       <button type="button"
