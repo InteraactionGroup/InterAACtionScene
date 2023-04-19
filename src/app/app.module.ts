@@ -110,6 +110,7 @@ export function createTranslateLoader(http: HttpClient) {
     DialogLinkInteraactionboxComponent,
     LogoutAppComponent,
     DialogTutorialComponent,
+    DialogResetScenesComponent
   ]
 
 })
