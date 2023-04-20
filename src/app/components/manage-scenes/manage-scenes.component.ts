@@ -5,8 +5,9 @@ import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-d
 import {RenameDialogComponent} from '../rename-dialog/rename-dialog.component';
 import {ImportScenesDialogComponent} from '../import-scenes-dialog/import-scenes-dialog.component';
 import {LanguageService} from '../../services/language.service';
-import {ExportScenesDialogComponent} from "../export-scenes-dialog/export-scenes-dialog.component";
-import {Scene} from "../../types";
+import {ExportScenesDialogComponent} from '../export-scenes-dialog/export-scenes-dialog.component';
+import {Scene} from '../../types';
+import { SceneDisplayService } from '../../services/scene-display.service';
 
 @Component({
   selector: 'app-manage-scenes',
@@ -21,6 +22,7 @@ export class ManageScenesComponent implements OnInit {
   @Output() updateScenes = new EventEmitter<string>();
 
   constructor(private scenesService: ScenesService,
+              private sceneDisplayService: SceneDisplayService,
               private dialog: MatDialog,
               public languageService: LanguageService) {
   }
@@ -54,19 +56,28 @@ export class ManageScenesComponent implements OnInit {
     if (SCENES != null && SCENES.length != 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: 'Doyouconfirmthedeletionof' + (this.imageSelected ? 'theimage ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'thescene ' + SCENES[this.selectedScene].name) + ' ?'
+        data: 'Doyouconfirmthedeletionof' + ('thescene ' + SCENES[this.selectedScene].name) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          if (this.imageSelected == true) {
-            this.scenesService.removeImage(this.selectedScene, this.selectedImage);
-          } else {
-            this.scenesService.removeScene(this.selectedScene);
+          this.scenesService.removeScene(this.selectedScene);
+          if (this.sceneDisplayService.selectedScene > 0) {
+            this.sceneDisplayService.selectedScene -= 1; // La scène sélectionnée devient la précédente, s'il y en a une
           }
           this.updateScenes.emit('remove');
+
+          // Le bloc commenté peut être utilisé pour supprimer une seule image sélectionnée d'une scène
+
+          //       if (this.imageSelected == true) {
+          //         this.scenesService.removeImage(this.selectedScene, this.selectedImage);
+          //       } else {
+          //         this.scenesService.removeScene(this.selectedScene);
+          //       }
+          //       this.updateScenes.emit('remove');
         }
       });
     }
+
   }
 
   rename(): void {
