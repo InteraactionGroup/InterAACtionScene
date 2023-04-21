@@ -15,12 +15,12 @@ export class CanvasComponent implements OnInit {
     public modeService: ModeService,
     public sceneDisplayService: SceneDisplayService
   ) {
-    console.log("This size " + this.sceneDisplayService.imageWidth + " ; " + this.sceneDisplayService.imageHeigth );
+    // console.log("This size " + this.sceneDisplayService.imageWidth + " ; " + this.sceneDisplayService.imageHeigth );
   }
 
   ngOnInit(): void {
     this.InitializeCanvasWithJSON();
-    console.log("This size " + this.sceneDisplayService.imageWidth + " ; " + this.sceneDisplayService.imageHeigth );
+    // console.log("This size " + this.sceneDisplayService.imageWidth + " ; " + this.sceneDisplayService.imageHeigth );
   }
 
   prevPos = {x: null, y: null};

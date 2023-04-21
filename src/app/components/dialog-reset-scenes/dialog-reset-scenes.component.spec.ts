@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogResetScenesComponent } from './dialog-reset-scenes.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('DialogResetScenesComponent', () => {
   let component: DialogResetScenesComponent;
@@ -8,7 +11,8 @@ describe('DialogResetScenesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogResetScenesComponent ]
+      declarations: [ DialogResetScenesComponent ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, HttpClientModule]
     })
     .compileComponents();
   }));
