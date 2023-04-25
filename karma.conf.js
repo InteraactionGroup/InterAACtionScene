@@ -3,6 +3,9 @@
 
 module.exports = function (config) {
   config.set({
+    proxies: {
+      '/assets/': 'src/assets/'
+    },
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
