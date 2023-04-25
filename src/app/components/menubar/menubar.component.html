@@ -7,28 +7,34 @@
             class="button"
             [class.selected]="modeService.selectedMode === 'play'">
       <img src="assets/images/play.png" alt="Play" class="buttonTopImg">
-      {{'Dashboard.Play' | translate}}
+      <span>{{'Dashboard.Play' | translate}}</span>
     </button>
 
     <button (click)="changeMode('hotspot')"
             class="button"
             [class.selected]="modeService.selectedMode === 'hotspot'">
       <img src="assets/images/spots.png" alt="ManageHotspots" class="buttonTopImg">
-      {{'Dashboard.ManageHotspots' | translate}}
+      <span>{{'Dashboard.ManageHotspots' | translate}}</span>
     </button>
 
     <button (click)="changeMode('manage-scenes')"
             class="button"
             [class.selected]="modeService.selectedMode === 'manage-scenes'">
       <img src="assets/images/scene.png" alt="ManageScenes" class="buttonTopImg">
-      {{'Dashboard.ManageScenes' | translate}}
+      <span>{{'Dashboard.ManageScenes' | translate}}</span>
     </button>
 
     <button (click)="changeMode('draw')"
             class="button"
             [class.selected]="modeService.selectedMode === 'draw'">
       <img src="assets/images/edit.svg" alt="Draw" class="buttonTopImg">
-      {{'Dashboard.Draw' | translate}}
+      <span>{{'Dashboard.Draw' | translate}}</span>
+    </button>
+
+    <!-- Ajout d'un bouton reset -->
+    <button (click)="openDialogReset()" class="button">
+      <img src="assets/images/reset.png" alt="Reset" class="buttonTopImg">
+      <span>{{'Dashboard.Reset' | translate }}</span>
     </button>
 
     <div class="drawingMode"
@@ -105,7 +111,7 @@
     <button class="button" type="button" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}"
             (click)="openDialogTuto()">
       <img src="assets/images/help.svg" alt="Help" class="buttonTopImg">
-      {{'Tutorial.Tuto' | translate}}
+      <span>{{'Tutorial.Tuto' | translate}}</span>
     </button>
 
     <a routerLink="/settings" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'right' : '0'}" >

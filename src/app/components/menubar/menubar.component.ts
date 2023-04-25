@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {LogoutAppComponent} from '../logoutApp/logout-app.component';
 import {SettingsService} from '../../services/settings.service';
 import {DialogTutorialComponent} from '../dialog-tutorial/dialog-tutorial.component';
+import {DialogResetScenesComponent} from '../dialog-reset-scenes/dialog-reset-scenes.component';
 
 @Component({
   selector: 'app-menubar',
@@ -122,6 +123,16 @@ export class MenubarComponent implements OnInit {
     this.dialog.open(DialogTutorialComponent, {
       height: '75%',
       width: '75%'
+    });
+  }
+
+  openDialogReset(): void{
+    this.dialog.open(DialogResetScenesComponent, {
+      height: '150px',
+      width: '200px'
+    }).afterClosed().subscribe(result => {
+      this.sceneDisplayService.selectedScene = 0;
+      this.sceneDisplayService.selectedImage = 0;
     });
   }
 

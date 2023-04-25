@@ -112,6 +112,11 @@ export class ScenesService {
     this.update();
   }
 
+  removeAll() {
+    this.SCENES = [];
+    this.update();
+  }
+
   hideImage(selectedScene: number, selectedImage: number) {
     const sceneIsHidden = this.SCENES[selectedScene].images[selectedImage].hidden;
     this.SCENES[selectedScene].images[selectedImage].hidden = !sceneIsHidden;
