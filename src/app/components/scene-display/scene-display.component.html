@@ -218,7 +218,7 @@
     </div>
   </div>
 
-  <div *ngIf="modeService.selectedMode == 'manage-scenes'" class="bigImageContainer" #bigImageContainer>
+  <div *ngIf="modeService.selectedMode == 'manage-scenes'" class="bigImageContainer" id="bigImageContainerManage">
     <app-manage-scenes [imageSelected]="imageSelected" [selectedImage]="this.sceneDisplayService.selectedImage"
                        [selectedScene]="this.sceneDisplayService.selectedScene"
                        (updateScenes)="onScenesChange($event)"></app-manage-scenes>

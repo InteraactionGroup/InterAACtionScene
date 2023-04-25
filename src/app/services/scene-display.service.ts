@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ScenesService} from "./scenes.service";
 import {Subject} from "rxjs";
 import {SettingsService} from './settings.service';
+import { ModeService } from './mode.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class SceneDisplayService {
   public hideShowPanelButtonObservable = new Subject<string>();
 
   constructor(public scenesService: ScenesService,
-              public settingsService: SettingsService) {
+              public settingsService: SettingsService,
+              public modeService: ModeService) {
   }
 
   selectedScene = 0;
@@ -36,7 +38,9 @@ export class SceneDisplayService {
 
     if(this.settingsService.AFSR){
       bigImageContainer = document.getElementById('bigImageContainerAFSR');
-    }else{
+    }else if (this.modeService.selectedMode === 'manage-scenes') {
+      bigImageContainer = document.getElementById('bigImageContainerManage');
+    } else {
       bigImageContainer = document.getElementById('bigImageContainer');
     }
 

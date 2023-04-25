@@ -56,24 +56,31 @@ export class ManageScenesComponent implements OnInit {
     if (SCENES != null && SCENES.length != 0) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
-        data: 'Doyouconfirmthedeletionof' + ('thescene ' + SCENES[this.selectedScene].name) + ' ?'
+        data: 'Doyouconfirmthedeletionof' + (this.imageSelected ? 'theimage ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'thescene ' + SCENES[this.selectedScene].name) + ' ?'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.scenesService.removeScene(this.selectedScene);
-          if (this.sceneDisplayService.selectedScene > 0) {
-            this.sceneDisplayService.selectedScene -= 1; // La scène sélectionnée devient la précédente, s'il y en a une
+          if (this.imageSelected == true) {
+            if (this.scenesService.SCENES[this.selectedScene].images.length == 1 && this.selectedScene > 0) { // Si la scène n'a qu'une image
+              let selectedSceneTemp = this.selectedScene; // Sauvegarde de la scène sélectionnée
+              let selectedImageTemp = this.selectedImage; // Sauvegarde de l'image sélectionnée à supprimer
+
+              this.sceneDisplayService.selectedScene -= 1; // On sélectionne la scène précédante
+              this.sceneDisplayService.selectedImage = 0; // Et la première image de la scène
+              this.scenesService.removeImage(selectedSceneTemp, selectedImageTemp); // Puis on supprime.
+              // L'ordre est important pour que l'affichage des scènes et des images dans le menu gauche ne produit pas d'erreurs
+            } else {
+              this.scenesService.removeImage(this.selectedScene, this.selectedImage); // Sinon on supprime simplement l'image
+            }
+          } else {
+            this.scenesService.SCENES[this.selectedScene].images = [];
+            this.scenesService.removeScene(this.selectedScene);
+            if (this.selectedScene > 0) {
+              this.sceneDisplayService.selectedScene -= 1; // La scène sélectionnée devient la précédente, s'il y en a une
+              this.sceneDisplayService.selectedImage = 0;
+            }
           }
           this.updateScenes.emit('remove');
-
-          // Le bloc commenté peut être utilisé pour supprimer une seule image sélectionnée d'une scène
-
-          //       if (this.imageSelected == true) {
-          //         this.scenesService.removeImage(this.selectedScene, this.selectedImage);
-          //       } else {
-          //         this.scenesService.removeScene(this.selectedScene);
-          //       }
-          //       this.updateScenes.emit('remove');
         }
       });
     }
