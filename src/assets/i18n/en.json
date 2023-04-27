@@ -174,9 +174,11 @@
   "Hotspot": {
     "Createhotspot": "Create hotspot",
     "Addthesound": "Add the sound",
+    "Refimage": "Add a reference",
     "Importasound": "Import a sound",
     "Recordasound": "Record a sound",
     "Writeasound": "Write a sound",
+    "Picktheimage": "Pick the image",
     "Pickthestrokecolor": "Pick the stroke color",
     "Enterthenameofthehotspot": "Enter the name of the hotspot",
     "ChooseHotspotStrokeWidth": "Enter the stroke width",
@@ -204,7 +206,8 @@
     "name": "Name already use or empty",
     "text": "Audio text empty",
     "audio": "No file audio",
-    "stroke": "Stroke width less than 1"
+    "stroke": "Stroke width less than 1",
+    "image": "No image selected"
   },
   "Logout": {
     "logout": "Do you want to leaver InterAACtion Scene ?",

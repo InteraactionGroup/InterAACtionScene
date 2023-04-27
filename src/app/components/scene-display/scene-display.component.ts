@@ -176,7 +176,7 @@ export class SceneDisplayComponent implements OnInit {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
-        this.changeImage(i)
+        this.changeImage(i);
       }, this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }

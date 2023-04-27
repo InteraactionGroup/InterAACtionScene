@@ -37,7 +37,7 @@ export class HotspotModifyDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.hotspot.typeSound == "soundAudio"){
+    if (this.hotspot.type == "soundAudio"){
       this.form = this.formBuilder.group({
         soundSelected: this.hotspot.base64sound,
         name: this.hotspot.name,

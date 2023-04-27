@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Hotspot, Scene} from '../types';
+import {Hotspot, SoundHotspot, ImageHotspot, Scene} from '../types';
 import {ModeService} from "./mode.service";
 import {SettingsService} from "./settings.service";
 import {LanguageService} from './language.service';
@@ -17,6 +17,7 @@ export class ScenesService {
   nameHotspot = '';
   colorHotspot = '';
   soundHotspot = '';
+  imageHotspot: number;
   typeHotspot;
   strokeWidth = 2;
 
@@ -172,25 +173,23 @@ export class ScenesService {
     this.updateScenes()
   }
 
-  addHotspot(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string, typeSound: string, strokeWidth: number) {
+  addHotspotSound(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, type: string, strokeWidth: number, base64sound: string) {
+    let hotspot = new SoundHotspot(hotspotName, svgPath, strokeColor, type, strokeWidth, base64sound);
     if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
-      this.SCENES[selectedScene].images[selectedImage].hotspots = [{
-        name: hotspotName,
-        svgPointArray: svgPath,
-        strokeColor,
-        base64sound,
-        typeSound,
-        strokeWidth
-      }];
+      this.SCENES[selectedScene].images[selectedImage].hotspots = [hotspot];
     } else {
-      this.SCENES[selectedScene].images[selectedImage].hotspots.push({
-        name: hotspotName,
-        svgPointArray: svgPath,
-        strokeColor,
-        base64sound,
-        typeSound,
-        strokeWidth
-      });
+      this.SCENES[selectedScene].images[selectedImage].hotspots.push(hotspot);
+    }
+    this.haveAddHotspot = true;
+    this.update();
+  }
+
+  addHotspotImage(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, type: string, strokeWidth: number, numImage: number) {
+    let hotspot = new ImageHotspot(hotspotName, svgPath, strokeColor, type, strokeWidth, numImage);
+    if (this.SCENES[selectedScene].images[selectedImage].hotspots == null) {
+      this.SCENES[selectedScene].images[selectedImage].hotspots = [hotspot];
+    } else {
+      this.SCENES[selectedScene].images[selectedImage].hotspots.push(hotspot);
     }
     this.haveAddHotspot = true;
     this.update();
@@ -206,7 +205,6 @@ export class ScenesService {
 
   // INITIALISATION
   init() {
-
 
     this.openRequest = indexedDB.open('SaveVisualSceneDisplay', 3);
 

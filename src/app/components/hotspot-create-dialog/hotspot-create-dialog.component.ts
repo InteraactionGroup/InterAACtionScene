@@ -21,7 +21,7 @@ export class HotspotCreateDialogComponent implements OnInit {
   name = '';
   error = '';
   svgPath: number[];
-  typeSound = "soundAudio";
+  type = "soundAudio";
 
   constructor(
     private scenesService: ScenesService,
@@ -40,7 +40,8 @@ export class HotspotCreateDialogComponent implements OnInit {
         name: '',
         color: '#0080ff',
         write: '',
-        strokeWidth: '2'
+        strokeWidth: '2',
+        refImage: 0
       });
   }
 
@@ -78,13 +79,14 @@ export class HotspotCreateDialogComponent implements OnInit {
   }
 
   submit(form) {
-    if (this.typeSound == "soundAudio"){
+    if (this.type == "soundAudio"){
+      console.log(form.value.color);
       if (this.selectedSound != null && this.audioIsValid()) {
         if (Number(`${form.value.strokeWidth}`) > 0){
           if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) && `${form.value.name}` != "") {
-            this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound, Number(`${form.value.strokeWidth}`));
-            this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-              this.svgPath, `${form.value.color}`, this.selectedSound, this.typeSound, Number(`${form.value.strokeWidth}`));
+            this.setValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.type, Number(`${form.value.strokeWidth}`));
+            this.scenesService.addHotspotSound(this.selectedScene, this.selectedImage, `${form.value.name}`,
+              this.svgPath, `${form.value.color}`, this.type, Number(`${form.value.strokeWidth}`), this.selectedSound);
             this.dialogRef.close();
           }else{
             this.error = this.translate.instant('error.name');
@@ -95,13 +97,14 @@ export class HotspotCreateDialogComponent implements OnInit {
       }else {
         this.error = this.translate.instant('error.audio');
       }
-    }else if (this.typeSound == "writeAudio"){
+    }else if (this.type == "writeAudio"){
+      console.log(form.value.color);
       if (`${form.value.write}` != ""){
         if (Number(`${form.value.strokeWidth}`) > 0){
           if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) && `${form.value.name}` != "") {
-            this.setValues(`${form.value.name}`, `${form.value.color}`, `${form.value.write}`, this.typeSound, Number(`${form.value.strokeWidth}`));
-            this.scenesService.addHotspot(this.selectedScene, this.selectedImage, `${form.value.name}`,
-              this.svgPath, `${form.value.color}`, `${form.value.write}`, this.typeSound, Number(`${form.value.strokeWidth}`));
+            this.setValues(`${form.value.name}`, `${form.value.color}`, `${form.value.write}`, this.type, Number(`${form.value.strokeWidth}`));
+            this.scenesService.addHotspotSound(this.selectedScene, this.selectedImage, `${form.value.name}`,
+              this.svgPath, `${form.value.color}`, this.type, Number(`${form.value.strokeWidth}`), `${form.value.write}`);
             this.dialogRef.close();
           }else {
             this.error = this.translate.instant('error.name');
@@ -112,18 +115,48 @@ export class HotspotCreateDialogComponent implements OnInit {
       }else {
         this.error = this.translate.instant('error.text');
       }
+    } else {
+      console.log(form.value.refImage);
+      if (form.value.refImage != null) {
+        if (Number(`${form.value.strokeWidth}`) > 0){
+          if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) && `${form.value.name}` != "") {
+            this.setValues(`${form.value.name}`, `${form.value.color}`, form.value.refImage, this.type, Number(`${form.value.strokeWidth}`));
+            this.scenesService.addHotspotImage(this.selectedScene, this.selectedImage, `${form.value.name}`,
+              this.svgPath, `${form.value.color}`, this.type, Number(`${form.value.strokeWidth}`), form.value.refImage);
+            this.dialogRef.close();
+          }else {
+            this.error = this.translate.instant('error.name');
+          }
+        }else {
+          this.error = this.translate.instant("error.stroke");
+        }
+      } else {
+        this.error = this.translate.instant('error.image');
+      }
     }
   }
 
-  setValues(name, color, sound, type, strokeWidth){
-    this.scenesService.nameHotspot = name;
-    this.scenesService.colorHotspot = color;
-    this.scenesService.soundHotspot = sound;
-    this.scenesService.typeHotspot = type;
-    this.scenesService.strokeWidth = strokeWidth;
+  setValues(name, color, actionHotspot, type, strokeWidth){
+    if (type === 'soundAudio' || type === 'writeAudio') {
+      this.scenesService.nameHotspot = name;
+      this.scenesService.colorHotspot = color;
+      this.scenesService.soundHotspot = actionHotspot;
+      this.scenesService.typeHotspot = type;
+      this.scenesService.strokeWidth = strokeWidth;
+    } else if (type === 'refImage') {
+      this.scenesService.nameHotspot = name;
+      this.scenesService.colorHotspot = color;
+      this.scenesService.imageHotspot = actionHotspot;
+      this.scenesService.typeHotspot = type;
+      this.scenesService.strokeWidth = strokeWidth;
+    }
   }
 
-  getTypeSound(type){
-    this.typeSound = type;
+  getType() {
+    return this.type;
+  }
+
+  setType(type){
+    this.type = type;
   }
 }
