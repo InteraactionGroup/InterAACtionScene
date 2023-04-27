@@ -3,7 +3,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
 import {ModeService} from "../../services/mode.service";
-import {Hotspot} from "../../types";
+import {Hotspot, SoundHotspot} from '../../types';
 import {AudioRecorderService} from "../../services/audio-recorder.service";
 import {LanguageService} from "../../services/language.service";
 import {TranslateService} from "@ngx-translate/core";
@@ -23,7 +23,7 @@ export class HotspotModifyDialogComponent implements OnInit {
   name = '';
   error = '';
   svgPath: number[];
-  typeSound = "soundAudio";
+  type = "soundAudio";
 
   constructor(
     private scenesService: ScenesService,
@@ -37,22 +37,24 @@ export class HotspotModifyDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.hotspot.type == "soundAudio"){
-      this.form = this.formBuilder.group({
-        soundSelected: this.hotspot.base64sound,
-        name: this.hotspot.name,
-        color: this.hotspot.strokeColor,
-        write: '',
-        strokeWidth: this.hotspot.strokeWidth
-      });
-    }else {
-      this.form = this.formBuilder.group({
-        soundSelected: '',
-        name: this.hotspot.name,
-        color: this.hotspot.strokeColor,
-        write: this.hotspot.base64sound,
-        strokeWidth: this.hotspot.strokeWidth
-      });
+    if (this.hotspot instanceof SoundHotspot) {
+      if (this.hotspot.type == "soundAudio") {
+        this.form = this.formBuilder.group({
+          soundSelected: this.hotspot.base64sound,
+          name: this.hotspot.name,
+          color: this.hotspot.strokeColor,
+          write: '',
+          strokeWidth: this.hotspot.strokeWidth
+        });
+      } else {
+        this.form = this.formBuilder.group({
+          soundSelected: '',
+          name: this.hotspot.name,
+          color: this.hotspot.strokeColor,
+          write: this.hotspot.base64sound,
+          strokeWidth: this.hotspot.strokeWidth
+        });
+      }
     }
   }
 
@@ -72,25 +74,25 @@ export class HotspotModifyDialogComponent implements OnInit {
 
   submit(form) {
     this.hotspot.strokeColor = `${form.value.color}`;
-    this.hotspot.typeSound = this.typeSound;
+    this.hotspot.type = this.type;
     if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) || this.hotspot.name === `${form.value.name}`) {
       this.hotspot.name = `${form.value.name}`;
 
       if (Number(`${form.value.strokeWidth}`) > 0){
         this.hotspot.strokeWidth = Number(`${form.value.strokeWidth}`);
 
-        if (this.typeSound == "soundAudio" && this.selectedSound !== '' && this.selectedSound !== null) {
+        if (this.hotspot instanceof SoundHotspot && this.type == "soundAudio" && this.selectedSound !== '' && this.selectedSound !== null) {
           this.hotspot.base64sound = this.selectedSound;
-        }else if (this.typeSound == 'writeAudio' && `${form.value.write}` !== ''){
+        }else if (this.hotspot instanceof SoundHotspot && this.type == 'writeAudio' && `${form.value.write}` !== ''){
           this.hotspot.base64sound = `${form.value.write}`;
         }
 
         if(this.modeService.modifyiedHotspot != null){
-          this.hotspot.svgPointArray=this.svgPath;
+          this.hotspot.svgPointArray = this.svgPath;
         }
 
         let nameCenter = this.scenesService.nameHotspot;
-        this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.typeSound, Number(`${form.value.strokeWidth}`));
+        this.setModifyValues(`${form.value.name}`, `${form.value.color}`, this.selectedSound, this.type, Number(`${form.value.strokeWidth}`));
 
         if (this.scenesService.modeService.currentDrawingTool === 'redraw'){
           this.deleteOldCenterHotspot();
@@ -165,7 +167,7 @@ export class HotspotModifyDialogComponent implements OnInit {
   modifyCenterHotspot(nameCenter){
     this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots =
       this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots.filter(x => {
-        if (x.name == nameCenter.concat('', 'Center')){
+        if (x instanceof SoundHotspot && x.name == nameCenter.concat('', 'Center')){
           x.name = this.scenesService.nameHotspot.concat('', 'Center');
           x.strokeColor = this.scenesService.colorHotspot;
           x.base64sound = this.scenesService.soundHotspot;
@@ -178,6 +180,6 @@ export class HotspotModifyDialogComponent implements OnInit {
   }
 
   getTypeSound(type){
-    this.typeSound = type;
+    this.type = type;
   }
 }

@@ -163,15 +163,15 @@ export class ScenesService {
     }
   }
 
-  changeHotspot(hotspot: Hotspot, selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
-    hotspot.strokeColor = strokeColor;
-    hotspot.name = hotspotName;
-    hotspot.svgPointArray = svgPath;
-    if (base64sound !== null) {
-      hotspot.base64sound = base64sound;
-    }
-    this.updateScenes()
-  }
+  // changeHotspot(hotspot: Hotspot, selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
+  //   hotspot.strokeColor = strokeColor;
+  //   hotspot.name = hotspotName;
+  //   hotspot.svgPointArray = svgPath;
+  //   if (base64sound !== null) {
+  //     hotspot.base64sound = base64sound;
+  //   }
+  //   this.updateScenes()
+  // }
 
   addHotspotSound(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, type: string, strokeWidth: number, base64sound: string) {
     let hotspot = new SoundHotspot(hotspotName, svgPath, strokeColor, type, strokeWidth, base64sound);
@@ -228,6 +228,15 @@ export class ScenesService {
       const gridStore = db.transaction(['Scenes'], 'readwrite').objectStore('Scenes').get(1);
       gridStore.onsuccess = e => {
         this.SCENES = gridStore.result;
+
+        // Transformation des hotspots chargés en instances de SoundHotspot ou ImageHotspot selon leur type
+        for (let scene of this.SCENES) {
+          for (let image of scene.images) {
+            if (image.hotspots != null) {
+              image.hotspots = this.loadHotspots(image.hotspots);
+            }
+          }
+        }
       };
       /* istanbul ignore next */
       gridStore.onerror = e => {
@@ -323,6 +332,37 @@ export class ScenesService {
       };
     };
   }
+
+  /**
+   * Load the hotspots from the database, and transform them in instance of SoundHotspot or ImageHotspot
+   * @param hotspots
+   * @returns {Hotspot[]} hotspotsArray
+   */
+  loadHotspots(hotspots) {
+    let hotspotsArray = [];
+    for (let hotspot of hotspots) {
+      if (hotspot.hasOwnProperty('base64sound')) {
+        console.log("Le hotspot chargé");
+        console.log(hotspot);
+        hotspot = new SoundHotspot(hotspot.name, hotspot.svgPointArray, hotspot.strokeColor, hotspot.type,
+          hotspot.strokeWidth, hotspot.base64sound);
+        console.log("Le hotspot transformé");
+        console.log(hotspot);
+
+      } else if (hotspot.hasOwnProperty('numImage')) {
+        console.log("Le hotspot chargé");
+        console.log(hotspot);
+        hotspot = new ImageHotspot(hotspot.name, hotspot.svgPointArray, hotspot.strokeColor, hotspot.type,
+          hotspot.strokeWidth, hotspot.numImage);
+        console.log("Le hotspot transformé");
+        console.log(hotspot);
+
+      }
+      hotspotsArray.push(hotspot);
+    }
+    return hotspotsArray;
+  }
+
 
   // INITIALISATION
   loadUsersList() {

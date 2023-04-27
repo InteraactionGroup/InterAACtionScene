@@ -61,6 +61,8 @@ import {LanguageService} from './services/language.service';
       return this.type;
     }
 
+    abstract getData();
+
  }
 
  export class SoundHotspot extends Hotspot {
@@ -70,6 +72,10 @@ import {LanguageService} from './services/language.service';
       super(name, svgPointArray, strokeColor, type, strokeWidth);
       this.base64sound = base64sound;
     }
+
+    getData() {
+      return this.base64sound;
+    }
  }
 
  export class ImageHotspot extends Hotspot {
@@ -78,6 +84,10 @@ import {LanguageService} from './services/language.service';
     constructor(name, svgPointArray, strokeColor, type, strokeWidth, numImage) {
       super(name, svgPointArray, strokeColor, type, strokeWidth);
       this.numImage = numImage;
+    }
+
+    getData() {
+      return this.numImage;
     }
  }
 

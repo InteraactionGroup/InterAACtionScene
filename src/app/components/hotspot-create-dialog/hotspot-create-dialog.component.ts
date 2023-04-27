@@ -24,7 +24,7 @@ export class HotspotCreateDialogComponent implements OnInit {
   type = "soundAudio";
 
   constructor(
-    private scenesService: ScenesService,
+    public scenesService: ScenesService,
     private formBuilder: FormBuilder,
     public modeService: ModeService,
     public audioRecorderService: AudioRecorderService,
