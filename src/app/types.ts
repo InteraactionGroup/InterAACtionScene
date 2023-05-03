@@ -62,6 +62,7 @@ import {LanguageService} from './services/language.service';
     }
 
     abstract getData();
+    abstract setData(data);
 
  }
 
@@ -76,6 +77,10 @@ import {LanguageService} from './services/language.service';
     getData() {
       return this.base64sound;
     }
+
+    setData(data) {
+      this.base64sound = data;
+    }
  }
 
  export class ImageHotspot extends Hotspot {
@@ -88,6 +93,10 @@ import {LanguageService} from './services/language.service';
 
     getData() {
       return this.numImage;
+    }
+
+    setData(data) {
+      this.numImage = data;
     }
  }
 
