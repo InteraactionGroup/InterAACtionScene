@@ -9,6 +9,7 @@ import {HotspotDeleteDialogComponent} from "../hotspot-delete-dialog/hotspot-del
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {SettingsService} from "../../services/settings.service";
 import {LanguageService} from "../../services/language.service";
+import {switchMap} from 'rxjs/operators';
 
 declare const SVG: any;
 
@@ -41,7 +42,7 @@ export class HotspotDisplayComponent implements OnInit {
   ) {
   }
 
-  getHotspots() {
+  getHotspots(): Hotspot[] {
     if (this.scenesService.getImageHotspots(this.selectedScene, this.selectedImage) != null && this.scenesService.getImageHotspots(this.selectedScene, this.selectedImage).length > 0) {
       return this.scenesService.getImageHotspots(this.selectedScene, this.selectedImage);
     } else {
@@ -85,31 +86,23 @@ export class HotspotDisplayComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  PlayHotspot(hotspot: SoundHotspot | ImageHotspot) {
-    console.log(hotspot);
+  PlayHotspot(hotspot: Hotspot) {
     if (hotspot instanceof SoundHotspot) {
-      console.log("C'est un SoundHotspot");
-      if (hotspot.type == "soundAudio") {
-        console.log("Et là ça doit jouer le son");
+      if (hotspot.type === "soundAudio") {
         this.audioPlayer.src = hotspot.base64sound;
         this.audioPlayer.volume = this.settingsService.VOLUME;
         this.audioPlayer.load();
         this.audioPlayer.play();
-      } else if (hotspot.type == "writeAudio") {
-        console.log("La ca doit parler le son");
+      } else if (hotspot.type === "writeAudio") {
         let speak = new SpeechSynthesisUtterance(hotspot.base64sound);
         speak.lang = this.languageService.activeSpeechSpeakerLanguage;
         speak.volume = this.settingsService.VOLUME;
         window.speechSynthesis.speak(speak);
       }
     } else if (hotspot instanceof ImageHotspot) {
-      console.log("C'est un ImageHotspot et ca doit tp");
       this.sceneDisplayService.selectedImage = hotspot.numImage;
-      // this.imageChange.emit(this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name);
       this.scenesService.updateScenes();
       this.sceneDisplayService.UpdateDimensions();
-      // this.imageSelected = true;
-
     }
 
   }
@@ -149,10 +142,8 @@ export class HotspotDisplayComponent implements OnInit {
     //}
   };
 
-  clickEvent(event, hotspot: SoundHotspot | ImageHotspot) {
-    console.log("Ca clique");
+  clickEvent(event, hotspot: Hotspot) {
     if (this.modeService.selectedMode === 'hotspot' && this.modeService.currentDrawingTool === 'modify') {
-      console.log("Entrée dans modification");
       const dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
         width: '400px',
       });
@@ -166,7 +157,6 @@ export class HotspotDisplayComponent implements OnInit {
       });
 
     } else if (this.modeService.selectedMode === 'hotspot' && this.modeService.currentDrawingTool === 'delete') {
-      console.log("Entrée dans suppression");
       const dialogRef = this.dialog.open(HotspotDeleteDialogComponent, {
         width: '400px',
       });
@@ -180,10 +170,8 @@ export class HotspotDisplayComponent implements OnInit {
         this.modeService.soundType ='import';
       });
     } else {
-      console.log("Entrée dans play");
       this.PlayHotspot(hotspot);
     }
-    console.log("c ciao");
   }
 
   getColor(index) {

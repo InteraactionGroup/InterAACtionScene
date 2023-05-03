@@ -342,21 +342,11 @@ export class ScenesService {
     let hotspotsArray = [];
     for (let hotspot of hotspots) {
       if (hotspot.hasOwnProperty('base64sound')) {
-        console.log("Le hotspot chargé");
-        console.log(hotspot);
         hotspot = new SoundHotspot(hotspot.name, hotspot.svgPointArray, hotspot.strokeColor, hotspot.type,
           hotspot.strokeWidth, hotspot.base64sound);
-        console.log("Le hotspot transformé");
-        console.log(hotspot);
-
       } else if (hotspot.hasOwnProperty('numImage')) {
-        console.log("Le hotspot chargé");
-        console.log(hotspot);
         hotspot = new ImageHotspot(hotspot.name, hotspot.svgPointArray, hotspot.strokeColor, hotspot.type,
           hotspot.strokeWidth, hotspot.numImage);
-        console.log("Le hotspot transformé");
-        console.log(hotspot);
-
       }
       hotspotsArray.push(hotspot);
     }
