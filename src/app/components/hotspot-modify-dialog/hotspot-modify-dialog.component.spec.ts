@@ -7,8 +7,9 @@ import {TranslateModule} from "@ngx-translate/core";
 import { RouterTestingModule } from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
 import {HttpClientModule} from "@angular/common/http";
+import {SoundHotspot} from '../../types';
 
-describe('HotspotCreateDialogComponent', () => {
+describe('HotspotModifyDialogComponent', () => {
   let component: HotspotModifyDialogComponent;
   let fixture: ComponentFixture<HotspotModifyDialogComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<HotspotModifyDialogComponent>>;
@@ -34,7 +35,8 @@ describe('HotspotCreateDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HotspotModifyDialogComponent);
     component = fixture.componentInstance;
-    component.hotspot = {name: 'abc', typeSound: 'soundAudio'} as any;
+    // component.hotspot = {name: 'abc', type: 'soundAudio'} as SoundHotspot;
+    component.hotspot = new SoundHotspot('abc', [1, 2, 3], 'white', 'writeAudio', 2, 'test');
     dialogRef = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<HotspotModifyDialogComponent>>;
     sceneService = TestBed.inject(ScenesService) as jasmine.SpyObj<ScenesService>;
   });
@@ -42,16 +44,19 @@ describe('HotspotCreateDialogComponent', () => {
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
-    component.getTypeSound('abc');
-    expect(component.typeSound).toEqual('abc');
+    component.setType('abc');
+    expect(component.type).toEqual('abc');
   });
 
   // check if it calls specific service method
   it('submit:: should submit the modification from dialog', () => {
     spyOn(component, 'modifyCenterHotspot');
     sceneService.checkNames.and.returnValue(false);
-    component.typeSound = 'soundAudio';
+    component.type = 'soundAudio';
     component.selectedSound = 'abc';
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.SCENES = [{images: [{hotspots: [{name: 'Center'}, {name: 'ABC'}]}]}] as any;
     component.modeService.modifyiedHotspot = {} as any;
     sceneService.modeService = component.modeService;
     component.submit({value : {soundSelected: '', name: 'abc', color: '#ffffff', write: 'test', strokeWidth: 2}});
@@ -63,10 +68,13 @@ describe('HotspotCreateDialogComponent', () => {
   it('submit:: should redraw and delete oldCenter hotspot', () => {
     spyOn(component, 'deleteOldCenterHotspot');
     spyOn(component, 'modifyCenterHotspot');
-    component.hotspot = {name: 'abc', typeSound: 'writeAudio', svgPointArray: []} as any;
+    component.hotspot = {name: 'abc', type: 'writeAudio', svgPointArray: []} as any;
     sceneService.checkNames.and.returnValue(false);
-    component.typeSound = 'writeAudio';
+    component.type = 'writeAudio';
     component.selectedSound = 'abc';
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.SCENES = [{images: [{hotspots: [{name: 'Center'}, {name: 'ABC'}]}]}] as any;
     component.modeService.modifyiedHotspot = null;
     component.modeService.currentDrawingTool = 'redraw';
     sceneService.modeService = component.modeService;
@@ -79,6 +87,9 @@ describe('HotspotCreateDialogComponent', () => {
   it('submit:: should show error if name is incorrect', () => {
     spyOn(component.translate, 'instant');
     sceneService.checkNames.and.returnValue(false);
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.SCENES = [{images: [{hotspots: [{name: 'Center'}, {name: 'ABC'}]}]}] as any;
     component.submit({value : {soundSelected: '', name: 'xyz', color: '#ffffff', write: 'test', strokeWidth: 2}});
     expect(component.translate.instant).toHaveBeenCalledWith('error.name');
   });
@@ -87,8 +98,11 @@ describe('HotspotCreateDialogComponent', () => {
   it('submit:: should show error if strokeWidth is incorrect', () => {
     spyOn(component.translate, 'instant');
     sceneService.checkNames.and.returnValue(false);
-    component.typeSound = 'soundAudio';
+    component.type = 'soundAudio';
     component.selectedSound = 'abc';
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.SCENES = [{images: [{hotspots: [{name: 'Center'}, {name: 'ABC'}]}]}] as any;
     component.modeService.modifyiedHotspot = {} as any;
     sceneService.modeService = component.modeService;
     component.submit({value : {soundSelected: '', name: 'abc', color: '#ffffff', write: 'test', strokeWidth: 0}});
@@ -113,7 +127,8 @@ describe('HotspotCreateDialogComponent', () => {
   // set up variable to set hotspot as writeAudio
   // check if it sets form value based on that or not
   it('should create component with writeAudio', () => {
-    component.hotspot = {name: 'abc', typeSound: 'writeAudio'} as any;
+    // component.hotspot = {name: 'abc', type: 'writeAudio'} as SoundHotspot;
+    component.hotspot = new SoundHotspot('abc', [1,2,3], 'white',  'writeAudio', 2, null);
     fixture.detectChanges();
     expect(component.form.value.soundSelected).toEqual('');
   });
@@ -142,10 +157,13 @@ describe('HotspotCreateDialogComponent', () => {
   it('submit:: should redraw and delete oldCenter hotspot', () => {
     spyOn(component, 'deleteOldCenterHotspot');
     spyOn(component, 'modifyCenterHotspot');
-    component.hotspot = {name: 'abc', typeSound: 'writeAudio', svgPointArray: []} as any;
+    component.hotspot = {name: 'abc', type: 'writeAudio', svgPointArray: []} as any;
     sceneService.checkNames.and.returnValue(false);
-    component.typeSound = 'abc';
+    component.type = 'abc';
     component.selectedSound = 'abc';
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.SCENES = [{images: [{hotspots: [{name: 'Center'}, {name: 'ABC'}]}]}] as any;
     component.modeService.modifyiedHotspot = null;
     component.modeService.currentDrawingTool = 'redraw';
     sceneService.modeService = component.modeService;
@@ -180,7 +198,7 @@ describe('HotspotCreateDialogComponent', () => {
   it('deleteOldCenterHotspot:: should delete hotspots which are center', () => {
     component.selectedScene = 0;
     component.selectedImage = 0;
-    component.hotspot = {name: '', typeSound: 'writeAudio', svgPointArray: []} as any;
+    component.hotspot = {name: '', type: 'writeAudio', svgPointArray: []} as any;
     // @ts-ignore
     component.scenesService.SCENES = [{images: [{hotspots: [{name: 'Center'}, {name: 'ABC'}]}]}] as any;
     component.deleteOldCenterHotspot();

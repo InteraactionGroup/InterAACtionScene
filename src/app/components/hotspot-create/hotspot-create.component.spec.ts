@@ -228,7 +228,7 @@ describe('HotspotCreateComponent', () => {
     component.milieuPolyline = [1, 2, 3];
     component.modeService.currentDrawingTool = 'redraw';
     // @ts-ignore
-    spyOn(component.scenesService, 'addHotspot');
+    spyOn(component.scenesService, 'addHotspotSound');
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue(
       { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
@@ -238,7 +238,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.modeService.selectedMode).toEqual('hotspot');
     expect(component.modeService.soundType).toEqual('import');
     // @ts-ignore
-    expect(component.scenesService.addHotspot).not.toHaveBeenCalled();
+    expect(component.scenesService.addHotspotSound).not.toHaveBeenCalled();
   });
 
   // set up the variables and spy upon the service method and call the function with event
@@ -250,8 +250,9 @@ describe('HotspotCreateComponent', () => {
     component.modeService.currentDrawingTool = 'redraw';
     // @ts-ignore
     component.scenesService.haveAddHotspot = true;
+    component.scenesService.typeHotspot = 'soundAudio';
     // @ts-ignore
-    spyOn(component.scenesService, 'addHotspot');
+    spyOn(component.scenesService, 'addHotspotSound');
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue(
       { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
@@ -261,7 +262,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.modeService.selectedMode).toEqual('hotspot');
     expect(component.modeService.soundType).toEqual('import');
     // @ts-ignore
-    expect(component.scenesService.addHotspot).toHaveBeenCalled();
+    expect(component.scenesService.addHotspotSound).toHaveBeenCalled();
   });
 
   // set up the variables and spy upon the service method and call the function with event
@@ -273,8 +274,9 @@ describe('HotspotCreateComponent', () => {
     component.modeService.currentDrawingTool = 'redraw';
     // @ts-ignore
     component.scenesService.haveAddHotspot = true;
+    component.scenesService.typeHotspot = 'soundAudio';
     // @ts-ignore
-    spyOn(component.scenesService, 'addHotspot');
+    spyOn(component.scenesService, 'addHotspotSound');
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue(
       { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
@@ -284,7 +286,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.modeService.selectedMode).toEqual('hotspot');
     expect(component.modeService.soundType).toEqual('import');
     // @ts-ignore
-    expect(component.scenesService.addHotspot).toHaveBeenCalled();
+    expect(component.scenesService.addHotspotSound).toHaveBeenCalled();
   });
 
   // set up the variables and spy upon the service method and call the function with event
@@ -295,7 +297,7 @@ describe('HotspotCreateComponent', () => {
     component.milieuRectangle = [1, 2, 3];
     component.modeService.currentDrawingTool = 'redraw';
     // @ts-ignore
-    spyOn(component.scenesService, 'addHotspot');
+    spyOn(component.scenesService, 'addHotspotSound');
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue(
       { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
@@ -305,7 +307,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.modeService.selectedMode).toEqual('hotspot');
     expect(component.modeService.soundType).toEqual('import');
     // @ts-ignore
-    expect(component.scenesService.addHotspot).not.toHaveBeenCalled();
+    expect(component.scenesService.addHotspotSound).not.toHaveBeenCalled();
   });
 
   // set up the variables and spy upon the service method and call the function with event
@@ -317,8 +319,9 @@ describe('HotspotCreateComponent', () => {
     component.modeService.currentDrawingTool = 'redraw';
     // @ts-ignore
     component.scenesService.haveAddHotspot = true;
+    component.scenesService.typeHotspot = 'soundAudio';
     // @ts-ignore
-    spyOn(component.scenesService, 'addHotspot');
+    spyOn(component.scenesService, 'addHotspotSound');
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue(
       { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
@@ -328,7 +331,7 @@ describe('HotspotCreateComponent', () => {
     expect(component.modeService.selectedMode).toEqual('hotspot');
     expect(component.modeService.soundType).toEqual('import');
     // @ts-ignore
-    expect(component.scenesService.addHotspot).toHaveBeenCalled();
+    expect(component.scenesService.addHotspotSound).toHaveBeenCalled();
   });
 
   // set up the variables and spy upon the service method and call the function with event
@@ -339,7 +342,7 @@ describe('HotspotCreateComponent', () => {
     component.milieuCircle = [1, 2, 3];
     component.modeService.currentDrawingTool = 'redraw';
     // @ts-ignore
-    spyOn(component.scenesService, 'addHotspot');
+    spyOn(component.scenesService, 'addHotspotSound');
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue(
       { afterClosed: () => of(true), componentInstance: { selectedScene: '', selectedImage: '', svgPath: '', hotspot: ''} } as any);
@@ -349,6 +352,6 @@ describe('HotspotCreateComponent', () => {
     expect(component.modeService.selectedMode).toEqual('hotspot');
     expect(component.modeService.soundType).toEqual('import');
     // @ts-ignore
-    expect(component.scenesService.addHotspot).not.toHaveBeenCalled();
+    expect(component.scenesService.addHotspotSound).not.toHaveBeenCalled();
   });
 });

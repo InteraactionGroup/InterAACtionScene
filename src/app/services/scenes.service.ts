@@ -163,15 +163,15 @@ export class ScenesService {
     }
   }
 
-  // changeHotspot(hotspot: Hotspot, selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
-  //   hotspot.strokeColor = strokeColor;
-  //   hotspot.name = hotspotName;
-  //   hotspot.svgPointArray = svgPath;
-  //   if (base64sound !== null) {
-  //     hotspot.base64sound = base64sound;
-  //   }
-  //   this.updateScenes()
-  // }
+  changeHotspot(hotspot: Hotspot, selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, base64sound: string) {
+    hotspot.strokeColor = strokeColor;
+    hotspot.name = hotspotName;
+    hotspot.svgPointArray = svgPath;
+    if (base64sound !== null) {
+      hotspot.setData(base64sound);
+    }
+    this.updateScenes();
+  }
 
   addHotspotSound(selectedScene: number, selectedImage: number, hotspotName: string, svgPath: number[], strokeColor: string, type: string, strokeWidth: number, base64sound: string) {
     let hotspot = new SoundHotspot(hotspotName, svgPath, strokeColor, type, strokeWidth, base64sound);

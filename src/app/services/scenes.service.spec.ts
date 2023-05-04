@@ -5,6 +5,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import { imgBase64Mock } from './scene-display.service.spec';
 import {HttpClientModule} from "@angular/common/http";
+import {SoundHotspot} from '../types';
 
 describe('ScenesService', () => {
   let service: ScenesService;
@@ -115,8 +116,9 @@ describe('ScenesService', () => {
   });
 
   // check if it sets specific variable after calling the function
-  it('changeHotspot:: should change hotspot based on provided values', () => {
-    const hotspot = {strokeColor: null, name: null, svgPointArray: [], base64sound: null} as any;
+  it('changeHotspot:: should change a sound hotspot based on provided values', () => {
+    // const hotspot = {strokeColor: null, name: null, svgPointArray: [], base64sound: null} as SoundHotspot;
+    const hotspot = new SoundHotspot(null, [], null, null, 0, null);
     service.changeHotspot(hotspot, 0, 0, 'abc', [1, 2, 3], '#000', 'test');
     service.changeHotspot(hotspot, 0, 0, 'abc', [1, 2, 3], '#000', null);
     expect(hotspot.strokeColor).toEqual('#000');
@@ -128,9 +130,9 @@ describe('ScenesService', () => {
   // check if it sets specific variable after calling the function
   it('addHotspot:: should add hotspot to scenes', () => {
     service.SCENES = [{images: [{ hotspots: null }]}] as any;
-    service.addHotspot(0, 0, 'abc', [], '#000', 'base64', 'type1', 2);
+    service.addHotspotSound(0, 0, 'abc', [], '#000', 'type1', 2, 'base64');
     expect(service.SCENES[0].images[0].hotspots.length).toEqual(1);
-    service.addHotspot(0, 0, 'abc', [], '#000', 'base64', 'type1', 2);
+    service.addHotspotSound(0, 0, 'abc', [], '#000', 'type1', 2, 'base64');
     expect(service.SCENES[0].images[0].hotspots.length).toEqual(2);
     expect(service.haveAddHotspot).toBeTruthy();
   });

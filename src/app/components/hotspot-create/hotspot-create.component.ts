@@ -26,7 +26,7 @@ export class HotspotCreateComponent implements OnInit {
   @Output() updateHotspots = new EventEmitter<string>();
 
   constructor(
-    private scenesService: ScenesService,
+    public scenesService: ScenesService,
     private dialog: MatDialog, public modeService: ModeService) {
   }
 
