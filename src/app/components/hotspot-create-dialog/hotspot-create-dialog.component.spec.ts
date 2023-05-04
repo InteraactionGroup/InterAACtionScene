@@ -46,7 +46,7 @@ describe('HotspotCreateDialogComponent', () => {
   });
 
   // check if it is calls specific function with specific selected items
-  it('submit:: should submit hotSpot with soundAudio', () => {
+  it('submit:: should submit soundHotspot with soundAudio', () => {
     component.type = 'soundAudio';
     component.selectedScene = 1;
     component.selectedSound = 'data:audio/wav';
@@ -57,7 +57,7 @@ describe('HotspotCreateDialogComponent', () => {
   });
 
   // check if it is calls specific function with specific selected items
-  it('submit:: should submit hotSpot with writeAudio', () => {
+  it('submit:: should submit soundHotspot with writeAudio', () => {
     component.type = 'writeAudio';
     component.selectedScene = 1;
     component.selectedSound = 'data:audio/wav';
@@ -67,12 +67,19 @@ describe('HotspotCreateDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
-  /**
-   * Write a test who should submit hotSpot with refImage
-   */
+  it('submit:: should submit imageHotspot with refImage', () => {
+    component.type = 'refImage';
+    component.selectedScene = 1;
+    sceneService.checkNames.and.returnValue(true);
+    component.submit({value: { refImage: 0, name: 'xyz', color: '#0080ff', write: '', strokeWidth: '2' }});
+    expect(sceneService.addHotspotSound).not.toHaveBeenCalled();
+    expect(sceneService.addHotspotImage).toHaveBeenCalledWith(component.selectedScene, component.selectedImage, 'xyz', component.svgPath, `#0080ff`, component.type, Number(`2`), 0);
+    expect(dialogRef.close).toHaveBeenCalled();
+  });
+
 
   // check if it is calls specific function with specific selected items
-  it('submit:: should submit hotSpot with soundAudio', () => {
+  it('submit:: should submit soundHotspot with soundAudio but not add it due to checkName', () => {
     component.type = 'soundAudio';
     component.selectedScene = 1;
     component.selectedSound = 'data:audio/wav';
@@ -84,18 +91,18 @@ describe('HotspotCreateDialogComponent', () => {
   });
 
   // check if it doesn't call specific function with specific selected items
-  it('submit:: should submit hotSpot with soundAudio', () => {
+  it('submit:: should submit soundHotspot with soundAudio but not add it due to strokeWidth', () => {
     component.type = 'soundAudio';
     component.selectedScene = 1;
     component.selectedSound = 'data:audio/wav';
     component.submit({value: { soundSelected: 'abc', name: 'xyz', color: '#0080ff', write: '', strokeWidth: 0 }});
-    expect(sceneService.addHotspotSound).not.toHaveBeenCalledWith(component.selectedScene, component.selectedImage, 'xyz', component.svgPath, `#0080ff`, component.type, Number(`2`), component.selectedSound);
+    expect(sceneService.addHotspotSound).not.toHaveBeenCalledWith(component.selectedScene, component.selectedImage, 'xyz', component.svgPath, `#0080ff`, component.type, Number(`0`), component.selectedSound);
     expect(dialogRef.close).not.toHaveBeenCalled();
   });
 
   // cover the scenario with typeSound soundAudio
   // arrange the object in submit such a way that it will show error
-  it('submit:: should submit hotSpot with soundAudio', () => {
+  it('submit:: should submit hotSpot with soundAudio but not add it', () => {
     component.type = 'soundAudio';
     component.selectedScene = 1;
     component.selectedSound = 'data:audio/wav';
@@ -105,9 +112,14 @@ describe('HotspotCreateDialogComponent', () => {
     expect(dialogRef.close).not.toHaveBeenCalled();
   });
 
-  /**
-   * Write a test who should not submit hotSpot with writeAudio
-   */
+  // Write a test who should not submit hotSpot with refImage
+  it('submit:: should submit hotSpot with refImage but not add it', () => {
+    component.type = 'refImage';
+    component.selectedScene = 1;
+    component.submit({value: { refImage: null, name: 'xyz', color: '#0080ff', write: '', strokeWidth: 2 }});
+    expect(sceneService.addHotspotImage).not.toHaveBeenCalled();
+    expect(dialogRef.close).not.toHaveBeenCalled();
+  });
 
   // function should set file from the passed event
   it('onSoundSelected:: should set selected file from event', () => {

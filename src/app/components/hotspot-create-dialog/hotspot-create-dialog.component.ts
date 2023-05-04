@@ -80,7 +80,6 @@ export class HotspotCreateDialogComponent implements OnInit {
 
   submit(form) {
     if (this.type === 'soundAudio'){
-      console.log(form.value.color);
       if (this.selectedSound != null && this.audioIsValid()) {
         if (Number(`${form.value.strokeWidth}`) > 0){
           if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) && `${form.value.name}` != "") {
@@ -98,7 +97,6 @@ export class HotspotCreateDialogComponent implements OnInit {
         this.error = this.translate.instant('error.audio');
       }
     }else if (this.type === 'writeAudio'){
-      console.log(form.value.color);
       if (`${form.value.write}` !== ''){
         if (Number(`${form.value.strokeWidth}`) > 0){
           if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) && `${form.value.name}` != "") {
@@ -116,7 +114,6 @@ export class HotspotCreateDialogComponent implements OnInit {
         this.error = this.translate.instant('error.text');
       }
     } else if (this.type === 'refImage') {
-      console.log(form.value.refImage);
       if (form.value.refImage != null) {
         if (Number(`${form.value.strokeWidth}`) > 0){
           if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) && `${form.value.name}` != "") {
@@ -136,6 +133,14 @@ export class HotspotCreateDialogComponent implements OnInit {
     }
   }
 
+  /**
+   * Set the values of the scenesService hotspot
+   * @param name
+   * @param color
+   * @param actionHotspot is the sound or the image of the hotspot
+   * @param type
+   * @param strokeWidth
+   */
   setValues(name, color, actionHotspot, type, strokeWidth){
     if (type === 'soundAudio' || type === 'writeAudio') {
       this.scenesService.nameHotspot = name;
