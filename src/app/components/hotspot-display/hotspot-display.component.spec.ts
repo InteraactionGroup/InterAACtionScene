@@ -12,6 +12,7 @@ import { imgBase64Mock } from 'src/app/services/scene-display.service.spec';
 import { of } from 'rxjs';
 import {HttpClientModule} from "@angular/common/http";
 import {ImageHotspot, Scene, SceneImage, SoundHotspot} from '../../types';
+import {SceneDisplayService} from '../../services/scene-display.service';
 
 describe('HotspotDisplayComponent', () => {
   let component: HotspotDisplayComponent;
@@ -20,15 +21,14 @@ describe('HotspotDisplayComponent', () => {
 
   beforeEach(async(() => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getImageHotspots', 'updateScenes', 'getScenes']);
+    const sceneDisplayServiceMock = jasmine.createSpyObj('SceneDisplayService', ['UpdateDimensions'])
     TestBed.configureTestingModule({
       declarations: [HotspotDisplayComponent, HotspotModifyDialogComponent, HotspotDeleteDialogComponent],
       imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule, BrowserAnimationsModule, HttpClientModule],
       providers: [
-        {
-          provide: MatDialogRef,
-          useValue: {}
-        },
+        { provide: MatDialogRef, useValue: {}},
         { provide: ScenesService, useValue: sceneServiceMock },
+        { provide: SceneDisplayService, useValue: sceneDisplayServiceMock }
       ]
     })
       .compileComponents();
@@ -206,12 +206,9 @@ describe('HotspotDisplayComponent', () => {
     spyOn(component.audioPlayer, 'load');
     spyOn(component.audioPlayer, 'play');
     spyOn(window.speechSynthesis, 'speak');
-    // sceneService.SCENES = [{images: [{base64data: 'test'}]}] as any;
     sceneService.SCENES = [new Scene('test', [new SceneImage('imgTest', imgBase64Mock, '', false, [])])];
-    // component.scenesService = sceneService;
     let numImage = 0;
     let hotspot = new ImageHotspot('test', [1, 2, 3], 'white', 'image', 2, numImage);
-    console.log(sceneService.SCENES);
     component.PlayHotspot(hotspot);
     expect(component.audioPlayer.load).not.toHaveBeenCalled();
     expect(component.audioPlayer.play).not.toHaveBeenCalled();
