@@ -100,8 +100,10 @@ export class HotspotDisplayComponent implements OnInit {
         window.speechSynthesis.speak(speak);
       }
     } else if (hotspot instanceof ImageHotspot) {
+      console.log('Dans PlayHotspot ' + this.scenesService.SCENES);
       this.sceneDisplayService.selectedImage = hotspot.numImage;
       this.scenesService.updateScenes();
+      console.log('Avant UpdateDimensions' + this.scenesService.SCENES);
       this.sceneDisplayService.UpdateDimensions();
     }
 

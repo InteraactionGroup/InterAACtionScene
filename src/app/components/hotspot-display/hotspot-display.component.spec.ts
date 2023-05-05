@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { imgBase64Mock } from 'src/app/services/scene-display.service.spec';
 import { of } from 'rxjs';
 import {HttpClientModule} from "@angular/common/http";
-import {SoundHotspot} from '../../types';
+import {ImageHotspot, Scene, SceneImage, SoundHotspot} from '../../types';
 
 describe('HotspotDisplayComponent', () => {
   let component: HotspotDisplayComponent;
@@ -19,7 +19,7 @@ describe('HotspotDisplayComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
-    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getImageHotspots']);
+    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getImageHotspots', 'updateScenes', 'getScenes']);
     TestBed.configureTestingModule({
       declarations: [HotspotDisplayComponent, HotspotModifyDialogComponent, HotspotDeleteDialogComponent],
       imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule, BrowserAnimationsModule, HttpClientModule],
@@ -164,7 +164,7 @@ describe('HotspotDisplayComponent', () => {
     spyOn(component.dwellCursorService, 'stop');
     spyOn(component.audioPlayer, 'load');
     spyOn(component.audioPlayer, 'play');
-    let hotspot = new SoundHotspot('test', [1,2,3], 'white', 'soundAudio', 2, imgBase64Mock)
+    let hotspot = new SoundHotspot('test', [1,2,3], 'white', 'soundAudio', 2, imgBase64Mock);
     // component.PlayHotspot({type: 'soundAudio', base64sound: imgBase64Mock} as SoundHotspot);
     component.PlayHotspot(hotspot);
     expect(component.audioPlayer.load).toHaveBeenCalled();
@@ -196,11 +196,27 @@ describe('HotspotDisplayComponent', () => {
     spyOn(component.audioPlayer, 'play');
     spyOn(window.speechSynthesis, 'speak');
     let hotspot = new SoundHotspot('test', [1,2,3], 'white', 'writeAudio', 2, imgBase64Mock);
-    // component.PlayHotspot({type: 'writeAudio', base64sound: imgBase64Mock} as SoundHotspot);
     component.PlayHotspot(hotspot);
     expect(component.audioPlayer.load).not.toHaveBeenCalled();
     expect(component.audioPlayer.play).not.toHaveBeenCalled();
     expect(window.speechSynthesis.speak).toHaveBeenCalled();
+  });
+
+  it('PlayHotspot:: should change selectedImage based on passed imageHotspot', () => {
+    spyOn(component.audioPlayer, 'load');
+    spyOn(component.audioPlayer, 'play');
+    spyOn(window.speechSynthesis, 'speak');
+    // sceneService.SCENES = [{images: [{base64data: 'test'}]}] as any;
+    sceneService.SCENES = [new Scene('test', [new SceneImage('imgTest', imgBase64Mock, '', false, [])])];
+    // component.scenesService = sceneService;
+    let numImage = 0;
+    let hotspot = new ImageHotspot('test', [1, 2, 3], 'white', 'image', 2, numImage);
+    console.log(sceneService.SCENES);
+    component.PlayHotspot(hotspot);
+    expect(component.audioPlayer.load).not.toHaveBeenCalled();
+    expect(component.audioPlayer.play).not.toHaveBeenCalled();
+    expect(window.speechSynthesis.speak).not.toHaveBeenCalled();
+    expect(component.sceneDisplayService.selectedImage).toEqual(numImage);
   });
 
   // spy upon the methods which will be called from the PlayAudio function

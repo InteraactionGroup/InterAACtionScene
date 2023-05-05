@@ -21,6 +21,12 @@ import {LanguageService} from './services/language.service';
    name: string;
    images: SceneImage[];
    hidden: boolean;
+
+    constructor(name, images = Array<SceneImage>(), hidden = false) {
+      this.name = name;
+      this.images = images;
+      this.hidden = hidden;
+    }
  }
 
  /**
