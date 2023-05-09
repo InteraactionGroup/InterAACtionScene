@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import { RouterTestingModule } from '@angular/router/testing';
 import { ScenesService } from 'src/app/services/scenes.service';
 import {HttpClientModule} from "@angular/common/http";
-import {SoundHotspot} from '../../types';
+import {ImageHotspot, SoundHotspot} from '../../types';
 
 describe('HotspotModifyDialogComponent', () => {
   let component: HotspotModifyDialogComponent;
@@ -63,6 +63,83 @@ describe('HotspotModifyDialogComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
     expect(component.modifyCenterHotspot).toHaveBeenCalled();
   });
+
+  it('submit:: should modify the hotspot correctly, soundAudio into new soundAudio', () => {
+    spyOn(component, 'deleteOldCenterHotspot');
+    spyOn(component, 'modifyCenterHotspot');
+    component.type = 'soundAudio';
+    component.selectedSound = 'abc';
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.modeService = component.modeService;
+    sceneService.checkNames.and.returnValue(true);
+    let soundHotspot = new SoundHotspot('test', [1, 2, 3], 'white', 'soundAudio', 2, 'test');
+    sceneService.SCENES = [{images: [{hotspots: [soundHotspot]}]}] as any;
+    component.hotspot = soundHotspot;
+    component.submit({value : {soundSelected: 'abc', name: 'testabc', color: '#ffffff', strokeWidth: 2}});
+    expect(component.hotspot.name).toEqual('testabc');
+    expect(component.hotspot.strokeColor).toEqual('#ffffff');
+    expect(component.hotspot.getData()).toEqual('abc');
+  });
+
+  it('submit:: should modify the hotspot correctly, soundAudio into refImage', () => {
+    spyOn(component, 'deleteOldCenterHotspot');
+    spyOn(component, 'modifyCenterHotspot');
+    component.type = 'refImage';
+    component.numImage = 1;
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.modeService = component.modeService;
+    sceneService.checkNames.and.returnValue(true);
+    let soundHotspot = new SoundHotspot('test', [1, 2, 3], 'white', 'soundAudio', 2, 'test');
+    sceneService.SCENES = [{images: [{hotspots: [soundHotspot]}, {name: 'image2'}]}] as any;
+    component.hotspot = soundHotspot;
+    component.submit({value : {soundSelected: '', name: 'testabc', color: '#ffffff', strokeWidth: 2, refImage: 1}});
+    expect(component.hotspot instanceof SoundHotspot).toBeFalse();
+    expect(component.hotspot instanceof ImageHotspot).toBeTrue();
+    expect(component.hotspot.name).toEqual('testabc');
+    expect(component.hotspot.strokeColor).toEqual('#ffffff');
+    expect(component.hotspot.getData()).toEqual(1);
+  });
+
+  it('submit:: should modify the hotspot correctly, refImage into new refImage', () => {
+    spyOn(component, 'deleteOldCenterHotspot');
+    spyOn(component, 'modifyCenterHotspot');
+    component.type = 'refImage';
+    component.numImage = 1;
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.modeService = component.modeService;
+    sceneService.checkNames.and.returnValue(true);
+    let imageHotspot = new ImageHotspot('test', [1, 2, 3], 'white', 'soundAudio', 2, 0);
+    sceneService.SCENES = [{images: [{hotspots: [imageHotspot]}, {name: 'image2'}]}] as any;
+    component.hotspot = imageHotspot;
+    component.submit({value : {soundSelected: '', name: 'testabc', color: '#ffffff', strokeWidth: 2, refImage: 1}});
+    expect(component.hotspot.name).toEqual('testabc');
+    expect(component.hotspot.strokeColor).toEqual('#ffffff');
+    expect(component.hotspot.getData()).toEqual(1);
+  });
+
+  it('submit:: should modify the hotspot correctly, refImage into soundAudio', () => {
+    spyOn(component, 'deleteOldCenterHotspot');
+    spyOn(component, 'modifyCenterHotspot');
+    component.type = 'soundAudio';
+    component.selectedSound = 'abc';
+    component.selectedScene = 0;
+    component.selectedImage = 0;
+    sceneService.modeService = component.modeService;
+    sceneService.checkNames.and.returnValue(true);
+    let imageHotspot = new ImageHotspot('test', [1, 2, 3], 'white', 'soundAudio', 2, 0);
+    sceneService.SCENES = [{images: [{hotspots: [imageHotspot]}, {name: 'image2'}]}] as any;
+    component.hotspot = imageHotspot;
+    component.submit({value : {soundSelected: 'abc', name: 'testabc', color: '#ffffff', strokeWidth: 2}});
+    expect(component.hotspot instanceof ImageHotspot).toBeFalse();
+    expect(component.hotspot instanceof SoundHotspot).toBeTrue();
+    expect(component.hotspot.name).toEqual('testabc');
+    expect(component.hotspot.strokeColor).toEqual('#ffffff');
+    expect(component.hotspot.getData()).toEqual('abc');
+  });
+
 
   // check if it calls specific service method
   it('submit:: should redraw and delete oldCenter hotspot', () => {

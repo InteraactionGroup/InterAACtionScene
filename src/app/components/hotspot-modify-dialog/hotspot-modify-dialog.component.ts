@@ -85,9 +85,7 @@ export class HotspotModifyDialogComponent implements OnInit {
   submit(form) {
     let indexHotspot = this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].hotspots.indexOf(this.hotspot);
     if (this.scenesService.checkNames(this.selectedScene, this.selectedImage, `${form.value.name}`) || this.hotspot.name === `${form.value.name}`) {
-
       if (form.value.strokeWidth > 0){
-
         if (this.hotspot instanceof SoundHotspot) { // Si l'hotspot de base est un SoundHotspot
           if (this.type === "refImage" && form.value.refImage !== null) { // Et qu'il est modifié en un ImageHotspot
             // On modifie l'hotspot en nouvelle instance de ImageHotspot
