@@ -339,7 +339,7 @@ export class ScenesService {
    * @returns {Hotspot[]} hotspotsArray
    */
   loadHotspots(hotspots) {
-    let hotspotsArray = [];
+    let hotspotsArray: Array<Hotspot> = [];
     for (let hotspot of hotspots) {
       if (hotspot.hasOwnProperty('base64sound')) {
         hotspot = new SoundHotspot(hotspot.name, hotspot.svgPointArray, hotspot.strokeColor, hotspot.type,

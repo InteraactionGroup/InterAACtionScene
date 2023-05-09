@@ -5,7 +5,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import { imgBase64Mock } from './scene-display.service.spec';
 import {HttpClientModule} from "@angular/common/http";
-import {SoundHotspot} from '../types';
+import {Hotspot, ImageHotspot, SoundHotspot} from '../types';
 
 describe('ScenesService', () => {
   let service: ScenesService;
@@ -128,7 +128,7 @@ describe('ScenesService', () => {
   });
 
   // check if it sets specific variable after calling the function
-  it('addHotspot:: should add hotspot to scenes', () => {
+  it('addHotspotSound:: should add SoundHotspot to scenes', () => {
     service.SCENES = [{images: [{ hotspots: null }]}] as any;
     service.addHotspotSound(0, 0, 'abc', [], '#000', 'type1', 2, 'base64');
     expect(service.SCENES[0].images[0].hotspots.length).toEqual(1);
@@ -136,6 +136,16 @@ describe('ScenesService', () => {
     expect(service.SCENES[0].images[0].hotspots.length).toEqual(2);
     expect(service.haveAddHotspot).toBeTruthy();
   });
+
+  it('addHotspotImage:: should add ImageHotspot to scenes', () => {
+    service.SCENES = [{images: [{ hotspots: null }]}] as any;
+    service.addHotspotImage(0, 0, 'abc', [], '#000', 'type1', 2, 0);
+    expect(service.SCENES[0].images[0].hotspots.length).toEqual(1);
+    service.addHotspotImage(0, 0, 'abc', [], '#000', 'type1', 2, 1);
+    expect(service.SCENES[0].images[0].hotspots.length).toEqual(2);
+    expect(service.haveAddHotspot).toBeTruthy();
+  });
+
 
   // check if it sets specific variable after calling the function
   it('getImageHotspots:: should return image hotspot', () => {
@@ -235,6 +245,15 @@ describe('ScenesService', () => {
         transaction: {objectStore: () => {return {add: () => {}}}}
       }});
     expect(window.alert).toHaveBeenCalledWith('Database error: 1');
+  });
+
+  it('loadHotspots:: should return hotspots', () => {
+    let hotspot1 = {name: '1', svgPatg: [], strokeColor: 'white', type: 'writeAudio', strokeWidth: 2, base64sound: 'test'};
+    let hotspot2 = {name: '2', svgPatg: [], strokeColor: 'black', type: 'refImage', strokeWidth: 2, numImage: 1};
+    let noLoadHotspots = [hotspot1, hotspot2];
+    let loadHotspots = service.loadHotspots(noLoadHotspots);
+    expect(loadHotspots[0] instanceof Hotspot).toBeTruthy();
+    expect(loadHotspots[1] instanceof Hotspot).toBeTruthy();
   });
 
   // spy upon the alert
