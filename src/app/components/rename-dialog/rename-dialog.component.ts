@@ -24,15 +24,17 @@ export class RenameDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      name: '',
-    })
+      nameScene: this.scenesService.SCENES[this.selectedScene].name,
+      nameImage: this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].name
+    });
   }
 
   submit(form) {
-    if (this.imageSelected) {
-      this.scenesService.renameImage(this.selectedScene, this.selectedImage, `${form.value.name}`)
-    } else {
-      this.scenesService.renameScene(this.selectedScene, `${form.value.name}`)
+    if (this.imageSelected && form.value.nameImage !== '') {
+      this.scenesService.renameImage(this.selectedScene, this.selectedImage, `${form.value.nameImage}`);
+    }
+    if (form.value.nameScene !== '') {
+      this.scenesService.renameScene(this.selectedScene, `${form.value.nameScene}`);
     }
     this.dialogRef.close();
   }
