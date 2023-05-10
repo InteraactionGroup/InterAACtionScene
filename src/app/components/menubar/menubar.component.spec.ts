@@ -142,6 +142,11 @@ describe('MenubarComponent', () => {
     expect(component.modeService.currentDrawingTool).toEqual('color1');
   });
 
+  it('changeSize:: should change size to given size', () => {
+    component.changeSize(10);
+    expect(component.modeService.sizeDrawingTool).toEqual(10);
+  });
+
   // check if it sets specific values in the service variables
   it('choiceDrawing:: should change drawing to given drawing', () => {
     component.choiceDrawing('drawing1');
