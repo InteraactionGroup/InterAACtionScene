@@ -58,6 +58,13 @@ span {
   margin: 0 auto;
 }
 
+.divDraw {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
 .menubar .menu .drawingMode button {
   display: inline;
   cursor: pointer;
