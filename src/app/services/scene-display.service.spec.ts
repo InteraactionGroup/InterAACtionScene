@@ -60,4 +60,62 @@ describe('SceneDisplayService', () => {
     service.UpdateDimensions();
     expect(service.onCanvasChange).toHaveBeenCalled();
   });
+
+  it('zoomInOrOut:: should add 0.5 and substract 0.5 to zoom when the conditions are check', () => {
+    const img = new Image();
+    img.src = imgBase64Mock;
+    img.width = 200;
+    img.height = 200;
+    service.imageWidth = img.width;
+    service.imageHeigth = img.height;
+    service.scenesService.SCENES = [{ images: [{base64data: imgBase64Mock}] }] as any;
+    spyOn(document, 'getElementById').and.returnValue({ clientWidth: img.width + 50, clientHeight: img.height + 50 } as any);
+    spyOn(service, 'UpdateDimensions');
+    // spyOn(service, 'zoomInOrOut');
+
+    service.zoom = 1;
+    service.zoomInOrOut('in');
+    expect(service.zoom).toEqual(1.5);
+    expect(service.UpdateDimensions).toHaveBeenCalled();
+    service.zoomInOrOut('out');
+    expect(service.zoom).toEqual(1);
+    expect(service.UpdateDimensions).toHaveBeenCalled();
+  });
+
+  it('zoomInOrOut:: should not add 0.5 and substract 0.5 to zoom when his parameter is wrong', () => {
+    const img = new Image();
+    img.src = imgBase64Mock;
+    img.width = 200;
+    img.height = 200;
+    service.imageWidth = img.width;
+    service.imageHeigth = img.height;
+    service.scenesService.SCENES = [{ images: [{base64data: imgBase64Mock}] }] as any;
+    spyOn(document, 'getElementById').and.returnValue({ clientWidth: img.width + 50, clientHeight: img.height + 50 } as any);
+    spyOn(service, 'UpdateDimensions');
+
+    service.zoom = 1;
+    service.zoomInOrOut('wrongString');
+    expect(service.zoom).toEqual(1);
+    expect(service.UpdateDimensions).not.toHaveBeenCalled();
+
+  });
+
+  it('zoomInOrOut:: should not add 0.5 and substract 0.5 to zoom when the conditions aren\'t check', () => {
+    const img = new Image();
+    img.src = imgBase64Mock;
+    spyOn(document, 'getElementById').and.returnValue({ clientWidth: img.width - 20, clientHeight: img.height + 20 } as any);
+    spyOn(service, 'UpdateDimensions');
+
+    service.zoom = 1;
+    service.zoomInOrOut('in');
+    expect(service.zoom).toEqual(1);
+    expect(service.UpdateDimensions).not.toHaveBeenCalled();
+    service.zoomInOrOut('out');
+    expect(service.zoom).toEqual(1);
+    expect(service.UpdateDimensions).not.toHaveBeenCalled();
+    service.zoomInOrOut('wrongString');
+    expect(service.zoom).toEqual(1);
+    expect(service.UpdateDimensions).not.toHaveBeenCalled();
+
+  });
 });

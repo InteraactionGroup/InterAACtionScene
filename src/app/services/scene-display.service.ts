@@ -63,12 +63,12 @@ export class SceneDisplayService {
     }
 
     if (zoom === "in" && this.imageWidth < bigImageContainer.clientWidth - 20 && this.imageHeigth < bigImageContainer.clientHeight - 20) {
-      this.zoom += 0.4;
-    } else if (zoom === "out" && this.imageWidth > 100 && this.imageHeigth > 100) {
-      this.zoom -= 0.4;
+      this.zoom += 0.5;
+      this.UpdateDimensions();
+    } else if (zoom === "out" && this.zoom > 0.5 && this.imageWidth > 100 && this.imageHeigth > 100) {
+      this.zoom -= 0.5;
+      this.UpdateDimensions();
     }
-    console.log(this.zoom);
-    this.UpdateDimensions();
   }
 
   onCanvasChange() {
