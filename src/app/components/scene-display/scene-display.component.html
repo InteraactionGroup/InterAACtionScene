@@ -9,23 +9,25 @@
           Scene
         </button>
       </div>
-      <!-- Different scenes -->
-      <div class="scene"
-           *ngFor="let scene of this.scenesService.SCENES; let i = index"
-           [class.selected]="this.sceneDisplayService.selectedScene === i"
-           [class.hidden]="modeService.selectedMode !== 'manage-scenes' && scene.hidden">
-        <button type="button"
-                [class.button-selected]="modeService.selectedMode === 'manage-scenes' && !imageSelected && this.sceneDisplayService.selectedScene === i"
-                (click)="changeScene(i)"
-                (pointerenter)="enterScene($event,i)"
-                (pointerleave)="exit()"
-        >
-          <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg"
-               [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && scene.hidden">
-          <div class="label">
-            {{scene.name}}
-          </div>
-        </button>
+      <div cdkDropList (cdkDropListDropped)="dropScene($event)">
+        <!-- Different scenes -->
+        <div cdkDrag class="scene"
+             *ngFor="let scene of this.scenesService.SCENES; let i = index"
+             [class.selected]="this.sceneDisplayService.selectedScene === i"
+             [class.hidden]="modeService.selectedMode !== 'manage-scenes' && scene.hidden">
+          <button type="button"
+                  [class.button-selected]="modeService.selectedMode === 'manage-scenes' && !imageSelected && this.sceneDisplayService.selectedScene === i"
+                  (click)="changeScene(i)"
+                  (pointerenter)="enterScene($event,i)"
+                  (pointerleave)="exit()"
+          >
+            <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg"
+                 [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && scene.hidden">
+            <div class="label">
+              {{scene.name}}
+            </div>
+          </button>
+        </div>
       </div>
     </cdk-virtual-scroll-viewport>
   </div>
@@ -43,24 +45,25 @@
           Image
         </button>
       </div>
-
-      <!-- Images of the scene -->
-      <div class="image"
-           *ngFor="let image of this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images; let i = index"
-           [class.selected]="this.sceneDisplayService.selectedImage === i"
-           [class.hidden]="modeService.selectedMode !== 'manage-scenes' && image.hidden === true">
-        <button type="button"
-                [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && this.sceneDisplayService.selectedImage === i"
-                (click)="changeImage(i)"
-                (pointerenter)="enterImage($event,i)"
-                (pointerleave)="exit()"
-        >
-          <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg"
-               [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && image.hidden === true">
-          <div class="label">
-            {{image.name}}
-          </div>
-        </button>
+      <div cdkDropList (cdkDropListDropped)="dropImage($event)">
+        <!-- Images of the scene -->
+        <div cdkDrag class="image"
+             *ngFor="let image of this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images; let i = index"
+             [class.selected]="this.sceneDisplayService.selectedImage === i"
+             [class.hidden]="modeService.selectedMode !== 'manage-scenes' && image.hidden === true">
+          <button type="button"
+                  [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && this.sceneDisplayService.selectedImage === i"
+                  (click)="changeImage(i)"
+                  (pointerenter)="enterImage($event,i)"
+                  (pointerleave)="exit()"
+          >
+            <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg"
+                 [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && image.hidden === true">
+            <div class="label">
+              {{image.name}}
+            </div>
+          </button>
+        </div>
       </div>
     </cdk-virtual-scroll-viewport>
   </div>
