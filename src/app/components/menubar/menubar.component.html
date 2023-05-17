@@ -39,22 +39,39 @@
 
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'draw'">
-      <button type="button"
-              *ngFor="let color of COLORS"
-              [style.background-color]="color.hex"
-              (click)="changeColor(color.name)">
-      </button>
-      <button type="button"
-              (click)="changeColor('erase')">
-        <img src="assets/images/eraser.png" alt="erase" class="buttonTopImg">
-        <!--{{'Dashboard.Erase' | translate}}-->
-      </button>
 
-      <button type="button"
-              (click)="changeColor('clear')">
-        <!--{{'Dashboard.Clear' | translate}}-->
-        <img src="assets/images/delete.png" alt="clear" class="buttonTopImg">
-      </button>
+      <div class="divDraw">
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === SMALL_SIZE" (click)="changeSize(SMALL_SIZE)">
+          <img src="assets/images/petitPoint.png" alt="small" class="buttonTopImg">
+        </button>
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === MEDIUM_SIZE" (click)="changeSize(MEDIUM_SIZE)">
+          <img src="assets/images/moyenPoint.png" alt="medium" class="buttonTopImg">
+        </button>
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === LARGE_SIZE" (click)="changeSize(LARGE_SIZE)">
+          <img src="assets/images/grosPoint.png" alt="large" class="buttonTopImg">
+        </button>
+      </div>
+
+      <div class="divDraw">
+        <button type="button"
+                *ngFor="let color of COLORS"
+                [style.background-color]="color.hex"
+                (click)="changeColor(color.name)">
+        </button>
+      </div>
+      <div class="divDraw">
+        <button type="button"
+                (click)="changeColor('erase')">
+          <img src="assets/images/eraser.png" alt="erase" class="buttonTopImg">
+          <!--{{'Dashboard.Erase' | translate}}-->
+        </button>
+
+        <button type="button"
+                (click)="changeColor('clear')">
+          <!--{{'Dashboard.Clear' | translate}}-->
+          <img src="assets/images/delete.png" alt="clear" class="buttonTopImg">
+        </button>
+      </div>
     </div>
 
     <div class="drawingMode"
@@ -158,22 +175,38 @@
 
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'draw'">
-      <button type="button"
-              *ngFor="let color of COLORS"
-              [style.background-color]="color.hex"
-              (click)="changeColor(color.name)">
-      </button>
-      <button type="button"
-              (click)="changeColor('erase')">
-        <img src="assets/images/eraser.png" alt="eraser" class="buttonTopImg">
-        <!--{{'Dashboard.Erase' | translate}}-->
-      </button>
+      <div class="divDraw">
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === SMALL_SIZE" (click)="changeSize(SMALL_SIZE)">
+          <img src="assets/images/petitPoint.png" alt="small" class="buttonTopImg">
+        </button>
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === MEDIUM_SIZE" (click)="changeSize(MEDIUM_SIZE)">
+          <img src="assets/images/moyenPoint.png" alt="medium" class="buttonTopImg">
+        </button>
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === LARGE_SIZE" (click)="changeSize(LARGE_SIZE)">
+          <img src="assets/images/grosPoint.png" alt="large" class="buttonTopImg">
+        </button>
+      </div>
 
-      <button type="button"
-              (click)="changeColor('clear')">
-        <!--{{'Dashboard.Clear' | translate}}-->
-        <img src="assets/images/delete.png" alt="delete" class="buttonTopImg">
-      </button>
+      <div class="divDraw">
+        <button type="button"
+                *ngFor="let color of COLORS"
+                [style.background-color]="color.hex"
+                (click)="changeColor(color.name)">
+        </button>
+      </div>
+      <div class="divDraw">
+        <button type="button"
+                (click)="changeColor('erase')">
+          <img src="assets/images/eraser.png" alt="erase" class="buttonTopImg">
+          <!--{{'Dashboard.Erase' | translate}}-->
+        </button>
+
+        <button type="button"
+                (click)="changeColor('clear')">
+          <!--{{'Dashboard.Clear' | translate}}-->
+          <img src="assets/images/delete.png" alt="clear" class="buttonTopImg">
+        </button>
+      </div>
     </div>
 
     <div class="drawingMode"
