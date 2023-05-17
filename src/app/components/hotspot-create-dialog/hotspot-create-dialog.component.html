@@ -1,27 +1,49 @@
 <form [formGroup]="form" (ngSubmit)="submit(form)" class="import-scenes-dialog">
   <h1 mat-dialog-title>{{'Hotspot.Createhotspot' | translate}}</h1>
   <mat-dialog-content>
-    <label style="font: menu;font-family: inherit;color: darkgray;"> {{'Hotspot.Addthesound' | translate}}</label>
-    <mat-dialog-actions style="display: grid;grid-template-columns: 1fr 1fr; margin-bottom: .25em;">
-      <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='import'" (click)="this.modeService.soundType='import'; this.getTypeSound('soundAudio')" >{{'Hotspot.Importasound' | translate}}</button>
-      <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='record'" (click)="this.modeService.soundType='record'; this.getTypeSound('soundAudio')">{{'Hotspot.Recordasound' | translate}}</button>
-      <button mat-button type="button" style="border: lightgray 2px solid;margin-top: 5px;margin-left: 0;" [class.selected]="this.modeService.soundType==='write'" (click)="this.modeService.soundType='write'; this.getTypeSound('writeAudio')">{{'Hotspot.Writeasound' | translate}}</button>
-    </mat-dialog-actions>
-    <input *ngIf="this.modeService.soundType=='import'" accept=".mp3,.mp4,.mpeg,.wav" formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-top: .50375em;">
-    <mat-dialog-actions *ngIf="this.modeService.soundType=='record'" style="display: grid;grid-template-columns: 1fr 1fr 1fr; margin-bottom: .25em;padding: 0;">
-      <button class="recButton"  type="button" mat-button style="margin-left: 3px" (click)="this.audioRecorderService.startRecording()" >
-        <img [src]="this.audioRecorderService.getRecValue()" alt="Record" class="buttonimg">
-      </button>
-      <button class="recButton" type="button" mat-button style="margin-left: 3px" (click)="stop()" >
-        <img src="assets/images/stop.png" alt="Stop" class="buttonimg">
-      </button>
-      <button class="recButton" type="button" mat-button style="margin-left: 3px" (click)="this.audioRecorderService.playRecording()">
-        <img src="assets/images/play.png" alt="Play" class="buttonimg">
-      </button>
-    </mat-dialog-actions>
-    <mat-form-field *ngIf="this.modeService.soundType=='write'" style="width: 100%">
-      <input matInput formControlName="write" placeholder="{{'Hotspot.Writethesound' | translate}}" id="writeInput" maxlength="64">
-    </mat-form-field>
+    <div class="tabs">
+      <a class="tab" [class.tabSelected]="this.getType()==='soundAudio' || this.getType()==='writeAudio'" (click)="this.setType('soundAudio')"> {{ 'Hotspot.Addthesound' | translate }} </a>
+      <a class="tab" [class.tabSelected]="this.getType()==='refImage'" (click)="this.setType('refImage')"> {{ 'Hotspot.Refimage' | translate }} </a>
+    </div>
+    <!--<label style="font: menu;font-family: inherit;color: darkgray;"> {{'Hotspot.Addthesound' | translate}}</label>-->
+    <div class="tabContent">
+        <!-- Contenu de l'onglet "Ajouter un son hotspot"-->
+      <div *ngIf="this.getType()==='soundAudio' || this.getType()==='writeAudio'">
+        <mat-dialog-actions style="display: grid;grid-template-columns: 1fr 1fr; margin-bottom: .25em;">
+          <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='import'" (click)="this.modeService.soundType='import'; this.setType('soundAudio')" >{{'Hotspot.Importasound' | translate}}</button>
+          <button mat-button type="button" style="border: lightgray 2px solid;" [class.selected]="this.modeService.soundType==='record'" (click)="this.modeService.soundType='record'; this.setType('soundAudio')">{{'Hotspot.Recordasound' | translate}}</button>
+          <button mat-button type="button" style="border: lightgray 2px solid;margin-top: 5px;margin-left: 0;" [class.selected]="this.modeService.soundType==='write'" (click)="this.modeService.soundType='write'; this.setType('writeAudio')">{{'Hotspot.Writeasound' | translate}}</button>
+        </mat-dialog-actions>
+        <input *ngIf="this.modeService.soundType=='import'" accept=".mp3,.mp4,.mpeg,.wav" formControlName="soundSelected" type="file" (change)="onSoundSelected($event)" style="margin-top: .50375em;">
+        <mat-dialog-actions *ngIf="this.modeService.soundType=='record'" style="display: grid;grid-template-columns: 1fr 1fr 1fr; margin-bottom: .25em;padding: 0;">
+          <button class="recButton"  type="button" mat-button style="margin-left: 3px" (click)="this.audioRecorderService.startRecording()" >
+            <img [src]="this.audioRecorderService.getRecValue()" alt="Record" class="buttonimg">
+          </button>
+          <button class="recButton" type="button" mat-button style="margin-left: 3px" (click)="stop()" >
+            <img src="assets/images/stop.png" alt="Stop" class="buttonimg">
+          </button>
+          <button class="recButton" type="button" mat-button style="margin-left: 3px" (click)="this.audioRecorderService.playRecording()">
+            <img src="assets/images/play.png" alt="Play" class="buttonimg">
+          </button>
+        </mat-dialog-actions>
+        <mat-form-field *ngIf="this.modeService.soundType=='write'" style="width: 100%">
+          <input matInput formControlName="write" placeholder="{{'Hotspot.Writethesound' | translate}}" id="writeInput" maxlength="64">
+        </mat-form-field>
+      </div>
+
+      <!-- Contenu de l'onglet "Ajouter une référence"-->
+      <div *ngIf="this.getType() === 'refImage'">
+        <mat-form-field style="width: 100%; margin-top: 1.50375em;">
+          <mat-select formControlName="refImage" placeholder="{{'Hotspot.Picktheimage' | translate}}" id="imageSelect" ngDefaultControl>
+            <mat-option *ngFor="let image of this.scenesService.SCENES[this.selectedScene].images; let i = index" [value]="i">{{image.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+
+
     <mat-form-field style="width: 100%; margin-top: 1.50375em;">
       <mat-select formControlName="color" placeholder="{{'Hotspot.Pickthestrokecolor' | translate}}" id="colorSelect" ngDefaultControl>
         <mat-option [value]="'#000000'">{{'Hotspot.Black' | translate}}</mat-option>

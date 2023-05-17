@@ -20,11 +20,11 @@
              [attr.stroke]="hotspot.strokeColor"
              [attr.points]="this.getPoints(hotspot)"
              [attr.stroke-width]="hotspot.strokeWidth"
-             (mouseenter)="enterEvent($event,hotspot)"
+             (mouseover)="enterEvent($event,hotspot)"
              (mouseleave)="leaveEvent($event, hotspot)"
              (touchenter)="enterEvent($event,hotspot)"
              (touchleave)="leaveEvent($event, hotspot)"
-             (click)="clickEvent($event,hotspot)"
+             (click)="clickEvent($event,hotspot); leaveEvent($event, hotspot)"
 
              (pointerenter)="enter($event,hotspot)"
              (pointerleave)="exit()"

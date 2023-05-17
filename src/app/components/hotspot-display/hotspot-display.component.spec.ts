@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { imgBase64Mock } from 'src/app/services/scene-display.service.spec';
 import { of } from 'rxjs';
 import {HttpClientModule} from "@angular/common/http";
+import {ImageHotspot, Scene, SceneImage, SoundHotspot} from '../../types';
+import {SceneDisplayService} from '../../services/scene-display.service';
 
 describe('HotspotDisplayComponent', () => {
   let component: HotspotDisplayComponent;
@@ -18,16 +20,15 @@ describe('HotspotDisplayComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
-    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getImageHotspots']);
+    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['getImageHotspots', 'updateScenes', 'getScenes']);
+    const sceneDisplayServiceMock = jasmine.createSpyObj('SceneDisplayService', ['UpdateDimensions'])
     TestBed.configureTestingModule({
       declarations: [HotspotDisplayComponent, HotspotModifyDialogComponent, HotspotDeleteDialogComponent],
       imports: [MatDialogModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot(), RouterTestingModule, BrowserAnimationsModule, HttpClientModule],
       providers: [
-        {
-          provide: MatDialogRef,
-          useValue: {}
-        },
+        { provide: MatDialogRef, useValue: {}},
         { provide: ScenesService, useValue: sceneServiceMock },
+        { provide: SceneDisplayService, useValue: sceneDisplayServiceMock }
       ]
     })
       .compileComponents();
@@ -114,21 +115,21 @@ describe('HotspotDisplayComponent', () => {
 
   // check if it calls specific service method
   it('clickEvent:: should open relative dialog', () => {
-    spyOn(component, 'PlayAudio');
+    spyOn(component, 'PlayHotspot');
     component.clickEvent(null, null);
-    expect(component.PlayAudio).toHaveBeenCalled();
+    expect(component.PlayHotspot).toHaveBeenCalled();
   });
 
   // check if it calls specific service method if required param is missing
   it('clickEvent:: should open relative dialog', () => {
-    spyOn(component, 'PlayAudio');
+    spyOn(component, 'PlayHotspot');
     component.modeService.selectedMode = 'hotspot';
     component.modeService.currentDrawingTool = 'modify';
     // @ts-ignore
     // tslint:disable-next-line:max-line-length
     spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true), componentInstance: {selectedScene: null, selectedImage: null, hotspot: null} } as any);
     component.clickEvent(null, null);
-    expect(component.PlayAudio).not.toHaveBeenCalled();
+    expect(component.PlayHotspot).not.toHaveBeenCalled();
     expect(component.modeService.selectedMode).toEqual('hotspot');
     expect(component.modeService.soundType).toEqual('import');
   });
@@ -158,12 +159,14 @@ describe('HotspotDisplayComponent', () => {
   });
 
   // check if it calls specific service method
-  it('PlayAudio:: should play audio based on passed hotspot', () => {
+  it('PlayHotspot:: should play audio based on passed sound hotspot', () => {
     component.settingsService.DWELL_TIME_ENABLED = true;
     spyOn(component.dwellCursorService, 'stop');
     spyOn(component.audioPlayer, 'load');
     spyOn(component.audioPlayer, 'play');
-    component.PlayAudio({typeSound: 'soundAudio', base64sound: imgBase64Mock} as any);
+    let hotspot = new SoundHotspot('test', [1,2,3], 'white', 'soundAudio', 2, imgBase64Mock);
+    // component.PlayHotspot({type: 'soundAudio', base64sound: imgBase64Mock} as SoundHotspot);
+    component.PlayHotspot(hotspot);
     expect(component.audioPlayer.load).toHaveBeenCalled();
     expect(component.audioPlayer.play).toHaveBeenCalled();
   });
@@ -186,27 +189,42 @@ describe('HotspotDisplayComponent', () => {
 
   // spy upon the methods which will be called from the PlayAudio function
   // call the function and check if appropriate methods is getting called and others are not
-  it('PlayAudio:: should play audio based on passed hotspot', () => {
+  it('PlayHotspot:: should play audio based on passed hotspot', () => {
     component.settingsService.DWELL_TIME_ENABLED = true;
     spyOn(component.dwellCursorService, 'stop');
     spyOn(component.audioPlayer, 'load');
     spyOn(component.audioPlayer, 'play');
     spyOn(window.speechSynthesis, 'speak');
-    component.PlayAudio({typeSound: 'writeAudio', base64sound: imgBase64Mock} as any);
+    let hotspot = new SoundHotspot('test', [1,2,3], 'white', 'writeAudio', 2, imgBase64Mock);
+    component.PlayHotspot(hotspot);
     expect(component.audioPlayer.load).not.toHaveBeenCalled();
     expect(component.audioPlayer.play).not.toHaveBeenCalled();
     expect(window.speechSynthesis.speak).toHaveBeenCalled();
   });
 
+  it('PlayHotspot:: should change selectedImage based on passed imageHotspot', () => {
+    spyOn(component.audioPlayer, 'load');
+    spyOn(component.audioPlayer, 'play');
+    spyOn(window.speechSynthesis, 'speak');
+    sceneService.SCENES = [new Scene('test', [new SceneImage('imgTest', imgBase64Mock, '', false, [])])];
+    let numImage = 0;
+    let hotspot = new ImageHotspot('test', [1, 2, 3], 'white', 'image', 2, numImage);
+    component.PlayHotspot(hotspot);
+    expect(component.audioPlayer.load).not.toHaveBeenCalled();
+    expect(component.audioPlayer.play).not.toHaveBeenCalled();
+    expect(window.speechSynthesis.speak).not.toHaveBeenCalled();
+    expect(component.sceneDisplayService.selectedImage).toEqual(numImage);
+  });
+
   // spy upon the methods which will be called from the PlayAudio function
   // call the function and check if appropriate methods is getting called and others are not
-  it('PlayAudio:: should not do anything if typeSound is invalid', () => {
+  it('PlayHotspot:: should not do anything if type is invalid', () => {
     component.settingsService.DWELL_TIME_ENABLED = true;
     spyOn(component.dwellCursorService, 'stop');
     spyOn(component.audioPlayer, 'load');
     spyOn(component.audioPlayer, 'play');
     spyOn(window.speechSynthesis, 'speak');
-    component.PlayAudio({typeSound: null, base64sound: imgBase64Mock} as any);
+    component.PlayHotspot({type: null, base64sound: imgBase64Mock} as any);
     expect(component.audioPlayer.load).not.toHaveBeenCalled();
     expect(component.audioPlayer.play).not.toHaveBeenCalled();
     expect(window.speechSynthesis.speak).not.toHaveBeenCalled();
@@ -233,14 +251,14 @@ describe('HotspotDisplayComponent', () => {
   // set up object for the dialog ref and return the same in dialog spy
   // check if all the success event of afterClosed are setting up or not
   it('clickEvent:: should open relative dialog', () => {
-    spyOn(component, 'PlayAudio');
+    spyOn(component, 'PlayHotspot');
     component.modeService.selectedMode = 'hotspot';
     component.modeService.currentDrawingTool = 'delete';
     // @ts-ignore
     spyOn(component.dialog, 'open').and.returnValue(
       { afterClosed: () => of(true), componentInstance: {selectedScene: null, selectedImage: null, hotspot: null, poly: null} } as any);
     component.clickEvent({target: null}, null);
-    expect(component.PlayAudio).not.toHaveBeenCalled();
+    expect(component.PlayHotspot).not.toHaveBeenCalled();
     expect(component.modeService.selectedMode).toEqual('hotspot');
     expect(component.modeService.soundType).toEqual('import');
   });
@@ -259,13 +277,13 @@ describe('HotspotDisplayComponent', () => {
     component.settingsService.DWELL_TIME_ENABLED = true;
     spyOn(component.dwellCursorService, 'updatePositionSVGPolygonElement');
     spyOn(component.dwellCursorService, 'playToMax');
-    spyOn(component, 'PlayAudio');
+    spyOn(component, 'PlayHotspot');
     spyOn(component, 'getPointsInNumber');
     component.settingsService.DWELL_TIME_TIMEOUT_VALUE = 50;
     component.enter({target: null} as any, null);
     tick(60);
     expect(component.dwellCursorService.updatePositionSVGPolygonElement).toHaveBeenCalled();
     expect(component.dwellCursorService.playToMax).toHaveBeenCalled();
-    expect(component.PlayAudio).toHaveBeenCalled();
+    expect(component.PlayHotspot).toHaveBeenCalled();
   }));
 });
