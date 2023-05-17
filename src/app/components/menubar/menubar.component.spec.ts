@@ -13,7 +13,7 @@ describe('MenubarComponent', () => {
   let sceneService: jasmine.SpyObj<ScenesService>;
 
   beforeEach(async(() => {
-    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes', 'getScenes']);
+    const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes', 'getScenes', 'hasAtLeastOneScene']);
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),RouterTestingModule, MatDialogModule, HttpClientModule],
       declarations: [MenubarComponent],
