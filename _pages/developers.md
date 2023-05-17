@@ -5,7 +5,7 @@ layout: single
 toc: true
 ---
 
-## Source code
+## Source
 <img src="../assets/images/logo-github.png" alt="Github logo"><br>
 <a href="https://github.com/InteraactionGroup/InterAACtionScene">Our GitHub</a>
 
