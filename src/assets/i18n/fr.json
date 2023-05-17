@@ -30,7 +30,8 @@
     "theimage:": " l'image : ",
     "thescene:": " la scène : ",
     "Doyouconfirmthedeletionof": "Confirmez-vous la suppression de ",
-    "Enteraname": "Entrer un nom",
+    "Modifyascenename": "Modifier le nom de scène",
+    "Modifyanimagename": "Modifier le nom de l'image",
     "Show": "Montrer"
   },
   "Settings": {

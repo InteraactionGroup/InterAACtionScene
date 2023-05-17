@@ -2,7 +2,11 @@
   <h1 mat-dialog-title>{{'Dashboard.Chooseaname' | translate}}</h1>
   <mat-dialog-content>
     <mat-form-field>
-      <input matInput formControlName="name" placeholder="{{'Dashboard.Enteraname' | translate}}" id="nameInput" maxlength="64">
+      <input matInput formControlName="nameScene" placeholder="{{'Dashboard.Modifyascenename' | translate}}" class="nameInput" maxlength="64">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="imageSelected">
+      <input matInput formControlName="nameImage" placeholder="{{'Dashboard.Modifyanimagename' | translate}}" class="nameInput" maxlength="64">
     </mat-form-field>
     <br>
   </mat-dialog-content>
