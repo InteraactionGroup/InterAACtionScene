@@ -8,6 +8,7 @@ export class ModeService {
 
   selectedMode: String = 'play';
   currentDrawingTool = '';
+  sizeDrawingTool = 6;
   displayBar = true;
   modifyiedHotspot: Hotspot = null;
   soundType="import";

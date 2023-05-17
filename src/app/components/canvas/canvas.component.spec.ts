@@ -54,6 +54,12 @@ describe('CanvasComponent', () => {
       expect(component.cx.strokeStyle).toEqual('#000000');
     });
 
+    it('should set as brown strokeStyle', () => {
+      component.currentDrawingTool = 'brown';
+      // @ts-ignore Ignoring as private member of class
+      expect(component.cx.strokeStyle).toEqual('#8b4513');
+    });
+
     it('should set as red strokeStyle', () => {
       component.currentDrawingTool = 'red';
       // @ts-ignore Ignoring as private member of class
@@ -66,10 +72,29 @@ describe('CanvasComponent', () => {
       expect(component.cx.strokeStyle).toEqual('#ff7f00');
     });
 
+    it('should yellow as red strokeStyle', () => {
+      component.currentDrawingTool = 'yellow';
+      // @ts-ignore Ignoring as private member of class
+      expect(component.cx.strokeStyle).toEqual('#ffcc00');
+    });
+
+
     it('should set as blue strokeStyle', () => {
       component.currentDrawingTool = 'blue';
       // @ts-ignore Ignoring as private member of class
       expect(component.cx.strokeStyle).toEqual('#0080ff');
+    });
+
+    it('should set as purple strokeStyle', () => {
+      component.currentDrawingTool = 'purple';
+      // @ts-ignore Ignoring as private member of class
+      expect(component.cx.strokeStyle).toEqual('#a300cc');
+    });
+
+    it('should set as pink strokeStyle', () => {
+      component.currentDrawingTool = 'pink';
+      // @ts-ignore Ignoring as private member of class
+      expect(component.cx.strokeStyle).toEqual('#ff00ff');
     });
 
     it('should set as green strokeStyle', () => {
