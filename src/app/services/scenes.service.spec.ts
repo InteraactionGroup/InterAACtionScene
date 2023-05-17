@@ -20,6 +20,13 @@ describe('ScenesService', () => {
     expect(service).toBeTruthy();
   });
 
+  // check if it returns specific value
+  it('hasAtLeastOneScene:: should return false if there is no scene', () => {
+    service.SCENES = null;
+    expect(service.hasAtLeastOneScene()).toBeFalsy();
+  });
+
+
   // check if it sets specific variable after calling the function
   it('addScene & addImag:: should add scene and images to SCENES array', () => {
     service.addScene(imgBase64Mock, 'abc', 'xyz');

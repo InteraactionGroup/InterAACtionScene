@@ -53,14 +53,6 @@ export class SceneDisplayComponent implements OnInit {
     this.imageSelected = true;
   }
 
-
-  hasAtLeastOneScene() {
-    if (this.scenesService.SCENES !== null) {
-      return this.scenesService.SCENES.length != 0;
-    }
-    return false;
-  }
-
   selectNonHiddenScene() {
     let i: number = 0;
     while (i < this.scenesService.SCENES.length && this.scenesService.SCENES[i].hidden == true) {

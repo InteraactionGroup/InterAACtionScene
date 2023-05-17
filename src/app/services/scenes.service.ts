@@ -30,6 +30,14 @@ export class ScenesService {
     this.init();
   }
 
+  hasAtLeastOneScene(): boolean {
+    if (this.SCENES !== null) {
+      return this.SCENES.length != 0;
+    }
+    return false;
+
+  }
+
   addScene(base64data: string, sceneName: string = '', firstimagename: string = '') {
     if (this.SCENES == null || this.SCENES.length == 0) {
       this.SCENES = [{
