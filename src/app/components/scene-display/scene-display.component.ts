@@ -7,6 +7,8 @@ import {ModeService} from "../../services/mode.service";
 import {SceneDisplayService} from "../../services/scene-display.service";
 import {SettingsService} from "../../services/settings.service";
 import {DwellCursorService} from "../../services/dwell-cursor.service";
+import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
+import {Scene, SceneImage} from '../../types';
 
 @Component({
   selector: 'app-scene-display',
@@ -51,6 +53,25 @@ export class SceneDisplayComponent implements OnInit {
     this.scenesService.updateScenes();
     this.sceneDisplayService.UpdateDimensions();
     this.imageSelected = true;
+  }
+
+  dropScene(event: CdkDragDrop<Scene[]>) {
+    moveItemInArray(this.scenesService.SCENES, event.previousIndex, event.currentIndex);
+    this.sceneDisplayService.selectedScene = event.currentIndex;
+    this.scenesService.updateScenes();
+  }
+
+  dropImage(event: CdkDragDrop<SceneImage[]>) {
+    moveItemInArray(this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images, event.previousIndex, event.currentIndex);
+    this.sceneDisplayService.selectedImage = event.currentIndex;
+    this.scenesService.updateScenes();
+  }
+
+  hasAtLeastOneScene() {
+    if (this.scenesService.SCENES !== null) {
+      return this.scenesService.SCENES.length != 0;
+    }
+    return false;
   }
 
   selectNonHiddenScene() {
