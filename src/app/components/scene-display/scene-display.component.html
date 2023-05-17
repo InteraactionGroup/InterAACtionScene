@@ -35,7 +35,7 @@
 
   <div *ngIf="!this.sceneDisplayService.hidePanel" class="images">
 
-    <cdk-virtual-scroll-viewport itemSize="6" class="images-virtual-viewport" *ngIf="hasAtLeastOneScene()">
+    <cdk-virtual-scroll-viewport itemSize="6" class="images-virtual-viewport" *ngIf="scenesService.hasAtLeastOneScene()">
       <!-- Add an image button -->
       <div class="image"
       >
@@ -70,7 +70,7 @@
   <!-- Selected image at the right -->
   <div *ngIf="modeService.selectedMode != 'manage-scenes'" [ngClass]="sizeContainer" class="bigImageContainer" id="bigImageContainer">
     <div
-      *ngIf="hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
+      *ngIf="scenesService.hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
       id="sceneDiv"
       [ngStyle]="{'width': this.sceneDisplayService.imageWidth,'height': this.sceneDisplayService.imageHeigth}">
       <img id="bigImage"
@@ -151,7 +151,7 @@
 
   <div *ngIf="!this.sceneDisplayService.hidePanel" class="imagesAFSR">
 
-    <cdk-virtual-scroll-viewport itemSize="6" class="imagesAFSR-virtual-viewport" *ngIf="hasAtLeastOneScene()">
+    <cdk-virtual-scroll-viewport itemSize="6" class="imagesAFSR-virtual-viewport" *ngIf="scenesService.hasAtLeastOneScene()">
       <!-- Add an image button -->
       <div class="imageAFSR">
         <button type="button"
@@ -184,7 +184,7 @@
   <!-- Selected image at the right -->
   <div *ngIf="modeService.selectedMode != 'manage-scenes'" class="bigImageContainer" id="bigImageContainerAFSR">
     <div
-      *ngIf="hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
+      *ngIf="scenesService.hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
       id="sceneDivAFSR"
       [ngStyle]="{'width': this.sceneDisplayService.imageWidth,'height': this.sceneDisplayService.imageHeigth}">
       <img id="bigImageAFSR"

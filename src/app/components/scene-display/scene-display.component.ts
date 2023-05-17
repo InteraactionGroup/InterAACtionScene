@@ -20,7 +20,7 @@ export class SceneDisplayComponent implements OnInit {
 
   @Input()
   public set imageName(imageName: string) {
-    if (imageName != null && this.scenesService.SCENES[this.sceneDisplayService.selectedScene] !== null) {
+    if (imageName != null && this.scenesService.hasAtLeastOneScene()) {
       this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name = imageName;
     }
   }

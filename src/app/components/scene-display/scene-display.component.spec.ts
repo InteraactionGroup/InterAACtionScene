@@ -86,12 +86,6 @@ describe('SceneDisplayComponent', () => {
 
   });
 
-  // check if it returns specific value
-  it('hasAtLeastOneScene:: should return false if there is no scene', () => {
-    component.scenesService.SCENES = null;
-    expect(component.hasAtLeastOneScene()).toBeFalsy();
-  });
-
   // check if it is calls specific service method based on the setup params
   it('exit:: should stop dwellCursorService', () => {
     component.settingsService.DWELL_TIME_ENABLED = true;

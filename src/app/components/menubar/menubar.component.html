@@ -32,7 +32,7 @@
     </button>
 
     <!-- Ajout d'un bouton reset -->
-    <button (click)="openDialogReset()" class="button">
+    <button [disabled]="!(scenesService.hasAtLeastOneScene())" (click)="openDialogReset()" class="button">
       <img src="assets/images/reset.png" alt="Reset" class="buttonTopImg">
       <span>{{'Dashboard.Reset' | translate }}</span>
     </button>

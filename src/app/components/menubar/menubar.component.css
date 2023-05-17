@@ -32,7 +32,6 @@ span {
   /*display: inline;*/
   display: flex;
   flex-direction: column;
-  cursor: pointer;
   border-radius: 5px;
   height: 1.5cm;
   /*width: 2cm;*/ width: auto;
@@ -42,8 +41,9 @@ span {
   background-color: white;
 }
 
-.menubar .menu .button:hover {
+.menubar .menu .button:enabled:hover {
   background-color: #E8E8E8;
+  cursor: pointer;
 }
 
 .menubar .menu .button.selected {
@@ -56,6 +56,11 @@ span {
   column-gap: 5px;
   padding: 0 5px;
   margin: 0 auto;
+}
+
+.button:disabled {
+  opacity: 30%;
+  cursor: unset;
 }
 
 .divDraw {

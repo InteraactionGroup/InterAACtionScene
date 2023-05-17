@@ -145,6 +145,7 @@ export class MenubarComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       this.sceneDisplayService.selectedScene = 0;
       this.sceneDisplayService.selectedImage = 0;
+      this.sceneTitle = "";
     });
   }
 
@@ -169,7 +170,9 @@ export class MenubarComponent implements OnInit {
     });
     setTimeout(() => {
       this.scenesService.updateScenes();
-      this.sceneDisplayService.UpdateDimensions();
+      if (this.scenesService.hasAtLeastOneScene()) {
+        this.sceneDisplayService.UpdateDimensions();
+      }
     }, 1000);
   }
 
