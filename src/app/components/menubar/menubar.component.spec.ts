@@ -15,10 +15,10 @@ describe('MenubarComponent', () => {
   beforeEach(async(() => {
     const sceneServiceMock = jasmine.createSpyObj('ScenesService', ['updateScenes', 'getScenes']);
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),RouterTestingModule, MatDialogModule, HttpClientModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, MatDialogModule, HttpClientModule],
       declarations: [MenubarComponent],
       providers: [
-        { provide: ScenesService, useValue: sceneServiceMock }
+        {provide: ScenesService, useValue: sceneServiceMock}
       ]
     })
       .compileComponents();
@@ -96,7 +96,7 @@ describe('MenubarComponent', () => {
 
   // check if it sets specific service variables
   it('hideShowPanel:: should show show panel', fakeAsync(() => {
-    component.sceneDisplayService.hidePanel  = false;
+    component.sceneDisplayService.hidePanel = false;
     spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.hideShowPanel();
     tick(1500);
@@ -106,7 +106,7 @@ describe('MenubarComponent', () => {
   // check if it opens the dialog
   it('logout:: should open logout dialog', () => {
     // @ts-ignore
-    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true)});
+    spyOn(component.dialog, 'open').and.returnValue({afterClosed: () => of(true)});
     component.logout();
     // @ts-ignore
     expect(component.dialog.open).toHaveBeenCalled();
@@ -115,7 +115,7 @@ describe('MenubarComponent', () => {
   // check if it opens the dialog
   it('openDialogTuto:: should open Tutorial dialog', () => {
     // @ts-ignore
-    spyOn(component.dialog, 'open').and.returnValue({ afterClosed: () => of(true)});
+    spyOn(component.dialog, 'open').and.returnValue({afterClosed: () => of(true)});
     component.openDialogTuto();
     // @ts-ignore
     expect(component.dialog.open).toHaveBeenCalled();
@@ -151,5 +151,23 @@ describe('MenubarComponent', () => {
   it('choiceDrawing:: should change drawing to given drawing', () => {
     component.choiceDrawing('drawing1');
     expect(component.modeService.choiceDrawing).toEqual('drawing1');
+  });
+
+  it('zoom:: should call zoomInOrOut()', () => {
+    spyOn(component.sceneDisplayService, 'zoomInOrOut');
+    sceneService.SCENES = [{name: 'abc', images: [{name: 'xyz'}]}] as any;
+    component.zoom('in');
+    expect(component.sceneDisplayService.zoomInOrOut).toHaveBeenCalled();
+    component.zoom('out');
+    expect(component.sceneDisplayService.zoomInOrOut).toHaveBeenCalled();
+  });
+
+  it('zoom:: should not call zoomInOrOut()', () => {
+    spyOn(component.sceneDisplayService, 'zoomInOrOut');
+    sceneService.SCENES = [];
+    component.zoom('in');
+    expect(component.sceneDisplayService.zoomInOrOut).not.toHaveBeenCalled();
+    component.zoom('out');
+    expect(component.sceneDisplayService.zoomInOrOut).not.toHaveBeenCalled();
   });
 });

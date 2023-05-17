@@ -148,6 +148,12 @@ export class MenubarComponent implements OnInit {
     });
   }
 
+  zoom(zoom: string): void {
+    if (this.scenesService.SCENES.length > 0) {
+      this.sceneDisplayService.zoomInOrOut(zoom);
+    }
+  }
+
   constructor(public modeService: ModeService,
               public scenesService: ScenesService,
               public audioRecorderService: AudioRecorderService,

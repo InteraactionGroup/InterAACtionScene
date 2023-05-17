@@ -142,6 +142,7 @@ span {
   border-radius: 5px;
   border-width: 2px;
   background-color: white;
+  cursor: pointer;
 }
 
 #hideShowButtonPanel {
@@ -155,10 +156,11 @@ span {
   margin-left: 6cm;
   /* top: 70px; */
   font-size: 1.5em;
-  text-align: center;
+  /*text-align: center;*/
   border-radius: 5px;
   border-width: 2px;
   background-color: white;
+  cursor: pointer;
 }
 
 .positionHideShowButtonPanel{
@@ -174,11 +176,46 @@ span {
   right: 0;
   margin-top: calc(5px + 2.5cm);
   /* font-size: 1.5em; */
-  text-align: center;
+  /*text-align: center;*/
   border-radius: 5px;
   border-width: 2px;
   background-color: white;
   font-size: 8px;
+  cursor: pointer;
+}
+
+#zoomIn{
+  height: 2.5cm;
+  width: 2.5cm;
+  min-width: 0.5cm;
+  min-height: 0.5cm;
+  position: absolute;
+  right: 0;
+  margin-top: calc(5px + 5cm);
+  /* font-size: 1.5em; */
+  /*text-align: center;*/
+  border-radius: 5px;
+  border-width: 2px;
+  background-color: white;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+#zoomOut{
+  height: 2.5cm;
+  width: 2.5cm;
+  min-width: 0.5cm;
+  min-height: 0.5cm;
+  position: absolute;
+  right: 0;
+  margin-top: calc(5px + 7.5cm);
+  /* font-size: 1.5em; */
+  /*text-align: center;*/
+  border-radius: 5px;
+  border-width: 2px;
+  background-color: white;
+  font-size: 8px;
+  cursor: pointer;
 }
 
 .buttonimg {

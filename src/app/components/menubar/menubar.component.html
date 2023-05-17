@@ -284,5 +284,16 @@
   <img src="assets/{{fullScreenPath}}" alt="Add a scene" class="buttonimg">
 </button>
 
+<button id="zoomIn" (click)="zoom('out')" class="button">
+  <img src="assets/images/zoom-out-icon.png" alt="ZoomOut" class="buttonTopImg">
+<!--  <span>{{'Dashboard.Zoomout' | translate}}</span>-->
+</button>
+
+<button id="zoomOut" (click)="zoom('in')" class="button">
+  <img src="assets/images/zoom-in-icon.png" alt="ZoomIn" class="buttonTopImg">
+<!--  <span>{{'Dashboard.Zoomin' | translate}}</span>-->
+</button>
+
+
 <app-scene-display
   [imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>

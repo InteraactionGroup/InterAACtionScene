@@ -6,6 +6,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import { of } from 'rxjs';
 import {HttpClientModule} from "@angular/common/http";
+import {CdkDragDrop} from '@angular/cdk/drag-drop';
+import {Scene, SceneImage} from '../../types';
 
 describe('SceneDisplayComponent', () => {
   let component: SceneDisplayComponent;
@@ -255,4 +257,38 @@ describe('SceneDisplayComponent', () => {
     expect(component.dwellCursorService.playToMax).not.toHaveBeenCalled();
     expect(component.changeImage).not.toHaveBeenCalled();
   }));
+
+  it('dropScene:: should swap the two scenes', () => {
+    component.sceneDisplayService.selectedScene = 0;
+    component.sceneDisplayService.selectedImage = 0;
+    component.scenesService.SCENES = [{name: 'scene1'}, {name: 'scene2'}] as any;
+    const dropEvent = {
+      previousIndex: 0,
+      currentIndex: 1,
+      item: { data: component.scenesService.SCENES[0] } as any,
+      container: { data: component.scenesService.SCENES } as any,
+      previousContainer: { data: component.scenesService.SCENES } as any
+    } as CdkDragDrop<Scene[]>;
+    spyOn(component.scenesService, 'updateScenes');
+    component.dropScene(dropEvent);
+    expect(component.scenesService.updateScenes).toHaveBeenCalled();
+    expect(component.scenesService.SCENES).toEqual([{name: 'scene2'}, {name: 'scene1'}] as any);
+  });
+
+  it('dropImage:: should swap the two images', () => {
+    component.sceneDisplayService.selectedScene = 0;
+    component.sceneDisplayService.selectedImage = 0;
+    component.scenesService.SCENES = [{name: 'scene1', images: [{name: 'image1'}, {name: 'image2'}]}] as any;
+    const dropEvent = {
+      previousIndex: 0,
+      currentIndex: 1,
+      item: { data: component.scenesService.SCENES[0].images[0] } as any,
+      container: { data: component.scenesService.SCENES[0].images } as any,
+      previousContainer: { data: component.scenesService.SCENES[0].images } as any
+    } as CdkDragDrop<SceneImage[]>;
+    spyOn(component.scenesService, 'updateScenes');
+    component.dropImage(dropEvent);
+    expect(component.scenesService.updateScenes).toHaveBeenCalled();
+    expect(component.scenesService.SCENES).toEqual([{name: 'scene1', images: [{name: 'image2'}, {name: 'image1'}]}] as any);
+  });
 });
