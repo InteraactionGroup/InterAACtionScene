@@ -40,6 +40,7 @@ import {DefaultStandardSceneComponent} from './components/default-standard-scene
 import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 import { DialogResetScenesComponent } from './components/dialog-reset-scenes/dialog-reset-scenes.component';
 import {MatMenuModule} from '@angular/material/menu';
+import {HotspotDeleteAllComponent} from './components/hotspot-delete-all-dialog/hotspot-delete-all.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -71,6 +72,7 @@ export function createTranslateLoader(http: HttpClient) {
     DefaultStandardSceneComponent,
     LoadingUserComponent,
     DialogResetScenesComponent,
+    HotspotDeleteAllComponent
   ],
     imports: [
       TranslateModule.forRoot({
@@ -107,6 +109,7 @@ export function createTranslateLoader(http: HttpClient) {
     HotspotCreateDialogComponent,
     HotspotModifyDialogComponent,
     HotspotDeleteDialogComponent,
+    HotspotDeleteAllComponent,
     DialogResetSettingsComponent,
     ExportScenesDialogComponent,
     DialogLinkInteraactionboxComponent,

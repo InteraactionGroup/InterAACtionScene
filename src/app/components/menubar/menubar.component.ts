@@ -6,10 +6,15 @@ import {ScenesService} from "../../services/scenes.service";
 import {AudioRecorderService} from "../../services/audio-recorder.service";
 import {LanguageService} from "../../services/language.service";
 import {MatDialog} from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
 import {LogoutAppComponent} from '../logoutApp/logout-app.component';
 import {SettingsService} from '../../services/settings.service';
 import {DialogTutorialComponent} from '../dialog-tutorial/dialog-tutorial.component';
 import {DialogResetScenesComponent} from '../dialog-reset-scenes/dialog-reset-scenes.component';
+import {HotspotModifyDialogComponent} from '../hotspot-modify-dialog/hotspot-modify-dialog.component';
+import {HotspotCreateDialogComponent} from '../hotspot-create-dialog/hotspot-create-dialog.component';
+import {HotspotDeleteDialogComponent} from '../hotspot-delete-dialog/hotspot-delete-dialog.component';
+import {HotspotDeleteAllComponent} from '../hotspot-delete-all-dialog/hotspot-delete-all.component';
 
 @Component({
   selector: 'app-menubar',
@@ -133,6 +138,13 @@ export class MenubarComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       this.sceneDisplayService.selectedScene = 0;
       this.sceneDisplayService.selectedImage = 0;
+    });
+  }
+
+  deleteAllHotspots(): void{
+    let dialogRef = this.dialog.open(HotspotDeleteAllComponent, {
+      height: '150px',
+      width: '200px'
     });
   }
 

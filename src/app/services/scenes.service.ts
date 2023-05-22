@@ -117,6 +117,11 @@ export class ScenesService {
     this.update();
   }
 
+  removeAllHotspots(selectedScene: number, selectedImage: number) {
+    this.SCENES[selectedScene].images[selectedImage].hotspots = [];
+    this.update();
+  }
+
   hideImage(selectedScene: number, selectedImage: number) {
     const sceneIsHidden = this.SCENES[selectedScene].images[selectedImage].hidden;
     this.SCENES[selectedScene].images[selectedImage].hidden = !sceneIsHidden;
