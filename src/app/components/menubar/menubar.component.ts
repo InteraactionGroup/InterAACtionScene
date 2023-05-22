@@ -143,9 +143,11 @@ export class MenubarComponent implements OnInit {
       height: '150px',
       width: '200px'
     }).afterClosed().subscribe(result => {
-      this.sceneDisplayService.selectedScene = 0;
-      this.sceneDisplayService.selectedImage = 0;
-      this.sceneTitle = "";
+      if (result) {
+        this.sceneDisplayService.selectedScene = 0;
+        this.sceneDisplayService.selectedImage = 0;
+        this.sceneTitle = "";
+      }
     });
   }
 
