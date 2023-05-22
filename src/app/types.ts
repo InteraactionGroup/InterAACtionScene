@@ -1,3 +1,11 @@
+import { Injectable } from '@angular/core';
+import {SettingsService} from './services/settings.service';
+import {LanguageService} from './services/language.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+
 /**
  * a color
  */
@@ -13,6 +21,12 @@
    name: string;
    images: SceneImage[];
    hidden: boolean;
+
+    constructor(name, images = Array<SceneImage>(), hidden = false) {
+      this.name = name;
+      this.images = images;
+      this.hidden = hidden;
+    }
  }
 
  /**
@@ -34,13 +48,62 @@
   }
  }
 
- export class Hotspot {
+ export abstract class Hotspot {
    name: string;
    svgPointArray: number[]; // Each point is in percentage
    strokeColor: string;
+   type: string;
+   strokeWidth: number;
+
+    constructor(name, svgPointArray, strokeColor, type, strokeWidth) {
+      this.name = name;
+      this.svgPointArray = svgPointArray;
+      this.strokeColor = strokeColor;
+      this.type = type;
+      this.strokeWidth = strokeWidth;
+    }
+
+    getType() {
+      return this.type;
+    }
+
+    abstract getData();
+    abstract setData(data);
+
+ }
+
+ export class SoundHotspot extends Hotspot {
    base64sound: string;
-   typeSound: string;
-   strokeWidth: number
+
+    constructor(name, svgPointArray, strokeColor, type, strokeWidth, base64sound) {
+      super(name, svgPointArray, strokeColor, type, strokeWidth);
+      this.base64sound = base64sound;
+    }
+
+    getData() {
+      return this.base64sound;
+    }
+
+    setData(data) {
+      this.base64sound = data;
+    }
+ }
+
+ export class ImageHotspot extends Hotspot {
+   numImage: number;
+
+    constructor(name, svgPointArray, strokeColor, type, strokeWidth, numImage) {
+      super(name, svgPointArray, strokeColor, type, strokeWidth);
+      this.numImage = numImage;
+    }
+
+    getData() {
+      return this.numImage;
+    }
+
+    setData(data) {
+      this.numImage = data;
+    }
  }
 
 export class Configuration {
