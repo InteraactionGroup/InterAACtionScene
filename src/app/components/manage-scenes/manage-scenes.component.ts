@@ -34,7 +34,7 @@ export class ManageScenesComponent implements OnInit {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
         data: 'Doyouwanttohide' +
-          (this.imageSelected ? 'theimage ' + SCENES[this.selectedScene].images[this.selectedImage].name : 'thescene ' + SCENES[this.selectedScene].name) + ' ?'
+          (this.imageSelected ? 'theimage,' + SCENES[this.selectedScene].images[this.selectedImage].name : 'thescene,' + SCENES[this.selectedScene].name)
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
