@@ -9,7 +9,7 @@ toc_sticky: true
 
 ## Commencement
 
-{% include figure image_path="/assets/images/interaactionScene.png" alt="InteraactionScene" caption="Voilà à quoi ressemble InteraactionScene lors de la 1er connexion." %}
+{% include figure image_path="/assets/images/interaactionScene2.png" alt="InteraactionScene" caption="Voilà à quoi ressemble InteraactionScene lors de la 1er connexion." %}
 
 ### Ajouter une scène
 
@@ -31,12 +31,12 @@ Dans l'exemple ci-dessous, nous souhaitons créer une scène qui a pour nom "Lac
 
 Voici ce que nous obtenons après la validation :
 
-{% include figure image_path="/assets/images/userGuideImages/exampleScene.png" alt="Exemple d'une scène" caption="Ma scène 'Lac' avec pour image le lac de Guéry a bien été créer." %}
+{% include figure image_path="/assets/images/userGuideImages/exampleScene.png" alt="Exemple d'une scène" caption="Ma scène 'Lac' avec pour image le lac de Guéry a bien été créée." %}
 
 ### Ajouter une image
 
-Une image ne peux être ajoutée seulement dans une scène, sinon le bouton permettant d'ajouter une image ne sera pas disponible.<br />
-Une fois que notre scène est crée, il faut cliquer sur le bouton "Image" avec un "+" entouré d'un cercle noir à droite du bouton qui permet d'ajouter une scène.
+Une image ne peut être ajoutée seulement dans une scène, sinon le bouton permettant d'ajouter une image ne sera pas disponible.<br />
+Une fois que notre scène est créée, il faut cliquer sur le bouton "Image" avec un "+" entouré d'un cercle noir à droite du bouton qui permet d'ajouter une scène.
 
 {% include figure image_path="/assets/images/userGuideImages/imageButton.png" alt="Bouton image" %}
 
@@ -51,7 +51,7 @@ Dans l'exemple ci-dessous, nous ajoutons une autre image à la scène "Lac", cel
 
 {% include figure image_path="/assets/images/userGuideImages/exampleAddImage.png" alt="Exemple ajout d'une scène" %}
 
-Après validation voici ce qu'on obtient :
+Après validation, voici ce qu'on obtient :
 
 {% include figure image_path="/assets/images/userGuideImages/exampleImage.png" alt="Exemple ajout d'une scène" %}
 
@@ -59,25 +59,30 @@ La nouvelle image du lac de Laffrey a bien été ajoutée à la scène "Lac". Ce
 
 ## Bouton "Jouer"
 
-{% include figure image_path="/assets/images/userGuideImages/playButton.png" alt="Bouton Jouer" caption="Ce bouton permet de jouer le son associé au hotspot." %}
+{% include figure image_path="/assets/images/userGuideImages/playButton.jpg" alt="Bouton Jouer" caption="Ce bouton permet de jouer l'action associé à un hotspot." %}
 
 ## Bouton "Gérer les hotspots"
 
 {% include figure image_path="/assets/images/userGuideImages/manageHotspotsButton.png" alt="Bouton gérer les hotspots" caption="Ce bouton permet de gérer les hotspots de nos images." %}
 
-Une fois que l'on a cliqué sur le bouton "hotspots", 3 nouveaux boutons apparaissent et permettent :
+Une fois que l'on a cliqué sur le bouton "Hotspots", 4 nouveaux boutons apparaissent et permettent :
 
 * D'ajouter un hotspot à une image.
 * De modifier les hotspots d'une image.
 * De supprimer les hotspots d'une image.
+* De supprimer tous les hotspots d'une image.
 
 {% include figure image_path="/assets/images/userGuideImages/buttonsManageHotspots.png" alt="Les boutons du mode gérer les hotspots" %}
 
 ### Ajouter un hotspot
 
-Pour ajouter un hotspot à notre image, il faut cliquer sur le bouton "Add Hotspot".
+Pour ajouter un hotspot à notre image, il faut cliquer sur le bouton "Ajouter un hotspot".
 
 {% include figure image_path="/assets/images/userGuideImages/addHotspotButton.png" alt="Bouton ajouter un hotspot" %}
+
+Un menu se déroulera et vous permettra de choisir la forme de votre hotspot. Il suffira d'y cliquer dessus.
+
+{% include figure image_path="/assets/images/userGuideImages/addHotspotButtonDropdown.png" alt="Les formes d'un hotspot" caption="Trois formes : Courbe, Rectangle et Cercle." %}
 
 Il faut ensuite presser le clic gauche de la souris et tracer la zone que l'on souhaite définir comme hotspot, tout en gardant le clic enfoncé.
 
