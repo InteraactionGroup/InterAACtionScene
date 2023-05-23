@@ -32,7 +32,8 @@
     "Doyouconfirmthedeletionof": "Do you confirm the deletion of ",
     "Modifyascenename": "Modify the name of the scene",
     "Modifytheimagename": "Modify the name of the image",
-    "Show": "Show"
+    "Show": "Show",
+    "Enteraname" : "Enter a name"
   },
   "Settings": {
     "DwelltimeEnabled": "Dwell-time Enabled",

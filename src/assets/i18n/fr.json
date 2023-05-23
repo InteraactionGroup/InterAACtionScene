@@ -32,7 +32,8 @@
     "Doyouconfirmthedeletionof": "Confirmez-vous la suppression de ",
     "Modifyascenename": "Modifier le nom de scène",
     "Modifyanimagename": "Modifier le nom de l'image",
-    "Show": "Montrer"
+    "Show": "Montrer",
+    "Enteraname" : "Entrer un nom"
   },
   "Settings": {
     "DwelltimeEnabled": "Activer le temps de fixation",
