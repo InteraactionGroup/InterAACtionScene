@@ -61,7 +61,7 @@ La nouvelle image du lac de Laffrey a bien été ajoutée à la scène "Lac". Ce
 
 {% include figure image_path="/assets/images/userGuideImages/playButton.jpg" alt="Bouton Jouer" caption="Ce bouton permet de jouer l'action associé à un hotspot." %}
 
-Une fois actioné, il vous suffit de cliquer sur un hotspot pour que son action se déclenche.
+Une fois actionné, il vous suffit de cliquer sur un hotspot pour que son action se déclenche.
 
 ## Bouton "Gérer les hotspots"
 
@@ -84,11 +84,9 @@ Pour ajouter un hotspot à notre image, il faut cliquer sur le bouton "Ajouter u
 
 Un menu se déroulera et vous permettra de choisir la forme de votre hotspot. Il suffira d'y cliquer dessus.
 
-{% include figure image_path="/assets/images/userGuideImages/addHotspotButtonDropdown.png" alt="Les formes d'un hotspot" caption="Trois formes : Courbe, Rectangle et Cercle." %}
+{% include figure image_path="/assets/images/userGuideImages/addHotspotButtonDropdown.png" alt="Les formes d'un hotspot" caption="Trois formes : Courbe, Rectangle et Cercle." width="200" height="240" %}
 
 Il faut ensuite presser le clic gauche de la souris et tracer la zone que l'on souhaite définir comme hotspot, tout en gardant le clic enfoncé.
-
-{% include figure image_path="/assets/images/userGuideImages/zoneHotspot.png" alt="Zone d'un hotspot" caption="La zone assombie aux contours noirs sur l'image représente notre hotspot." %}
 
 Une fois le clic relâché, une fenêtre apparaît pour créer le hotspot. Vous pouvez créer deux types de hotspots : un SoundHotspot qui permet de jouer un son, grâce à l'onglet "Ajouter un son" et un ImageHotspot qui permet de changer d'image, grâce à l'onglet "Ajouter une référence".
 
@@ -119,7 +117,7 @@ Comme ci-dessous, j'ai sélectionné le lac de Laffrey comme image de destinatio
 
 Voici ce que nous obtenons : 
 
-{% include figure image_path="/assets/images/userGuideImages/zoneImageHotspot.png" alt="Exemple d'ajout d'un ImageHotspot" caption="Ce hotspot nous redirigera sur lac de Laffrey." %}
+{% include figure image_path="/assets/images/userGuideImages/zoneImageHotspot.png" alt="Exemple d'ajout d'un ImageHotspot" caption="Ce hotspot nous redirigera sur lac de Laffrey lorsque l'on clique dessus." %}
 
 ### Modifier un hotspot
 
@@ -149,13 +147,13 @@ Pour supprimer un hotspot, il faut cliquer sur le bouton "Supprimer un Hotspot".
 
 {% include figure image_path="/assets/images/userGuideImages/deleteHotspotButton.png" alt="Bouton supprimer un hotspot" %}
 
-Puis cliquer sur le hotspot que vous souhaitez modifier.<br />
+Puis cliquer sur le hotspot que vous souhaitez supprimer.<br />
 Dans l'exemple qui suit, je prends le hotspot du Lac de Guéry crée dans la partie "Ajouter un hotspot".<br />
-Une fenêtre va s'ouvrir demandant si on est sûr de vouloir supprimé le hotspot sélectionné.
+Une fenêtre va s'ouvrir demandant si l'on est sûr de vouloir supprimer le hotspot sélectionné.
 
 {% include figure image_path="/assets/images/userGuideImages/windowDeleteHotspot.png" alt="Fenêtre de suppression d'un hotspot" %}
 
-Cliquez sur oui pour valider votre choix.
+Cliquez sur "Supprimer" pour valider votre choix.
 
 ### Supprimer tous les hotspots
 
@@ -169,11 +167,11 @@ Cliquer sur ce bouton fera apparaître une fenêtre de confirmation. Pour confir
 
 {% include figure image_path="/assets/images/userGuideImages/manageScenesButton.png" alt="Bouton gérer les scènes" caption="Ce bouton permet de gérer nos scènes et nos images." %}
 
-Une fois que l'on a cliqué sur le bouton "Gérer les scènes", 5 nouveaux boutons apparaissent au centre de l'affichage et permettent :
+Une fois que l'on a cliqué sur le bouton "Scènes", 5 nouveaux boutons apparaissent au centre de l'affichage et permettent :
 
 * De cacher une image. Si c'est la seule image de la scène alors la scène est aussi caché.
 * De supprimer une image. Si c'est la seule image de la scène alors la scène est aussi supprimée.
-* De renommer une image et/ou la scène.
+* De renommer une image et/ou la scène courante.
 * D'exporter une scène.
 * D'importer une scène.
 
@@ -181,7 +179,7 @@ Une fois que l'on a cliqué sur le bouton "Gérer les scènes", 5 nouveaux bouto
 
 ### Cacher une image
 
-Pour cacher une image, il faut cliquer sur le bouton "Hide".
+Pour cacher une image, il faut cliquer sur le bouton "Cacher".
 
 {% include figure image_path="/assets/images/userGuideImages/hideButton.png" alt="Bouton cacher une image" %}
 
@@ -203,7 +201,7 @@ Pour supprimer une image, il faut cliquer sur le bouton "Supprimer".
 
 {% include figure image_path="/assets/images/userGuideImages/removeButton.png" alt="Bouton supprimer une image" %}
 
-Une fenêtre apparaît nous demandant si l'on est sûr de vouloir supprimer l'image choisie.
+Une fenêtre apparaîtra nous demandant si l'on est sûr de vouloir supprimer l'image choisie.
 
 {% include figure image_path="/assets/images/userGuideImages/windowRemoveImage.png" alt="Image supprimée" %}
 
@@ -213,7 +211,7 @@ Pour renommer une image et/ou une scène, il faut cliquer sur le bouton "Renomme
 
 {% include figure image_path="/assets/images/userGuideImages/renameButton.png" alt="Bouton renommer une image" %}
 
-Une fenêtre apparaît nous demandant le nouveau nom de notre image et de notre scène. Vous pouvez décidez de renommer ce que vous voulez.
+Une fenêtre apparaît nous demandant le nouveau nom de notre image et de notre scène. Vous pouvez décidez de renommer soit l'image, soit la scène, soit les deux.
 
 {% include figure image_path="/assets/images/userGuideImages/windowRenameImage.png" alt="Fenêtre pour renommer une image" %}
 
@@ -321,7 +319,7 @@ Vous pourrez alors :
 
 ## Cacher/Afficher la barre de menu
 
-On peut cacher ou afficher la barre de menu avec le bouton en forme de triangle pointant vers le haut (pour cacher) ou vers le bas (pour afficher), en dessous du bouton "Settings".
+On peut cacher ou afficher la barre de menu avec le bouton en forme de triangle pointant vers le haut (pour cacher) ou vers le bas (pour afficher), en dessous du bouton "Options".
 
 {% include figure image_path="/assets/images/userGuideImages/hideShowButton.png" alt="Bouton pour cacher ou montrer la barre de menu" %}
 
