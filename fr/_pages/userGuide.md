@@ -82,9 +82,10 @@ Pour ajouter un hotspot à notre image, il faut cliquer sur le bouton "Ajouter u
 
 {% include figure image_path="/assets/images/userGuideImagesFR/addHotspotButton.png" alt="Bouton ajouter un hotspot" %}
 
-Un menu se déroulera et vous permettra de choisir la forme de votre hotspot. Il suffira d'y cliquer dessus.
+Un menu se déroulera et vous permettra de choisir la forme de votre hotspot entre la forme "Courbe", "Rectangle" et "Cercle". Il suffira d'y cliquer dessus.
 
-{% include figure image_path="/assets/images/userGuideImagesFR/addHotspotButtonDropdown.png" alt="Les formes d'un hotspot" caption="Trois formes : Courbe, Rectangle et Cercle." width="200" height="240" %}
+<img src="/assets/images/userGuideImagesFR/addHotspotButtonDropdown.png" alt="Les formes d'un hotspot" style="width: 200px; height: 200px;">
+/*{% include figure image_path="/assets/images/userGuideImagesFR/addHotspotButtonDropdown.png" alt="Les formes d'un hotspot" caption="Trois formes : Courbe, Rectangle et Cercle." width="200" height="240" %}*/
 
 Il faut ensuite presser le clic gauche de la souris et tracer la zone que l'on souhaite définir comme hotspot, tout en gardant le clic enfoncé.
 
