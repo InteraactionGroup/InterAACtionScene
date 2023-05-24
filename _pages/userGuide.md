@@ -8,7 +8,7 @@ toc_sticky: true
 
 ## Beginning
 
-{% include figure image_path="/assets/images/interaactionScene.png" alt="InteraactionScene" caption="This is what InteraactionScene looks like on the 1st connection" %}
+{% include figure image_path="/assets/images/interaactionScene2.png" alt="InteraactionScene" caption="This is what InteraactionScene looks like on the 1st connection" %}
 
 ### Add scene
 
@@ -24,13 +24,13 @@ A window will open asking :
 
 {% include figure image_path="/assets/images/userGuideImagesEN/windowAddScene.png" alt="Window add a scene" %}
 
-In my example below, I want to create a scene whose name is "Lac" and the image of Lake Guéry.
+In my example below, I want to create a scene whose name is "Lac" and the image of Guéry lake.
 
 {% include figure image_path="/assets/images/userGuideImagesEN/exampleAddScene.png" alt="Example add a scene" %}
 
 I validate and this is what I get :
 
-{% include figure image_path="/assets/images/userGuideImagesEN/exampleScene.png" alt="Example of a scene" caption="My 'Lac' scene with the Guéry lake as an image has been created." %}
+{% include figure image_path="/assets/images/userGuideImagesEN/exampleScene.png" alt="Example of a scene" caption="My 'Lac' scene with Guéry lake as an image has been created." %}
 
 ### Add image
 
@@ -58,7 +58,7 @@ My new image of Lac de Laffrey has been added to my "Lac" scene. This now contai
 
 ## "Play" Button
 
-{% include figure image_path="/assets/images/userGuideImagesEN/playButton.png" alt="Play button" caption="This button allows you to play the action associated with the hotspot." %}
+{% include figure image_path="/assets/images/userGuideImagesEN/playButton.png" alt="Play button" caption="This button allows you to play the action associated with hotspots." %}
 
 Once activated, you have to click on a hotspot to play its action
 
@@ -87,7 +87,7 @@ A dropdown menu will appear and allow you to choose the shape of your hotspot. J
 
 Then, press the left mouse button and draw the area you want to define as hotspot, while keeping the button pressed.
 
-Once the click is released, a window appears to create a hotspot. You can create two types of hotspots: a SoundHotspot which allows to play a sound, through the "Add a sound" tab and an ImageHotspot which allows to display another image, through the "Add a reference" tab.
+Once the click is released, a window appears to create a hotspot. You can create two types of hotspots: a SoundHotspot that allows to play a sound, through the "Add a sound" tab and an ImageHotspot that allows to display another image, through the "Add a reference" tab.
 
 To create a hotspot that plays a sound, you can "Import a sound" from your computer, "Record a sound" using your computer's microphone or "Write a sound" that will be played by a voice synthesizer.<br />
 To create a hotspot that displays another image, you can "Select an image" that you want to display, by selecting it. You can select only the images of the current scene.<br />
@@ -98,7 +98,7 @@ Then you will be able to select the hotspot color, the size of it and its name.
 {% include figure image_path="/assets/images/userGuideImagesEN/windowAddHotspotImage.png" alt="Add ImageHotspot window" %}
 
 In my example below, I want to add a water sound for Lake Laffrey.<br />
-So I import a file "eau.wav" which makes the sound of water.<br />
+So I import a file "eau.wav" that makes the sound of water.<br />
 I choose to put the color of my hotspot in blue.<br />
 And as a name, I choose "Water from the lake".
 
@@ -109,7 +109,7 @@ And this is what I get:
 {% include figure image_path="/assets/images/userGuideImagesEN/zoneSoundHotspot.png" alt="SoundHotspot area" caption="Now when we click on this hotspot it will make the noise associated with the sound we have chosen (water for me)." %}
 
 I can also add an hotspot that will display another image.<br />
-I will create this hotspot on the Guéry lake for it to display the Lake Laffrey.<br />
+I will create this hotspot on the Guéry lake for it to display the Laffrey lake.<br />
 As below, I selected the Laffrey lake as the image to display, choose the white color for the hotspot and name it "Lac de Laffrey".
 
 {% include figure image_path="/assets/images/userGuideImagesEN/exampleWindowAddImageHotspot.png" alt="Example window add hotspot image fulfilled" %}
@@ -238,7 +238,7 @@ Then a window appears, asking us which file we want to import.
 
 {% include figure image_path="/assets/images/userGuideImagesEN/drawButton.png" alt="Draw button" caption="This button allows you to draw on our images." %}
 
-Once you have clicked on it, a design panel appears:
+Once you have clicked on it, a drawing panel appears:
 
 * Three buttons (small, medium and large) to choose the size of the pencil and the eraser.
 * 10 differents colors: White, Black, Brown, Red, Orange, Yellow, Blue, Purple, Pink and Green.
