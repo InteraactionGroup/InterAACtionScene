@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
@@ -16,6 +16,7 @@ export class HotspotCreateDialogComponent implements OnInit {
 
   @Input() selectedScene: number;
   @Input() selectedImage: number;
+  @ViewChild('name') nameInput: ElementRef<HTMLInputElement>;
   form: FormGroup;
   selectedSound = null;
   name = '';
@@ -51,12 +52,24 @@ export class HotspotCreateDialogComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedSound = reader.result;
+      if (this.nameInput.nativeElement.value === '') {
+        let type = '.' + file.type.replace('audio/', '');
+        let name = file.name.replace(type, '');
+        this.nameInput.nativeElement.value = name;
+      }
     };
 
     reader.onerror = (error) => {
       console.log('Error: ', error);
     };
     this.error = '';
+  }
+
+  onImageSelected(event) {
+    if (this.nameInput.nativeElement.value === '') {
+      let scenes = this.scenesService.getScenes();
+      this.nameInput.nativeElement.value = scenes[this.selectedScene].images[event.value].name;
+    }
   }
 
   stop(){

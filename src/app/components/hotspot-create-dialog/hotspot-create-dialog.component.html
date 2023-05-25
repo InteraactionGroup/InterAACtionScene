@@ -34,7 +34,7 @@
       <!-- Contenu de l'onglet "Ajouter une référence"-->
       <div *ngIf="this.getType() === 'refImage'">
         <mat-form-field style="width: 100%; margin-top: 1.50375em;">
-          <mat-select formControlName="refImage" placeholder="{{'Hotspot.Picktheimage' | translate}}" id="imageSelect" ngDefaultControl>
+          <mat-select (selectionChange)="onImageSelected($event)" formControlName="refImage" placeholder="{{'Hotspot.Picktheimage' | translate}}" id="imageSelect" ngDefaultControl>
             <mat-option *ngFor="let image of this.scenesService.SCENES[this.selectedScene].images; let i = index" [value]="i">{{image.name}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -58,7 +58,7 @@
       <input matInput formControlName="strokeWidth" placeholder="{{'Hotspot.ChooseHotspotStrokeWidth' | translate}}" id="stokeWidthInput" min="1" max="10" type="number">
     </mat-form-field>
     <mat-form-field style="width: 100%">
-      <input matInput formControlName="name" placeholder="{{'Hotspot.Enterthenameofthehotspot' | translate}}" id="nameInput" maxlength="64">
+      <input #name matInput formControlName="name" placeholder="{{'Hotspot.Enterthenameofthehotspot' | translate}}" id="nameInput" maxlength="64">
     </mat-form-field>
   </mat-dialog-content>
   <p *ngIf='error !== ""'>{{error}}</p>
