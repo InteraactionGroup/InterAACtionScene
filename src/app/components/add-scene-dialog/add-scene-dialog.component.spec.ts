@@ -98,6 +98,7 @@ describe('AddSceneDialogComponent', () => {
     expect(window.FileReader).toHaveBeenCalled();
   });
 
+  // Revoir constructeur File
   it('onFileSelected:: should fill the nameInput if it is empty', () => {
     // const blob = new Blob([''], { type: 'text/html' });
     // blob['lastModifiedDate'] = '1684927602853';
