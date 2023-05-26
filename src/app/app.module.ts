@@ -39,7 +39,10 @@ import {DialogTutorialComponent} from './components/dialog-tutorial/dialog-tutor
 import {DefaultStandardSceneComponent} from './components/default-standard-scene/default-standard-scene.component';
 import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 import { DialogResetScenesComponent } from './components/dialog-reset-scenes/dialog-reset-scenes.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {HotspotDeleteAllComponent} from './components/hotspot-delete-all-dialog/hotspot-delete-all.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -70,7 +73,8 @@ export function createTranslateLoader(http: HttpClient) {
     DialogTutorialComponent,
     DefaultStandardSceneComponent,
     LoadingUserComponent,
-    DialogResetScenesComponent
+    DialogResetScenesComponent,
+    HotspotDeleteAllComponent
   ],
     imports: [
       TranslateModule.forRoot({
@@ -93,6 +97,7 @@ export function createTranslateLoader(http: HttpClient) {
         MatButtonModule,
         MatSelectModule,
         MatButtonToggleModule,
+        MatMenuModule,
         HttpClientModule,
         DragDropModule
     ],
@@ -107,6 +112,7 @@ export function createTranslateLoader(http: HttpClient) {
     HotspotCreateDialogComponent,
     HotspotModifyDialogComponent,
     HotspotDeleteDialogComponent,
+    HotspotDeleteAllComponent,
     DialogResetSettingsComponent,
     ExportScenesDialogComponent,
     DialogLinkInteraactionboxComponent,

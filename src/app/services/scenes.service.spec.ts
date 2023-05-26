@@ -96,6 +96,12 @@ describe('ScenesService', () => {
     expect(service.SCENES.length).toEqual(0);
   });
 
+  it('removeAllHotspots:: should remove all hotspots of an image', () => {
+    service.SCENES = [{images: [{hotspots: [{name: 'a'}, {name: 'b'}]}]}] as any;
+    service.removeAllHotspots(0, 0);
+    expect(service.SCENES[0].images[0].hotspots.length).toEqual(0);
+  });
+
   // check if it calls specific function after calling the function
   it('hideImage:: should hide scene and images', () => {
     spyOn(service, 'update');
