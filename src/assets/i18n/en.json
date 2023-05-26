@@ -22,7 +22,7 @@
     "Doyouconfirmthedeletionoftheimage": "Do you confirm the deletion of the image",
     "Doyouconfirmthedeletionofthescene": "Do you confirm the deletion of the scene",
     "Chooseaname": "Choose a name",
-    "Importscenes": "import scenes",
+    "Importscenes": "Import scenes",
     "Cancel": "Cancel",
     "Doyouwanttohide": "Do you want to hide",
     "No": "No",
@@ -31,8 +31,9 @@
     "thescene:": " the scene : ",
     "Doyouconfirmthedeletionof": "Do you confirm the deletion of ",
     "Modifyascenename": "Modify the name of the scene",
-    "Modifytheimagename": "Modify the name of the image",
-    "Show": "Show"
+    "Modifyanimagename": "Modify the name of the image",
+    "Show": "Show",
+    "Enteraname" : "Enter a name"
   },
   "Settings": {
     "DwelltimeEnabled": "Dwell-time Enabled",
