@@ -9,23 +9,25 @@
           Scene
         </button>
       </div>
-      <!-- Different scenes -->
-      <div class="scene"
-           *ngFor="let scene of this.scenesService.SCENES; let i = index"
-           [class.selected]="this.sceneDisplayService.selectedScene === i"
-           [class.hidden]="modeService.selectedMode !== 'manage-scenes' && scene.hidden">
-        <button type="button"
-                [class.button-selected]="modeService.selectedMode === 'manage-scenes' && !imageSelected && this.sceneDisplayService.selectedScene === i"
-                (click)="changeScene(i)"
-                (pointerenter)="enterScene($event,i)"
-                (pointerleave)="exit()"
-        >
-          <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg"
-               [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && scene.hidden">
-          <div class="label">
-            {{scene.name}}
-          </div>
-        </button>
+      <div cdkDropList (cdkDropListDropped)="dropScene($event)">
+        <!-- Different scenes -->
+        <div cdkDrag class="scene"
+             *ngFor="let scene of this.scenesService.SCENES; let i = index"
+             [class.selected]="this.sceneDisplayService.selectedScene === i"
+             [class.hidden]="modeService.selectedMode !== 'manage-scenes' && scene.hidden">
+          <button type="button"
+                  [class.button-selected]="modeService.selectedMode === 'manage-scenes' && !imageSelected && this.sceneDisplayService.selectedScene === i"
+                  (click)="changeScene(i)"
+                  (pointerenter)="enterScene($event,i)"
+                  (pointerleave)="exit()"
+          >
+            <img src="{{scene.images[0].base64data}}" alt="{{scene.name}}" class="buttonimg"
+                 [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && scene.hidden">
+            <div class="label">
+              {{scene.name}}
+            </div>
+          </button>
+        </div>
       </div>
     </cdk-virtual-scroll-viewport>
   </div>
@@ -33,7 +35,7 @@
 
   <div *ngIf="!this.sceneDisplayService.hidePanel" class="images">
 
-    <cdk-virtual-scroll-viewport itemSize="6" class="images-virtual-viewport" *ngIf="hasAtLeastOneScene()">
+    <cdk-virtual-scroll-viewport itemSize="6" class="images-virtual-viewport" *ngIf="scenesService.hasAtLeastOneScene()">
       <!-- Add an image button -->
       <div class="image"
       >
@@ -43,31 +45,32 @@
           Image
         </button>
       </div>
-
-      <!-- Images of the scene -->
-      <div class="image"
-           *ngFor="let image of this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images; let i = index"
-           [class.selected]="this.sceneDisplayService.selectedImage === i"
-           [class.hidden]="modeService.selectedMode !== 'manage-scenes' && image.hidden === true">
-        <button type="button"
-                [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && this.sceneDisplayService.selectedImage === i"
-                (click)="changeImage(i)"
-                (pointerenter)="enterImage($event,i)"
-                (pointerleave)="exit()"
-        >
-          <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg"
-               [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && image.hidden === true">
-          <div class="label">
-            {{image.name}}
-          </div>
-        </button>
+      <div cdkDropList (cdkDropListDropped)="dropImage($event)">
+        <!-- Images of the scene -->
+        <div cdkDrag class="image"
+             *ngFor="let image of this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images; let i = index"
+             [class.selected]="this.sceneDisplayService.selectedImage === i"
+             [class.hidden]="modeService.selectedMode !== 'manage-scenes' && image.hidden === true">
+          <button type="button"
+                  [class.button-selected]="modeService.selectedMode === 'manage-scenes' && imageSelected === true && this.sceneDisplayService.selectedImage === i"
+                  (click)="changeImage(i)"
+                  (pointerenter)="enterImage($event,i)"
+                  (pointerleave)="exit()"
+          >
+            <img src="{{image.base64data}}" alt="{{image.name}}" class="buttonimg"
+                 [class.show-hidden]="modeService.selectedMode === 'manage-scenes' && image.hidden === true">
+            <div class="label">
+              {{image.name}}
+            </div>
+          </button>
+        </div>
       </div>
     </cdk-virtual-scroll-viewport>
   </div>
   <!-- Selected image at the right -->
   <div *ngIf="modeService.selectedMode != 'manage-scenes'" [ngClass]="sizeContainer" class="bigImageContainer" id="bigImageContainer">
     <div
-      *ngIf="hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
+      *ngIf="scenesService.hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
       id="sceneDiv"
       [ngStyle]="{'width': this.sceneDisplayService.imageWidth,'height': this.sceneDisplayService.imageHeigth}">
       <img id="bigImage"
@@ -81,6 +84,7 @@
                            [selectedScene]="this.sceneDisplayService.selectedScene"></app-hotspot-display>
       <app-canvas (updateCanvas)="this.sceneDisplayService.onCanvasChange()" id="canvas"
                   style="width:100%;height: 100%;"
+                  [sizeDrawingTool]="modeService.sizeDrawingTool"
                   [currentDrawingTool]="modeService.currentDrawingTool"
                   [canvasD]="scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].canvasData"
                   [imageChange]="this.sceneDisplayService.currImage"></app-canvas>
@@ -105,7 +109,7 @@
     </div>
   </div>
 
-  <div *ngIf="modeService.selectedMode == 'manage-scenes'" class="bigImageContainer" #bigImageContainer>
+  <div *ngIf="modeService.selectedMode == 'manage-scenes'" [ngClass]="sizeContainer" class="bigImageContainer" >
     <app-manage-scenes [imageSelected]="imageSelected" [selectedImage]="this.sceneDisplayService.selectedImage"
                        [selectedScene]="this.sceneDisplayService.selectedScene"
                        (updateScenes)="onScenesChange($event)"></app-manage-scenes>
@@ -147,7 +151,7 @@
 
   <div *ngIf="!this.sceneDisplayService.hidePanel" class="imagesAFSR">
 
-    <cdk-virtual-scroll-viewport itemSize="6" class="imagesAFSR-virtual-viewport" *ngIf="hasAtLeastOneScene()">
+    <cdk-virtual-scroll-viewport itemSize="6" class="imagesAFSR-virtual-viewport" *ngIf="scenesService.hasAtLeastOneScene()">
       <!-- Add an image button -->
       <div class="imageAFSR">
         <button type="button"
@@ -180,7 +184,7 @@
   <!-- Selected image at the right -->
   <div *ngIf="modeService.selectedMode != 'manage-scenes'" class="bigImageContainer" id="bigImageContainerAFSR">
     <div
-      *ngIf="hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
+      *ngIf="scenesService.hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
       id="sceneDivAFSR"
       [ngStyle]="{'width': this.sceneDisplayService.imageWidth,'height': this.sceneDisplayService.imageHeigth}">
       <img id="bigImageAFSR"

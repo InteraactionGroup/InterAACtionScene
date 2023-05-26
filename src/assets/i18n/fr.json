@@ -31,8 +31,10 @@
     "theimage:": " l'image : ",
     "thescene:": " la scène : ",
     "Doyouconfirmthedeletionof": "Confirmez-vous la suppression de ",
-    "Enteraname": "Entrer un nom",
-    "Show": "Montrer"
+    "Modifyascenename": "Modifier le nom de scène",
+    "Modifyanimagename": "Modifier le nom de l'image",
+    "Show": "Montrer",
+    "Enteraname" : "Entrer un nom"
   },
   "Settings": {
     "DwelltimeEnabled": "Activer le temps de fixation",
@@ -175,9 +177,11 @@
   "Hotspot": {
     "Createhotspot": "Créer hotspot",
     "Addthesound": "Ajouter un son",
+    "Refimage": "Ajouter une référence",
     "Importasound": "Importer un son",
     "Recordasound": "Enregistrer un son",
     "Writeasound": "Écrire un son",
+    "Picktheimage": "Choisir l'image",
     "Pickthestrokecolor": "Selectionner la couleur",
     "Enterthenameofthehotspot": "Entrer le nom du hotspot",
     "ChooseHotspotStrokeWidth": "Entrer la taille du trait",
@@ -205,7 +209,8 @@
     "name": "Nom déjà utilisé ou vide",
     "text": "Text audio vide",
     "audio": "Pas de fichier audio",
-    "stroke": "Epaisseur du trait inférieur à 1"
+    "stroke": "Epaisseur du trait inférieur à 1",
+    "image": "Aucune image sélectionnée"
   },
   "Logout": {
     "logout": "Voulez-vous quitter interAACtion Scene ?",

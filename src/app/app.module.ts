@@ -41,6 +41,8 @@ import {LoadingUserComponent} from './components/loading-user/loading-user.compo
 import { DialogResetScenesComponent } from './components/dialog-reset-scenes/dialog-reset-scenes.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {HotspotDeleteAllComponent} from './components/hotspot-delete-all-dialog/hotspot-delete-all.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -97,6 +99,7 @@ export function createTranslateLoader(http: HttpClient) {
         MatButtonToggleModule,
         MatMenuModule,
         HttpClientModule,
+        DragDropModule
     ],
   providers: [],
   bootstrap: [AppComponent],

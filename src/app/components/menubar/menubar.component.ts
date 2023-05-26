@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Color} from '../../types';
-import {ModeService} from "../../services/mode.service";
-import {SceneDisplayService} from "../../services/scene-display.service";
-import {ScenesService} from "../../services/scenes.service";
-import {AudioRecorderService} from "../../services/audio-recorder.service";
-import {LanguageService} from "../../services/language.service";
+import {ModeService} from '../../services/mode.service';
+import {SceneDisplayService} from '../../services/scene-display.service';
+import {ScenesService} from '../../services/scenes.service';
+import {AudioRecorderService} from '../../services/audio-recorder.service';
+import {LanguageService} from '../../services/language.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import {LogoutAppComponent} from '../logoutApp/logout-app.component';
@@ -24,19 +24,27 @@ import {HotspotDeleteAllComponent} from '../hotspot-delete-all-dialog/hotspot-de
 export class MenubarComponent implements OnInit {
 
   sceneTitle: string;
-  hideShowButtonChar = "▲";
-  hideShowButtonChar2 = "◄"
-  positionPanelButton = "";
+  hideShowButtonChar = '▲';
+  hideShowButtonChar2 = '◄';
+  positionPanelButton = '';
   fullScreenPath = 'images/enterfullscreen.png';
 
   COLORS: Color[] = [
-    {name: "white", hex: '#FFFFFF'},
-    {name: "black", hex: '#000000'},
-    {name: "red", hex: '#f34336'},
-    {name: "orange", hex: '#ff7f00'},
-    {name: "blue", hex: '#0080ff'},
-    {name: "green", hex: '#228b22'},
+    {name: 'white', hex: '#FFFFFF'},
+    {name: 'black', hex: '#000000'},
+    {name: 'brown', hex: '#8B4513'},
+    {name: 'red', hex: '#f34336'},
+    {name: 'orange', hex: '#ff7f00'},
+    {name: 'yellow', hex: '#ffcc00'},
+    {name: 'blue', hex: '#0080ff'},
+    {name: 'purple', hex: '#a300cc'},
+    {name: 'pink', hex: '#ff00ff'},
+    {name: 'green', hex: '#228b22'},
   ];
+
+  SMALL_SIZE = 6;
+  MEDIUM_SIZE = 15;
+  LARGE_SIZE = 25;
 
   changeMode(mode: string): void {
     this.modeService.currentDrawingTool = '';
@@ -49,6 +57,10 @@ export class MenubarComponent implements OnInit {
     this.modeService.currentDrawingTool = toolName;
   }
 
+  changeSize(size: number): void {
+    this.modeService.sizeDrawingTool = size;
+  }
+
   choiceDrawing(drawingName: string): void {
     this.modeService.choiceDrawing = drawingName;
   }
@@ -56,11 +68,11 @@ export class MenubarComponent implements OnInit {
   async hideShowMenu() {
     if (this.modeService.displayBar === true) {
       this.modeService.displayBar = false;
-      this.modeService.selectedMode = "play";
-      this.hideShowButtonChar = "▼";
+      this.modeService.selectedMode = 'play';
+      this.hideShowButtonChar = '▼';
     } else {
       this.modeService.displayBar = true;
-      this.hideShowButtonChar = "▲"
+      this.hideShowButtonChar = '▲';
     }
     await this.delay(1000);
     this.scenesService.updateScenes();
@@ -70,14 +82,14 @@ export class MenubarComponent implements OnInit {
   async hideShowPanel(){
     if (this.sceneDisplayService.hidePanel === false){
       this.sceneDisplayService.hidePanel = true;
-      this.hideShowButtonChar2 = "►";
-      this.sceneDisplayService.emitBigImageContainer("fitImageContainer");
-      this.sceneDisplayService.emitHideShowPanelButton("positionHideShowButtonPanel");
+      this.hideShowButtonChar2 = '►';
+      this.sceneDisplayService.emitBigImageContainer('fitImageContainer');
+      this.sceneDisplayService.emitHideShowPanelButton('positionHideShowButtonPanel');
     }else {
       this.sceneDisplayService.hidePanel = false;
-      this.hideShowButtonChar2 = "◄";
-      this.sceneDisplayService.emitBigImageContainer("");
-      this.sceneDisplayService.emitHideShowPanelButton("");
+      this.hideShowButtonChar2 = '◄';
+      this.sceneDisplayService.emitBigImageContainer('');
+      this.sceneDisplayService.emitHideShowPanelButton('');
     }
   }
 
@@ -120,7 +132,7 @@ export class MenubarComponent implements OnInit {
     this.sceneTitle = imageName;
   }
 
-  logout() : void{
+  logout(): void{
     this.dialog.open(LogoutAppComponent);
   }
 
@@ -136,8 +148,11 @@ export class MenubarComponent implements OnInit {
       height: '150px',
       width: '200px'
     }).afterClosed().subscribe(result => {
-      this.sceneDisplayService.selectedScene = 0;
-      this.sceneDisplayService.selectedImage = 0;
+      if (result) {
+        this.sceneDisplayService.selectedScene = 0;
+        this.sceneDisplayService.selectedImage = 0;
+        this.sceneTitle = "";
+      }
     });
   }
 
@@ -146,6 +161,12 @@ export class MenubarComponent implements OnInit {
       height: '150px',
       width: '200px'
     });
+  }
+
+  zoom(zoom: string): void {
+    if (this.scenesService.SCENES.length > 0) {
+      this.sceneDisplayService.zoomInOrOut(zoom);
+    }
   }
 
   constructor(public modeService: ModeService,
@@ -163,8 +184,10 @@ export class MenubarComponent implements OnInit {
     });
     setTimeout(() => {
       this.scenesService.updateScenes();
-      this.sceneDisplayService.UpdateDimensions();
-    }, 1000)
+      if (this.scenesService.hasAtLeastOneScene()) {
+        this.sceneDisplayService.UpdateDimensions();
+      }
+    }, 1000);
   }
 
 }

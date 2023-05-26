@@ -23,7 +23,7 @@
     "Doyouconfirmthedeletionoftheimage": "Do you confirm the deletion of the image",
     "Doyouconfirmthedeletionofthescene": "Do you confirm the deletion of the scene",
     "Chooseaname": "Choose a name",
-    "Importscenes": "import scenes",
+    "Importscenes": "Import scenes",
     "Cancel": "Cancel",
     "Doyouwanttohide": "Do you want to hide",
     "No": "No",
@@ -31,8 +31,10 @@
     "theimage:": " the image : ",
     "thescene:": " the scene : ",
     "Doyouconfirmthedeletionof": "Do you confirm the deletion of ",
-    "Enteraname": "Enter a name",
-    "Show": "Show"
+    "Modifyascenename": "Modify the name of the scene",
+    "Modifyanimagename": "Modify the name of the image",
+    "Show": "Show",
+    "Enteraname" : "Enter a name"
   },
   "Settings": {
     "DwelltimeEnabled": "Dwell-time Enabled",
@@ -175,9 +177,11 @@
   "Hotspot": {
     "Createhotspot": "Create hotspot",
     "Addthesound": "Add the sound",
+    "Refimage": "Add a reference",
     "Importasound": "Import a sound",
     "Recordasound": "Record a sound",
     "Writeasound": "Write a sound",
+    "Picktheimage": "Pick the image",
     "Pickthestrokecolor": "Pick the stroke color",
     "Enterthenameofthehotspot": "Enter the name of the hotspot",
     "ChooseHotspotStrokeWidth": "Enter the stroke width",
@@ -205,7 +209,8 @@
     "name": "Name already use or empty",
     "text": "Audio text empty",
     "audio": "No file audio",
-    "stroke": "Stroke width less than 1"
+    "stroke": "Stroke width less than 1",
+    "image": "No image selected"
   },
   "Logout": {
     "logout": "Do you want to leaver InterAACtion Scene ?",

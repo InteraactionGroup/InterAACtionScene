@@ -35,6 +35,8 @@ export class CanvasComponent implements OnInit {
 
   @Input() public canvasD: string;
 
+  private cx: CanvasRenderingContext2D;
+
   @Input()
   public set imageChange(imageChange: number) {
     (async () => {
@@ -59,9 +61,15 @@ export class CanvasComponent implements OnInit {
     }
   }
 
+  @Input() public set sizeDrawingTool(size: number) {
+    if (this.cx !== undefined) {
+      this.cx.lineWidth = size;
+    }
+  }
+
   @Input()
   public set currentDrawingTool(drawingTool: string) {
-    if (this.cx != undefined) {
+    if (this.cx !== undefined) {
       this.cx.globalCompositeOperation = 'source-over';
       switch (drawingTool) {
         case 'white': {
@@ -72,6 +80,10 @@ export class CanvasComponent implements OnInit {
           this.cx.strokeStyle = '#000000';
           break;
         }
+        case 'brown': {
+          this.cx.strokeStyle = '#8b4513';
+          break;
+        }
         case 'red': {
           this.cx.strokeStyle = '#f34336';
           break;
@@ -80,8 +92,20 @@ export class CanvasComponent implements OnInit {
           this.cx.strokeStyle = '#ff7f00';
           break;
         }
+        case 'yellow': {
+          this.cx.strokeStyle = '#ffcc00';
+          break;
+        }
         case 'blue': {
           this.cx.strokeStyle = '#0080ff';
+          break;
+        }
+        case 'purple': {
+          this.cx.strokeStyle = '#a300cc';
+          break;
+        }
+        case 'pink': {
+          this.cx.strokeStyle = '#ff00ff';
           break;
         }
         case 'green': {
@@ -104,8 +128,6 @@ export class CanvasComponent implements OnInit {
     }
   }
 
-  private cx: CanvasRenderingContext2D;
-
   public ngAfterViewInit() {
     if (typeof this.canvas !== 'undefined') {
       const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
@@ -114,7 +136,7 @@ export class CanvasComponent implements OnInit {
        canvasEl.width = this.sceneDisplayService.imageWidth;
        canvasEl.height = this.sceneDisplayService.imageHeigth;
 
-      this.cx.lineWidth = 6;
+      this.cx.lineWidth = this.modeService.sizeDrawingTool;
       this.cx.lineCap = 'round';
       this.cx.strokeStyle = '#FFF';
 
@@ -141,7 +163,7 @@ export class CanvasComponent implements OnInit {
     this.drawStarted = false;
     this.prevPos = {x: null, y: null};
     this.currentPos = {x: null, y: null};
-    this.saveCanvas()
+    this.saveCanvas();
   }
 
   draw(mouseEvent: MouseEvent) {

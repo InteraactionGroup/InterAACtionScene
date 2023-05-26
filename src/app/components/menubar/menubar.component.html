@@ -32,29 +32,46 @@
     </button>
 
     <!-- Ajout d'un bouton reset -->
-    <button (click)="openDialogReset()" class="button">
+    <button [disabled]="!(scenesService.hasAtLeastOneScene())" (click)="openDialogReset()" class="button">
       <img src="assets/images/reset.png" alt="Reset" class="buttonTopImg">
       <span>{{'Dashboard.Reset' | translate }}</span>
     </button>
 
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'draw'">
-      <button type="button"
-              *ngFor="let color of COLORS"
-              [style.background-color]="color.hex"
-              (click)="changeColor(color.name)">
-      </button>
-      <button type="button"
-              (click)="changeColor('erase')">
-        <img src="assets/images/eraser.png" alt="erase" class="buttonTopImg">
-        <!--{{'Dashboard.Erase' | translate}}-->
-      </button>
 
-      <button type="button"
-              (click)="changeColor('clear')">
-        <!--{{'Dashboard.Clear' | translate}}-->
-        <img src="assets/images/delete.png" alt="clear" class="buttonTopImg">
-      </button>
+      <div class="divDraw">
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === SMALL_SIZE" (click)="changeSize(SMALL_SIZE)">
+          <img src="assets/images/petitPoint.png" alt="small" class="buttonTopImg">
+        </button>
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === MEDIUM_SIZE" (click)="changeSize(MEDIUM_SIZE)">
+          <img src="assets/images/moyenPoint.png" alt="medium" class="buttonTopImg">
+        </button>
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === LARGE_SIZE" (click)="changeSize(LARGE_SIZE)">
+          <img src="assets/images/grosPoint.png" alt="large" class="buttonTopImg">
+        </button>
+      </div>
+
+      <div class="divDraw">
+        <button type="button"
+                *ngFor="let color of COLORS"
+                [style.background-color]="color.hex"
+                (click)="changeColor(color.name)">
+        </button>
+      </div>
+      <div class="divDraw">
+        <button type="button"
+                (click)="changeColor('erase')">
+          <img src="assets/images/eraser.png" alt="erase" class="buttonTopImg">
+          <!--{{'Dashboard.Erase' | translate}}-->
+        </button>
+
+        <button type="button"
+                (click)="changeColor('clear')">
+          <!--{{'Dashboard.Clear' | translate}}-->
+          <img src="assets/images/delete.png" alt="clear" class="buttonTopImg">
+        </button>
+      </div>
     </div>
 
     <div class="drawingMode"
@@ -199,22 +216,38 @@
 
     <div class="drawingMode"
          *ngIf="modeService.selectedMode === 'draw'">
-      <button type="button"
-              *ngFor="let color of COLORS"
-              [style.background-color]="color.hex"
-              (click)="changeColor(color.name)">
-      </button>
-      <button type="button"
-              (click)="changeColor('erase')">
-        <img src="assets/images/eraser.png" alt="eraser" class="buttonTopImg">
-        <!--{{'Dashboard.Erase' | translate}}-->
-      </button>
+      <div class="divDraw">
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === SMALL_SIZE" (click)="changeSize(SMALL_SIZE)">
+          <img src="assets/images/petitPoint.png" alt="small" class="buttonTopImg">
+        </button>
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === MEDIUM_SIZE" (click)="changeSize(MEDIUM_SIZE)">
+          <img src="assets/images/moyenPoint.png" alt="medium" class="buttonTopImg">
+        </button>
+        <button type="button" [class.selected]="modeService.sizeDrawingTool === LARGE_SIZE" (click)="changeSize(LARGE_SIZE)">
+          <img src="assets/images/grosPoint.png" alt="large" class="buttonTopImg">
+        </button>
+      </div>
 
-      <button type="button"
-              (click)="changeColor('clear')">
-        <!--{{'Dashboard.Clear' | translate}}-->
-        <img src="assets/images/delete.png" alt="delete" class="buttonTopImg">
-      </button>
+      <div class="divDraw">
+        <button type="button"
+                *ngFor="let color of COLORS"
+                [style.background-color]="color.hex"
+                (click)="changeColor(color.name)">
+        </button>
+      </div>
+      <div class="divDraw">
+        <button type="button"
+                (click)="changeColor('erase')">
+          <img src="assets/images/eraser.png" alt="erase" class="buttonTopImg">
+          <!--{{'Dashboard.Erase' | translate}}-->
+        </button>
+
+        <button type="button"
+                (click)="changeColor('clear')">
+          <!--{{'Dashboard.Clear' | translate}}-->
+          <img src="assets/images/delete.png" alt="clear" class="buttonTopImg">
+        </button>
+      </div>
     </div>
 
     <div class="drawingMode"
@@ -291,6 +324,17 @@
 <button id="fullScreenButton" type="button" (click)="fullScreen()">
   <img src="assets/{{fullScreenPath}}" alt="Add a scene" class="buttonimg">
 </button>
+
+<button id="zoomIn" (click)="zoom('out')" class="button">
+  <img src="assets/images/zoom-out-icon.png" alt="ZoomOut" class="buttonTopImg">
+<!--  <span>{{'Dashboard.Zoomout' | translate}}</span>-->
+</button>
+
+<button id="zoomOut" (click)="zoom('in')" class="button">
+  <img src="assets/images/zoom-in-icon.png" alt="ZoomIn" class="buttonTopImg">
+<!--  <span>{{'Dashboard.Zoomin' | translate}}</span>-->
+</button>
+
 
 <app-scene-display
   [imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>

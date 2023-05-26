@@ -7,6 +7,8 @@ import {ModeService} from "../../services/mode.service";
 import {SceneDisplayService} from "../../services/scene-display.service";
 import {SettingsService} from "../../services/settings.service";
 import {DwellCursorService} from "../../services/dwell-cursor.service";
+import {CdkDragDrop, DragDropModule, moveItemInArray} from '@angular/cdk/drag-drop';
+import {Scene, SceneImage} from '../../types';
 
 @Component({
   selector: 'app-scene-display',
@@ -18,7 +20,7 @@ export class SceneDisplayComponent implements OnInit {
 
   @Input()
   public set imageName(imageName: string) {
-    if (imageName != null && this.scenesService.SCENES[this.sceneDisplayService.selectedScene] !== null) {
+    if (imageName != null && this.scenesService.hasAtLeastOneScene()) {
       this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name = imageName;
     }
   }
@@ -53,6 +55,17 @@ export class SceneDisplayComponent implements OnInit {
     this.imageSelected = true;
   }
 
+  dropScene(event: CdkDragDrop<Scene[]>) {
+    moveItemInArray(this.scenesService.SCENES, event.previousIndex, event.currentIndex);
+    this.sceneDisplayService.selectedScene = event.currentIndex;
+    this.scenesService.updateScenes();
+  }
+
+  dropImage(event: CdkDragDrop<SceneImage[]>) {
+    moveItemInArray(this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images, event.previousIndex, event.currentIndex);
+    this.sceneDisplayService.selectedImage = event.currentIndex;
+    this.scenesService.updateScenes();
+  }
 
   hasAtLeastOneScene() {
     if (this.scenesService.SCENES !== null) {
@@ -176,7 +189,7 @@ export class SceneDisplayComponent implements OnInit {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
-        this.changeImage(i)
+        this.changeImage(i);
       }, this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
