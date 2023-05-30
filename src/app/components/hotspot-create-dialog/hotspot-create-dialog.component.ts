@@ -53,9 +53,10 @@ export class HotspotCreateDialogComponent implements OnInit {
     reader.onload = () => {
       this.selectedSound = reader.result;
       if (this.nameInput.nativeElement.value === '') {
-        let type = '.' + file.type.replace('audio/', '');
-        let name = file.name.replace(type, '');
-        this.nameInput.nativeElement.value = name;
+        let nameSplit = file.name.split('.');
+        for (let i = 0; i < nameSplit.length - 1; i++) {
+          this.nameInput.nativeElement.value += nameSplit[i];
+        }
       }
     };
 

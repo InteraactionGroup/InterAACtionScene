@@ -40,15 +40,11 @@ export class AddSceneDialogComponent implements OnInit {
       console.log('INTO LOAD');
       this.selectedFile = reader.result;
       if (this.nameInput.nativeElement.value === '') {
-        // let type = '.' + file.type.replace('image/', '');
-        // let name = file.name.replace(type, '');
-        
-        // console.log(name);
-        this.nameInput.nativeElement.value = file.name;
+        let nameSplit = file.name.split('.');
+        for (let i = 0; i < nameSplit.length - 1; i++) {
+          this.nameInput.nativeElement.value += nameSplit[i];
+        }
       }
-      // else {
-      //   console.log('cest pas passé');
-      // }
     };
 
     reader.onerror = (error) => {
