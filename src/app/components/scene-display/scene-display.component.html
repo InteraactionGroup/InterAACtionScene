@@ -73,7 +73,7 @@
       *ngIf="scenesService.hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
       id="sceneDiv"
       [ngStyle]="{'width': this.sceneDisplayService.imageWidth,'height': this.sceneDisplayService.imageHeigth}">
-      <img id="bigImage"
+      <img class="bigImage"
            [ngStyle]="{'width':this.sceneDisplayService.imageWidth+'px','height':this.sceneDisplayService.imageHeigth+'px'}"
            src="{{scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].base64data}}"
            alt="{{scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name}}">
@@ -187,7 +187,7 @@
       *ngIf="scenesService.hasAtLeastOneScene() && scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].hidden === false"
       id="sceneDivAFSR"
       [ngStyle]="{'width': this.sceneDisplayService.imageWidth,'height': this.sceneDisplayService.imageHeigth}">
-      <img id="bigImageAFSR"
+      <img class="bigImage"
            [ngStyle]="{'width':this.sceneDisplayService.imageWidth+'px','height':this.sceneDisplayService.imageHeigth+'px'}"
            src="{{scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].base64data}}"
            alt="{{scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name}}">
