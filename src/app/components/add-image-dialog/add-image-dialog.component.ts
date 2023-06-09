@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
@@ -12,6 +12,7 @@ import {LanguageService} from '../../services/language.service';
 export class AddImageDialogComponent implements OnInit {
 
   form: FormGroup;
+  @ViewChild('name') nameInput: ElementRef<HTMLInputElement>;
   selectedFile = null;
   @Input() sceneNumber: number;
 
@@ -35,6 +36,11 @@ export class AddImageDialogComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedFile = reader.result;
+      if (this.nameInput.nativeElement.value === '') {
+        let type = '.' + file.type.replace('image/', '');
+        let name = file.name.replace(type, '');
+        this.nameInput.nativeElement.value = name;
+      }
     };
 
     reader.onerror = (error) => {

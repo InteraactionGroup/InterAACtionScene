@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScenesService} from '../../services/scenes.service';
@@ -12,6 +12,8 @@ import {LanguageService} from '../../services/language.service';
 export class AddSceneDialogComponent implements OnInit {
 
   form: FormGroup;
+  @ViewChild('name') nameInput: ElementRef<HTMLInputElement>;
+  fileName = "";
   selectedFile = null;
 
   constructor(
@@ -35,9 +37,14 @@ export class AddSceneDialogComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedFile = reader.result;
+      if (this.nameInput.nativeElement.value === '') {
+        this.nameInput.nativeElement.value = file.name;
+        this.fileName = file.name;
+      }
     };
 
     reader.onerror = (error) => {
+      console.log('INTO ERROR');
       console.log('Error: ', error);
     };
 
