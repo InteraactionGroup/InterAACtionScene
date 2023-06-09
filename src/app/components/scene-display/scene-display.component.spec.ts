@@ -264,7 +264,9 @@ describe('SceneDisplayComponent', () => {
       previousContainer: { data: component.scenesService.SCENES } as any
     } as CdkDragDrop<Scene[]>;
     spyOn(component.scenesService, 'updateScenes');
+    spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.dropScene(dropEvent);
+    expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
     expect(component.scenesService.updateScenes).toHaveBeenCalled();
     expect(component.scenesService.SCENES).toEqual([{name: 'scene2'}, {name: 'scene1'}] as any);
   });
@@ -281,7 +283,9 @@ describe('SceneDisplayComponent', () => {
       previousContainer: { data: component.scenesService.SCENES[0].images } as any
     } as CdkDragDrop<SceneImage[]>;
     spyOn(component.scenesService, 'updateScenes');
+    spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.dropImage(dropEvent);
+    expect(component.sceneDisplayService.UpdateDimensions).toHaveBeenCalled();
     expect(component.scenesService.updateScenes).toHaveBeenCalled();
     expect(component.scenesService.SCENES).toEqual([{name: 'scene1', images: [{name: 'image2'}, {name: 'image1'}]}] as any);
   });
