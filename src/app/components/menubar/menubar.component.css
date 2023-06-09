@@ -161,9 +161,8 @@ span {
   min-height: 0.5cm;
   /* text-align: center; */
   position: absolute;
-  margin-top: 5px;
   margin-left: 6cm;
-  /* top: 70px; */
+  top: 70px;
   font-size: 1.5em;
   /*text-align: center;*/
   border-radius: 5px;
@@ -289,4 +288,25 @@ span {
 
 .drawingModeForm .button .selected{
   background-color: #e6caa0;
+}
+
+.absoluteButtons {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  z-index: auto;
+}
+
+.absoluteButtons button {
+  height: 2.5cm;
+  width: 2.5cm;
+  min-width: 0.5cm;
+  min-height: 0.5cm;
+  font-size: 1.5em;
+  border-radius: 5px;
+  border-width: 2px;
+  background-color: white;
+  cursor: pointer;
 }
