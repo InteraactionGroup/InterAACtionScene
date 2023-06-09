@@ -31,34 +31,36 @@
   <div class="scene"></div>
   <div class="images"></div>
   <div class="bigContainer">
-    <div class="settings-item">
-      <label for="dwellTimeEnable">{{'Settings.SpeechSpeaker' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="checkValue()" id="speechSpeaker" type="checkbox">
+    <div class="settings">
+      <div class="settings-item">
+        <label for="dwellTimeEnable">{{'Settings.SpeechSpeaker' | translate}}:</label>
+        <input [(ngModel)]="this.settingsService.SPEECH_SPEAKER" (click)="checkValue()" id="speechSpeaker" type="checkbox">
+      </div>
+      <div class="settings-item">
+        <label>Volume : {{ this.getVolume() }}</label>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="{{this.settingsService.VOLUME}}" name="pitch"
+               [(ngModel)]="this.settingsService.VOLUME"/>
+      </div>
+      <div class="settings-item">
+        <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
+        <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="checkValue()" id="dwellTimeEnable" type="checkbox">
+      </div>
+      <div class="settings-item">
+        <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
+        <input [(ngModel)]="this.dwellTime" (keyup)="checkValue()" id="dwellTime" type="text" maxlength="5">
+        <p *ngIf="dwellTimeError" class="error">{{'Settings.DwellTimeError' | translate}}</p>
+      </div>
+      <div class="settings-item">
+        <mat-form-field  appearance ="fill" >
+          <mat-label > {{'Settings.Selectalanguage' | translate}} </mat-label>
+          <mat-select [(value)] = "selected">
+            <mat-option  value = "fr" (click)="languageService.switchLanguage(selected); checkValue()"> {{'Settings.French' | translate}} </mat-option>
+            <mat-option  value = "en" (click)="languageService.switchLanguage(selected); checkValue()"> {{'Settings.English' | translate}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="warn" class="btnReset" (click)="openDialog()">{{'Settings.Reset' | translate}}</button>
     </div>
-    <div class="settings-item">
-      <label>Volume : {{ this.getVolume() }}</label>
-      <input type="range" min="0.0" max="1.0" step="0.01" value="{{this.settingsService.VOLUME}}" name="pitch"
-             [(ngModel)]="this.settingsService.VOLUME"/>
-    </div>
-    <div class="settings-item">
-      <label for="dwellTimeEnable">{{'Settings.DwelltimeEnabled' | translate}}:</label>
-      <input [(ngModel)]="this.settingsService.DWELL_TIME_ENABLED" (click)="checkValue()" id="dwellTimeEnable" type="checkbox">
-    </div>
-    <div class="settings-item">
-      <label for="dwellTime">{{'Settings.DwellTime' | translate}}:</label>
-      <input [(ngModel)]="this.dwellTime" (keyup)="checkValue()" id="dwellTime" type="text" maxlength="5">
-      <p *ngIf="dwellTimeError" class="error">{{'Settings.DwellTimeError' | translate}}</p>
-    </div>
-    <div class="settings-item">
-      <mat-form-field  appearance ="fill" >
-        <mat-label > {{'Settings.Selectalanguage' | translate}} </mat-label>
-        <mat-select [(value)] = "selected">
-          <mat-option  value = "fr" (click)="languageService.switchLanguage(selected); checkValue()"> {{'Settings.French' | translate}} </mat-option>
-          <mat-option  value = "en" (click)="languageService.switchLanguage(selected); checkValue()"> {{'Settings.English' | translate}} </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <button mat-raised-button color="warn" class="btnReset" (click)="openDialog()">{{'Settings.Reset' | translate}}</button>
     <div class="version">{{this.settingsService.VERSION}}</div>
   </div>
 </div>
