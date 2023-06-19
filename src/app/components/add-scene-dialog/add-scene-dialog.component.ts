@@ -13,6 +13,7 @@ export class AddSceneDialogComponent implements OnInit {
 
   form: FormGroup;
   @ViewChild('name') nameInput: ElementRef<HTMLInputElement>;
+  fileName = "";
   selectedFile = null;
 
   constructor(
@@ -32,18 +33,17 @@ export class AddSceneDialogComponent implements OnInit {
 
   onFileSelected(event) {
     const file = event.target.files[0];
-    console.log(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log('ATTANTION');
     reader.onload = () => {
-      console.log('INTO LOAD');
       this.selectedFile = reader.result;
       if (this.nameInput.nativeElement.value === '') {
         let nameSplit = file.name.split('.');
         for (let i = 0; i < nameSplit.length - 1; i++) {
           this.nameInput.nativeElement.value += nameSplit[i];
         }
+//        this.nameInput.nativeElement.value = file.name;
+//        this.fileName = file.name;
       }
     };
 

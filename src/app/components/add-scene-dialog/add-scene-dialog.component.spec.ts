@@ -98,26 +98,19 @@ describe('AddSceneDialogComponent', () => {
     expect(window.FileReader).toHaveBeenCalled();
   });
 
-  // Revoir constructeur File
-  it('onFileSelected:: should fill the nameInput if it is empty', () => {
-    // const blob = new Blob([''], { type: 'text/html' });
-    // blob['lastModifiedDate'] = '1684927602853';
-    // blob['name'] = 'laffrey.jpg';
-    // const file = new File(["laffrey"], "laffrey.png", { type: 'image/png' });
-    // const fileList: FileList = {
-    //   0: file,
-    //   length: 1,
-    //   item: (index: number) => file
-    // };
 
-    const nameInput = jasmine.createSpyObj('nameInput', ['nativeElement']);
-    nameInput.nativeElement = {
-      value: '',
-    };
-
-    component.nameInput = nameInput;
-    console.log('LE TEST');
+  it('onFileSelected:: should fill the nameInput if it is empty',() => {
+    spyOn(window, 'FileReader').and.returnValue({
+      onload() {},
+      readAsDataURL() {
+        return true;
+      },
+      onerror: () => {}
+    } as any);
     component.onFileSelected({target: {files: [new File(["laffrey"], "laffrey.png", { type: 'image/png' })]}});
-    expect(nameInput.nativeElement.value).toEqual('filename');
+    // @ts-ignore
+    window.FileReader().onload();
+    fixture.detectChanges();
+    expect(component.fileName).not.toEqual('');
   });
 });
