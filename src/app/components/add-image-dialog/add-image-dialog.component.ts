@@ -14,6 +14,7 @@ export class AddImageDialogComponent implements OnInit {
   form: FormGroup;
   @ViewChild('name') nameInput: ElementRef<HTMLInputElement>;
   selectedFile = null;
+  fileName = '';
   @Input() sceneNumber: number;
 
   constructor(
@@ -40,6 +41,7 @@ export class AddImageDialogComponent implements OnInit {
         let nameSplit = file.name.split('.');
         for (let i = 0; i < nameSplit.length - 1; i++) {
           this.nameInput.nativeElement.value += nameSplit[i];
+          this.fileName = nameSplit[i];
         }
       }
     };
