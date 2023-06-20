@@ -25,14 +25,8 @@ export class SceneDisplayService {
 
   UpdateDimensions() {
     this.onCanvasChange();
-    console.log('eh salut');
     let img = new Image();
-    console.log('la ca foire pas');
-    console.log('SCENES : ' + this.scenesService.SCENES);
-    console.log('selectedScenes : ' + this.selectedScene);
-    console.log('selectedImage : ' + this.selectedImage);
     img.src = this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].base64data;
-    console.log('et la ca foire');
     this.imageWidth = img.width * this.zoom;
     this.imageHeigth = img.height * this.zoom;
 

@@ -59,6 +59,9 @@
 }
 
 .bigContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #add8e6;
   max-height: 100%;
   width: calc(100% - 6cm);
@@ -118,10 +121,18 @@
   background-color: #add8e6;
 }
 
+.settings {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
 .settings-item{
+  width: auto;
   margin: 20px;
-  display: grid;
-  grid-template-columns: 200px 100px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
 }
 
 .title{

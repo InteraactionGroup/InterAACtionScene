@@ -58,12 +58,15 @@ export class SceneDisplayComponent implements OnInit {
   dropScene(event: CdkDragDrop<Scene[]>) {
     moveItemInArray(this.scenesService.SCENES, event.previousIndex, event.currentIndex);
     this.sceneDisplayService.selectedScene = event.currentIndex;
+    this.sceneDisplayService.selectedImage = 0;
+    this.sceneDisplayService.UpdateDimensions();
     this.scenesService.updateScenes();
   }
 
   dropImage(event: CdkDragDrop<SceneImage[]>) {
     moveItemInArray(this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images, event.previousIndex, event.currentIndex);
     this.sceneDisplayService.selectedImage = event.currentIndex;
+    this.sceneDisplayService.UpdateDimensions();
     this.scenesService.updateScenes();
   }
 
