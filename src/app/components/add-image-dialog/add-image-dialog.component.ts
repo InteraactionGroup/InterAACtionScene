@@ -37,12 +37,13 @@ export class AddImageDialogComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedFile = reader.result;
+      let nameSplit = file.name.split('.');
+      for (let i = 0; i < nameSplit.length - 1; i++) {
+        this.fileName += nameSplit[i];
+      }
       if (this.nameInput.nativeElement.value === '') {
-        let nameSplit = file.name.split('.');
-        for (let i = 0; i < nameSplit.length - 1; i++) {
-          this.nameInput.nativeElement.value += nameSplit[i];
-          this.fileName = nameSplit[i];
-        }
+        this.nameInput.nativeElement.value = this.fileName;
+        this.form.value.imagename = this.fileName;
       }
     };
 

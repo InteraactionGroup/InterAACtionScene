@@ -25,14 +25,6 @@ export class SceneDisplayService {
 
   UpdateDimensions() {
     this.onCanvasChange();
-    let img = new Image();
-    img.src = this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].base64data;
-    this.imageWidth = img.width * this.zoom;
-    this.imageHeigth = img.height * this.zoom;
-
-    //variable to call an update on the canvas
-    this.currImage++;
-
     let bigImageContainer: HTMLElement;
 
     if(this.settingsService.AFSR){
@@ -41,17 +33,32 @@ export class SceneDisplayService {
       bigImageContainer = document.getElementById('bigImageContainer');
     }
 
-    // Resizes the image if its bigger than the div holding it
-    if (this.imageWidth > bigImageContainer.clientWidth) {
-      let relation = (bigImageContainer.clientWidth - 20) / this.imageWidth;
+    let maxWidth = bigImageContainer.clientWidth;
+    let maxHeight = bigImageContainer.clientHeight;
+
+    let img = new Image();
+    img.src = this.scenesService.SCENES[this.selectedScene].images[this.selectedImage].base64data;
+    this.imageWidth = img.width * this.zoom;
+    this.imageHeigth = img.height * this.zoom;
+
+    if (this.imageWidth > maxWidth) {
+      let relation = (maxWidth - 20) / this.imageWidth;
       this.imageWidth *= relation;
       this.imageHeigth *= relation;
+      img.width = maxWidth;
+      img.height = maxHeight;
     }
-    if (this.imageHeigth > bigImageContainer.clientHeight) {
-      let relation = (bigImageContainer.clientHeight - 20) / this.imageHeigth;
+    if (this.imageHeigth > maxHeight) {
+      let relation = (maxHeight - 20) / this.imageHeigth;
       this.imageWidth *= relation;
       this.imageHeigth *= relation;
+      img.width = maxWidth;
+      img.height = maxHeight;
     }
+
+
+    //variable to call an update on the canvas
+    this.currImage++;
   }
 
   zoomInOrOut(zoom: string) {
