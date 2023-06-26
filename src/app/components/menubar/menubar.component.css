@@ -310,3 +310,10 @@ span {
   background-color: white;
   cursor: pointer;
 }
+
+.redrawHotspot {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}

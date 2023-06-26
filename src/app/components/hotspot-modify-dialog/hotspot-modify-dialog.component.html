@@ -62,9 +62,22 @@
       <input matInput formControlName="name" placeholder="{{'Hotspot.Enterthenameofthehotspot' | translate}}" id="nameInput" maxlength="64">
     </mat-form-field>
       </div>
-      <mat-button-toggle id="redraw" style="margin: 0 0 10% 10%; border: lightgray 2px solid;"  mat-dialog-close (click)="redraw()">
-        {{'Hotspot.redraw' | translate}}
-      </mat-button-toggle>
+      <div class="redrawDiv">
+        <mat-button-toggle id="redraw" style="margin: 0 0 10% 10%; border: lightgray 2px solid;" (click)="redraw()">
+          {{'Hotspot.redraw' | translate}}
+        </mat-button-toggle>
+        <div class="redrawShapes" *ngIf="modeService.currentDrawingTool == 'redraw';">
+          <mat-button-toggle style="border: lightgray 2px solid;" mat-dialog-close (click)="redrawPolyline()">
+            <img src="assets/images/courbe.png" alt="courbe" class="buttonimg">
+          </mat-button-toggle>
+          <mat-button-toggle style="border: lightgray 2px solid;" mat-dialog-close (click)="redrawRectangle()">
+            <img src="assets/images/rectangle.png" alt="rectangle" class="buttonimg">
+          </mat-button-toggle>
+          <mat-button-toggle style="border: lightgray 2px solid;" mat-dialog-close (click)="redrawCricle()">
+            <img src="assets/images/circle.png" alt="cercle" class="buttonimg">
+          </mat-button-toggle>
+        </div>
+      </div>
     </div>
   </mat-dialog-content>
   <p *ngIf='error !== ""'>{{error | translate}}</p>
