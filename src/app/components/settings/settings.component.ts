@@ -58,6 +58,8 @@ export class SettingsComponent implements OnInit {
     this.dialog.open(DialogResetSettingsComponent, {
       height: '150px',
       width: '200px'
+    }).afterClosed().subscribe(result => {
+      this.dwellTime = this.settingsService.DWELL_TIME_TIMEOUT_VALUE;
     });
   }
 

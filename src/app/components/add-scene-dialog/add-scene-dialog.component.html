@@ -2,11 +2,11 @@
   <h1 mat-dialog-title>{{'Scene.AddScene' | translate}}</h1>
   <mat-dialog-content>
     <mat-form-field>
-      <input  #name matInput formControlName="scenename" placeholder="{{'Scene.Enterascenename' | translate}}" maxlength="64">
+      <input  #nameScene matInput formControlName="scenename" placeholder="{{'Scene.Enterascenename' | translate}}" maxlength="64">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput formControlName="firstimagename" placeholder="{{'Scene.Entertheimagename' | translate}}" maxlength="64">
+      <input #nameImage matInput formControlName="firstimagename" placeholder="{{'Scene.Entertheimagename' | translate}}" maxlength="64">
     </mat-form-field>
     <br>
     <input type="file" accept="image/*" (change)="onFileSelected($event)">

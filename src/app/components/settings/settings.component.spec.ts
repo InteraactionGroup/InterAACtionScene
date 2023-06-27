@@ -1,4 +1,5 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {of} from 'rxjs';
 
 import { SettingsComponent } from './settings.component';
 import {TranslateModule} from '@ngx-translate/core';

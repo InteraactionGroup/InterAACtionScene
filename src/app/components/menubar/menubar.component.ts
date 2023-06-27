@@ -50,6 +50,7 @@ export class MenubarComponent implements OnInit {
     this.modeService.currentDrawingTool = '';
     this.modeService.choiceDrawing = '';
     this.modeService.selectedMode = mode;
+    this.sceneDisplayService.UpdateDimensions();
   }
 
   changeColor(toolName: string): void {

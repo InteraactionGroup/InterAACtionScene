@@ -112,5 +112,6 @@ describe('AddSceneDialogComponent', () => {
     window.FileReader().onload();
     fixture.detectChanges();
     expect(component.fileName).not.toEqual('');
+    expect(component.fileName).toEqual('laffrey');
   });
 });

@@ -19,6 +19,7 @@ export class HotspotCreateDialogComponent implements OnInit {
   @ViewChild('name') nameInput: ElementRef<HTMLInputElement>;
   form: FormGroup;
   selectedSound = null;
+  fileName = '';
   name = '';
   error = '';
   svgPath: number[];
@@ -53,9 +54,11 @@ export class HotspotCreateDialogComponent implements OnInit {
     reader.onload = () => {
       this.selectedSound = reader.result;
       if (this.nameInput.nativeElement.value === '') {
-        let type = '.' + file.type.replace('audio/', '');
-        let name = file.name.replace(type, '');
-        this.nameInput.nativeElement.value = name;
+        let nameSplit = file.name.split('.');
+        for (let i = 0; i < nameSplit.length - 1; i++) {
+          this.nameInput.nativeElement.value += nameSplit[i];
+          this.fileName = nameSplit[i];
+        }
       }
     };
 
@@ -69,6 +72,7 @@ export class HotspotCreateDialogComponent implements OnInit {
     if (this.nameInput.nativeElement.value === '') {
       let scenes = this.scenesService.getScenes();
       this.nameInput.nativeElement.value = scenes[this.selectedScene].images[event.value].name;
+      this.fileName = scenes[this.selectedScene].images[event.value].name;
     }
   }
 

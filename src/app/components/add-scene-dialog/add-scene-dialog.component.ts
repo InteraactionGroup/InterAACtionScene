@@ -12,7 +12,8 @@ import {LanguageService} from '../../services/language.service';
 export class AddSceneDialogComponent implements OnInit {
 
   form: FormGroup;
-  @ViewChild('name') nameInput: ElementRef<HTMLInputElement>;
+  @ViewChild('nameScene') nameSceneInput: ElementRef<HTMLInputElement>;
+  @ViewChild('nameImage') nameImageInput: ElementRef<HTMLInputElement>;
   fileName = "";
   selectedFile = null;
 
@@ -37,9 +38,17 @@ export class AddSceneDialogComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedFile = reader.result;
-      if (this.nameInput.nativeElement.value === '') {
-        this.nameInput.nativeElement.value = file.name;
-        this.fileName = file.name;
+      let nameSplit = file.name.split('.');
+      for (let i = 0; i < nameSplit.length - 1; i++) {
+        this.fileName += nameSplit[i];
+      }
+      if (this.nameSceneInput.nativeElement.value === '') {
+        this.nameSceneInput.nativeElement.value = this.fileName;
+        this.form.value.scenename = this.fileName;
+      }
+      if (this.nameImageInput.nativeElement.value === '') {
+        this.nameImageInput.nativeElement.value = this.fileName;
+        this.form.value.firstimagename = this.fileName;
       }
     };
 

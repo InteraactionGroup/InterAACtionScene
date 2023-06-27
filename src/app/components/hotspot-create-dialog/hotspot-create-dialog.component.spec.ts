@@ -246,4 +246,20 @@ describe('HotspotCreateDialogComponent', () => {
     expect(dialogRef.close).not.toHaveBeenCalled();
     expect(component.translate.instant).not.toHaveBeenCalled();
   });
+
+  it('onFileSelected:: should fill the nameInput if it is empty',() => {
+    spyOn(window, 'FileReader').and.returnValue({
+      onload() {},
+      readAsDataURL() {
+        return true;
+      },
+      onerror: () => {}
+    } as any);
+    component.onSoundSelected({target: {files: [new File(["eau"], "eau.wav", { type: 'audio/wav' })]}});
+    // @ts-ignore
+    window.FileReader().onload();
+    fixture.detectChanges();
+    expect(component.fileName).not.toEqual('');
+    expect(component.fileName).toEqual('eau');
+  });
 });

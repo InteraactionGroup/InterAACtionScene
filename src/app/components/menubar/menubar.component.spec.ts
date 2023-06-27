@@ -18,7 +18,7 @@ describe('MenubarComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule, MatDialogModule, HttpClientModule],
       declarations: [MenubarComponent],
       providers: [
-        {provide: ScenesService, useValue: sceneServiceMock}
+        {provide: ScenesService, useValue: sceneServiceMock},
       ]
     })
       .compileComponents();
@@ -129,6 +129,7 @@ describe('MenubarComponent', () => {
 
   // check if it sets specific values in the service variables
   it('changeMode:: should change mode to given mode', () => {
+    spyOn(component.sceneDisplayService, 'UpdateDimensions');
     component.changeMode('mode1');
     expect(component.modeService.currentDrawingTool).toEqual('');
     expect(component.modeService.choiceDrawing).toEqual('');

@@ -98,4 +98,21 @@ describe('AddImageDialogComponent', () => {
     window.FileReader().onerror('error');
     expect(window.FileReader).toHaveBeenCalled();
   });
+
+  it('onFileSelected:: should fill the nameInput if it is empty',() => {
+    spyOn(window, 'FileReader').and.returnValue({
+      onload() {},
+      readAsDataURL() {
+        return true;
+      },
+      onerror: () => {}
+    } as any);
+    component.onFileSelected({target: {files: [new File(["laffrey"], "laffrey.png", { type: 'image/png' })]}});
+    // @ts-ignore
+    window.FileReader().onload();
+    fixture.detectChanges();
+    expect(component.fileName).not.toEqual('');
+    expect(component.fileName).toEqual('laffrey');
+  });
 });
+
