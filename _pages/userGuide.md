@@ -253,7 +253,7 @@ Once you have clicked on it, a drawing panel appears:
 
 These three buttons will allow you to choose the size of the pencil and the eraser between small, medium and large.
 
-### Palette de couleurs
+### Color palette
 
 To draw, you must first click on one of the 10 available colors.
 
