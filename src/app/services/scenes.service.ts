@@ -270,20 +270,20 @@ export class ScenesService {
       const db = event.target.result;
       const transaction = event.target.transaction;
 
-      if (!db.objectStoreNames.contains("UserList")) {
+      if (!db.objectStoreNames.contains('UserList')) {
         db.createObjectStore('UserList', {autoIncrement: true});
         const userListStore = transaction.objectStore('UserList');
         userListStore.add(this.userDBService.usersList);
       }
 
-      if (!db.objectStoreNames.contains("Scenes")) {
+      if (!db.objectStoreNames.contains('Scenes')) {
         db.createObjectStore('Scenes', {autoIncrement: true});
         const scenesStore = transaction.objectStore('Scenes');
         scenesStore.add(this.SCENES);
       }
 
       if (event.oldVersion <= 1) {
-        if (!db.objectStoreNames.contains("Configuration")) {
+        if (!db.objectStoreNames.contains('Configuration')) {
           db.createObjectStore('Configuration', {autoIncrement: true});
           const configurationStore = transaction.objectStore('Configuration');
           configurationStore.add(this.settingsService.getConfiguration());
@@ -352,7 +352,7 @@ export class ScenesService {
    * @returns {Hotspot[]} hotspotsArray
    */
   loadHotspots(hotspots) {
-    let hotspotsArray: Array<Hotspot> = [];
+    const hotspotsArray: Array<Hotspot> = [];
     for (let hotspot of hotspots) {
       if (hotspot.hasOwnProperty('base64sound')) {
         hotspot = new SoundHotspot(hotspot.name, hotspot.svgPointArray, hotspot.strokeColor, hotspot.type,
@@ -435,13 +435,13 @@ export class ScenesService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      //LOAD CONFIGURATION
+      // LOAD CONFIGURATION
       const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(this.userDBService.currentUser);
       configRequest.onsuccess = e => {
         let resultConfig = configRequest.result;
-        //IF CONFIG DOES NOT EXIST YET FOR THIS USER /* istanbul ignore next */
+        // IF CONFIG DOES NOT EXIST YET FOR THIS USER /* istanbul ignore next */
         if (resultConfig == null) {
-          //GET DEFAULT CONFIG
+          // GET DEFAULT CONFIG
           resultConfig = this.settingsService.getConfiguration();
         }
         this.settingsService.setConfiguration(resultConfig);
@@ -449,17 +449,17 @@ export class ScenesService {
 
       const sceneRequest = db.transaction(['Scenes']).objectStore('Scenes').get(this.userDBService.currentUser);
       sceneRequest.onsuccess = e => {
-        let resultScene = sceneRequest.result;
+        const resultScene = sceneRequest.result;
         /* istanbul ignore next */
-        if(resultScene == null){
+        if (resultScene == null){
           this.SCENES = [];
         }
         else{
           this.SCENES = sceneRequest.result;
         }
-      }
+      };
     };
-    //this.router.navigate(['fr/dashboard']);
+    // this.router.navigate(['fr/dashboard']);
   }
 
 
@@ -479,11 +479,11 @@ export class ScenesService {
       const gridRequest = db.transaction(['UserList']).objectStore('UserList').get(1);
       gridRequest.onsuccess = e => {
         this.userDBService.usersList = gridRequest.result;
-        let findUser = this.userDBService.usersList.find(user => user.toLowerCase() == username.toLowerCase());
+        const findUser = this.userDBService.usersList.find(user => user.toLowerCase() == username.toLowerCase());
         /* istanbul ignore next */
         if (findUser != null) {
           this.userDBService.currentUser = findUser;
-          //this.userDBService.setLoggedIn();
+          // this.userDBService.setLoggedIn();
           this.loadInfoFromCurrentUser();
         } else {
           this.userDBService.addUser(username);
