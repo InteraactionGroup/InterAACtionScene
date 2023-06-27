@@ -109,34 +109,6 @@
           </button>
         </div>
       </mat-menu>
-<!--      <div ngbDropdown>-->
-<!--        <button ngbDropdownToggle class="button" [class.selected]="modeService.currentDrawingTool === 'Add'"-->
-<!--                type="button" style="width: 4cm; min-width: 1cm;"-->
-<!--                (click)="changeColor('Add')">-->
-<!--          <img src="assets/images/add.png" alt="add" class="buttonTopImg">-->
-<!--          {{'Dashboard.AddHotspot' | translate}}-->
-<!--        </button>-->
-<!--        <div ngbDropdownMenu class="dropdownmenu">-->
-<!--          <button ngbDropdownItem class="btnDropDown" [class.selected]="modeService.choiceDrawing === 'Polyline'"-->
-<!--                  type="button" style="width: 4cm; min-width: 1cm;"-->
-<!--                  (click)="choiceDrawing('Polyline')">-->
-<!--            <img src="assets/images/courbe.png" alt="courbe" class="buttonTopImg">-->
-<!--          </button>-->
-
-<!--          <button ngbDropdownItem class="btnDropDown" [class.selected]="modeService.choiceDrawing === 'Rectangle'"-->
-<!--                  type="button" style="width: 4cm; min-width: 1cm;"-->
-<!--                  (click)="choiceDrawing('Rectangle')">-->
-<!--            <img src="assets/images/rectangle.png" alt="rectangle" class="buttonTopImg">-->
-<!--          </button>-->
-
-<!--          <button ngbDropdownItem class="btnDropDown" [class.selected]="modeService.choiceDrawing === 'Circle'"-->
-<!--                  type="button" style="width: 4cm; min-width: 1cm;"-->
-<!--                  (click)="choiceDrawing('Circle')">-->
-<!--            <img src="assets/images/circle.png" alt="circle" class="buttonTopImg">-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
 
 
       <button class="button" [class.selected]="modeService.currentDrawingTool === 'modify' || modeService.currentDrawingTool === 'redraw'"
@@ -145,6 +117,22 @@
         <img src="assets/images/edit.svg" alt="edit" class="buttonTopImg">
         {{'Dashboard.ModifyHotspot' | translate}}
       </button>
+
+<!--      <div class="redrawHotspot" *ngIf="modeService.currentDrawingTool === 'redraw'">-->
+<!--        <button class="btnDropDown" [class.selected]="modeService.choiceDrawing === 'Polyline'"-->
+<!--                style="width: 4cm; min-width: 1cm;" type="button"-->
+<!--                (click)="choiceDrawing('Polyline')">-->
+<!--          <img alt="courbe" class="buttonTopImg" src="assets/images/courbe.png">-->
+<!--        </button>-->
+<!--        <button class="btnDropDown" [class.selected]="modeService.choiceDrawing === 'Rectangle'"-->
+<!--                style="width: 4cm; min-width: 1cm;" type="button"-->
+<!--                (click)="choiceDrawing('Rectangle')">-->
+<!--          <img alt="rectangle" class="buttonTopImg" src="assets/images/rectangle.png">-->
+<!--        </button>-->
+<!--        <button class="btnDropDown" style="width: 4cm; min-width: 1cm;" type="button">-->
+<!--          <img alt="circle" class="buttonTopImg" src="assets/images/circle.png">-->
+<!--        </button>-->
+<!--      </div>-->
 
       <button class="button" [class.selected]="modeService.currentDrawingTool === 'delete'"
               type="button" style="width: 4cm; min-width: 1cm;"

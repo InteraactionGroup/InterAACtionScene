@@ -163,6 +163,18 @@ export class HotspotModifyDialogComponent implements OnInit {
     console.log("redrawing");
   }
 
+  redrawPolyline(){
+    this.modeService.choiceDrawing = 'Polyline';
+  }
+
+  redrawRectangle(){
+    this.modeService.choiceDrawing = 'Rectangle';
+  }
+
+  redrawCricle(){
+    this.modeService.choiceDrawing = 'Circle';
+  }
+
   close(){
     this.modeService.selectedMode = 'hotspot';
     this.modeService.modifyiedHotspot = null;
