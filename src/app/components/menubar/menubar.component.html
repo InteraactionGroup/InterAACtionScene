@@ -150,8 +150,8 @@
 
     </div>
 
-    <input [(ngModel)]="sceneTitle"
-           value="{{sceneTitle}}"
+    <input [(ngModel)]="sceneDisplayService.sceneTitle"
+           value="{{sceneDisplayService.sceneTitle}}"
            *ngIf="modeService.selectedMode === 'play'"/>
 
     <button class="button" type="button" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}"
@@ -285,8 +285,8 @@
       </button>
     </div>
 
-    <input [(ngModel)]="sceneTitle"
-           value="{{sceneTitle}}"
+    <input [(ngModel)]="sceneDisplayService.sceneTitle"
+           value="{{sceneDisplayService.sceneTitle}}"
            *ngIf="modeService.selectedMode === 'play'"/>
 
     <button class="button" type="button" [ngStyle]="{'margin-left': modeService.selectedMode === 'manage-scenes' ? 'auto' : '0'}"
@@ -309,7 +309,7 @@
 </div>
 
 <app-scene-display
-  [imageName]="sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>
+  [imageName]="sceneDisplayService.sceneTitle" (imageChange)="onImageChange($event)"></app-scene-display>
 
 <button id="hideShowButtonPanel" type="button" [ngClass]="positionPanelButton" (click)="hideShowPanel()">{{hideShowButtonChar2}}</button>
 <div class="absoluteButtons">

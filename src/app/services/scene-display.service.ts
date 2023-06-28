@@ -17,6 +17,7 @@ export class SceneDisplayService {
 
   selectedScene = 0;
   selectedImage = 0;
+  sceneTitle = "";
   currImage = 0; // Variable used to reinitialize the canvas everytime the image is changed
   imageWidth: number;
   imageHeigth: number;

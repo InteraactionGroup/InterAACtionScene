@@ -115,6 +115,11 @@ export class SceneDisplayComponent implements OnInit {
           this.sceneDisplayService.selectedScene = 0;
           this.sceneDisplayService.selectedImage = 0;
         }
+        if (this.scenesService.hasAtLeastOneScene()) {
+          this.sceneDisplayService.sceneTitle = this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name;
+        } else {
+          this.sceneDisplayService.sceneTitle = "";
+        }
         break;
       case "rename":
         this.imageChange.emit(this.scenesService.SCENES[this.sceneDisplayService.selectedScene].images[this.sceneDisplayService.selectedImage].name);
