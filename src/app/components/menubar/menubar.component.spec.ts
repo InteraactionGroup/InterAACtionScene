@@ -124,7 +124,7 @@ describe('MenubarComponent', () => {
   // check if it sets specific variable
   it('onImageChange:: should change scene title', () => {
     component.onImageChange('test');
-    expect(component.sceneTitle).toEqual('test');
+    expect(component.sceneDisplayService.sceneTitle).toEqual('test');
   });
 
   // check if it sets specific values in the service variables
