@@ -23,7 +23,7 @@ import {HotspotDeleteAllComponent} from '../hotspot-delete-all-dialog/hotspot-de
 })
 export class MenubarComponent implements OnInit {
 
-  sceneTitle: string;
+  // sceneTitle: string;
   hideShowButtonChar = '▲';
   hideShowButtonChar2 = '◄';
   positionPanelButton = '';
@@ -130,7 +130,7 @@ export class MenubarComponent implements OnInit {
   }
 
   onImageChange(imageName: string): void {
-    this.sceneTitle = imageName;
+    this.sceneDisplayService.sceneTitle = imageName;
   }
 
   logout(): void{
@@ -152,7 +152,7 @@ export class MenubarComponent implements OnInit {
       if (result) {
         this.sceneDisplayService.selectedScene = 0;
         this.sceneDisplayService.selectedImage = 0;
-        this.sceneTitle = "";
+        this.sceneDisplayService.sceneTitle = "";
       }
     });
   }
