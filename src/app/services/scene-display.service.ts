@@ -24,6 +24,9 @@ export class SceneDisplayService {
   zoom = 1;
   hidePanel = false; // Variable used to hide or show the left panel
 
+  /**
+   * Modifie les dimensions de l'image à afficher en fonction de la taille de la fenêtre
+   */
   UpdateDimensions() {
     this.onCanvasChange();
     let bigImageContainer: HTMLElement;
@@ -56,7 +59,6 @@ export class SceneDisplayService {
       img.width = maxWidth;
       img.height = maxHeight;
     }
-
 
     //variable to call an update on the canvas
     this.currImage++;

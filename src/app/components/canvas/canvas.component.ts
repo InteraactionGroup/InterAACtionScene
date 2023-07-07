@@ -175,8 +175,6 @@ export class CanvasComponent implements OnInit {
         };
       }
 
-      //console.log(mouseEvent.offsetX + " ; " + mouseEvent.offsetY);
-
       this.prevPos = {
         x: this.currentPos.x,
         y: this.currentPos.y
