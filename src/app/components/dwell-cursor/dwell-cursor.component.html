@@ -1,4 +1,21 @@
 <div id="cursor" class="cursor" [ngStyle]="{'opacity': getCursorOpacity()}">
-  <progress id="file" [max]="dwellCursorService.maxValue" [value]="dwellCursorService.currentValue">
-  </progress>
+  <!--<progress id="file" [max]="dwellCursorService.maxValue" [value]="dwellCursorService.currentValue">
+  </progress>-->
+  <mat-progress-spinner *ngIf="changeSpinner" id="spinner1"
+    class="example-margin"
+    color="primary"
+    mode="determinate"
+    [value]="spinner1Value"
+    diameter="51"
+    strokeWidth="30">
+  </mat-progress-spinner>
+
+  <mat-progress-spinner *ngIf="!changeSpinner" id="spinner2"
+    class="example-margin"
+    color="primary"
+    mode="determinate"
+    [value]="spinner2Value"
+    diameter="51"
+    strokeWidth="30">
+  </mat-progress-spinner>
 </div>

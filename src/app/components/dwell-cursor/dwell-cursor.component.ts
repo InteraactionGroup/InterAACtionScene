@@ -9,6 +9,10 @@ import {SettingsService} from "../../services/settings.service";
 })
 export class DwellCursorComponent implements OnInit {
 
+  changeSpinner: boolean = true;
+  spinner1Value: number = 0;
+  spinner2Value: number = 0;
+
   constructor(public dwellCursorService: DwellCursorService,
               public settingsService: SettingsService) {
 
@@ -23,6 +27,19 @@ export class DwellCursorComponent implements OnInit {
       }
     });
 
+    this.dwellCursorService.spinnerChoiceObservable.subscribe(value => {
+      this.changeSpinner = value;
+    });
+
+    this.dwellCursorService.spinnerValueObservable.subscribe(value => {
+      if (this.changeSpinner){
+        this.spinner1Value = value;
+        this.spinner2Value = 0;
+      }else {
+        this.spinner1Value = 0;
+        this.spinner2Value = value;
+      }
+    });
   }
 
   public getCursorOpacity() {

@@ -42,6 +42,7 @@ import { DialogResetScenesComponent } from './components/dialog-reset-scenes/dia
 import {MatMenuModule} from '@angular/material/menu';
 import {HotspotDeleteAllComponent} from './components/hotspot-delete-all-dialog/hotspot-delete-all.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -77,13 +78,13 @@ export function createTranslateLoader(http: HttpClient) {
     HotspotDeleteAllComponent
   ],
     imports: [
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [HttpClient],
-        }
-      }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient],
+            }
+        }),
         FormsModule,
         BrowserModule,
         AppRoutingModule,
@@ -99,7 +100,8 @@ export function createTranslateLoader(http: HttpClient) {
         MatButtonToggleModule,
         MatMenuModule,
         HttpClientModule,
-        DragDropModule
+        DragDropModule,
+        MatProgressSpinnerModule
     ],
   providers: [],
   bootstrap: [AppComponent],

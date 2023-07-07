@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Hotspot} from "../types";
+import {Subject} from 'rxjs';
+import {max} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +18,17 @@ export class DwellCursorService {
   public x = 0;
   public y = 0;
 
+  spinnerValueObservable = new Subject<number>();
+  spinnerChoiceObservable = new Subject<boolean>();
+  changeSpinner: boolean = true;
+
   constructor() {
   }
 
   public resetMax(max) {
     this.maxValue = max;
+    this.spinnerChoiceObservable.next(this.changeSpinner);
+    this.changeSpinner = !this.changeSpinner;
   }
 
   public stop() {
@@ -43,8 +51,8 @@ export class DwellCursorService {
     let  offsetBottom  = elemRect.bottom - bodyRect.top;
     let  offsetRight  = elemRect.right - bodyRect.left;
 
-    this.x = (offsetLeft + offsetRight)/2 - 10;
-    this.y = (offsetTop + offsetBottom)/2 - 10;
+    this.x = (offsetLeft + offsetRight)/2 - 25;
+    this.y = (offsetTop + offsetBottom)/2 - 25;
   }
 
   public updatePositionSVGPolygonElement(element: HTMLElement, hotspotPoints: {x:number,y:number}[]){
@@ -78,8 +86,9 @@ export class DwellCursorService {
   public setInterval() {
     this.timeout = setInterval(() => {
       this.currentValue = new Date().getTime() - this.countDownDate;
+      this.spinnerValueObservable.next(Math.floor((this.currentValue / this.maxValue) * 100));
       if (this.currentValue >= this.maxValue) {
-        this.started = false;
+        this.stop();
       }
     }, 10);
   }
