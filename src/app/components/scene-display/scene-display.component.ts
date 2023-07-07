@@ -185,9 +185,9 @@ export class SceneDisplayComponent implements OnInit {
     if (this.settingsService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
-
-      this.dwellTimer = window.setTimeout(() => {
-        this.changeScene(i)
+      this.dwellTimer = setTimeout(() => {
+        this.changeScene(i);
+        this.closeDwellTime();
       }, this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
@@ -196,8 +196,9 @@ export class SceneDisplayComponent implements OnInit {
     if (this.settingsService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
-      this.dwellTimer = window.setTimeout(() => {
+      this.dwellTimer = setTimeout(() => {
         this.changeImage(i);
+        this.closeDwellTime();
       }, this.settingsService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
@@ -205,8 +206,13 @@ export class SceneDisplayComponent implements OnInit {
   exit() {
     if (this.settingsService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.stop();
-      window.clearTimeout(this.dwellTimer);
+      clearTimeout(this.dwellTimer);
     }
   }
 
+  closeDwellTime(){
+    setTimeout(() => {
+      this.dwellCursorService.stop();
+    }, 500);
+  }
 }

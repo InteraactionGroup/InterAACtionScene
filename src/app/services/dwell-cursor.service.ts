@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Hotspot} from "../types";
 import {Subject} from 'rxjs';
-import {max} from 'rxjs/operators';
+import {clearInterval} from 'timers';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ export class DwellCursorService {
   public started = false;
   public maxValue = 0;
   public currentValue = 0;
-  public countDownDate = 0;
+  public nbIteration = 10;
   public timeout;
 
   public x = 0;
@@ -26,7 +25,8 @@ export class DwellCursorService {
   }
 
   public resetMax(max) {
-    this.maxValue = max;
+    this.maxValue = max - (max/10);
+    this.currentValue = 0;
     this.spinnerChoiceObservable.next(this.changeSpinner);
     this.changeSpinner = !this.changeSpinner;
   }
@@ -35,7 +35,6 @@ export class DwellCursorService {
     window.clearInterval(this.timeout);
     this.visible = false;
     this.started = false;
-    this.currentValue = 0;
   }
 
   public playToMax(max) {
@@ -77,20 +76,21 @@ export class DwellCursorService {
   }
 
   public play() {
-    this.countDownDate = new Date().getTime();
     this.visible = true;
     this.started = true;
     this.setInterval();
   }
 
   public setInterval() {
+    let maxIteration = (this.maxValue/this.nbIteration) - 10;
     this.timeout = setInterval(() => {
-      this.currentValue = new Date().getTime() - this.countDownDate;
-      this.spinnerValueObservable.next(Math.floor((this.currentValue / this.maxValue) * 100));
-      if (this.currentValue >= this.maxValue) {
-        this.stop();
+      if (this.currentValue >= 100) {
+        window.clearInterval(this.timeout);
+      }else {
+        this.currentValue += (100/maxIteration);
       }
-    }, 10);
+      this.spinnerValueObservable.next(this.currentValue);
+    }, this.nbIteration);
   }
 
 }
