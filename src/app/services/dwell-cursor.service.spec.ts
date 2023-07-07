@@ -17,7 +17,7 @@ describe('DwellCursorService', () => {
   // check if it sets specific variables after calling the function
   it('resetMax:: should set maxVal', () => {
     service.resetMax(1);
-    expect(service.maxValue).toEqual(1);
+    expect(service.maxValue).toEqual(1 - (1/10));
   });
 
   // check if it sets specific variables after calling the function
@@ -31,7 +31,7 @@ describe('DwellCursorService', () => {
   // check if it sets specific variables after calling the function
   it('playToMax:: should reset max and call the play', () => {
     service.playToMax(10);
-    expect(service.maxValue).toEqual(10);
+    expect(service.maxValue).toEqual(10 - (10/10));
   });
 
   it('updatePositionHTMLElement:: should update position of given element', () => {

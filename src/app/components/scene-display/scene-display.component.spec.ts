@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
 import {SceneDisplayComponent} from './scene-display.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -220,6 +220,7 @@ describe('SceneDisplayComponent', () => {
     expect(component.dwellCursorService.updatePositionHTMLElement).toHaveBeenCalled();
     expect(component.dwellCursorService.playToMax).toHaveBeenCalled();
     expect(component.changeScene).toHaveBeenCalled();
+    flush();
   }));
 
   // spy upon the service and component methods and set up scenes variable
@@ -235,6 +236,7 @@ describe('SceneDisplayComponent', () => {
     expect(component.dwellCursorService.updatePositionHTMLElement).toHaveBeenCalled();
     expect(component.dwellCursorService.playToMax).toHaveBeenCalled();
     expect(component.changeImage).toHaveBeenCalled();
+    flush();
   }));
 
   // spy upon the service and component methods and set up scenes variable
