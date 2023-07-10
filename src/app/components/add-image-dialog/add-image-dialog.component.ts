@@ -39,9 +39,11 @@ export class AddImageDialogComponent implements OnInit {
       this.selectedFile = reader.result;
       let nameSplit = file.name.split('.');
       for (let i = 0; i < nameSplit.length - 1; i++) {
+        // initialise fileName par le nom du fichier sans l'extension
         this.fileName += nameSplit[i];
       }
       if (this.nameInput.nativeElement.value === '') {
+        // si le champ du nom est vide, on le remplit avec le nom du fichier sans l'extension
         this.nameInput.nativeElement.value = this.fileName;
         this.form.value.imagename = this.fileName;
       }

@@ -86,6 +86,10 @@ export class HotspotDisplayComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Exécute l'action du hotspot
+   * @param hotspot
+   */
   PlayHotspot(hotspot: Hotspot) {
     if (hotspot instanceof SoundHotspot) {
       if (hotspot.type === "soundAudio") {

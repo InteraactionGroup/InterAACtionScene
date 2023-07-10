@@ -52,6 +52,9 @@ export class HotspotCreateComponent implements OnInit {
     this.drawsSVG();
   }
 
+  /**
+   * Permet de tracer un hotspot d'une forme libre
+   */
   createMouseEventPolyline() {
     const polyline = document.querySelector('#polyline');
     return (e: MouseEvent) => {
@@ -89,6 +92,9 @@ export class HotspotCreateComponent implements OnInit {
     this.milieuPolyline = [((this.xMin + this.xMax) / 2), ((this.yMin + this.yMax) / 2)];
   }
 
+  /**
+   * Permet de tracer un hotspot sous la forme d'un rectangle
+   */
   createMouseEventRectangle() {
     const rect = document.querySelector('#rectangle');
     let ptsX = rect.getAttribute('x');
@@ -141,32 +147,9 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
-  // Tracage du cercle depuis le centre
-
-  /*createMouseEventCircle(){
-    const circle = document.querySelector('#circle');
-    let ptsX = circle.getAttribute('cx');
-    let ptsY = circle.getAttribute('cy');
-    return (e: MouseEvent) => {
-      if (e.offsetY !== undefined && e.offsetX !== undefined) {
-        this.lastPt = [e.offsetX, e.offsetY];
-        if (this.startDrawCircle === true){
-          ptsX = `${e.offsetX}`;
-          ptsY = `${e.offsetY}`;
-          this.startDrawCircle = false;
-        }
-      }
-      circle.setAttribute('cx', ptsX);
-      circle.setAttribute('cy', ptsY);
-      circle.setAttribute('r',
-        String(Math.sqrt(
-           Math.pow(Number.parseInt(this.lastPt[0]) - Number.parseInt(ptsX),2)
-            + Math.pow(Number.parseInt(this.lastPt[1]) - Number.parseInt(ptsY),2))));
-    };
-  }*/
-
-  // Tracage du cercle depuis un côté
-
+  /**
+   * Permet de tracer un hotspot sous la forme d'un cercle
+   */
   createMouseEventCircle(){
     const circle = document.querySelector('#circle');
     let ptsX = circle.getAttribute('cx');
@@ -201,6 +184,10 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
+  /**
+   * Permet de tracer un hotspot sous la forme d'un polygone et d'ouvrir la fenêtre de création ou de modification d'un hotspot
+   * @param mouseMovePolyline objet renvoyé par la fonction createMouseEventPolyline
+   */
   createMouseUpEventPolyline(mouseMovePolyline) {
     const polyline = document.querySelector('#polyline');
     const svg = document.querySelector('#svg');
@@ -265,6 +252,7 @@ export class HotspotCreateComponent implements OnInit {
 
       let dialogRef;
       if(this.modeService.currentDrawingTool=='redraw') {
+        // Si l'utilisateur est entrain de redessiner un hotspot, ouvre la fenêtre de modification
         dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
           width: '400px',
         });
@@ -274,6 +262,7 @@ export class HotspotCreateComponent implements OnInit {
         dialogRef.componentInstance.hotspot = this.modeService.modifyiedHotspot;
 
       } else {
+        // Si l'utilisateur est entrain de dessiner un nouveau hotspot, ouvre la fenêtre de création
         dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
           width: '400px',
         });
@@ -320,6 +309,10 @@ export class HotspotCreateComponent implements OnInit {
     }
   }
 
+  /**
+   * Permet de tracer un hotspot sous la forme d'un rectangle et d'ouvrir la fenêtre de création ou de modification du hotspot
+   * @param mouseMoveRectangle objet renvoyé par la fonction createMouseEventRectangle
+   */
   createMouseUpEventRectangle(mouseMoveRectangle) {
     const rect = document.querySelector('#rectangle');
     const svg = document.querySelector('#svg');
@@ -359,6 +352,7 @@ export class HotspotCreateComponent implements OnInit {
 
       let dialogRef;
       if(this.modeService.currentDrawingTool=='redraw') {
+        // Si l'utilisateur est entrain de redessiner un hotspot, ouvre la fenêtre de modification
         dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
           width: '400px',
         });
@@ -368,6 +362,7 @@ export class HotspotCreateComponent implements OnInit {
         dialogRef.componentInstance.hotspot = this.modeService.modifyiedHotspot;
 
       } else {
+        // Si l'utilisateur est entrain de dessiner un nouveau hotspot, ouvre la fenêtre de création
         dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
           width: '400px',
         });
@@ -473,6 +468,10 @@ export class HotspotCreateComponent implements OnInit {
     return [x1, x2];
   }
 
+  /**
+   * Permet de tracer un hotspot sous la forme d'un cercle et d'ouvrir la fenêtre de création ou de modification du hotspot
+   * @param mouseMoveCircle objet renvoyé par la fonction createMouseEventCircle
+   */
   createMouseUpEventCircle(mouseMoveCircle) {
     const circle = document.querySelector('#circle');
     const svg = document.querySelector('#svg');
@@ -507,6 +506,7 @@ export class HotspotCreateComponent implements OnInit {
 
       let dialogRef;
       if(this.modeService.currentDrawingTool=='redraw') {
+        // Si l'utilisateur est entrain de redessiner un hotspot, ouvre la fenêtre de modification
         dialogRef = this.dialog.open(HotspotModifyDialogComponent, {
           width: '400px',
         });
@@ -516,6 +516,7 @@ export class HotspotCreateComponent implements OnInit {
         dialogRef.componentInstance.hotspot = this.modeService.modifyiedHotspot;
 
       } else {
+        // Si l'utilisateur est entrain de dessiner un nouveau hotspot, ouvre la fenêtre de création
         dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
           width: '400px',
         });
@@ -645,60 +646,4 @@ export class HotspotCreateComponent implements OnInit {
         }
       });
   }
-
-  // async drawSVG() {
-  //   console.log('drawing is starting');
-  //   this.drawing = SVG(this.hotspot.nativeElement).size(this.width, this.height).polygon().draw();
-  //
-  //   this.drawing.on('drawstart', (event) => {
-  //     const keyPressEvent = (e) => {
-  //       if (e.key === 'Enter') {
-  //         this.drawing.draw('done');
-  //         this.drawing.off('drawstart');
-  //
-  //         const svgPathPoints = this.drawing.node.getAttribute('points')
-  //           .replace(/,/g, ' ').split(' ');
-  //         const svgPathPointsPercentage = [];
-  //         for (let i = 0; i < svgPathPoints.length - 1; i = i + 2) {
-  //           svgPathPointsPercentage.push(svgPathPoints[i] / this.width);
-  //           svgPathPointsPercentage.push(svgPathPoints[i + 1] / this.height);
-  //         }
-  //
-  //         const dialogRef = this.dialog.open(HotspotCreateDialogComponent, {
-  //           width: '400px',
-  //         });
-  //         dialogRef.componentInstance.selectedScene = this.selectedScene;
-  //         dialogRef.componentInstance.selectedImage = this.selectedImage;
-  //         dialogRef.componentInstance.svgPath = svgPathPointsPercentage;
-  //
-  //
-  //         dialogRef.afterClosed().subscribe(result => {
-  //           const cNode = this.hotspot.nativeElement.cloneNode(false);
-  //           this.hotspot.nativeElement.parentNode.replaceChild(cNode, this.hotspot.nativeElement);
-  //           this.updateHotspots.emit('');
-  //           this.modeService.selectedMode = '';
-  //           this.modeService.selectedMode = 'hotspot';
-  //         });
-  //
-  //       } else if (e.key === 'Escape' || e.key === 'Esc') {
-  //         this.drawing.draw('cancel');
-  //       }
-  //       document.removeEventListener('keypress', keyPressEvent);
-  //     };
-  //     document.addEventListener('keypress', keyPressEvent);
-  //
-  //   });
-  //
-  //   //
-  //   this.drawing.node.setAttribute('stroke', '#000000');
-  //   this.drawing.node.setAttribute('stroke-width', 2);
-  //   // Filling the svg with a transparent color so the "onclick" attribute works in the middle.
-  //   this.drawing.node.setAttribute('fill', '#000000');
-  //   this.drawing.node.setAttribute('fill-opacity', '0.0');
-  //   // this.drawing.node.setAttribute("onclick",'alert("You have clicked the svg element.")');
-  //   this.drawing.on('drawstop', () => {
-  //
-  //   });
-  // }
-
 }
