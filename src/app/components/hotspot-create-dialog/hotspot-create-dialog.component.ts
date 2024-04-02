@@ -54,10 +54,8 @@ export class HotspotCreateDialogComponent implements OnInit {
     reader.onload = () => {
       this.selectedSound = reader.result;
       if (this.nameInput.nativeElement.value === '') {
-        // initialise nameSplit par le nom du fichier
         let nameSplit = file.name.split('.');
         for (let i = 0; i < nameSplit.length - 1; i++) {
-          // on remplit le champ du nom par le nom du fichier sans l'extension
           this.nameInput.nativeElement.value += nameSplit[i];
           this.fileName = nameSplit[i];
         }
@@ -98,7 +96,6 @@ export class HotspotCreateDialogComponent implements OnInit {
   }
 
   submit(form) {
-    // Si le hotspot créé est un hotspot audio
     if (this.type === 'soundAudio'){
       if (this.selectedSound != null && this.audioIsValid()) {
         if (Number(`${form.value.strokeWidth}`) > 0){
@@ -116,8 +113,6 @@ export class HotspotCreateDialogComponent implements OnInit {
       }else {
         this.error = this.translate.instant('error.audio');
       }
-
-    // Si le hotspot créé est un hotspot avec un audio écrit
     }else if (this.type === 'writeAudio'){
       if (`${form.value.write}` !== ''){
         if (Number(`${form.value.strokeWidth}`) > 0){
@@ -135,8 +130,6 @@ export class HotspotCreateDialogComponent implements OnInit {
       }else {
         this.error = this.translate.instant('error.text');
       }
-
-      //Si le hotspot créé est un hotspot avec une image de référence
     } else if (this.type === 'refImage') {
       if (form.value.refImage != null) {
         if (Number(`${form.value.strokeWidth}`) > 0){

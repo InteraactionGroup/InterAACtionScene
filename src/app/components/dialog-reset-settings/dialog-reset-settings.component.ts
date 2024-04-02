@@ -16,7 +16,6 @@ export class DialogResetSettingsComponent implements OnInit {
   }
 
   resetConfig(){
-    // Réinitialise les options par défaut
     this.settingsService.setDefaultConfiguration();
     this.sceneService.update();
   }

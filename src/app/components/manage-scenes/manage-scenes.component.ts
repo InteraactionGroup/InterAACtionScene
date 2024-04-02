@@ -28,9 +28,6 @@ export class ManageScenesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  /**
-   * Ouvre une fenêtre de confirmation pour caché la scène ou l'image sélectionnée
-   */
   hide(): void {
     const SCENES = this.scenesService.getScenes();
     if (SCENES != null && SCENES.length !== 0) {
@@ -52,9 +49,6 @@ export class ManageScenesComponent implements OnInit {
     }
   }
 
-  /**
-   * Ouvre une fenêtre de confirmation pour supprimer la scène ou l'image sélectionnée
-   */
   remove(): void {
     const SCENES = this.scenesService.getScenes();
     if (SCENES != null && SCENES.length != 0) {
@@ -75,9 +69,6 @@ export class ManageScenesComponent implements OnInit {
     }
   }
 
-  /**
-   * Ouvre une fenêtre pour renommer la scène et/ou l'image sélectionnée
-   */
   rename(): void {
     const SCENES = this.scenesService.getScenes();
     if (SCENES != null && SCENES.length !== 0) {

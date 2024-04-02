@@ -31,9 +31,6 @@ export class ScenesService {
     this.init();
   }
 
-  /**
-   * Informe s'il existe au moins une scène ou non
-   */
   hasAtLeastOneScene(): boolean {
     if (this.SCENES !== null) {
       return this.SCENES.length != 0;

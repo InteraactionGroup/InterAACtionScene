@@ -46,6 +46,7 @@ export class HotspotDeleteDialogComponent implements OnInit {
           if ((x.name !== this.hotspot.name) && (x.name !== this.hotspot.name.concat('', 'Center'))){
             return x;
           }
+          //return x !== this.hotspot
         });
     }
   }

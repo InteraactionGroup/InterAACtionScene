@@ -14,9 +14,6 @@ export class HotspotDeleteAllComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  /**
-   * Removes all hotspots from the selected image
-   */
   removeAllHotspots(): void {
     let selectedScene = this.sceneDisplayService.selectedScene;
     let selectedImage = this.sceneDisplayService.selectedImage;

@@ -5,6 +5,7 @@
       <a class="tab" [class.tabSelected]="this.getType()==='soundAudio' || this.getType()==='writeAudio'" (click)="this.setType('soundAudio')"> {{ 'Hotspot.Addthesound' | translate }} </a>
       <a class="tab" [class.tabSelected]="this.getType()==='refImage'" (click)="this.setType('refImage')"> {{ 'Hotspot.Refimage' | translate }} </a>
     </div>
+    <!--<label style="font: menu;font-family: inherit;color: darkgray;"> {{'Hotspot.Addthesound' | translate}}</label>-->
     <div class="tabContent">
         <!-- Contenu de l'onglet "Ajouter un son hotspot"-->
       <div *ngIf="this.getType()==='soundAudio' || this.getType()==='writeAudio'">
